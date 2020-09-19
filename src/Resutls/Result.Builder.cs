@@ -16,7 +16,6 @@ namespace Archway.Results
         public static Result<T> Error<T>(IError error) => new Result<T>(default!, error, false);
 
         
-
         public static bool IsResultType(Type target) => IsVoidResultType(target) || IsGenericResultType(target);
 
         public static bool IsVoidResultType(Type target) => target == typeof(Result);
@@ -33,48 +32,5 @@ namespace Archway.Results
             }
             return target.GetGenericArguments().First();
         }
-
-        //public static Result<T> AggregateErrors<T>(Func<IErrorAggregator, T> func)
-        //{
-        //    var aggregator = new ErrorAggregator();
-        //    var result = func(aggregator);
-        //    return !aggregator.Errors.Any() ? Ok(result) : Error<T>(new AggregateError(aggregator.Errors));
-        //}
     }
-
-    //public interface IErrorAggregator
-    //{
-    //    Result<T> Try<T>(Func<T> func);
-    //    Result<T> Run<T>(Func<Result<T>> func);
-    //}
-
-    //public class ErrorAggregator : IErrorAggregator
-    //{
-    //    public List<IError> Errors { get; } = new List<IError>();
-
-    //    public Result<T> Try<T>(Func<T> func)
-    //    {
-    //        try
-    //        {
-    //            return Result.Ok(func());
-    //        }
-    //        catch (Exception e)
-    //        {
-    //            var error = new ExceptionError(e);
-    //            Errors.Add(error);
-    //            return Result.Error<T>(error);
-    //        }
-    //    }
-
-    //    public Result<T> Run<T>(Func<Result<T>> func)
-    //    {
-    //        var result = func();
-    //        if (!result.IsError) return result;
-    //        var error = result.GetError();
-    //        Errors.Add(error);
-    //        return result;
-    //    }
-    //}
-
-    
 }
