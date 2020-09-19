@@ -1,0 +1,92 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Archway.Results
+{
+    /// <summary>
+    /// 値の無い結果を表します。
+    /// </summary>
+    public readonly partial struct Result : IEquatable<Result>
+    {
+        private readonly IError errorValue;
+
+        internal Result(IError? errorValue, bool isOk)
+        {
+            if (errorValue == null && !isOk) throw new ArgumentNullException(nameof(errorValue));
+            this.errorValue = errorValue!;
+            IsOk = isOk;
+        }
+
+        /// <summary>
+        /// 成功かどうかを取得します。
+        /// </summary>
+        /// <example>
+        /// var value = Result.Ok();
+        /// value.IsOk; // true
+        /// </example>
+        public bool IsOk { get; }
+
+        /// <summary>
+        /// 失敗かどうかを取得します。
+        /// </summary>
+        /// <example>
+        /// var value = Result.Ok();
+        /// value.IsError; // false
+        /// </example>
+        public bool IsError => !IsOk;
+
+        public bool Equals(Result other)
+            => IsOk ? other.IsOk : errorValue.Equals(other.errorValue);
+    }
+
+    /// <summary>
+    /// 成功の値がある結果を表します。
+    /// </summary>
+    /// <typeparam name="T">成功の値の型</typeparam>
+    public readonly partial struct Result<T> : IEquatable<Result<T>>
+    {
+        private readonly T value;
+        private readonly IError errorValue;
+
+        internal Result(T value, IError errorValue, bool isOk)
+        {
+            if (value == null && isOk) throw new ArgumentNullException(nameof(value));
+            if (errorValue == null && !isOk) throw new ArgumentNullException(nameof(errorValue));
+            this.value = value;
+            this.errorValue = errorValue!;
+            IsOk = isOk;
+        }
+
+        /// <summary>
+        /// 成功かどうかを取得します。
+        /// </summary>
+        /// <example>
+        /// var value = Result.Ok("Success");
+        /// value.IsOk; // true
+        /// </example>
+        public bool IsOk { get; }
+
+        /// <summary>
+        /// 失敗かどうかを取得します。
+        /// </summary>
+        /// <example>
+        /// var value = Result.Ok("Success");
+        /// value.IsError; // false
+        /// </example>
+        public bool IsError => !IsOk;
+
+        public static implicit operator Result<T>(T value) => Result.Ok(value);
+
+        public bool Equals(Result<T> other)
+            => IsOk ?
+                other.IsOk && value!.Equals(other.value) :
+                other.IsError && errorValue.Equals(other.errorValue);
+
+        public override string ToString()
+            => IsOk ? value?.ToString() ?? "(null)" : errorValue?.ToString() ?? "(null)";
+
+        public override int GetHashCode()
+            => IsOk ? HashCode.Combine(value, IsOk) : HashCode.Combine(errorValue, IsOk);
+    }
+}
