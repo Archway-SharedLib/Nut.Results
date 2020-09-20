@@ -10,11 +10,12 @@ namespace Archway.Results
     public readonly partial struct Result : IEquatable<Result>
     {
         private readonly IError errorValue;
-
+        
+        
         internal Result(IError? errorValue, bool isOk)
         {
             if (errorValue == null && !isOk) throw new ArgumentNullException(nameof(errorValue));
-            this.errorValue = errorValue!;
+            this.errorValue = (isOk ? null : errorValue)!;
             IsOk = isOk;
         }
 
@@ -38,6 +39,12 @@ namespace Archway.Results
 
         public bool Equals(Result other)
             => IsOk ? other.IsOk : errorValue.Equals(other.errorValue);
+
+        public override int GetHashCode()
+            => IsOk ? IsOk.GetHashCode() : HashCode.Combine(errorValue, IsOk);
+
+        public override string ToString()
+            => IsOk ? "ok" :  $"error: {errorValue?.ToString() ?? "(null)"}";
     }
 
     /// <summary>
@@ -53,8 +60,8 @@ namespace Archway.Results
         {
             if (value == null && isOk) throw new ArgumentNullException(nameof(value));
             if (errorValue == null && !isOk) throw new ArgumentNullException(nameof(errorValue));
-            this.value = value;
-            this.errorValue = errorValue!;
+            this.value = (isOk ? value : default)!;
+            this.errorValue = (isOk ? null : errorValue)!;
             IsOk = isOk;
         }
 
@@ -84,7 +91,8 @@ namespace Archway.Results
                 other.IsError && errorValue.Equals(other.errorValue);
 
         public override string ToString()
-            => IsOk ? value?.ToString() ?? "(null)" : errorValue?.ToString() ?? "(null)";
+            => IsOk ? $"ok: {value?.ToString() ?? "(null)"}" : 
+                $"error: {errorValue?.ToString() ?? "(null)"}";
 
         public override int GetHashCode()
             => IsOk ? HashCode.Combine(value, IsOk) : HashCode.Combine(errorValue, IsOk);

@@ -15,22 +15,5 @@ namespace Archway.Results
 
         public static Result<T> Error<T>(IError error) => new Result<T>(default!, error, false);
 
-        
-        public static bool IsResultType(Type target) => IsVoidResultType(target) || IsGenericResultType(target);
-
-        public static bool IsVoidResultType(Type target) => target == typeof(Result);
-
-        public static bool IsGenericResultType(Type target) =>
-            target.IsGenericType && target.GetGenericTypeDefinition() == typeof(Result<>);
-
-
-        public static Type GetOkType(Type target)
-        {
-            if (!IsGenericResultType(target))
-            {
-                throw new InvalidOperationException("Parameter is not Result<> type");
-            }
-            return target.GetGenericArguments().First();
-        }
     }
 }

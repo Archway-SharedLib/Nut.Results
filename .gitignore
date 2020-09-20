@@ -3,6 +3,10 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+coverage.cobertura.xml
+coveragereport
+node_module
+
 # User-specific files
 *.rsuser
 *.suo

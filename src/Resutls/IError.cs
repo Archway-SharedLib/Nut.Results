@@ -10,7 +10,7 @@ namespace Archway.Results
 
         Exception ToException()
         {
-            return string.IsNullOrEmpty(Message) ? new Exception() : new Exception(Message);
+            return Message is null ? new Exception() : new Exception(Message);
         }
     }
 }
