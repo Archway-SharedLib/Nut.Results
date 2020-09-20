@@ -16,7 +16,7 @@ namespace Archway.Results
         public Task<IError> GetErrorOrAsync(Func<Task<IError>> defaultError)
         {
             if (defaultError == null) throw new ArgumentNullException(nameof(defaultError));
-            return IsError ? Task.FromResult<IError>(errorValue) : defaultError();
+            return IsError ? Task.FromResult(errorValue) : defaultError();
         }
     }
 
@@ -31,7 +31,7 @@ namespace Archway.Results
         public Task<T> GetOrAsync(Func<Task<T>> defaultValue)
         {
             if (defaultValue == null) throw new ArgumentNullException(nameof(defaultValue));
-            return IsOk ? Task.FromResult<T>(value) : defaultValue();
+            return IsOk ? Task.FromResult(value) : defaultValue();
         }
 
         public T GetOrDefault()
@@ -48,7 +48,7 @@ namespace Archway.Results
         public Task<IError> GetErrorOrAsync(Func<Task<IError>> defaultError)
         {
             if (defaultError == null) throw new ArgumentNullException(nameof(defaultError));
-            return IsError ? Task.FromResult<IError>(errorValue) : defaultError();
+            return IsError ? Task.FromResult(errorValue) : defaultError();
         }
     }
 }
