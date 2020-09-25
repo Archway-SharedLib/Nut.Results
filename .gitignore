@@ -6,6 +6,8 @@
 coverage.cobertura.xml
 coveragereport
 node_module
+.DS_Store
+.idea/
 
 # User-specific files
 *.rsuser
