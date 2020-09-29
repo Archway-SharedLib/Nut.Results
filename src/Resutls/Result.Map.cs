@@ -5,44 +5,35 @@ using System.Threading.Tasks;
 
 namespace Archway.Results
 {
-    public readonly partial struct Result
+    public static class ResultMapExtension
     {
-        public Result Map(Action ok)
+        
+        
+        public static Result<TResult> Map<TResult>(this Result source, Func<TResult> ok)
         {
             if (ok == null) throw new ArgumentNullException(nameof(ok));
 
-            if (!IsOk) return Result.Error(errorValue);
-            ok();
-            return Result.Ok();
-        }
-
-        public Result Map(Func<Task> ok)
-        {
-            if (ok == null) throw new ArgumentNullException(nameof(ok));
-            if (!IsOk) return Result.Error(errorValue);
-
-            AsyncHelper.RunSync(() => ok());
-            return Result.Ok();
-        }
-
-        public Result<TResult> Map<TResult>(Func<TResult> ok)
-        {
-            if (ok == null) throw new ArgumentNullException(nameof(ok));
-
-            if (!IsOk) return Result.Error<TResult>(errorValue);
+            if (!source.IsOk) return Result.Error<TResult>(source.errorValue);
             var result = ok();
             return Result.Ok(result);
         }
-
-        public Result<TResult> Map<TResult>(Func<Task<TResult>> ok)
+        
+        //Task<Result<TResult>> Map(this Task<Result> source, Func<Task<TResult>> ok)
+        [Obsolete]
+        public static Result<TResult> Map<TResult>(this Result source, Func<Task<TResult>> ok)
         {
             if (ok == null) throw new ArgumentNullException(nameof(ok));
-            if (!IsOk) return Result.Error<TResult>(errorValue);
+            if (!source.IsOk) return Result.Error<TResult>(source.errorValue);
 
             var result = AsyncHelper.RunSync(() => ok());
             return Result.Ok(result);
         }
 
+    }
+    
+    
+    public readonly partial struct Result
+    {
         public async Task<Result> MapAsync(Func<Task> ok)
         {
             if (ok == null) throw new ArgumentNullException(nameof(ok));

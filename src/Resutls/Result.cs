@@ -9,8 +9,7 @@ namespace Archway.Results
     /// </summary>
     public readonly partial struct Result : IEquatable<Result>
     {
-        private readonly IError errorValue;
-        
+        internal readonly IError errorValue;
         
         internal Result(IError? errorValue, bool isOk)
         {
@@ -53,8 +52,8 @@ namespace Archway.Results
     /// <typeparam name="T">成功の値の型</typeparam>
     public readonly partial struct Result<T> : IEquatable<Result<T>>
     {
-        private readonly T value;
-        private readonly IError errorValue;
+        internal readonly T value;
+        internal readonly IError errorValue;
 
         internal Result(T value, IError errorValue, bool isOk)
         {
