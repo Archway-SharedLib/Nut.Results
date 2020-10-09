@@ -34,7 +34,7 @@ namespace Archway.Results
              if (ok == null) throw new ArgumentNullException(nameof(ok));
              if (!source.IsOk) return Result.Error(source.errorValue);
         
-             await ok(source.value);
+             await ok(source.value).ConfigureAwait(false);
              return Result.Ok();
          }
         

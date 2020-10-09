@@ -14,7 +14,7 @@ namespace Archway.Results.Test
             var r = new Result();
             r.IsOk.Should().BeFalse();
             r.IsError.Should().BeTrue();
-            r.GetError().Should().BeNull();
+            r.errorValue.Should().BeNull();
         }
 
         [Fact]
@@ -143,7 +143,7 @@ namespace Archway.Results.Test
             var r = new Result<string>();
             r.IsOk.Should().BeFalse();
             r.IsError.Should().BeTrue();
-            r.GetError().Should().BeNull();
+            r.errorValue.Should().BeNull();
         }
 
         [Fact]
@@ -193,7 +193,7 @@ namespace Archway.Results.Test
         {
             Result<string> r = "ABC";
             r.IsOk.Should().BeTrue();
-            r.Get().Should().Be("ABC");
+            r.value.Should().Be("ABC");
         }
 
         [Fact]

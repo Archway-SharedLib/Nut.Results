@@ -29,7 +29,7 @@ namespace Archway.Results
         public static async Task<Result> Tap(this Result source, Func<Task> ok)
         {
             if (ok == null) throw new ArgumentNullException(nameof(ok));
-            if (source.IsOk) await ok();
+            if (source.IsOk) await ok().ConfigureAwait(false);
             return source;
         }
         
@@ -40,7 +40,7 @@ namespace Archway.Results
             if (ok == null) throw new ArgumentNullException(nameof(ok));
             var result = await source.ConfigureAwait(false);
             
-            if (result.IsOk) await ok();
+            if (result.IsOk) await ok().ConfigureAwait(false);
             return result;
         }
     }

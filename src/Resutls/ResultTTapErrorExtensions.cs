@@ -29,7 +29,7 @@ namespace Archway.Results
         public static async Task<Result<T>> TapError<T>(this Result<T> source, Func<IError, Task> error)
         {
             if (error == null) throw new ArgumentNullException(nameof(error));
-            if (source.IsError) await error(source.errorValue);
+            if (source.IsError) await error(source.errorValue).ConfigureAwait(false);
             return source;
         }
         
@@ -40,7 +40,7 @@ namespace Archway.Results
             if (error == null) throw new ArgumentNullException(nameof(error));
             var result = await source.ConfigureAwait(false);
             
-            if (result.IsError) await error(result.errorValue);
+            if (result.IsError) await error(result.errorValue).ConfigureAwait(false);
             return result;
         }
     }
