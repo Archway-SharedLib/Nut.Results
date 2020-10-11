@@ -138,6 +138,13 @@ namespace Archway.Results.Test
         }
 
         [Fact]
+        public void for_test_coverage_ToString_失敗で失敗オブジェクトがnullの場合はerror_nullと返される()
+        {
+            var r = new Result();
+            r.ToString().Should().Be("error: (null)");
+        }
+
+        [Fact]
         public void T_ctor_デフォルトコンストラクタで生成した場合は失敗()
         {
             var r = new Result<string>();
