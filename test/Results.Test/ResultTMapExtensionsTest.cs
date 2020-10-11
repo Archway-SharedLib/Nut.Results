@@ -45,6 +45,13 @@ namespace Archway.Results.Test
             executed.Should().BeTrue();
             result.Should().BeOk().And.Match(v => v == resultValue);
         }
+
+        [Fact]
+        public void T_Map_SyncSync_戻り値がnullの場合は例外が発生する()
+        {
+            Action act = () => Result.Ok("ok").Map(_ => null as string);
+            act.Should().Throw<InvalidReturnValueException>();
+        }
         
         [Fact]
         public void T_Map_AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
@@ -90,6 +97,13 @@ namespace Archway.Results.Test
             executed.Should().BeTrue();
             result.Should().BeOk().And.Match(v => v == resultValue);
         }
+
+        [Fact]
+        public void T_Map_AsyncSync_戻り値がnullの場合は例外が発生する()
+        {
+            Func<Task> act = () => Task.FromResult(Result.Ok("ok")).Map(_ => null as string);
+            act.Should().Throw<InvalidReturnValueException>();
+        }
         
         [Fact]
         public void T_Map_SyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
@@ -127,6 +141,13 @@ namespace Archway.Results.Test
 
             executed.Should().BeTrue();
             result.Should().BeOk().And.Match(v => v == resultValue);
+        }
+        
+        [Fact]
+        public void T_Map_SyncAsync_戻り値がnullの場合は例外が発生する()
+        {
+            Func<Task> act = () => Result.Ok("ok").Map(_ => Task.FromResult(null as string));
+            act.Should().Throw<InvalidReturnValueException>();
         }
         
         [Fact]
@@ -172,6 +193,13 @@ namespace Archway.Results.Test
 
             executed.Should().BeTrue();
             result.Should().BeOk().And.Match(v => v == resultValue);
+        }
+        
+        [Fact]
+        public void T_Map_AsyncAsync_戻り値がnullの場合は例外が発生する()
+        {
+            Func<Task> act = () => Task.FromResult(Result.Ok("ok")).Map(_ => Task.FromResult(null as string));
+            act.Should().Throw<InvalidReturnValueException>();
         }
     }
 }

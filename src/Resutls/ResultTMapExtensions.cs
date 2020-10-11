@@ -12,6 +12,7 @@ namespace Archway.Results
             if (!source.IsOk) return Result.Error<TResult>(source.errorValue);
         
             var newValue = ok(source.value);
+            CheckReturnValueNotNull(newValue);
             return Result.Ok(newValue);
         }
         
@@ -25,6 +26,7 @@ namespace Archway.Results
             if (!result.IsOk) return Result.Error<TResult>(result.errorValue);
         
             var newValue = ok(result.value);
+            CheckReturnValueNotNull(newValue);
             return Result.Ok(newValue);
         }
         
@@ -35,6 +37,7 @@ namespace Archway.Results
             if (!source.IsOk) return Result.Error<TResult>(source.errorValue);
 
             var newValue = await ok(source.value).ConfigureAwait(false);
+            CheckReturnValueNotNull(newValue);
             return Result.Ok(newValue);
         }
         
@@ -48,7 +51,13 @@ namespace Archway.Results
             if (!result.IsOk) return Result.Error<TResult>(result.errorValue);
         
             var newValue = await ok(result.value).ConfigureAwait(false);
+            CheckReturnValueNotNull(newValue);
             return Result.Ok(newValue);
+        }
+
+        private static void CheckReturnValueNotNull<T>(T returnValue)
+        {
+            if(returnValue is null) throw new InvalidReturnValueException("cannot set null to return value");
         }
     }
 }
