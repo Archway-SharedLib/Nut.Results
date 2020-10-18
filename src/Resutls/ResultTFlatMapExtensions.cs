@@ -8,7 +8,7 @@ namespace Archway.Results
         //T1 -> Void
         
         // sync - sync T1 -> Void
-         public static Result FlatMap<T>(this Result<T> source, Func<T, Result> ok)
+         public static Result FlatMap<T>(this in Result<T> source, Func<T, Result> ok)
          {
              if (ok == null) throw new ArgumentNullException(nameof(ok));
              if (!source.IsOk) return Result.Error(source.errorValue);
@@ -52,7 +52,7 @@ namespace Archway.Results
          //T1 -> T2
          
          // sync - sync T1 -> T2
-         public static Result<TResult> FlatMap<T,TResult>(this Result<T> source, Func<T, Result<TResult>> ok)
+         public static Result<TResult> FlatMap<T,TResult>(this in Result<T> source, Func<T, Result<TResult>> ok)
          {
              if (ok == null) throw new ArgumentNullException(nameof(ok));
              if (!source.IsOk) return Result.Error<TResult>(source.errorValue);

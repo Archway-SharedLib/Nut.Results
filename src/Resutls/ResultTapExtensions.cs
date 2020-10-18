@@ -6,7 +6,7 @@ namespace Archway.Results
     public static class ResultTapExtensions
     {
         //sync - sync
-        public static Result Tap(this Result source, Action ok)
+        public static Result Tap(this in Result source, Action ok)
         {
             if (ok == null) throw new ArgumentNullException(nameof(ok));
             if (source.IsOk) ok();

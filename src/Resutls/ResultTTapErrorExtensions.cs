@@ -6,7 +6,7 @@ namespace Archway.Results
     public static class ResultTTapErrorExtensions
     {
         //sync - sync
-        public static Result<T> TapError<T>(this Result<T> source, Action<IError> error)
+        public static Result<T> TapError<T>(this in Result<T> source, Action<IError> error)
         {
             if (error == null) throw new ArgumentNullException(nameof(error));
             if (source.IsError) error(source.errorValue);

@@ -91,9 +91,75 @@ if (task2Result.IsError())
 後述する`Tap`/`Map`/`FlatMap` メソッドを利用して処理を組み立てることを推奨します。
 
 ### 成功の場合に処理を行う(Tapメソッド)
+
+`Result`と`Result{T}`には成功の場合に処理を行う`Tap`メソッドがあります。
+これは、結果が成功の場合にだけ指定したアクションが実行され、戻り値は同じ値が返されます。
+`Result{T}`の場合は、アクションの引数に成功の値が設定されます。
+
+```cs
+var taskResult = DoSuccessTask().Tap(value => SomethingProcess(value));
+```
+
 ### 失敗の場合に処理を行う(TapErrorメソッド)
+
+`Result`と`Result{T}`には失敗の場合に処理を行う`TapError`メソッドがあります。
+これは、結果が失敗の場合にだけ指定したアクションが実行され、戻り値は同じ値が返されます。
+アクションの引数には失敗の値が設定されます。
+
+```cs
+var taskResult = DoSuccessTask()
+  .TapError(error => SendErrorMail(error))
+  .FlatMapError(error => ResolveError(error));
+```
+
 ### 成功の場合に新しい成功の値を作成して返す処理を行う(Mapメソッド)
+
+`Result{T}`には成功の場合に処理を行う`Map`メソッドがあります。
+これは、結果が成功の場合にだけ指定したアクションが実行され、アクションの結果を設定した新しい`Result{T}`が返されます。
+アクションの引数には成功の値が設定されます。
+
+```cs
+var somethingResult = DoSuccessTask()
+  .Map(taskResult => SomethingProcess(taskResult));
+```
+
 ### 失敗の場合に新しい失敗の値を作成して返す処理を行う(MapErrorメソッド)
+
+`Result`と`Result{T}`には失敗の場合に処理を行う`MapError`メソッドがあります。
+これは、結果が失敗の場合にだけ指定したアクションが実行され、アクションの戻り値である新しい`IError`を設定した新しい失敗の`Result`または`Result{T}`が返されます。
+アクションの引数には失敗の値が設定されます。
+
+```cs
+var somethingResult = DoSuccessTask()
+  .MapError(taskError => NormalizeError(taskError));
+```
+
 ### 成功の場合に新しいResultを作成して返す処理を行う(FlatMapメソッド)
+
+`Result`と`Result{T}`には成功の場合に処理を行う`FlatMap`メソッドがあります。
+これは、結果が成功の場合にだけ指定したアクションが実行され、アクションの結果として返された新しい`Result`または`Result{T}`をそのまま返します。
+`Result{T}`の場合は、アクションの引数に成功の値が設定されます。
+
+```cs
+var somethingResult = DoSuccessTask()
+  .FlatMap(result => 
+  {
+    if(IsNotExpectedValue(result)) return Result.Error<string>(new UnexpectedValueError());
+    return Result.Ok("Good value!");
+  });
+```
+
 ### 失敗の場合に新しいResultを作成して返す処理を行う(FlatMapErrorメソッド)
 
+`Result`と`Result{T}`には失敗の場合に処理を行う`FlatMapError`メソッドがあります。
+これは、結果が失敗の場合にだけ指定したアクションが実行され、アクションの結果として返された新しい`Result`または`Result{T}`をそのまま返します。
+アクションの引数に失敗の値が設定されます。
+
+```cs
+var somethingResult = DoSuccessTask()
+  .FlatMapError(error => 
+  {
+    if(IsRecoverableError(error)) return Result.Ok(Recovery(error));
+    return Result.Error<string>(error);
+  });
+```

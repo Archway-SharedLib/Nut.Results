@@ -6,7 +6,7 @@ namespace Archway.Results
     public static class ResultTMapExtensions
     {
         //sync - sync T1 -> T2
-        public static Result<TResult> Map<T, TResult>(this Result<T> source, Func<T, TResult> ok)
+        public static Result<TResult> Map<T, TResult>(this in Result<T> source, Func<T, TResult> ok)
         {
             if (ok == null) throw new ArgumentNullException(nameof(ok));
             if (!source.IsOk) return Result.Error<TResult>(source.errorValue);

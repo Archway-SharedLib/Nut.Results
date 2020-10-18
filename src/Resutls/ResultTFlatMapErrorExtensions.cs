@@ -8,7 +8,7 @@ namespace Archway.Results
         // T -> T
         
         // sync - sync T -> T
-        public static Result<T> FlatMapError<T>(this Result<T> source, Func<IError, Result<T>> error)
+        public static Result<T> FlatMapError<T>(this in Result<T> source, Func<IError, Result<T>> error)
         {
             if (error == null) throw new ArgumentNullException(nameof(error));
             if (!source.IsError) return Result.Ok(source.value);
