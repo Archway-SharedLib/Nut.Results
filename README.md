@@ -1,5 +1,7 @@
 # Results
 
+![CI](https://github.com/jbogard/MediatR/workflows/CI/badge.svg)
+
 Resultsはシンプルな処理結果を表す.NETのオブジェクトを提供します。Resultsは処理の成功と失敗を表すことができます。
 
 ## Resultsが解決すること
