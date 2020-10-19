@@ -1,6 +1,6 @@
 # Results
 
-![CI](https://github.com/jbogard/MediatR/workflows/CI/badge.svg)
+[![CI](https://github.com/jbogard/MediatR/workflows/CI/badge.svg)](https://github.com/archway/Results/actions)
 [![codecov](https://codecov.io/gh/archway/Results/branch/main/graph/badge.svg?token=eBQdLcGnZE)](https://codecov.io/gh/archway/Results)
 
 Resultsはシンプルな処理結果を表す.NETのオブジェクトを提供します。Resultsは処理の成功と失敗を表すことができます。
