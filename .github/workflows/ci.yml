@@ -22,4 +22,16 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test --no-restore --verbosity normal /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
+    - name: Codecov
+      uses: codecov/codecov-action@v1.0.14
+      with:
+        # User defined upload name. Visible in Codecov UI
+        name: Resuls
+        # Repository upload token - get it from codecov.io. Required only for private repositories
+        token: ${{ secrets.CODECOV_TOKEN }}
+        # Path to coverage file to upload
+        file: ./test/Results.Test/coverage.cobertura.xml
+        flags: utnitests
+        fail_ci_if_error: true
+        verbose: true
