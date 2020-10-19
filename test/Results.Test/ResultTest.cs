@@ -202,7 +202,7 @@ namespace Archway.Results.Test
             r.IsOk.Should().BeTrue();
             r.value.Should().Be("ABC");
         }
-
+        
         [Fact]
         public void T_Equals_両方とも成功の場合は値がequalならtrue()
         {
@@ -224,7 +224,7 @@ namespace Archway.Results.Test
         {
             var error = new Error();
             var r1 = Result.Ok(error);
-            var r2 = Result.Error(error);
+            var r2 = Result.Error<Error>(error);
             r1.Equals(r2).Should().BeFalse();
         }
 
@@ -232,8 +232,8 @@ namespace Archway.Results.Test
         public void T_Equals_両方とも失敗の場合は値がEqualならtrue()
         {
             var er = new Error();
-            var r1 = Result.Error(er);
-            var r2 = Result.Error(er);
+            var r1 = Result.Error<string>(er);
+            var r2 = Result.Error<string>(er);
             r1.Equals(r2).Should().BeTrue();
         }
 
@@ -242,8 +242,17 @@ namespace Archway.Results.Test
         {
             var er1 = new Error();
             var er2 = new Error();
-            var r1 = Result.Error(er1);
-            var r2 = Result.Error(er2);
+            var r1 = Result.Error<string>(er1);
+            var r2 = Result.Error<string>(er2);
+            r1.Equals(r2).Should().BeFalse();
+        }
+        
+        [Fact]
+        public void T_Equals_失敗と成功のfalse()
+        {
+            var er = new Error();
+            var r1 = Result.Error<string>(er);
+            var r2 = Result.Ok("Success");
             r1.Equals(r2).Should().BeFalse();
         }
 
@@ -268,7 +277,7 @@ namespace Archway.Results.Test
         {
             var er = new Error();
             var r1 = Result.Ok(er);
-            var r2 = Result.Error(er);
+            var r2 = Result.Error<string>(er);
             r1.GetHashCode().Should().NotBe(r2.GetHashCode());
         }
 
@@ -276,8 +285,8 @@ namespace Archway.Results.Test
         public void T_GetHashCode_両方とも失敗の場合は失敗のハッシュコードが一致する場合は一致する()
         {
             var er = new Error();
-            var r1 = Result.Error(er);
-            var r2 = Result.Error(er);
+            var r1 = Result.Error<string>(er);
+            var r2 = Result.Error<string>(er);
             r1.GetHashCode().Should().Be(r2.GetHashCode());
         }
 
@@ -286,8 +295,8 @@ namespace Archway.Results.Test
         {
             var er1 = new Error();
             var er2 = new Error();
-            var r1 = Result.Error(er1);
-            var r2 = Result.Error(er2);
+            var r1 = Result.Error<string>(er1);
+            var r2 = Result.Error<string>(er2);
             er1.GetHashCode().Should().NotBe(er2.GetHashCode());
             r1.GetHashCode().Should().NotBe(r2.GetHashCode());
         }
@@ -309,14 +318,21 @@ namespace Archway.Results.Test
         [Fact]
         public void T_ToString_失敗の場合は失敗オブジェクトのToStringに接頭辞でerrorが付いた値が返される()
         {
-            var r = Result.Error(new TestError());
+            var r = Result.Error<string>(new TestError());
             r.ToString().Should().Be("error: Test Error");
         }
-
+        
         [Fact]
         public void T_ToString_失敗で失敗オブジェクトのToStringがnullの場合はerror_nullと返される()
         {
-            var r = Result.Error(new TestNullError());
+            var r = Result.Error<string>(new TestNullError());
+            r.ToString().Should().Be("error: (null)");
+        }
+        
+        [Fact]
+        public void T_ToString_失敗で失敗オブジェクトがnullの場合はerror_nullと返される()
+        {
+            var r = new Result<string>();
             r.ToString().Should().Be("error: (null)");
         }
 

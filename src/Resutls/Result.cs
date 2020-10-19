@@ -88,12 +88,14 @@ namespace Archway.Results
             => IsOk ?
                 other.IsOk && value!.Equals(other.value) :
                 other.IsError && errorValue.Equals(other.errorValue);
-
+        
         public override string ToString()
-            => IsOk ? $"ok: {value?.ToString() ?? "(null)"}" : 
-                $"error: {errorValue?.ToString() ?? "(null)"}";
+            => IsOk ? $"ok: {PrepareNullText(value!.ToString())}" : 
+                $"error: {PrepareNullText(errorValue?.ToString())}";
 
         public override int GetHashCode()
             => IsOk ? HashCode.Combine(value, IsOk) : HashCode.Combine(errorValue, IsOk);
+
+        private string PrepareNullText(string? text) => text ?? "(null)";
     }
 }
