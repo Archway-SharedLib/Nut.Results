@@ -20,9 +20,12 @@ steps:
     command: 'pack'
     packagesToPack: 'src/**/*.csproj'
     versioningScheme: 'off'
-- task: DotNetCoreCLI@2
+
+- task: NuGetCommand@2
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'internal'
-    publishVstsFeed: 'fab06c7f-1bd5-449b-a84a-8949216971e5/018fd26f-93d4-4baf-ba19-d75280934643'
+    publishVstsFeed: 'fab06c7f-1bd5-449b-a84a-8949216971e5/9bf7277f-6034-4660-9f99-3695d616d24b'
+    allowPackageConflicts: true
+
