@@ -1,11 +1,11 @@
-# Results
+# Nut.Results
 
-[![CI](https://github.com/jbogard/MediatR/workflows/CI/badge.svg)](https://github.com/archway/Results/actions)
-[![codecov](https://codecov.io/gh/archway/Results/branch/main/graph/badge.svg?token=eBQdLcGnZE)](https://codecov.io/gh/archway/Results)
+[![CI](https://github.com/jbogard/MediatR/workflows/CI/badge.svg)](https://github.com/archway/Nut.Results/actions)
+[![codecov](https://codecov.io/gh/archway/Nut.Results/branch/main/graph/badge.svg?token=eBQdLcGnZE)](https://codecov.io/gh/archway/Nut.Results)
 
-Resultsはシンプルな処理結果を表す.NETのオブジェクトを提供します。Resultsは処理の成功と失敗を表すことができます。
+Nut.Resultsはシンプルな処理結果を表す.NETのオブジェクトを提供します。Nut.Resultsは処理の成功と失敗を表すことができます。
 
-## Resultsが解決すること
+## Nut.Resultsが解決すること
 
 処理の失敗は通常、例外もしくは真偽値、ときにはnullで表せられます。このような処理結果の返し方は次のような問題をはらんでいます。
 
@@ -13,9 +13,9 @@ Resultsはシンプルな処理結果を表す.NETのオブジェクトを提供
 - 真偽値は処理結果の詳細が失われてしまいます。結果の詳細を失わないためにオブジェクトのプロパティなどに結果を保存しておくこともありますが、これは状態の管理をさらに複雑にしてしまう悪手です。
 - nullでは、nullという値が失敗を表しているのか、結果が単純にないのか(例えばデータ取得処理でデータが無かっただけなのか)が表せません。処理ごとに開発者に意識させる必要がでてしまい、不具合の発生原因になります。
 
-処理結果にResultsを返し、各メソッドを適切に利用することで上記のような問題を解決します。
+処理結果にNut.Resultsを利用し、各メソッドを適切に利用することで上記のような問題を解決します。
 
-## Resultsの利用方法
+## Nut.Resultsの利用方法
 
 ### 成功の結果を表すResultを作成する(Okメソッド)
 
