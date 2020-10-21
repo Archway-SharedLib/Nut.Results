@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Nut.Results
+namespace Nut.Results.Test
 {
     public class ResultTGetOrExtensionsTest
     {

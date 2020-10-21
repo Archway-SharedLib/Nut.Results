@@ -5,7 +5,7 @@
 
     <IsPackable>false</IsPackable>
 
-    <RootNamespace>Nut.Results</RootNamespace>
+    <RootNamespace>Nut.Results.Test</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
