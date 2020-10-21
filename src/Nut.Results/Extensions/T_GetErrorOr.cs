@@ -5,45 +5,45 @@ using System.Threading.Tasks;
 
 namespace Nut.Results
 {
-    public static class ResultGetErrorOrExtensions
+    public static partial class ResultExtensions
     {
         //sync - sync
-        public static IError GetErrorOr<TError>(this in Result source, Func<TError> ifOk) where TError : IError
+        public static IError GetErrorOr<T, TError>(this in Result<T> source, Func<T, TError> ifOk) where TError : IError
         {
             if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
 
-            if (source.IsOk) return ifOk();
+            if (source.IsOk) return ifOk(source.value);
             return source.errorValue;
         }
 
         //async - sync
-        public static async Task<IError> GetErrorOr<TError>(this Task<Result> source, Func<TError> ifOk) where TError : IError
+        public static async Task<IError> GetErrorOr<T, TError>(this Task<Result<T>> source, Func<T, TError> ifOk) where TError : IError
         {
             if (source is null) throw new ArgumentNullException(nameof(source));
             if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
 
             var result = await source.ConfigureAwait(false);
-            if (result.IsOk) return ifOk();
+            if (result.IsOk) return ifOk(result.value);
             return result.errorValue;
         }
 
         //sync - async
-        public static async Task<IError> GetErrorOr<TError>(this Result source, Func<Task<TError>> ifOk) where TError: IError
+        public static async Task<IError> GetErrorOr<T, TError>(this Result<T> source, Func<T, Task<TError>> ifOk) where TError : IError
         {
             if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
 
-            if (source.IsOk) return await ifOk();
+            if (source.IsOk) return await ifOk(source.value);
             return source.errorValue;
         }
 
         //async - async
-        public static async Task<IError> GetErrorOr<TError>(this Task<Result> source, Func<Task<TError>> ifOk) where TError : IError
+        public static async Task<IError> GetErrorOr<T, TError>(this Task<Result<T>> source, Func<T, Task<TError>> ifOk) where TError : IError
         {
             if (source is null) throw new ArgumentNullException(nameof(source));
             if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
 
             var result = await source.ConfigureAwait(false);
-            if (result.IsOk) return await ifOk();
+            if (result.IsOk) return await ifOk(result.value);
             return result.errorValue;
         }
     }

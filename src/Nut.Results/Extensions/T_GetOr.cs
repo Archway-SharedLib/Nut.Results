@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Nut.Results
 {
-    public static class ResultTGetOrExtensions
+    public static partial class ResultExtensions
     {
         //sync - sync
         public static T GetOr<T>(this in Result<T> source, Func<IError, T> ifError)

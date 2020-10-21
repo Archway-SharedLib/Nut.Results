@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Nut.Results
 {
-    public static class ResultTTapErrorExtensions
+    public static partial class ResultExtensions
     {
         //sync - sync
         public static Result<T> TapError<T>(this in Result<T> source, Action<IError> error)

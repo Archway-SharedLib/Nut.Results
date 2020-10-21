@@ -6,7 +6,7 @@ using Nut.Results.Test.TestUtil;
 
 namespace Nut.Results.Test
 {
-    public class ResultTFlatMapErrorExtensionsTest
+    public class T_FlatMapErrorTest
     {
         //T -> T
         
@@ -60,7 +60,7 @@ namespace Nut.Results.Test
         [Fact]
         public void T_FlatMapError_AsyncSync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => ResultTFlatMapErrorExtensions.FlatMapError(null as Task<Result<string>>, e => Result.Ok("ok"));
+            Func<Task> act = () => ResultExtensions.FlatMapError(null as Task<Result<string>>, e => Result.Ok("ok"));
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         
@@ -147,7 +147,7 @@ namespace Nut.Results.Test
         [Fact]
         public void T_FlatMapError_AsyncAsync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => ResultTFlatMapErrorExtensions.FlatMapError(null as Task<Result<string>>, e => Task.Run(() => Result.Ok("ok")));
+            Func<Task> act = () => ResultExtensions.FlatMapError(null as Task<Result<string>>, e => Task.Run(() => Result.Ok("ok")));
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         

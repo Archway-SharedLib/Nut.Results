@@ -6,7 +6,7 @@ using Nut.Results.Test.TestUtil;
 
 namespace Nut.Results.Test
 {
-    public class ResultTFlatMapExtensionsTest
+    public class T_FlatMapTest
     {
         //T1 -> Void
         
@@ -57,7 +57,7 @@ namespace Nut.Results.Test
         [Fact]
         public void TVoid_FlatMap_AsyncSync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => ResultTFlatMapExtensions.FlatMap(null as Task<Result<string>>, _ => Result.Ok());
+            Func<Task> act = () => ResultExtensions.FlatMap(null as Task<Result<string>>, _ => Result.Ok());
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         
@@ -138,7 +138,7 @@ namespace Nut.Results.Test
         [Fact]
         public void TVoid_FlatMap_AsyncAsync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => ResultTFlatMapExtensions.FlatMap(null as Task<Result<string>>, _ => Task.Run(() => Result.Ok()));
+            Func<Task> act = () => ResultExtensions.FlatMap(null as Task<Result<string>>, _ => Task.Run(() => Result.Ok()));
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         
@@ -220,7 +220,7 @@ namespace Nut.Results.Test
         [Fact]
         public void TT_FlatMap_AsyncSync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => ResultTFlatMapExtensions.FlatMap(null as Task<Result<string>>, _ => Result.Ok("ok"));
+            Func<Task> act = () => ResultExtensions.FlatMap(null as Task<Result<string>>, _ => Result.Ok("ok"));
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         
@@ -301,7 +301,7 @@ namespace Nut.Results.Test
         [Fact]
         public void TT_FlatMap_AsyncAsync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => ResultTFlatMapExtensions.FlatMap(null as Task<Result<string>>, _ => Task.Run(() => Result.Ok("ok")));
+            Func<Task> act = () => ResultExtensions.FlatMap(null as Task<Result<string>>, _ => Task.Run(() => Result.Ok("ok")));
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         

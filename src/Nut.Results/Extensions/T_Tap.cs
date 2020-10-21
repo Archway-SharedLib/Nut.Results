@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Nut.Results
 {
-    public static class ResultTTapExtensions
+    public static partial class ResultExtensions
     {
         //sync - sync
         public static Result<T> Tap<T>(this in Result<T> source, Action<T> ok)

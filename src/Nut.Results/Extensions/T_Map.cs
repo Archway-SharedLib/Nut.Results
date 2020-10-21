@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Nut.Results
 {
-    public static class ResultTMapExtensions
+    public static partial class ResultExtensions
     {
         //sync - sync T1 -> T2
         public static Result<TResult> Map<T, TResult>(this in Result<T> source, Func<T, TResult> ok)

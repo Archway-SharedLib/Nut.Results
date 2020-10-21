@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Nut.Results.Test
 {
-    public class ResultTGetErrorOrExtensionsTest
+    public class T_GetErrorOrTest
     {
         //sync - sync
         [Fact]
@@ -55,7 +55,7 @@ namespace Nut.Results.Test
         [Fact]
         public void T_asyncsync_GetErrorOr_sourceがnullの場合は例外が発生する()
         {
-            Func<Task> act = () => ResultTGetErrorOrExtensions.GetErrorOr((Task<Result<string>>)null, _ => new Error());
+            Func<Task> act = () => ResultExtensions.GetErrorOr((Task<Result<string>>)null, _ => new Error());
             act.Should().Throw<ArgumentNullException>();
         }
 
@@ -132,7 +132,7 @@ namespace Nut.Results.Test
         [Fact]
         public void T_asyncasync_GetErrorOr_sourceがnullの場合は例外が発生する()
         {
-            Func<Task> act = () => ResultTGetErrorOrExtensions.GetErrorOr((Task<Result<string>>)null, _ => Task.FromResult(new Error()));
+            Func<Task> act = () => ResultExtensions.GetErrorOr((Task<Result<string>>)null, _ => Task.FromResult(new Error()));
             act.Should().Throw<ArgumentNullException>();
         }
 

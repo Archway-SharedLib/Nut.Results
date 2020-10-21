@@ -6,7 +6,7 @@ using Nut.Results.Test.TestUtil;
 
 namespace Nut.Results.Test
 {
-    public class ResultTapExtensionsTest
+    public class TapTest
     {
         [Fact]
         public void Void_Tap_SyncSync_Okパラメーターが指定されていない場合は例外が発生する()
@@ -51,7 +51,7 @@ namespace Nut.Results.Test
         [Fact]
         public void Void_Tap_AsyncSync_sourceが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => ResultTapExtensions.Tap(null as Task<Result>, () => { });
+            Func<Task> act = () => ResultExtensions.Tap(null as Task<Result>, () => { });
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         
@@ -129,7 +129,7 @@ namespace Nut.Results.Test
         [Fact]
         public void Void_Tap_AsyncAsync_sourceが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => ResultTapExtensions.Tap(null as Task<Result>, () => { return Task.Run(() => { }); });
+            Func<Task> act = () => ResultExtensions.Tap(null as Task<Result>, () => { return Task.Run(() => { }); });
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         

@@ -7,20 +7,20 @@ using Nut.Results.Test.TestUtil;
 
 namespace Nut.Results.Test
 {
-    public class ResultTapErrorExtensionsTest
+    public class T_TapErrorTest
     {
         [Fact]
-        public void Void_TapError_SyncSync_Errorパラメーターが指定されていない場合は例外が発生する()
+        public void T_TapError_SyncSync_Errorパラメーターが指定されていない場合は例外が発生する()
         {
-            Action act = () => Result.Ok().TapError(null as Action<IError>);
+            Action act = () => Result.Ok("success").TapError(null as Action<IError>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("error");
         }
 
         [Fact]
-        public void Void_TapError_SyncSync_失敗の場合はerrorのactionが実行さ呼び出した値と同じ値が返る()
+        public void T_TapError_SyncSync_失敗の場合はerrorのactionが実行され呼び出した値と同じ値が返る()
         {
             var expectedError = new Error();
-            var expected = Result.Error(expectedError);
+            var expected = Result.Error<string>(expectedError);
             var executed = false;
             IError error = null;
             var result = expected.TapError(e =>
@@ -34,10 +34,10 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void Void_TapError_SyncSync_成功の場合はerrorのactionは実行されず呼び出した値と同じ値が返る()
+        public void T_TapError_SyncSync_成功の場合はerrorのactionは実行されず呼び出した値と同じ値が返る()
         {
             var executed = false;
-            var expected = Result.Ok();
+            var expected = Result.Ok("success");
             var result = expected.TapError(_ =>
             {
                 executed = true;
@@ -47,24 +47,24 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void Void_TapError_AsyncSync_Errorパラメーターが指定されていない場合は例外が発生する()
+        public void T_TapError_AsyncSync_Errorパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => Task.FromResult(Result.Ok()).TapError(null as Action<IError>);
+            Func<Task> act = () => Task.FromResult(Result.Ok("success")).TapError(null as Action<IError>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("error");
         }
         
         [Fact]
-        public void Void_TapError_AsyncSync_sourceが指定されていない場合は例外が発生する()
+        public void T_TapError_AsyncSync_sourceが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => ResultTapErrorExtensions.TapError(null as Task<Result>, _ => { });
+            Func<Task> act = () => ResultExtensions.TapError(null as Task<Result<string>>, _ => {});
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         
         [Fact]
-        public async Task Void_TapError_AsyncSync_失敗の場合はerrorのactionが実行される呼び出した値と同じ値が返る()
+        public async Task T_TapError_AsyncSync_失敗の場合はerrorのactionが実行される呼び出した値と同じ値が返る()
         {
             var expectedError = new Error();
-            var expected = Result.Error(expectedError);
+            var expected = Result.Error<string>(expectedError);
             var executed = false;
             IError error = null;
             var result = await Task.FromResult(expected).TapError(e =>
@@ -78,10 +78,10 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public async Task Void_TapError_AsyncSync_成功の場合はerrorのactionは実行されず失敗の値がそのまま帰る()
+        public async Task T_TapError_AsyncSync_成功の場合はerrorのactionは実行されず失敗の値がそのまま帰る()
         {
             var executed = false;
-            var result = await Task.FromResult(Result.Ok()).TapError(_ =>
+            var result = await Task.FromResult(Result.Ok("success")).TapError(_ =>
             { 
                 executed = true;
             });
@@ -90,17 +90,17 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void Void_TapError_SyncAsync_Errorパラメーターが指定されていない場合は例外が発生する()
+        public void T_TapError_SyncAsync_Errorパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => Result.Ok().TapError(null as Func<IError, Task>);
+            Func<Task> act = () => Result.Ok("success").TapError(null as Func<IError, Task>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("error");
         }
         
         [Fact]
-        public async Task Void_TapError_SyncAsync_失敗の場合はerrorのactionが実行される呼び出した値と同じ値が返る()
+        public async Task T_TapError_SyncAsync_失敗の場合はerrorのactionが実行される呼び出した値と同じ値が返る()
         {
             var expectedError = new Error();
-            var expected = Result.Error(expectedError);
+            var expected = Result.Error<string>(expectedError);
             var executed = false;
             IError error = null;
             var result = await expected.TapError(e =>
@@ -117,10 +117,10 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public async Task Void_TapError_SyncAsync_成功の場合はerrorのactionは実行されず失敗の値がそのまま帰る()
+        public async Task T_TapError_SyncAsync_成功の場合はerrorのactionは実行されず失敗の値がそのまま帰る()
         {
             var executed = false;
-            var result = await Result.Ok().TapError(_ =>
+            var result = await Result.Ok("success").TapError(_ =>
             {
                 return Task.Run(() =>
                 {
@@ -133,24 +133,24 @@ namespace Nut.Results.Test
         
         
         [Fact]
-        public void Void_TapError_AsyncAsync_Errorパラメーターが指定されていない場合は例外が発生する()
+        public void T_TapError_AsyncAsync_Errorパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => Task.FromResult(Result.Ok()).TapError(null as Func<IError, Task>);
+            Func<Task> act = () => Task.FromResult(Result.Ok("success")).TapError(null as Func<IError, Task>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("error");
         }
         
         [Fact]
-        public void Void_TapError_AsyncAsync_sourceが指定されていない場合は例外が発生する()
+        public void T_TapError_AsyncAsync_sourceが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => ResultTapErrorExtensions.TapError(null as Task<Result>, _ => Task.Run(() => { }));
+            Func<Task> act = () => ResultExtensions.TapError(null as Task<Result<string>>, _ => Task.Run(() => { }));
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         
         [Fact]
-        public async Task Void_TapError_AsyncAsync_失敗の場合はerrorのactionが実行される呼び出した値と同じ値が返る()
+        public async Task T_TapError_AsyncAsync_失敗の場合はerrorのactionが実行される呼び出した値と同じ値が返る()
         {
             var expectedError = new Error();
-            var expected = Result.Error(expectedError);
+            var expected = Result.Error<string>(expectedError);
             var executed = false;
             IError error = null;
             var result = await Task.FromResult(expected).TapError(e =>
@@ -167,10 +167,10 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public async Task Void_TapError_AsyncAsync__成功の場合はerrorのactionは実行されず失敗の値がそのまま帰る()
+        public async Task T_TapError_AsyncAsync__成功の場合はerrorのactionは実行されず失敗の値がそのまま帰る()
         {
             var executed = false;
-            var result = await Task.FromResult(Result.Ok()).TapError(_ =>
+            var result = await Task.FromResult(Result.Ok("success")).TapError(_ =>
             {
                 return Task.Run(() =>
                 {

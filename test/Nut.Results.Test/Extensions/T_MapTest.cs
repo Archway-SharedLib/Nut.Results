@@ -6,7 +6,7 @@ using Nut.Results.Test.TestUtil;
 
 namespace Nut.Results.Test
 {
-    public class ResultTMapExtensionsTest
+    public class T_MapTest
     {
         [Fact]
         public void T_Map_SyncSync_Okパラメーターが指定されていない場合は例外が発生する()
@@ -63,7 +63,7 @@ namespace Nut.Results.Test
         [Fact]
         public void T_Map_AsyncSync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => ResultTMapExtensions.Map(null as Task<Result<string>>, _ => "v");
+            Func<Task> act = () => ResultExtensions.Map(null as Task<Result<string>>, _ => "v");
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         
@@ -160,7 +160,7 @@ namespace Nut.Results.Test
         [Fact]
         public void T_Map_AsyncAsync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => ResultTMapExtensions.Map(null as Task<Result<string>>, _ => Task.FromResult("v"));
+            Func<Task> act = () => ResultExtensions.Map(null as Task<Result<string>>, _ => Task.FromResult("v"));
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         

@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Nut.Results
 {
-    public static class ResultFlatMapExtensions
+    public static partial class ResultExtensions
     {
         // Void -> T
         

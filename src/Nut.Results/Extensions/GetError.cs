@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Nut.Results
 {
-    public static class ResultUnsafeExtensions
+    public static partial class ResultExtensions
     {
         private const string ErrorMessage = "Result is not error. You must check before.";
 
