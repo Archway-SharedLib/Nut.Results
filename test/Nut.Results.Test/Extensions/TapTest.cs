@@ -9,14 +9,14 @@ namespace Nut.Results.Test
     public class TapTest
     {
         [Fact]
-        public void Void_Tap_SyncSync_Okパラメーターが指定されていない場合は例外が発生する()
+        public void SyncSync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Action act = () => Result.Ok().Tap(null as Action);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
 
         [Fact]
-        public void Void_Tap_SyncSync_成功の場合はokのactionが実行さ呼び出した値と同じ値が返る()
+        public void SyncSync_成功の場合はokのactionが実行さ呼び出した値と同じ値が返る()
         {
             var expected = Result.Ok();
             var executed = false;
@@ -29,7 +29,7 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void Void_Tap_SyncSync_失敗の場合はokのactionは実行されず呼び出した値と同じ値が返る()
+        public void SyncSync_失敗の場合はokのactionは実行されず呼び出した値と同じ値が返る()
         {
             var executed = false;
             var expected = Result.Error(new Error());
@@ -42,21 +42,21 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void Void_Tap_AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
+        public void AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Task.FromResult(Result.Ok()).Tap(null as Action);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public void Void_Tap_AsyncSync_sourceが指定されていない場合は例外が発生する()
+        public void AsyncSync_sourceが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Tap(null as Task<Result>, () => { });
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         
         [Fact]
-        public async Task Void_Tap_AsyncSync_成功の場合はokのactionが実行される()
+        public async Task AsyncSync_成功の場合はokのactionが実行される()
         {
             var executed = false;
             var result = await Task.FromResult(Result.Ok()).Tap(() =>
@@ -68,7 +68,7 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public async Task Void_Tap_AsyncSync_失敗の場合はokのactionは実行されず失敗の値がそのまま帰る()
+        public async Task AsyncSync_失敗の場合はokのactionは実行されず失敗の値がそのまま帰る()
         {
             var executed = false;
             var error = new Error();
@@ -81,14 +81,14 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void Void_Tap_SyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
+        public void SyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok().Tap(null as Func<Task>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
 
         [Fact]
-        public async Task Void_Tap_SyncAsync_成功の場合はokのactionが実行さ呼び出した値と同じ値が返る()
+        public async Task SyncAsync_成功の場合はokのactionが実行さ呼び出した値と同じ値が返る()
         {
             var expected = Result.Ok();
             var executed = false;
@@ -104,7 +104,7 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public async Task Void_Tap_SyncAsync_失敗の場合はokのactionは実行されず呼び出した値と同じ値が返る()
+        public async Task SyncAsync_失敗の場合はokのactionは実行されず呼び出した値と同じ値が返る()
         {
             var executed = false;
             var expected = Result.Error(new Error());
@@ -120,21 +120,21 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void Void_Tap_AsyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
+        public void AsyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Task.FromResult(Result.Ok()).Tap(null as Func<Task>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public void Void_Tap_AsyncAsync_sourceが指定されていない場合は例外が発生する()
+        public void AsyncAsync_sourceが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Tap(null as Task<Result>, () => { return Task.Run(() => { }); });
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         
         [Fact]
-        public async Task Void_Tap_AsyncAsync_成功の場合はokのactionが実行される()
+        public async Task AsyncAsync_成功の場合はokのactionが実行される()
         {
             var executed = false;
             var result = await Task.FromResult(Result.Ok()).Tap(() =>
@@ -149,7 +149,7 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public async Task Void_Tap_AsyncAsync_失敗の場合はokのactionは実行されず失敗の値がそのまま帰る()
+        public async Task AsyncAsync_失敗の場合はokのactionは実行されず失敗の値がそのまま帰る()
         {
             var executed = false;
             var error = new Error();

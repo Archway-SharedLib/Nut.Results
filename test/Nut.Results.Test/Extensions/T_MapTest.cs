@@ -9,14 +9,14 @@ namespace Nut.Results.Test
     public class T_MapTest
     {
         [Fact]
-        public void T_Map_SyncSync_Okパラメーターが指定されていない場合は例外が発生する()
+        public void SyncSync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Action act = () => Result.Ok("A").Map(null as Func<string, string>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public void T_Map_SyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
+        public void SyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
         {
             var error = new Error();
             var errResult = Result.Error<string>(error);
@@ -32,7 +32,7 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void T_Map_SyncSync_成功の場合はアクションが実行されて結果がResultで返る()
+        public void SyncSync_成功の場合はアクションが実行されて結果がResultで返る()
         {
             var executed = false;
             var resultValue = 123;
@@ -47,28 +47,28 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void T_Map_SyncSync_戻り値がnullの場合は例外が発生する()
+        public void SyncSync_戻り値がnullの場合は例外が発生する()
         {
             Action act = () => Result.Ok("ok").Map(_ => null as string);
             act.Should().Throw<InvalidReturnValueException>();
         }
         
         [Fact]
-        public void T_Map_AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
+        public void AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Task.FromResult(Result.Ok("A")).Map(null as Func<string, string>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public void T_Map_AsyncSync_sourceパラメーターが指定されていない場合は例外が発生する()
+        public void AsyncSync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Map(null as Task<Result<string>>, _ => "v");
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         
         [Fact]
-        public async Task T_Map_AsyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
+        public async Task AsyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
         {
             var error = new Error();
             var errResult = Task.FromResult(Result.Error<string>(error));
@@ -84,7 +84,7 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public async Task T_Map_AsyncSync_成功の場合はアクションが実行されて結果がResultで返る()
+        public async Task AsyncSync_成功の場合はアクションが実行されて結果がResultで返る()
         {
             var executed = false;
             var resultValue = 123;
@@ -99,21 +99,21 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void T_Map_AsyncSync_戻り値がnullの場合は例外が発生する()
+        public void AsyncSync_戻り値がnullの場合は例外が発生する()
         {
             Func<Task> act = () => Task.FromResult(Result.Ok("ok")).Map(_ => null as string);
             act.Should().Throw<InvalidReturnValueException>();
         }
         
         [Fact]
-        public void T_Map_SyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
+        public void SyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok("A").Map(null as Func<string, Task<string>>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public async Task T_Map_SyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
+        public async Task SyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
         {
             var error = new Error();
             var errResult = Result.Error<string>(error);
@@ -129,7 +129,7 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public async Task T_Map_SyncAsync_成功の場合はアクションが実行されて結果がResultで返る()
+        public async Task SyncAsync_成功の場合はアクションが実行されて結果がResultで返る()
         {
             var executed = false;
             var resultValue = 123;
@@ -144,28 +144,28 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void T_Map_SyncAsync_戻り値がnullの場合は例外が発生する()
+        public void SyncAsync_戻り値がnullの場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok("ok").Map(_ => Task.FromResult(null as string));
             act.Should().Throw<InvalidReturnValueException>();
         }
         
         [Fact]
-        public void T_Map_AsyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
+        public void AsyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Task.FromResult(Result.Ok("A")).Map(null as Func<string, Task<string>>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public void T_Map_AsyncAsync_sourceパラメーターが指定されていない場合は例外が発生する()
+        public void AsyncAsync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Map(null as Task<Result<string>>, _ => Task.FromResult("v"));
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         
         [Fact]
-        public async Task T_Map_AsyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
+        public async Task AsyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
         {
             var error = new Error();
             var errResult = Task.FromResult(Result.Error<string>(error));
@@ -181,7 +181,7 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public async Task T_Map_AsyncAsync_成功の場合はアクションが実行されて結果がResultで返る()
+        public async Task AsyncAsync_成功の場合はアクションが実行されて結果がResultで返る()
         {
             var executed = false;
             var resultValue = 123;
@@ -196,7 +196,7 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void T_Map_AsyncAsync_戻り値がnullの場合は例外が発生する()
+        public void AsyncAsync_戻り値がnullの場合は例外が発生する()
         {
             Func<Task> act = () => Task.FromResult(Result.Ok("ok")).Map(_ => Task.FromResult(null as string));
             act.Should().Throw<InvalidReturnValueException>();

@@ -11,14 +11,14 @@ namespace Nut.Results.Test
         //Void -> T
         
         [Fact]
-        public void VoidT_FlatMap_SyncSync_Okパラメーターが指定されていない場合は例外が発生する()
+        public void ReturnT_SyncSync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Action act = () => Result.Ok().FlatMap(null as Func<Result<string>>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public void VoidT_FlatMap_SyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
+        public void ReturnT_SyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
         {
             var error = new Error();
             var errResult = Result.Error(error);
@@ -34,7 +34,7 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void VoidT_FlatMap_SyncSync_成功の場合はアクションが実行されて結果がResultで返る()
+        public void ReturnT_SyncSync_成功の場合はアクションが実行されて結果がResultで返る()
         {
             var executed = false;
             var expectedValue = "ok";
@@ -49,21 +49,21 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void VoidT_FlatMap_AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
+        public void ReturnT_AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Task.FromResult(Result.Ok()).FlatMap(null as Func<Result<string>>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public void VoidT_FlatMap_AsyncSync_sourceパラメーターが指定されていない場合は例外が発生する()
+        public void ReturnT_AsyncSync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.FlatMap(null as Task<Result>, () => Result.Ok("ok"));
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         
         [Fact]
-        public async Task VoidT_FlatMap_AsyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
+        public async Task ReturnT_AsyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
         {
             var error = new Error();
             var errResult = Task.FromResult(Result.Error(error));
@@ -79,7 +79,7 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public async Task VoidT_FlatMap_AsyncSync_成功の場合はアクションが実行されて結果がResultで返る()
+        public async Task ReturnT_AsyncSync_成功の場合はアクションが実行されて結果がResultで返る()
         {
             var executed = false;
             var expectedValue = "ok";
@@ -94,14 +94,14 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void VoidT_FlatMap_SyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
+        public void ReturnT_SyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok().FlatMap(null as Func<Task<Result<string>>>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public async Task VoidT_FlatMap_SyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
+        public async Task ReturnT_SyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
         {
             var error = new Error();
             var errResult = Result.Error(error);
@@ -117,7 +117,7 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public async Task VoidT_FlatMap_SyncAsync_成功の場合はアクションが実行されて結果がResultで返る()
+        public async Task ReturnT_SyncAsync_成功の場合はアクションが実行されて結果がResultで返る()
         {
             var executed = false;
             var expectValue = "ok";
@@ -132,21 +132,21 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void VoidT_FlatMap_AsyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
+        public void ReturnT_AsyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Task.FromResult(Result.Ok()).FlatMap(null as Func<Task<Result<string>>>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public void VoidT_FlatMap_AsyncAsync_sourceパラメーターが指定されていない場合は例外が発生する()
+        public void ReturnT_AsyncAsync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.FlatMap(null as Task<Result>, () => Task.Run(() => Result.Ok("ok")));
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         
         [Fact]
-        public async Task VoidT_FlatMap_AsyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
+        public async Task ReturnT_AsyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
         {
             var error = new Error();
             var errResult = Task.FromResult(Result.Error(error));
@@ -162,7 +162,7 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public async Task VoidT_FlatMap_AsyncAsync_成功の場合はアクションが実行されて結果がResultで返る()
+        public async Task ReturnT_AsyncAsync_成功の場合はアクションが実行されて結果がResultで返る()
         {
             var executed = false;
             var expectValue = "ok";
@@ -179,14 +179,14 @@ namespace Nut.Results.Test
         //Void -> Void
         
         [Fact]
-        public void VoidVoid_FlatMap_SyncSync_Okパラメーターが指定されていない場合は例外が発生する()
+        public void NoReturn_SyncSync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Action act = () => Result.Ok().FlatMap(null as Func<Result>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public void VoidVoid_FlatMap_SyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
+        public void NoReturn_SyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
         {
             var error = new Error();
             var errResult = Result.Error(error);
@@ -202,7 +202,7 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void VoidVoid_FlatMap_SyncSync_成功の場合はアクションが実行されて結果がResultで返る()
+        public void NoReturn_SyncSync_成功の場合はアクションが実行されて結果がResultで返る()
         {
             var executed = false;
             var result = Result.Ok().FlatMap(() =>
@@ -216,21 +216,21 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void VoidVoid_FlatMap_AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
+        public void NoReturn_AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Task.FromResult(Result.Ok()).FlatMap(null as Func<Result>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public void VoidVoid_FlatMap_AsyncSync_sourceパラメーターが指定されていない場合は例外が発生する()
+        public void NoReturn_AsyncSync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.FlatMap(null as Task<Result>, () => Result.Ok());
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         
         [Fact]
-        public async Task VoidVoid_FlatMap_AsyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
+        public async Task NoReturn_AsyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
         {
             var error = new Error();
             var errResult = Task.FromResult(Result.Error(error));
@@ -246,7 +246,7 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public async Task VoidVoid_FlatMap_AsyncSync_成功の場合はアクションが実行されて結果がResultで返る()
+        public async Task NoReturn_AsyncSync_成功の場合はアクションが実行されて結果がResultで返る()
         {
             var executed = false;
             var result = await Task.FromResult(Result.Ok()).FlatMap(() =>
@@ -260,14 +260,14 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void VoidVoid_FlatMap_SyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
+        public void NoReturn_SyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok().FlatMap(null as Func<Task<Result>>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public async Task VoidVoid_FlatMap_SyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
+        public async Task NoReturn_SyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
         {
             var error = new Error();
             var errResult = Result.Error(error);
@@ -283,7 +283,7 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public async Task VoidVoid_FlatMap_SyncAsync_成功の場合はアクションが実行されて結果がResultで返る()
+        public async Task NoReturn_SyncAsync_成功の場合はアクションが実行されて結果がResultで返る()
         {
             var executed = false;
             var result = await Result.Ok().FlatMap(() =>
@@ -297,21 +297,21 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void VoidVoid_FlatMap_AsyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
+        public void NoReturn_AsyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Task.FromResult(Result.Ok()).FlatMap(null as Func<Task<Result>>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public void VoidVoid_FlatMap_AsyncAsync_sourceパラメーターが指定されていない場合は例外が発生する()
+        public void NoReturn_AsyncAsync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.FlatMap(null as Task<Result>, () => Task.Run(() => Result.Ok()));
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
         }
         
         [Fact]
-        public async Task VoidVoid_FlatMap_AsyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
+        public async Task NoReturn_AsyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
         {
             var error = new Error();
             var errResult = Task.FromResult(Result.Error(error));
@@ -327,7 +327,7 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public async Task VoidVoid_FlatMap_AsyncAsync_成功の場合はアクションが実行されて結果がResultで返る()
+        public async Task NoReturn_AsyncAsync_成功の場合はアクションが実行されて結果がResultで返る()
         {
             var executed = false;
             var result = await Task.FromResult(Result.Ok()).FlatMap(() =>

@@ -11,14 +11,14 @@ namespace Nut.Results.Test
     {
         //sync - sync
         [Fact]
-        public void syncsync_GetErrorOr_ifOkがnullの場合は例外が発生する()
+        public void SyncSync_ifOkがnullの場合は例外が発生する()
         {
             Action act = () => Result.Ok().GetErrorOr((Func<IError>)null);
             act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
-        public void syncsync_GetOrError_失敗の場合は失敗の値が返される()
+        public void SyncSync_失敗の場合は失敗の値が返される()
         {
             var expected = new Error();
             var result = Result.Error(expected).GetErrorOr(() => new Error());
@@ -26,7 +26,7 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void syncsync_GetErrorOr_成功の場合はアクションが実行されてその結果が返る()
+        public void SyncSync_成功の場合はアクションが実行されてその結果が返る()
         {
             var actionResult = new Error();
             var actionExecuted = false;
@@ -42,21 +42,21 @@ namespace Nut.Results.Test
 
         //async - sync
         [Fact]
-        public void asyncsync_GetErrorOr_ifOkがnullの場合は例外が発生する()
+        public void AsyncSync_ifOkがnullの場合は例外が発生する()
         {
             Func<Task> act = () => Task.FromResult(Result.Ok()).GetErrorOr((Func<IError>)null);
             act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
-        public void asyncsync_GetErrorOr_sourceがnullの場合は例外が発生する()
+        public void AsyncSync_sourceがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.GetErrorOr((Task<Result>)null, () => new Error());
             act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
-        public async Task asyncsync_GetOrError_失敗の場合は失敗の値が返される()
+        public async Task AsyncSync_失敗の場合は失敗の値が返される()
         {
             var expected = new Error();
             var result = await Task.FromResult(Result.Error(expected)).GetErrorOr(() => new Error());
@@ -64,7 +64,7 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public async Task asyncsync_GetErrorOr_成功の場合はアクションが実行されてその結果が返る()
+        public async Task AsyncSync_成功の場合はアクションが実行されてその結果が返る()
         {
             var actionResult = new Error();
             var actionExecuted = false;
@@ -80,14 +80,14 @@ namespace Nut.Results.Test
 
         //sync - async
         [Fact]
-        public void syncasync_GetErrorOr_ifOkがnullの場合は例外が発生する()
+        public void SyncAsync_ifOkがnullの場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok().GetErrorOr((Func<Task<IError>>)null);
             act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
-        public async Task syncasync_GetOrError_失敗の場合は失敗の値が返される()
+        public async Task SyncAsync_失敗の場合は失敗の値が返される()
         {
             var expected = new Error();
             var result = await Result.Error(expected).GetErrorOr(() => Task.FromResult(new Error()));
@@ -95,7 +95,7 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public async Task syncasync_GetErrorOr_成功の場合はアクションが実行されてその結果が返る()
+        public async Task SyncAsync_成功の場合はアクションが実行されてその結果が返る()
         {
             var actionResult = new Error();
             var actionExecuted = false;
@@ -111,21 +111,21 @@ namespace Nut.Results.Test
 
         //async - async
         [Fact]
-        public void asyncasync_GetErrorOr_ifOkがnullの場合は例外が発生する()
+        public void AsyncAsync_ifOkがnullの場合は例外が発生する()
         {
             Func<Task> act = () => Task.FromResult(Result.Ok()).GetErrorOr((Func<Task<IError>>)null);
             act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
-        public void asyncasync_GetErrorOr_sourceがnullの場合は例外が発生する()
+        public void AsyncAsync_sourceがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.GetErrorOr((Task<Result>)null, () => Task.FromResult(new Error()));
             act.Should().Throw<ArgumentNullException>();
         }
 
         [Fact]
-        public async Task asyncasync_GetOrError_失敗の場合は失敗の値が返される()
+        public async Task AsyncAsync_失敗の場合は失敗の値が返される()
         {
             var expected = new Error();
             var result = await Task.FromResult(Result.Error(expected)).GetErrorOr(() => Task.FromResult(new Error()));
@@ -133,7 +133,7 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public async Task asyncasync_GetErrorOr_成功の場合はアクションが実行されてその結果が返る()
+        public async Task AsyncAsync_成功の場合はアクションが実行されてその結果が返る()
         {
             var actionResult = new Error();
             var actionExecuted = false;
