@@ -12,8 +12,8 @@ namespace Nut.Results
             if (!source.IsOk) return Result.Error<TResult>(source.errorValue);
         
             var newValue = ok(source.value);
-            CheckReturnValueNotNull(newValue);
-            return Result.Ok(newValue);
+            
+            return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
         }
         
         //async - sync T1 -> T2
@@ -26,8 +26,8 @@ namespace Nut.Results
             if (!result.IsOk) return Result.Error<TResult>(result.errorValue);
         
             var newValue = ok(result.value);
-            CheckReturnValueNotNull(newValue);
-            return Result.Ok(newValue);
+           
+            return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
         }
         
         //sync - async T1 -> T2
@@ -37,8 +37,8 @@ namespace Nut.Results
             if (!source.IsOk) return Result.Error<TResult>(source.errorValue);
 
             var newValue = await ok(source.value).ConfigureAwait(false);
-            CheckReturnValueNotNull(newValue);
-            return Result.Ok(newValue);
+            ;
+            return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
         }
         
         //async - async T1 -> T2
@@ -51,13 +51,10 @@ namespace Nut.Results
             if (!result.IsOk) return Result.Error<TResult>(result.errorValue);
         
             var newValue = await ok(result.value).ConfigureAwait(false);
-            CheckReturnValueNotNull(newValue);
-            return Result.Ok(newValue);
+ 
+            return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
         }
 
-        private static void CheckReturnValueNotNull<T>(T returnValue)
-        {
-            if(returnValue is null) throw new InvalidReturnValueException("cannot set null to return value");
-        }
+        
     }
 }

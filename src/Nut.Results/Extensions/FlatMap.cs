@@ -55,7 +55,7 @@ namespace Nut.Results
         public static Result FlatMap(this in Result source, Func<Result> ok)
         {
             if (ok == null) throw new ArgumentNullException(nameof(ok));
-            if (!source.IsOk) return Result.Error(source.errorValue);
+            if (!source.IsOk) return source;
 
             return ok();
         }
@@ -67,7 +67,7 @@ namespace Nut.Results
             if (ok == null) throw new ArgumentNullException(nameof(ok));
 
             var result = await source.ConfigureAwait(false);
-            if (!result.IsOk) return Result.Error(result.errorValue);
+            if (!result.IsOk) return result;
 
             return ok();
         }
@@ -76,7 +76,7 @@ namespace Nut.Results
         public static async Task<Result> FlatMap(this Result source, Func<Task<Result>> ok)
         {
             if (ok == null) throw new ArgumentNullException(nameof(ok));
-            if (!source.IsOk) return Result.Error(source.errorValue);
+            if (!source.IsOk) return source;
 
             return await ok().ConfigureAwait(false);
         }
@@ -88,7 +88,7 @@ namespace Nut.Results
             if (ok == null) throw new ArgumentNullException(nameof(ok));
 
             var result = await source.ConfigureAwait(false);
-            if (!result.IsOk) return Result.Error(result.errorValue);
+            if (!result.IsOk) return result;
 
             return await ok().ConfigureAwait(false);
         }
