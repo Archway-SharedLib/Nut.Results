@@ -70,7 +70,7 @@ if (taskResult.IsOk())
 ### 結果の値を取得する(Get/GetErrorメソッド)
 
 `Result{T}`には成功の値を取得する`Get`メソッドがあります。失敗の場合の詳細を取得するには`GetError`メソッドを利用します。
-これは`Result`と`Result{T}`の両方ともに用意されています。
+`GetError`メソッドは`Result`と`Result{T}`の両方ともに用意されています。
 
 ```cs
 var taskResult = DoTask();
@@ -91,7 +91,22 @@ if (task2Result.IsError())
 そのため、`Get`/`GetError`メソッドを利用する前には必ず`IsOk`/`IsError`メソッドで結果の確認を行ってください。
 
 これらのメソッドは処理結果を単純に取得できますが、プログラムミスで例外が発生する可能性があるため、
-後述する`Tap`/`Map`/`FlatMap` メソッドを利用して処理を組み立てることを推奨します。
+後述する`GetOr`/`Tap`/`Map`/`FlatMap` メソッドを利用して処理を組み立てることを推奨します。
+
+### 結果の値もしくは規定値を取得する(GetOr/GetErrorOrメソッド)
+
+`Result{T}`には成功の値を取得する`GetOr`メソッドがあります。失敗の場合の詳細を取得するには`GetErrorOr`メソッドを利用します。
+`GetErrorOr`メソッドは`Result`と`Result{T}`の両方ともに用意されています。
+`GetOr`, `GetErrorOr`ともに、規定値を返すためのアクションを指定します。
+`GetOr`メソッドは結果が成功でなかった場合にアクションが実行されます。逆に`GetErrorOr`は結果が失敗でなかった場合にアクションが実行されます。
+
+```cs
+var taskResult = DoTask();
+var value = taskResult.GetOr(_ => "default value");
+
+var task2Result = DoTask2();
+var error = task2Result.GetErrorOr(_ => new WarningError());
+```
 
 ### 成功の場合に処理を行う(Tapメソッド)
 
