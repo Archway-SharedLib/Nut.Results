@@ -8,7 +8,7 @@ namespace Nut.Results
     public static class ResultTGetErrorOrExtensions
     {
         //sync - sync
-        public static IError GetErrorOr<T>(this in Result<T> source, Func<T, IError> ifOk)
+        public static IError GetErrorOr<T, TError>(this in Result<T> source, Func<T, TError> ifOk) where TError : IError
         {
             if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
 
@@ -17,7 +17,7 @@ namespace Nut.Results
         }
 
         //async - sync
-        public static async Task<IError> GetErrorOr<T>(this Task<Result<T>> source, Func<T, IError> ifOk)
+        public static async Task<IError> GetErrorOr<T, TError>(this Task<Result<T>> source, Func<T, TError> ifOk) where TError : IError
         {
             if (source is null) throw new ArgumentNullException(nameof(source));
             if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
@@ -28,7 +28,7 @@ namespace Nut.Results
         }
 
         //sync - async
-        public static async Task<IError> GetErrorOr<T>(this Result<T> source, Func<T, Task<IError>> ifOk)
+        public static async Task<IError> GetErrorOr<T, TError>(this Result<T> source, Func<T, Task<TError>> ifOk) where TError : IError
         {
             if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
 
@@ -37,7 +37,7 @@ namespace Nut.Results
         }
 
         //async - async
-        public static async Task<IError> GetErrorOr<T>(this Task<Result<T>> source, Func<T, Task<IError>> ifOk)
+        public static async Task<IError> GetErrorOr<T, TError>(this Task<Result<T>> source, Func<T, Task<TError>> ifOk) where TError : IError
         {
             if (source is null) throw new ArgumentNullException(nameof(source));
             if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
