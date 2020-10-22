@@ -1,9 +1,10 @@
 using System;
 using System.Threading.Tasks;
+// ReSharper disable CheckNamespace
 
 namespace Nut.Results
 {
-    public static partial class ResultExtensions
+    public static partial class ResultUnsafeExtensions
     {
         private const string NotOkMessage = "Result is not ok. You must check before.";
 

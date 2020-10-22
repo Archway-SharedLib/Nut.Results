@@ -5,6 +5,8 @@ using Xunit;
 using Nut.Results.Test.TestUtil;
 using System.ComponentModel.DataAnnotations;
 
+// ReSharper disable CheckNamespace
+
 namespace Nut.Results.Test
 {
     public class T_MapErrorTest

@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
+// ReSharper disable CheckNamespace
 
 namespace Nut.Results.Test
 {
@@ -37,7 +38,7 @@ namespace Nut.Results.Test
         [Fact]
         public void Async_引数がnullの場合は例外が発生する()
         {
-            Func<Task> act = () => ResultExtensions.Get((Task<Result<string>>)null);
+            Func<Task> act = () => ResultUnsafeExtensions.Get((Task<Result<string>>)null);
             act.Should().Throw<ArgumentNullException>();
         }
 

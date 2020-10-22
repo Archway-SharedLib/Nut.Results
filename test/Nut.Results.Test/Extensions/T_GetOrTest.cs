@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
+// ReSharper disable CheckNamespace
+
 namespace Nut.Results.Test
 {
     public class T_GetOrTest

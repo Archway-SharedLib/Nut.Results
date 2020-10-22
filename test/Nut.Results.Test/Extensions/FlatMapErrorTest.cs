@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
 using Nut.Results.Test.TestUtil;
+// ReSharper disable CheckNamespace
 
 namespace Nut.Results.Test
 {

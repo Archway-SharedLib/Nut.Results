@@ -5,6 +5,8 @@ using FluentAssertions;
 using Xunit;
 using Nut.Results.Test.TestUtil;
 
+// ReSharper disable CheckNamespace
+
 namespace Nut.Results.Test
 {
     public class T_TapErrorTest
