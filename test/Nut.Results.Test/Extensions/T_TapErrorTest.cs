@@ -1,9 +1,8 @@
 using System;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
-using Nut.Results.Test.TestUtil;
+using Nut.Results.FluentAssertions;
 
 // ReSharper disable CheckNamespace
 

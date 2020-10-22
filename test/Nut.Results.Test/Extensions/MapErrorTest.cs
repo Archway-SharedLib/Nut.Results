@@ -2,8 +2,7 @@ using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
-using Nut.Results.Test.TestUtil;
-using System.ComponentModel.DataAnnotations;
+using Nut.Results.FluentAssertions;
 
 // ReSharper disable CheckNamespace
 

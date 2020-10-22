@@ -4,7 +4,7 @@ using FluentAssertions;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
 
-namespace Nut.Results.Test.TestUtil
+namespace Nut.Results.FluentAssertions
 {
 
     public class ResultAssertions

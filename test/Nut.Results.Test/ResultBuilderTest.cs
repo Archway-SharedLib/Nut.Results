@@ -1,11 +1,6 @@
-﻿using Nut.Results;
-using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
+﻿using FluentAssertions;
 using Xunit;
-using Nut.Results.Test.TestUtil;
+using Nut.Results.FluentAssertions;
 
 namespace Nut.Results.Test
 {

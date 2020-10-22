@@ -1,4 +1,4 @@
-namespace Nut.Results.Test.TestUtil
+namespace Nut.Results.FluentAssertions
 {
     public static class ResultAssertionsExtensions
     {
