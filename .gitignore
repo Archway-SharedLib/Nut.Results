@@ -3,7 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-coverage.cobertura.xml
+*.coverage.xml
 coveragereport
 node_module
 .DS_Store

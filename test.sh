@@ -1,4 +1,5 @@
 # dotnet tool install -g dotnet-reportgenerator-globaltool
 
-dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
-~/.dotnet/tools/reportgenerator "-reports:test/Nut.Results.Test/coverage.cobertura.xml" "-targetdir:coveragereport" -reporttypes:Html
+dotnet test ./test/Nut.Results.Test/Nut.Results.Test.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../../nut.results.coverage.xml /p:Exclude="[Nut.Results.FluentAssertions*]*"
+dotnet test ./test/Nut.Results.FluentAssertions.Test/Nut.Results.FluentAssertions.Test.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../../nut.results.fluentassertions.coverage.xml /p:Include="[Nut.Results.FluentAssertions*]*"
+reportgenerator "-reports:./nut.results.coverage.xml;./nut.results.fluentassertions.coverage.xml" "-targetdir:coveragereport" -reporttypes:Html
