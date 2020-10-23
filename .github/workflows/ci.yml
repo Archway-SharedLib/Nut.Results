@@ -45,7 +45,7 @@ jobs:
         # Repository upload token - get it from codecov.io. Required only for private repositories
         token: ${{ secrets.CODECOV_TOKEN }}
         # Path to coverage file to upload
-        file: ./nut.results.coverage.fluentassertions.xml
+        file: ./nut.results.fluentassertions.coverage.xml
         flags: unittests
         fail_ci_if_error: true
         verbose: true
