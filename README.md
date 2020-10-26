@@ -1,7 +1,7 @@
 # Nut.Results
 
 [![CI](https://github.com/jbogard/MediatR/workflows/CI/badge.svg)](https://github.com/archway/Nut.Results/actions)
-[![codecov](https://codecov.io/gh/archway/Nut.Results/branch/main/graph/badge.svg?token=eBQdLcGnZE)](https://codecov.io/gh/archway/Nut.Results)
+[![codecov](https://codecov.io/gh/Archway-SharedLib/Nut.Results/branch/main/graph/badge.svg?token=C3XTN4VG2X)](https://codecov.io/gh/Archway-SharedLib/Nut.Results)
 
 Nut.Resultsはシンプルな処理結果を表す.NETのオブジェクトを提供します。Nut.Resultsは処理の成功と失敗を表すことができます。
 
