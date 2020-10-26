@@ -25,15 +25,15 @@ jobs:
       run: dotnet test --no-restore --verbosity normal ./test/Nut.Results.Test/Nut.Results.Test.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../../nut.results.coverage.xml /p:Exclude="[Nut.Results.FluentAssertions*]*"
     - name: Test Nut.Results.FluentAssertions
       run: dotnet test --no-restore --verbosity normal ./test/Nut.Results.FluentAssertions.Test/Nut.Results.FluentAssertions.Test.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../../nut.results.fluentassertions.coverage.xml /p:Include="[Nut.Results.FluentAssertions*]*"
-#    - name: Codecov
-#      uses: codecov/codecov-action@v1.0.14
-#      with:
-#        # User defined upload name. Visible in Codecov UI
-#        name: Nut.Results
-#        # Repository upload token - get it from codecov.io. Required only for private repositories
-#        token: ${{ secrets.CODECOV_TOKEN }}
-#        # Path to coverage file to upload
-#        files: ./nut.results.coverage.xml,./nut.results.fluentassertions.coverage.xml
-#        flags: unittests
-#        fail_ci_if_error: true
-#        verbose: true
+    - name: Codecov
+      uses: codecov/codecov-action@v1.0.14
+      with:
+        # User defined upload name. Visible in Codecov UI
+        name: Nut.Results
+        # Repository upload token - get it from codecov.io. Required only for private repositories
+        token: ${{ secrets.CODECOV_TOKEN }}
+        # Path to coverage file to upload
+        files: ./nut.results.coverage.xml,./nut.results.fluentassertions.coverage.xml
+        flags: unittests
+        fail_ci_if_error: true
+        verbose: true
