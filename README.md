@@ -1,3 +1,5 @@
+<img src="./assets/logo/logo.svg" alt="logo" style="height: 128px" />
+
 # Nut.Results
 
 [![CI](https://github.com/jbogard/MediatR/workflows/CI/badge.svg)](https://github.com/archway/Nut.Results/actions)

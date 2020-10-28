@@ -12,7 +12,7 @@
         <Copyright>Copyright 2020 (c) Archway inc. All rights reserved.</Copyright>
         <PackageTags>result exception error fluentresults unittest</PackageTags>
         <PackageLicenseExpression>https://github.com/archway/Nut.Results/blob/main/LICENSE</PackageLicenseExpression>
-        <PackageProjectUrl>https://github.com/archway/Nut.Results</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/Archway-SharedLib/Nut.Results</PackageProjectUrl>
         <RepositoryType>GIT</RepositoryType>
         <PackageId>Nut.Results.FluentAssertions</PackageId>
         <RootNamespace>Nut.Results.FluentAssertions</RootNamespace>
@@ -26,6 +26,8 @@
         <!--minver-->
         <MinVerTagPrefix>v</MinVerTagPrefix>
         <MinVerDefaultPreReleasePhase>preview</MinVerDefaultPreReleasePhase>
+        <RepositoryUrl>https://github.com/Archway-SharedLib/Nut.Results</RepositoryUrl>
+        <PackageIcon>logo_128.png</PackageIcon>
     </PropertyGroup>
 
 
@@ -43,6 +45,13 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Nut.Results\Nut.Results.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="..\..\assets\logo\logo_128.png">
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+      </None>
     </ItemGroup>
 
 </Project>

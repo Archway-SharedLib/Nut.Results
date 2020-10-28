@@ -11,7 +11,7 @@
     <Copyright>Copyright 2020 (c) Archway inc. All rights reserved.</Copyright>
     <PackageTags>result exception error</PackageTags>
     <PackageLicenseExpression>https://github.com/archway/Nut.Results/blob/main/LICENSE</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/archway/Nut.Results</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/Archway-SharedLib/Nut.Results</PackageProjectUrl>
     <RepositoryType>GIT</RepositoryType>
     <PackageId>Nut.Results</PackageId>
     <RootNamespace>Nut.Results</RootNamespace>
@@ -25,6 +25,8 @@
     <!--minver-->
     <MinVerTagPrefix>v</MinVerTagPrefix>
     <MinVerDefaultPreReleasePhase>preview</MinVerDefaultPreReleasePhase>
+    <PackageIcon>logo_128.png</PackageIcon>
+    <RepositoryUrl>https://github.com/Archway-SharedLib/Nut.Results</RepositoryUrl>
   </PropertyGroup>
   
   <ItemGroup>
@@ -36,6 +38,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="..\..\assets\logo\logo_128.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
