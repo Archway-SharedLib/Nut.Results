@@ -1,4 +1,4 @@
-<img src="./assets/logo/logo.svg" alt="logo" style="height: 128px" />
+<img src="./assets/logo/logo.svg" alt="logo" height="192px" />
 
 # Nut.Results
 
