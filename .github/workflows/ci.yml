@@ -40,8 +40,8 @@ jobs:
         fail_ci_if_error: true
         verbose: true
     - name: Add NuGet Source
-      run: dotnet nuget add source https://nuget.pkg.github.com/Archway-SharedLib/index.json -n github -u kmaru -p "${{secrets.PKG_DEPLOY_KEY}}"
+      run: dotnet nuget add source https://nuget.pkg.github.com/Archway-SharedLib/index.json -n github -u Archway-SharedLib -p "${{secrets.PKG_DEPLOY_KEY}}"
     - name: Package
       run: dotnet pack --configuration Release
     - name: Publish
-      run: dotnet nuget push "**/*.nupkg" --source "github"
+      run: dotnet nuget push "**/*.nupkg" --source "github" --skip-duplicate
