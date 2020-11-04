@@ -9,12 +9,10 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
@@ -39,9 +37,3 @@ jobs:
         flags: unittests
         fail_ci_if_error: true
         verbose: true
-    - name: Add NuGet Source
-      run: dotnet nuget add source https://nuget.pkg.github.com/Archway-SharedLib/index.json -n github -u Archway-SharedLib -p "${{secrets.PKG_DEPLOY_KEY}}"
-    - name: Package
-      run: dotnet pack --configuration Release
-    - name: Publish
-      run: dotnet nuget push "**/*.nupkg" --source "github" --skip-duplicate -k "${{secrets.PKG_DEPLOY_KEY}}"
