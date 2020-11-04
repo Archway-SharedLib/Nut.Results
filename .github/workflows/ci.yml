@@ -44,4 +44,4 @@ jobs:
     - name: Package
       run: dotnet pack --configuration Release
     - name: Publish
-      run: dotnet nuget push "**/*.nupkg" --source "github" --skip-duplicate
+      run: dotnet nuget push "**/*.nupkg" --source "github" --skip-duplicate -k "${{secrets.PKG_DEPLOY_KEY}}"
