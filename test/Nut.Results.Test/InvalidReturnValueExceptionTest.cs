@@ -8,6 +8,7 @@ namespace Nut.Results.Test
         [Fact]
         public void ctor_デフォルトコンストラクタではデフォルトのメッセージが設定される()
         {
+            using var cul = TestHelper.SetEnglishCulture();
             var ex = new InvalidReturnValueException();
             ex.Message.Should().Be("Invalid return value.");
         }

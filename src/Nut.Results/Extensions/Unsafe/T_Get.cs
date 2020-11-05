@@ -6,12 +6,10 @@ namespace Nut.Results
 {
     public static partial class ResultUnsafeExtensions
     {
-        private const string NotOkMessage = "Result is not ok. You must check before.";
-
         //this is unsafe method.
         public static T Get<T>(this in Result<T> source)
         {
-            if (!source.IsOk) throw new InvalidOperationException(NotOkMessage);
+            if (!source.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotOkBeforeCheck);
             return source.value;
         }
 
@@ -20,7 +18,7 @@ namespace Nut.Results
             if (source is null) throw new ArgumentNullException(nameof(source));
 
             var result = await source.ConfigureAwait(false);
-            if (!result.IsOk) throw new InvalidOperationException(NotOkMessage);
+            if (!result.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotOkBeforeCheck);
             return result.value;
         }
     }

@@ -6,11 +6,9 @@ namespace Nut.Results
 {
     public static partial class ResultUnsafeExtensions
     {
-        private const string NotErrorMessage = "Result is not error. You must check before.";
-
         public static IError GetError<T>(this in Result<T> source)
         {
-            if (source.IsOk) throw new InvalidOperationException(NotErrorMessage);
+            if (source.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotErrorBeforeCheck);
             return source.errorValue;
         }
 
@@ -19,7 +17,7 @@ namespace Nut.Results
             if (source is null) throw new ArgumentNullException(nameof(source));
 
             var result = await source.ConfigureAwait(false);
-            if (result.IsOk) throw new InvalidOperationException(NotErrorMessage);
+            if (result.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotErrorBeforeCheck);
             return result.errorValue;
         }
     }

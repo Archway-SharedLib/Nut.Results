@@ -20,7 +20,7 @@ namespace Nut.Results
         {
             if (!IsWithValueResultType(target))
             {
-                throw new InvalidOperationException("Parameter is not Result<> type");
+                throw new InvalidOperationException(SR.Exception_ParameterIsNotResultT);
             }
             return target.GetGenericArguments().First();
         }

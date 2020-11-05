@@ -4,9 +4,7 @@ namespace Nut.Results
 {
     public class InvalidReturnValueException: Exception
     {
-        private const string DefaultErrorMessage = "Invalid return value.";
-        
-        public InvalidReturnValueException(): base(DefaultErrorMessage){}
+        public InvalidReturnValueException(): base(SR.Exception_InvalidReturnValue){}
         
         public InvalidReturnValueException(string message): base(message){}
     }

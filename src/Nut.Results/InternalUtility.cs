@@ -13,6 +13,6 @@ namespace Nut.Results
         }
 
         public static void RaizeReturnValueNotNull()
-            => throw new InvalidReturnValueException("cannot set null to return value");
+            => throw new InvalidReturnValueException(SR.Exception_CannotSetNullToReturnValue);
     }
 }

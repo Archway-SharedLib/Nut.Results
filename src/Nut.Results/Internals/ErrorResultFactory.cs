@@ -13,7 +13,7 @@ namespace Nut.Results.Internals
         {
             if (!ResultHelper.IsResultType(typeof(T)))
             {
-                throw new InvalidOperationException("Generic type parameter is not Result or Result<> type");
+                throw new InvalidOperationException(SR.Exception_TypeParameterNeedResultType);
             }
 
             if (ResultHelper.IsWithValueResultType(typeof(T)))
