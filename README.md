@@ -2,8 +2,13 @@
 
 # Nut.Results
 
-[![CI](https://github.com/jbogard/MediatR/workflows/CI/badge.svg)](https://github.com/archway/Nut.Results/actions)
+[![CI](https://github.com/Archway-SharedLib/Nut.Results/workflows/CI/badge.svg)](https://github.com/Archway-SharedLib/Nut.Results/actions)
 [![codecov](https://codecov.io/gh/Archway-SharedLib/Nut.Results/branch/main/graph/badge.svg?token=C3XTN4VG2X)](https://codecov.io/gh/Archway-SharedLib/Nut.Results)
+
+|    | Version | Downloads |
+|----|----|----|
+| Nut.Results | [![NuGet](https://img.shields.io/nuget/vpre/Nut.Results.svg)](https://www.nuget.org/packages/Nut.Results) | [![NuGet](https://img.shields.io/nuget/dt/Nut.Results.svg)](https://www.nuget.org/packages/Nut.Results) |
+| Nut.Results.FluentAssertions | [![NuGet](https://img.shields.io/nuget/vpre/Nut.Results.FluentAssertions.svg)](https://www.nuget.org/packages/Nut.Results.FluentAssertions) | [![NuGet](https://img.shields.io/nuget/dt/Nut.Results.FluentAssertions.svg)](https://www.nuget.org/packages/Nut.Results.FluentAssertions) |
 
 Nut.Resultsはシンプルな処理結果を表す.NETのオブジェクトを提供します。Nut.Resultsは処理の成功と失敗を表すことができます。
 
