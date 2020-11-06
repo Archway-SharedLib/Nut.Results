@@ -10,10 +10,19 @@ namespace Nut.Results.Test
     public class ErrorTest
     {
         [Fact]
-        public void ctor_デフォルトコンストラクタではメッセージは空が設定される()
+        public void ctor_デフォルトコンストラクタではデフォルトメッセージが設定される()
         {
+            using var cul = TestHelper.SetEnglishCulture();
             var error = new Error();
-            error.Message.Should().BeEmpty();
+            error.Message.Should().Be("An error has occured.");
+        }
+
+        [Fact]
+        public void ctor_メッセージパラメーターにnullを渡したらデフォルトメッセージが設定される()
+        {
+            using var cul = TestHelper.SetEnglishCulture();
+            var error = new Error(null);
+            error.Message.Should().Be("An error has occured.");
         }
 
         [Fact]

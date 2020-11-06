@@ -8,12 +8,12 @@ namespace Nut.Results
     {
         public Error()
         {
-            Message = string.Empty;
+            Message = SR.Error_DefaultErrorMessage;
         }
 
         public Error(string message)
         {
-            Message = message;
+            Message = message ?? SR.Error_DefaultErrorMessage;
         }
 
         public string Message { get; }

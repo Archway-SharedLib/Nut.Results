@@ -6,7 +6,7 @@ namespace Nut.Results
 {
     public interface IError
     {
-        string Message { get; }
+        string? Message { get; }
 
         Exception ToException()
         {

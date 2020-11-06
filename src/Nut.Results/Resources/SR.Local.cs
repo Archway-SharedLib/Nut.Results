@@ -27,5 +27,11 @@ namespace System
 
         internal static string Exception_ResultIsNotOkBeforeCheck => GetResourceString(nameof(Exception_ResultIsNotOkBeforeCheck), @"Result is not ok. You must check before.");
 
+        internal static string Error_DefaultAggregateErrorMessage => GetResourceString(nameof(Error_DefaultAggregateErrorMessage), @"Raise multiple errors.");
+
+        internal static string Exception_AggregateErrorIncludeNullInErrors => GetResourceString(nameof(Exception_AggregateErrorIncludeNullInErrors), @"An elelement of errors was null.");
+
+        internal static string Error_DefaultErrorMessage => GetResourceString(nameof(Error_DefaultErrorMessage), @"An error has occured.");
+        
     }
 }
