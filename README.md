@@ -12,7 +12,7 @@ Nut.Resultsはシンプルな処理結果を表す.NETのオブジェクトを�
 | | Version | Downloads |
 |---|---|---|
 | Nut.Results | [![NuGet](https://img.shields.io/nuget/vpre/Nut.Results.svg)](https://www.nuget.org/packages/Nut.Results) | [![NuGet](https://img.shields.io/nuget/dt/Nut.Results.svg)](https://www.nuget.org/packages/Nut.Results) |
-| Nut.Results.FluentAssertions__ | [![NuGet](https://img.shields.io/nuget/vpre/Nut.Results.FluentAssertions.svg)](https://www.nuget.org/packages/Nut.Results.FluentAssertions) |[![NuGet](https://img.shields.io/nuget/dt/Nut.Results.FluentAssertions.svg)](https://www.nuget.org/packages/Nut.Results.FluentAssertions) |
+| Nut.Results.FluentAssertions | [![NuGet](https://img.shields.io/nuget/vpre/Nut.Results.FluentAssertions.svg)](https://www.nuget.org/packages/Nut.Results.FluentAssertions) |[![NuGet](https://img.shields.io/nuget/dt/Nut.Results.FluentAssertions.svg)](https://www.nuget.org/packages/Nut.Results.FluentAssertions) |
 
 
 ## Nut.Resultsが解決すること
