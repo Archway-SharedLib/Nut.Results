@@ -11,7 +11,7 @@
         <Description>A assertion extensions of FluentResults  for Nut.Results</Description>
         <Copyright>Copyright 2020 (c) Archway inc. All rights reserved.</Copyright>
         <PackageTags>result exception error fluentresults unittest</PackageTags>
-        <PackageLicenseExpression>https://github.com/archway/Nut.Results/blob/main/LICENSE</PackageLicenseExpression>
+        <PackageLicenseExpression>https://github.com/Archway-SharedLib/Nut.Results/blob/main/LICENSE</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/Archway-SharedLib/Nut.Results</PackageProjectUrl>
         <RepositoryType>GIT</RepositoryType>
         <PackageId>Nut.Results.FluentAssertions</PackageId>
