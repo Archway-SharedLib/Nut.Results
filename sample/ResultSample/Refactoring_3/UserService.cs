@@ -21,8 +21,8 @@ namespace ResultSample.Refactoring_3
                     return saveResult.Get();
                 }
             }
-            // !! Repositoryから既に同様の内容が返っているため、冗長。
-            return Result.Error<string>(new DataNotFoundError());
+            // !! 値を詰めなおすだけの作業になっているため、冗長。
+            return Result.Error<string>(result.GetError());
         }
     }
 }

@@ -12,8 +12,7 @@ namespace ResultSample.Refactoring_0
             var user = repository.GetUserById(userId); //　nullが返ってくる
             // !! null が値がないのかエラーだったのかが分からない
             user.Name = name; // !! NullReferenceExceptionが発生する
-            var result = repository.Save(user);
-            return result;
+            return repository.Save(user);
         }
     }
 }
