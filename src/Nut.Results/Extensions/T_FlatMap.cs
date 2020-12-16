@@ -10,28 +10,24 @@ namespace Nut.Results
         // sync - sync T1 -> Void
         public static Result FlatMap<T>(this Result<T> source, Func<T, Result> ok)
         {
-            if (ok == null) throw new ArgumentNullException(nameof(ok));
-            if (!source.IsOk) return Result.Error(source.errorValue);
-
-            return ok(source.value);
+            if (ok is null) throw new ArgumentNullException(nameof(ok));
+            return !source.IsOk ? Result.Error(source.errorValue) : ok(source.value);
         }
 
         //async - sync T1 -> Void
         public static async Task<Result> FlatMap<T>(this Task<Result<T>> source, Func<T, Result> ok)
         {
-            if (source == null) throw new ArgumentNullException(nameof(source));
-            if (ok == null) throw new ArgumentNullException(nameof(ok));
+            if (source is null) throw new ArgumentNullException(nameof(source));
+            if (ok is null) throw new ArgumentNullException(nameof(ok));
 
             var result = await source.ConfigureAwait(false);
-            if (!result.IsOk) return Result.Error(result.errorValue);
-
-            return ok(result.value);
+            return !result.IsOk ? Result.Error(result.errorValue) : ok(result.value);
         }
 
         //sync - async T1 -> Void
         public static async Task<Result> FlatMap<T>(this Result<T> source, Func<T, Task<Result>> ok)
         {
-            if (ok == null) throw new ArgumentNullException(nameof(ok));
+            if (ok is null) throw new ArgumentNullException(nameof(ok));
             if (!source.IsOk) return Result.Error(source.errorValue);
 
             return await ok(source.value).ConfigureAwait(false);
@@ -40,8 +36,8 @@ namespace Nut.Results
         //async - async T1 -> Void 
         public static async Task<Result> FlatMap<T>(this Task<Result<T>> source, Func<T, Task<Result>> ok)
         {
-            if (source == null) throw new ArgumentNullException(nameof(source));
-            if (ok == null) throw new ArgumentNullException(nameof(ok));
+            if (source is null) throw new ArgumentNullException(nameof(source));
+            if (ok is null) throw new ArgumentNullException(nameof(ok));
 
             var result = await source.ConfigureAwait(false);
             if (!result.IsOk) return Result.Error(result.errorValue);
@@ -54,28 +50,24 @@ namespace Nut.Results
         // sync - sync T1 -> T2
         public static Result<TResult> FlatMap<T, TResult>(this Result<T> source, Func<T, Result<TResult>> ok)
         {
-            if (ok == null) throw new ArgumentNullException(nameof(ok));
-            if (!source.IsOk) return Result.Error<TResult>(source.errorValue);
-
-            return ok(source.value);
+            if (ok is null) throw new ArgumentNullException(nameof(ok));
+            return !source.IsOk ? Result.Error<TResult>(source.errorValue) : ok(source.value);
         }
 
         //async - sync T1 -> T2
         public static async Task<Result<TResult>> FlatMap<T, TResult>(this Task<Result<T>> source, Func<T, Result<TResult>> ok)
         {
-            if (source == null) throw new ArgumentNullException(nameof(source));
-            if (ok == null) throw new ArgumentNullException(nameof(ok));
+            if (source is null) throw new ArgumentNullException(nameof(source));
+            if (ok is null) throw new ArgumentNullException(nameof(ok));
 
             var result = await source.ConfigureAwait(false);
-            if (!result.IsOk) return Result.Error<TResult>(result.errorValue);
-
-            return ok(result.value);
+            return !result.IsOk ? Result.Error<TResult>(result.errorValue) : ok(result.value);
         }
 
         //sync - async T1 -> T2
         public static async Task<Result<TResult>> FlatMap<T, TResult>(this Result<T> source, Func<T, Task<Result<TResult>>> ok)
         {
-            if (ok == null) throw new ArgumentNullException(nameof(ok));
+            if (ok is null) throw new ArgumentNullException(nameof(ok));
             if (!source.IsOk) return Result.Error<TResult>(source.errorValue);
 
             return await ok(source.value).ConfigureAwait(false);
@@ -84,8 +76,8 @@ namespace Nut.Results
         //async - async T1 -> T2 
         public static async Task<Result<TResult>> FlatMap<T, TResult>(this Task<Result<T>> source, Func<T, Task<Result<TResult>>> ok)
         {
-            if (source == null) throw new ArgumentNullException(nameof(source));
-            if (ok == null) throw new ArgumentNullException(nameof(ok));
+            if (source is null) throw new ArgumentNullException(nameof(source));
+            if (ok is null) throw new ArgumentNullException(nameof(ok));
 
             var result = await source.ConfigureAwait(false);
             if (!result.IsOk) return Result.Error<TResult>(result.errorValue);

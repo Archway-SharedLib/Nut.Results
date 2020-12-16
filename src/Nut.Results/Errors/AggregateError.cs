@@ -20,12 +20,13 @@ namespace Nut.Results
 
         public AggregateError(string message, IEnumerable<IError> errors) : base(message)
         {
-            if (errors == null) throw new ArgumentNullException(nameof(errors));
-            if (errors.Any(err => err is null))
+            if (errors is null) throw new ArgumentNullException(nameof(errors));
+            var errorList = errors.ToList();
+            if (errorList.Any(err => err is null))
             {
                 throw new ArgumentException(SR.Exception_AggregateErrorIncludeNullInErrors);
             }
-            Errors = new ReadOnlyCollection<IError>(errors.ToList());
+            Errors = new ReadOnlyCollection<IError>(errorList);
         }
 
         public ReadOnlyCollection<IError> Errors { get; }

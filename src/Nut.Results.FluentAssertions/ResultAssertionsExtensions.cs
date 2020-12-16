@@ -4,12 +4,12 @@ namespace Nut.Results.FluentAssertions
     {
         public static ResultAssertions Should(this in Result instance)
         {
-            return new ResultAssertions(instance);
+            return new (instance);
         }
         
         public static ResultAssertions<T> Should<T>(this in Result<T> instance)
         {
-            return new ResultAssertions<T>(instance);
+            return new (instance);
         }
     }
 }

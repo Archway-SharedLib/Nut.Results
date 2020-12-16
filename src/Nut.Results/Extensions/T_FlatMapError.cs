@@ -10,28 +10,24 @@ namespace Nut.Results
         // sync - sync T -> T
         public static Result<T> FlatMapError<T>(this in Result<T> source, Func<IError, Result<T>> error)
         {
-            if (error == null) throw new ArgumentNullException(nameof(error));
-            if (!source.IsError) return source;
-
-            return error(source.errorValue);
+            if (error is null) throw new ArgumentNullException(nameof(error));
+            return !source.IsError ? source : error(source.errorValue);
         }
 
         //async - sync T -> T
         public static async Task<Result<T>> FlatMapError<T>(this Task<Result<T>> source, Func<IError, Result<T>> error)
         {
-            if (source == null) throw new ArgumentNullException(nameof(source));
-            if (error == null) throw new ArgumentNullException(nameof(error));
+            if (source is null) throw new ArgumentNullException(nameof(source));
+            if (error is null) throw new ArgumentNullException(nameof(error));
 
             var result = await source.ConfigureAwait(false);
-            if (!result.IsError) return result;
-
-            return error(result.errorValue);
+            return !result.IsError ? result : error(result.errorValue);
         }
 
         //sync - async T -> T
         public static async Task<Result<T>> FlatMapError<T>(this Result<T> source, Func<IError, Task<Result<T>>> error)
         {
-            if (error == null) throw new ArgumentNullException(nameof(error));
+            if (error is null) throw new ArgumentNullException(nameof(error));
             if (!source.IsError) return source;
 
             return await error(source.errorValue).ConfigureAwait(false);
@@ -40,8 +36,8 @@ namespace Nut.Results
         //async - async T -> T
         public static async Task<Result<T>> FlatMapError<T>(this Task<Result<T>> source, Func<IError, Task<Result<T>>> error)
         {
-            if (source == null) throw new ArgumentNullException(nameof(source));
-            if (error == null) throw new ArgumentNullException(nameof(error));
+            if (source is null) throw new ArgumentNullException(nameof(source));
+            if (error is null) throw new ArgumentNullException(nameof(error));
 
             var result = await source.ConfigureAwait(false);
             if (!result.IsError) return result;

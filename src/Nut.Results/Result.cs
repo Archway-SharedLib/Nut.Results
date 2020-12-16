@@ -13,7 +13,7 @@ namespace Nut.Results
         
         internal Result(IError? errorValue, bool isOk)
         {
-            if (errorValue == null && !isOk) throw new ArgumentNullException(nameof(errorValue));
+            if (errorValue is null && !isOk) throw new ArgumentNullException(nameof(errorValue));
             this.errorValue = (isOk ? null : errorValue)!;
             IsOk = isOk;
         }
@@ -57,8 +57,8 @@ namespace Nut.Results
 
         internal Result(T value, IError errorValue, bool isOk)
         {
-            if (value == null && isOk) throw new ArgumentNullException(nameof(value));
-            if (errorValue == null && !isOk) throw new ArgumentNullException(nameof(errorValue));
+            if (value is null && isOk) throw new ArgumentNullException(nameof(value));
+            if (errorValue is null && !isOk) throw new ArgumentNullException(nameof(errorValue));
             this.value = (isOk ? value : default)!;
             this.errorValue = (isOk ? null : errorValue)!;
             IsOk = isOk;

@@ -11,9 +11,8 @@ namespace Nut.Results
         public static T GetOr<T>(this in Result<T> source, Func<IError, T> ifError)
         {
             if (ifError is null) throw new ArgumentNullException(nameof(ifError));
-
-            if (source.IsError) return ifError(source.errorValue);
-            return source.value;
+            
+            return source.IsError ? ifError(source.errorValue) : source.value;
         }
 
         //async - sync
@@ -23,8 +22,7 @@ namespace Nut.Results
             if (ifError is null) throw new ArgumentNullException(nameof(ifError));
 
             var result = await source.ConfigureAwait(false);
-            if (result.IsError) return ifError(result.errorValue);
-            return result.value;
+            return result.IsError ? ifError(result.errorValue) : result.value;
         }
 
         //sync - async

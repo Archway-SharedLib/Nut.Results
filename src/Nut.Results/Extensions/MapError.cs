@@ -8,28 +8,24 @@ namespace Nut.Results
         // sync - sync
         public static Result MapError<TError>(this in Result source, Func<IError, TError> error) where TError: IError
         {
-            if (error == null) throw new ArgumentNullException(nameof(error));
-            if (!source.IsError) return source;
-
-            return Result.Error(InternalUtility.CheckReturnValueNotNull(error(source.errorValue)));
+            if (error is null) throw new ArgumentNullException(nameof(error));
+            return !source.IsError ? source : Result.Error(InternalUtility.CheckReturnValueNotNull(error(source.errorValue)));
         }
 
         //async - sync
         public static async Task<Result> MapError<TError>(this Task<Result> source, Func<IError, TError> error) where TError : IError
         {
-            if (source == null) throw new ArgumentNullException(nameof(source));
-            if (error == null) throw new ArgumentNullException(nameof(error));
+            if (source is null) throw new ArgumentNullException(nameof(source));
+            if (error is null) throw new ArgumentNullException(nameof(error));
 
             var result = await source.ConfigureAwait(false);
-            if (!result.IsError) return result;
-
-            return Result.Error(InternalUtility.CheckReturnValueNotNull(error(result.errorValue)));
+            return !result.IsError ? result : Result.Error(InternalUtility.CheckReturnValueNotNull(error(result.errorValue)));
         }
 
         //sync - async
         public static async Task<Result> MapError<TError>(this Result source, Func<IError, Task<TError>> error) where TError : IError
         {
-            if (error == null) throw new ArgumentNullException(nameof(error));
+            if (error is null) throw new ArgumentNullException(nameof(error));
             if (!source.IsError) return source;
 
             var errorCallbackResult = error(source.errorValue);
@@ -41,8 +37,8 @@ namespace Nut.Results
         //async - async
         public static async Task<Result> MapError<TError>(this Task<Result> source, Func<IError, Task<TError>> error) where TError : IError
         {
-            if (source == null) throw new ArgumentNullException(nameof(source));
-            if (error == null) throw new ArgumentNullException(nameof(error));
+            if (source is null) throw new ArgumentNullException(nameof(source));
+            if (error is null) throw new ArgumentNullException(nameof(error));
 
             var result = await source.ConfigureAwait(false);
             if (!result.IsError) return result;

@@ -8,7 +8,7 @@ namespace Nut.Results
         //sync - sync T1 -> T2
         public static Result<TResult> Map<T, TResult>(this in Result<T> source, Func<T, TResult> ok)
         {
-            if (ok == null) throw new ArgumentNullException(nameof(ok));
+            if (ok is null) throw new ArgumentNullException(nameof(ok));
             if (!source.IsOk) return Result.Error<TResult>(source.errorValue);
         
             var newValue = ok(source.value);
@@ -19,8 +19,8 @@ namespace Nut.Results
         //async - sync T1 -> T2
         public static async Task<Result<TResult>> Map<T, TResult>(this Task<Result<T>> source, Func<T, TResult> ok)
         {
-            if (source == null) throw new ArgumentNullException(nameof(source));
-            if (ok == null) throw new ArgumentNullException(nameof(ok));
+            if (source is null) throw new ArgumentNullException(nameof(source));
+            if (ok is null) throw new ArgumentNullException(nameof(ok));
             
             var result = await source.ConfigureAwait(false);
             if (!result.IsOk) return Result.Error<TResult>(result.errorValue);
@@ -33,7 +33,7 @@ namespace Nut.Results
         //sync - async T1 -> T2
         public static async Task<Result<TResult>> Map<T, TResult>(this Result<T> source, Func<T, Task<TResult>> ok)
         {
-            if (ok == null) throw new ArgumentNullException(nameof(ok));
+            if (ok is null) throw new ArgumentNullException(nameof(ok));
             if (!source.IsOk) return Result.Error<TResult>(source.errorValue);
 
             var newValue = await ok(source.value).ConfigureAwait(false);
@@ -44,8 +44,8 @@ namespace Nut.Results
         //async - async T1 -> T2
         public static async Task<Result<TResult>> Map<T, TResult>(this Task<Result<T>> source, Func<T, Task<TResult>> ok)
         {
-            if (source == null) throw new ArgumentNullException(nameof(source));
-            if (ok == null) throw new ArgumentNullException(nameof(ok));
+            if (source is null) throw new ArgumentNullException(nameof(source));
+            if (ok is null) throw new ArgumentNullException(nameof(ok));
             
             var result = await source.ConfigureAwait(false);
             if (!result.IsOk) return Result.Error<TResult>(result.errorValue);
@@ -54,7 +54,5 @@ namespace Nut.Results
  
             return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
         }
-
-        
     }
 }

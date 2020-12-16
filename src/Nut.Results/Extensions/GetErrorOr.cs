@@ -12,8 +12,7 @@ namespace Nut.Results
         {
             if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
 
-            if (source.IsOk) return ifOk();
-            return source.errorValue;
+            return source.IsOk ? ifOk() : source.errorValue;
         }
 
         //async - sync
@@ -23,8 +22,7 @@ namespace Nut.Results
             if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
 
             var result = await source.ConfigureAwait(false);
-            if (result.IsOk) return ifOk();
-            return result.errorValue;
+            return result.IsOk ? ifOk() : result.errorValue;
         }
 
         //sync - async
