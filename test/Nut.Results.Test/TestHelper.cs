@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Nut.Results.Test
 {
@@ -29,5 +30,8 @@ namespace Nut.Results.Test
             }
         }
 
+        public static Task<Result> AsTask(this Result source) => Task.FromResult(source);
+
+        public static Task<Result<T>> AsTask<T>(this Result<T> source) => Task.FromResult(source);
     }
 }
