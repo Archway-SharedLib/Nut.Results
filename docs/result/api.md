@@ -206,3 +206,12 @@ combineResult.MapError(e =>
   } 
 });
 ```
+
+## Result{T}の値を空にする(Empty)
+
+`Result{T}`の値を削除して`Result`を作成するには`Empty`メソッドを利用します。
+結果が失敗の場合には、そのエラーは戻り値の`Result`に引き継がれます。
+
+```cs
+Result.Ok("Hello").Empty()
+```
