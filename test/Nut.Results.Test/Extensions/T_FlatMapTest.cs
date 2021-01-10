@@ -52,7 +52,7 @@ namespace Nut.Results.Test
         [Fact]
         public void NoReturn_AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => Task.FromResult(Result.Ok("A")).FlatMap(null as Func<string, Result>);
+            Func<Task> act = () => Result.Ok("A").AsTask().FlatMap(null as Func<string, Result>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
@@ -67,7 +67,7 @@ namespace Nut.Results.Test
         public async Task NoReturn_AsyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
         {
             var error = new Error();
-            var errResult = Task.FromResult(Result.Error<string>(error));
+            var errResult = Result.Error<string>(error).AsTask();
             var executed = false;
             var result = await errResult.FlatMap(_ =>
             {
@@ -83,7 +83,7 @@ namespace Nut.Results.Test
         public async Task NoReturn_AsyncSync_成功の場合はアクションが実行されて結果がResultで返る()
         {
             var executed = false;
-            var result = await Task.FromResult(Result.Ok("123")).FlatMap(_ =>
+            var result = await Result.Ok("123").AsTask().FlatMap(_ =>
             {
                 executed = true;
                 return Result.Ok();
@@ -133,7 +133,7 @@ namespace Nut.Results.Test
         [Fact]
         public void NoReturn_AsyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => Task.FromResult(Result.Ok("A")).FlatMap(null as Func<string, Task<Result>>);
+            Func<Task> act = () => Result.Ok("A").AsTask().FlatMap(null as Func<string, Task<Result>>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
@@ -148,7 +148,7 @@ namespace Nut.Results.Test
         public async Task NoReturn_AsyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
         {
             var error = new Error();
-            var errResult = Task.FromResult(Result.Error<string>(error));
+            var errResult = Result.Error<string>(error).AsTask();
             var executed = false;
             var result = await errResult.FlatMap(_ =>
             {
@@ -164,7 +164,7 @@ namespace Nut.Results.Test
         public async Task NoReturn_AsyncAsync_成功の場合はアクションが実行されて結果がResultで返る()
         {
             var executed = false;
-            var result = await Task.FromResult(Result.Ok("123")).FlatMap(_ =>
+            var result = await Result.Ok("123").AsTask().FlatMap(_ =>
             {
                 executed = true;
                 return Task.Run(() => Result.Ok());
@@ -215,7 +215,7 @@ namespace Nut.Results.Test
         [Fact]
         public void ReturnT_AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => Task.FromResult(Result.Ok("A")).FlatMap(null as Func<string, Result<string>>);
+            Func<Task> act = () => Result.Ok("A").AsTask().FlatMap(null as Func<string, Result<string>>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
@@ -230,7 +230,7 @@ namespace Nut.Results.Test
         public async Task ReturnT_AsyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
         {
             var error = new Error();
-            var errResult = Task.FromResult(Result.Error<string>(error));
+            var errResult = Result.Error<string>(error).AsTask();
             var executed = false;
             var result = await errResult.FlatMap(_ =>
             {
@@ -246,7 +246,7 @@ namespace Nut.Results.Test
         public async Task ReturnT_AsyncSync_成功の場合はアクションが実行されて結果がResultで返る()
         {
             var executed = false;
-            var result = await Task.FromResult(Result.Ok("123")).FlatMap(_ =>
+            var result = await Result.Ok("123").AsTask().FlatMap(_ =>
             {
                 executed = true;
                 return Result.Ok("ok");
@@ -296,7 +296,7 @@ namespace Nut.Results.Test
         [Fact]
         public void ReturnT_AsyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => Task.FromResult(Result.Ok("A")).FlatMap(null as Func<string, Task<Result<string>>>);
+            Func<Task> act = () => Result.Ok("A").AsTask().FlatMap(null as Func<string, Task<Result<string>>>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
@@ -311,7 +311,7 @@ namespace Nut.Results.Test
         public async Task ReturnT_AsyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
         {
             var error = new Error();
-            var errResult = Task.FromResult(Result.Error<string>(error));
+            var errResult = Result.Error<string>(error).AsTask();
             var executed = false;
             var result = await errResult.FlatMap(_ =>
             {
@@ -327,7 +327,7 @@ namespace Nut.Results.Test
         public async Task ReturnT_AsyncAsync_成功の場合はアクションが実行されて結果がResultで返る()
         {
             var executed = false;
-            var result = await Task.FromResult(Result.Ok("123")).FlatMap(_ =>
+            var result = await Result.Ok("123").AsTask().FlatMap(_ =>
             {
                 executed = true;
                 return Task.Run(() => Result.Ok("ok"));

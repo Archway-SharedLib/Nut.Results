@@ -46,7 +46,7 @@ namespace Nut.Results.Test
         [Fact]
         public void AsyncSync_ifOkがnullの場合は例外が発生する()
         {
-            Func<Task> act = () => Task.FromResult(Result.Ok()).GetErrorOr((Func<IError>)null);
+            Func<Task> act = () => Result.Ok().AsTask().GetErrorOr((Func<IError>)null);
             act.Should().Throw<ArgumentNullException>();
         }
 
@@ -61,7 +61,7 @@ namespace Nut.Results.Test
         public async Task AsyncSync_失敗の場合は失敗の値が返される()
         {
             var expected = new Error();
-            var result = await Task.FromResult(Result.Error(expected)).GetErrorOr(() => new Error());
+            var result = await Result.Error(expected).AsTask().GetErrorOr(() => new Error());
             result.Should().BeSameAs(expected);
         }
 
@@ -70,7 +70,7 @@ namespace Nut.Results.Test
         {
             var actionResult = new Error();
             var actionExecuted = false;
-            var result = await Task.FromResult(Result.Ok()).GetErrorOr(() =>
+            var result = await Result.Ok().AsTask().GetErrorOr(() =>
             {
                 actionExecuted = true;
                 return actionResult;
@@ -115,7 +115,7 @@ namespace Nut.Results.Test
         [Fact]
         public void AsyncAsync_ifOkがnullの場合は例外が発生する()
         {
-            Func<Task> act = () => Task.FromResult(Result.Ok()).GetErrorOr((Func<Task<IError>>)null);
+            Func<Task> act = () => Result.Ok().AsTask().GetErrorOr((Func<Task<IError>>)null);
             act.Should().Throw<ArgumentNullException>();
         }
 
@@ -130,7 +130,7 @@ namespace Nut.Results.Test
         public async Task AsyncAsync_失敗の場合は失敗の値が返される()
         {
             var expected = new Error();
-            var result = await Task.FromResult(Result.Error(expected)).GetErrorOr(() => Task.FromResult(new Error()));
+            var result = await Result.Error(expected).AsTask().GetErrorOr(() => Task.FromResult(new Error()));
             result.Should().BeSameAs(expected);
         }
 
@@ -139,7 +139,7 @@ namespace Nut.Results.Test
         {
             var actionResult = new Error();
             var actionExecuted = false;
-            var result = await Task.FromResult(Result.Ok()).GetErrorOr(() =>
+            var result = await Result.Ok().AsTask().GetErrorOr(() =>
             {
                 actionExecuted = true;
                 return Task.FromResult(actionResult);

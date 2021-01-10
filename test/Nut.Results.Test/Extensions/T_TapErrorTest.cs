@@ -50,7 +50,7 @@ namespace Nut.Results.Test
         [Fact]
         public void AsyncSync_Errorパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => Task.FromResult(Result.Ok("success")).TapError(null as Action<IError>);
+            Func<Task> act = () => Result.Ok("success").AsTask().TapError(null as Action<IError>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("error");
         }
         
@@ -68,7 +68,7 @@ namespace Nut.Results.Test
             var expected = Result.Error<string>(expectedError);
             var executed = false;
             IError error = null;
-            var result = await Task.FromResult(expected).TapError(e =>
+            var result = await expected.AsTask().TapError(e =>
             {
                 error = e;
                 executed = true;
@@ -82,7 +82,7 @@ namespace Nut.Results.Test
         public async Task AsyncSync_成功の場合はerrorのactionは実行されず失敗の値がそのまま帰る()
         {
             var executed = false;
-            var result = await Task.FromResult(Result.Ok("success")).TapError(_ =>
+            var result = await Result.Ok("success").AsTask().TapError(_ =>
             { 
                 executed = true;
             });
@@ -136,7 +136,7 @@ namespace Nut.Results.Test
         [Fact]
         public void AsyncAsync_Errorパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => Task.FromResult(Result.Ok("success")).TapError(null as Func<IError, Task>);
+            Func<Task> act = () => Result.Ok("success").AsTask().TapError(null as Func<IError, Task>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("error");
         }
         
@@ -154,7 +154,7 @@ namespace Nut.Results.Test
             var expected = Result.Error<string>(expectedError);
             var executed = false;
             IError error = null;
-            var result = await Task.FromResult(expected).TapError(e =>
+            var result = await expected.AsTask().TapError(e =>
             {
                 return Task.Run(() =>
                 {
@@ -171,7 +171,7 @@ namespace Nut.Results.Test
         public async Task AsyncAsync__成功の場合はerrorのactionは実行されず失敗の値がそのまま帰る()
         {
             var executed = false;
-            var result = await Task.FromResult(Result.Ok("success")).TapError(_ =>
+            var result = await Result.Ok("success").AsTask().TapError(_ =>
             {
                 return Task.Run(() =>
                 {

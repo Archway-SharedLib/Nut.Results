@@ -19,7 +19,7 @@ namespace Nut.Results.Test
         public async Task Async_エラーの値を取得できる()
         {
             var expect = new Error();
-            var error = await Task.FromResult(Result.Error<string>(expect)).GetError();
+            var error = await Result.Error<string>(expect).AsTask().GetError();
             error.Should().Be(expect);
         }
 
@@ -33,7 +33,7 @@ namespace Nut.Results.Test
         [Fact]
         public void Async_成功の場合は例外が発生する()
         {
-            Func<Task> act = () => Task.FromResult(Result.Ok("ok")).GetError();
+            Func<Task> act = () => Result.Ok("ok").AsTask().GetError();
             act.Should().Throw<InvalidOperationException>();
         }
 

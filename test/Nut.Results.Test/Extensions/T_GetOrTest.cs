@@ -50,7 +50,7 @@ namespace Nut.Results.Test
         [Fact]
         public void AsyncSync_ifErrorがnullの場合は例外が発生する()
         {
-            Func<Task> act = () => Task.FromResult(Result.Ok("ok")).GetOr((Func<IError, string>)null);
+            Func<Task> act = () => Result.Ok("ok").AsTask().GetOr((Func<IError, string>)null);
             act.Should().Throw<ArgumentNullException>();
         }
 
@@ -65,7 +65,7 @@ namespace Nut.Results.Test
         public async Task AsyncSync_成功の場合は成功の値が返される()
         {
             var expected = "Success";
-            var result = await Task.FromResult(Result.Ok(expected)).GetOr(_ => "NG");
+            var result = await Result.Ok(expected).AsTask().GetOr(_ => "NG");
             result.Should().Be(expected);
         }
 
@@ -76,7 +76,7 @@ namespace Nut.Results.Test
             var actionExecuted = false;
             var sourceError = new Error();
             IError paramError = null;
-            var result = await Task.FromResult(Result.Error<string>(sourceError)).GetOr(e =>
+            var result = await Result.Error<string>(sourceError).AsTask().GetOr(e =>
             {
                 paramError = e;
                 actionExecuted = true;
@@ -127,7 +127,7 @@ namespace Nut.Results.Test
         [Fact]
         public void AsyncAsync_ifErrorがnullの場合は例外が発生する()
         {
-            Func<Task> act = () => Task.FromResult(Result.Ok("ok")).GetOr((Func<IError, Task<string>>)null);
+            Func<Task> act = () => Result.Ok("ok").AsTask().GetOr((Func<IError, Task<string>>)null);
             act.Should().Throw<ArgumentNullException>();
         }
 
@@ -142,7 +142,7 @@ namespace Nut.Results.Test
         public async Task AsyncAsync_成功の場合は成功の値が返される()
         {
             var expected = "Success";
-            var result = await Task.FromResult(Result.Ok(expected)).GetOr(_ => Task.FromResult("NG"));
+            var result = await Result.Ok(expected).AsTask().GetOr(_ => Task.FromResult("NG"));
             result.Should().Be(expected);
         }
 
@@ -153,7 +153,7 @@ namespace Nut.Results.Test
             var actionExecuted = false;
             var sourceError = new Error();
             IError paramError = null;
-            var result = await Task.FromResult(Result.Error<string>(sourceError)).GetOr(e =>
+            var result = await Result.Error<string>(sourceError).AsTask().GetOr(e =>
             {
                 paramError = e;
                 actionExecuted = true;
@@ -164,6 +164,5 @@ namespace Nut.Results.Test
             paramError.Should().BeSameAs(sourceError);
             result.Should().Be(actionResult);
         }
-
     }
 }

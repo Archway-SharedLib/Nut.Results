@@ -46,7 +46,7 @@ namespace Nut.Results.Test
         [Fact]
         public void AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => Task.FromResult(Result.Ok()).Tap(null as Action);
+            Func<Task> act = () => Result.Ok().AsTask().Tap(null as Action);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
@@ -61,7 +61,7 @@ namespace Nut.Results.Test
         public async Task AsyncSync_成功の場合はokのactionが実行される()
         {
             var executed = false;
-            var result = await Task.FromResult(Result.Ok()).Tap(() =>
+            var result = await Result.Ok().AsTask().Tap(() =>
             {
                 executed = true;
             });
@@ -74,7 +74,7 @@ namespace Nut.Results.Test
         {
             var executed = false;
             var error = new Error();
-            var result = await Task.FromResult(Result.Error(error)).Tap(() =>
+            var result = await Result.Error(error).AsTask().Tap(() =>
             { 
                 executed = true;
             });
@@ -124,7 +124,7 @@ namespace Nut.Results.Test
         [Fact]
         public void AsyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
         {
-            Func<Task> act = () => Task.FromResult(Result.Ok()).Tap(null as Func<Task>);
+            Func<Task> act = () => Result.Ok().AsTask().Tap(null as Func<Task>);
             act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
         }
         
@@ -139,7 +139,7 @@ namespace Nut.Results.Test
         public async Task AsyncAsync_成功の場合はokのactionが実行される()
         {
             var executed = false;
-            var result = await Task.FromResult(Result.Ok()).Tap(() =>
+            var result = await Result.Ok().AsTask().Tap(() =>
             {
                 return Task.Run(() =>
                 {
@@ -155,7 +155,7 @@ namespace Nut.Results.Test
         {
             var executed = false;
             var error = new Error();
-            var result = await Task.FromResult(Result.Error(error)).Tap(() =>
+            var result = await Result.Error(error).AsTask().Tap(() =>
             { 
                 return Task.Run(() =>
                 {
