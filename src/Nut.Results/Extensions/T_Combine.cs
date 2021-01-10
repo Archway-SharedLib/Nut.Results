@@ -31,6 +31,9 @@ namespace Nut.Results
             this Task<Result<TSource>> source,
             Task<Result<TDest>> dest)
         {
+            if (source is null) throw new ArgumentNullException(nameof(source));
+            if (dest is null) throw new ArgumentNullException(nameof(dest));
+
             var sourceResult = await source.ConfigureAwait(false);
             var destResult = await dest.ConfigureAwait(false);
             return Combine(sourceResult, destResult);
@@ -40,6 +43,8 @@ namespace Nut.Results
             this Result<TSource> source,
             Task<Result<TDest>> dest)
         {
+            if (dest is null) throw new ArgumentNullException(nameof(dest));
+
             var destResult = await dest.ConfigureAwait(false);
             return Combine(source, destResult);
         }
@@ -48,6 +53,8 @@ namespace Nut.Results
             this Task<Result<TSource>> source,
             Result<TDest> dest)
         {
+            if (source is null) throw new ArgumentNullException(nameof(source));
+
             var sourceResult = await source.ConfigureAwait(false);
             return Combine(sourceResult, dest);
         }
@@ -58,6 +65,9 @@ namespace Nut.Results
             this in Result<TSource> source,
             Func<Result<TDest>> destFunc)
         {
+
+            if (destFunc is null) throw new ArgumentNullException(nameof(destFunc));
+
             if (source.IsError)
             {
                 return Result.Error<(TSource Left, TDest Right)>(source.GetError());
@@ -71,6 +81,9 @@ namespace Nut.Results
             this Task<Result<TSource>> source,
             Func<Result<TDest>> destFunc)
         {
+            if (source is null) throw new ArgumentNullException(nameof(source));
+            if (destFunc is null) throw new ArgumentNullException(nameof(destFunc));
+
             var sourceResult = await source.ConfigureAwait(false);
             return Combine(sourceResult, destFunc);
         }
@@ -79,6 +92,9 @@ namespace Nut.Results
             this Task<Result<TSource>> source,
             Func<Task<Result<TDest>>> destFunc)
         {
+            if (source is null) throw new ArgumentNullException(nameof(source));
+            if (destFunc is null) throw new ArgumentNullException(nameof(destFunc));
+
             var sourceResult = await source.ConfigureAwait(false);
             return await Combine(sourceResult, destFunc).ConfigureAwait(false);
         }
@@ -87,6 +103,8 @@ namespace Nut.Results
             this Result<TSource> source,
             Func<Task<Result<TDest>>> destFunc)
         {
+            if (destFunc is null) throw new ArgumentNullException(nameof(destFunc));
+            
             if (source.IsError)
             {
                 return Result.Error<(TSource Left, TDest Right)>(source.GetError());

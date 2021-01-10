@@ -61,6 +61,13 @@ namespace Nut.Results.Test
         }
 
         [Fact]
+        public void Value_AsyncSync_Sourceがnullの場合は例外が発生する()
+        {
+            Func<Task> act = () => ResultExtensions.Combine(null as Task<Result<string>>, Result.Ok("ok"));
+            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
+        }
+
+        [Fact]
         public async Task Value_AsyncSync_両方ともエラーの場合はAggregateErrorが返る()
         {
             var result = await Result.Error<string>(new SourceError()).AsTask()
@@ -99,6 +106,13 @@ namespace Nut.Results.Test
         }
 
         [Fact]
+        public void Value_SyncAsync_Destがnullの場合は例外が発生する()
+        {
+            Func<Task> act = () => ResultExtensions.Combine(Result.Ok("Ok"), (Task<Result<int>>)null);
+            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("dest");
+        }
+
+        [Fact]
         public async Task Value_SyncAsync_両方ともエラーの場合はAggregateErrorが返る()
         {
             var result = await Result.Error<string>(new SourceError())
@@ -134,6 +148,20 @@ namespace Nut.Results.Test
             var result = await Result.Ok<string>(leftExpect)
                 .Combine(Result.Ok<int>(rightExpect).AsTask()).ConfigureAwait(false);
             result.Should().BeOk().And.Match(v => v.Left == leftExpect && v.Right == rightExpect);
+        }
+
+        [Fact]
+        public void Value_AsyncAsync_Sourceがnullの場合は例外が発生する()
+        {
+            Func<Task> act = () => ResultExtensions.Combine(null as Task<Result<string>>, Result.Ok("ok").AsTask());
+            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
+        }
+
+        [Fact]
+        public void Value_AsyncAsync_Destがnullの場合は例外が発生する()
+        {
+            Func<Task> act = () => ResultExtensions.Combine(Result.Ok("Ok").AsTask(), (Task<Result<int>>)null);
+            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("dest");
         }
 
         [Fact]
@@ -177,6 +205,13 @@ namespace Nut.Results.Test
         // func
 
         [Fact]
+        public void Func_SyncSync_Destがnullの場合は例外が発生する()
+        {
+            Action act = () => ResultExtensions.Combine(Result.Ok("ok"), (Func<Result<int>>)null);
+            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("destFunc");
+        }
+
+        [Fact]
         public void Func_SyncSync_Sourceがエラーの場合でDestは実行されずSourceのエラーが返る()
         {
             var executed = false;
@@ -208,6 +243,20 @@ namespace Nut.Results.Test
             var rightExpect = 123;
             var result = Result.Ok<string>(leftExpect).Combine(() => Result.Ok<int>(rightExpect));
             result.Should().BeOk().And.Match(v => v.Left == leftExpect && v.Right == rightExpect);
+        }
+
+        [Fact]
+        public void Func_AsyncSync_Sourceがnullの場合は例外が発生する()
+        {
+            Func<Task> act = () => ResultExtensions.Combine(null as Task<Result<string>>, () => Result.Ok("ok"));
+            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
+        }
+
+        [Fact]
+        public void Func_AsyncSync_Destがnullの場合は例外が発生する()
+        {
+            Func<Task> act = () => ResultExtensions.Combine(Result.Ok("Ok").AsTask(), (Func<Result<int>>)null);
+            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("destFunc");
         }
 
         [Fact]
@@ -246,6 +295,13 @@ namespace Nut.Results.Test
         }
 
         [Fact]
+        public void Func_SyncAsync_Destがnullの場合は例外が発生する()
+        {
+            Func<Task> act = () => ResultExtensions.Combine(Result.Ok("Ok"), (Func<Task<Result<int>>>)null);
+            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("destFunc");
+        }
+
+        [Fact]
         public async Task Func_SyncAsync_Sourceがエラーの場合でDestは実行されずSourceのエラーが返る()
         {
             var executed = false;
@@ -278,6 +334,20 @@ namespace Nut.Results.Test
             var result = await Result.Ok<string>(leftExpect)
                 .Combine(() => Result.Ok<int>(rightExpect).AsTask()).ConfigureAwait(false);
             result.Should().BeOk().And.Match(v => v.Left == leftExpect && v.Right == rightExpect);
+        }
+
+        [Fact]
+        public void Func_AsyncAsync_Sourceがnullの場合は例外が発生する()
+        {
+            Func<Task> act = () => ResultExtensions.Combine(null as Task<Result<string>>, () => Result.Ok("ok").AsTask());
+            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
+        }
+
+        [Fact]
+        public void Func_AsyncAsync_Destがnullの場合は例外が発生する()
+        {
+            Func<Task> act = () => ResultExtensions.Combine(Result.Ok("Ok").AsTask(), (Func<Task<Result<int>>>)null);
+            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("destFunc");
         }
 
         [Fact]
