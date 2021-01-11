@@ -192,3 +192,12 @@ combineResult.MapError(e =>
 ```cs
 Result.Ok("Hello").Empty()
 ```
+
+## ネストしたResultを解除する(Flatten)
+
+`Result{T}`の型パラメーターが`Result{T}`もしくは`Reulst`の場合に、ネストを解除するには`Flatten`メソッドを利用します。
+
+```cs
+var nested = Result.Ok(Reulst.Ok("Good"));
+var flat = nested.Flatten(); //Reulst.Ok("Good")
+```
