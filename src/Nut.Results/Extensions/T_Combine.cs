@@ -8,58 +8,6 @@ namespace Nut.Results
 {
     public static partial class ResultExtensions
     {
-        public static Result<(TSource Left, TDest Right)> Combine<TSource, TDest>(
-            this in Result<TSource> source,
-            in Result<TDest> dest)
-        {
-            if (source.IsError || dest.IsError)
-            {
-                if (source.IsError && dest.IsError)
-                {
-                    return Result.Error<(TSource Left, TDest Right)>(
-                        new AggregateError(GetErrors(source.GetError()).Concat(GetErrors(dest.GetError())).ToArray()));
-                }
-                else
-                {
-                    return Result.Error<(TSource Left, TDest Right)>(source.IsError ? source.GetError() : dest.GetError());
-                }
-            }
-            return Result.Ok((source.Get(), dest.Get()));
-        }
-
-        public static async Task<Result<(TSource Left, TDest Right)>> Combine<TSource, TDest>(
-            this Task<Result<TSource>> source,
-            Task<Result<TDest>> dest)
-        {
-            if (source is null) throw new ArgumentNullException(nameof(source));
-            if (dest is null) throw new ArgumentNullException(nameof(dest));
-
-            var sourceResult = await source.ConfigureAwait(false);
-            var destResult = await dest.ConfigureAwait(false);
-            return Combine(sourceResult, destResult);
-        }
-
-        public static async Task<Result<(TSource Left, TDest Right)>> Combine<TSource, TDest>(
-            this Result<TSource> source,
-            Task<Result<TDest>> dest)
-        {
-            if (dest is null) throw new ArgumentNullException(nameof(dest));
-
-            var destResult = await dest.ConfigureAwait(false);
-            return Combine(source, destResult);
-        }
-
-        public static async Task<Result<(TSource Left, TDest Right)>> Combine<TSource, TDest>(
-            this Task<Result<TSource>> source,
-            Result<TDest> dest)
-        {
-            if (source is null) throw new ArgumentNullException(nameof(source));
-
-            var sourceResult = await source.ConfigureAwait(false);
-            return Combine(sourceResult, dest);
-        }
-
-        //--------------
 
         public static Result<(TSource Left, TDest Right)> Combine<TSource, TDest>(
             this in Result<TSource> source,
@@ -113,9 +61,5 @@ namespace Nut.Results
             if (dest.IsError) return Result.Error<(TSource Left, TDest Right)>(dest.GetError());
             return Result.Ok((source.Get(), dest.Get()));
         }
-
-        private static IEnumerable<IError> GetErrors(IError err)
-            => err is AggregateError aggrErr ? aggrErr.Errors : new[] { err };
-
     }
 }

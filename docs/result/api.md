@@ -169,35 +169,12 @@ var somethingResult = DoSuccessTask()
 
 `Result{T}`には指定された`Result{T}`の結果を結合して返す`Combine`メソッドがあり、
 結果が両方とも成功の場合は`(TSource Left, TDest Right)`型のタプルを返します。
-
-```cs
-var combineResult = Result.Ok("Hello").Combine(Reulst.Ok("World"));
-combineResult.Map(v => 
-{
-  return v.Left + " " + v.Right; // Hello World 
-});
-```
-
-結合する`Result{T}`の指定には、値を渡すオーバーライドと、`Func<T>`を渡すオーバーライドがあります。
-
-値を渡すオーバーライドは、どちらか一方にエラーがある場合はそのエラーを返し、両方ともにエラーがある場合は`AggregateError`でエラーをまとめます。
-
-```cs
-var combineResult = Result.Error<string>(new SourceError()).Combine(Reulst.Error<string>(new DestError()));
-combineResult.MapError(e => 
-{
-  if(e is AggregateError aggrErr) 
-  {
-    //...
-  } 
-});
-```
-
-`Func<T>`を渡すオーバーライドは、結合元の値が先に評価され、エラーの場合は`Func<T>`は実行されません。
+メソッドは、結合元の値を先に評価し、失敗の場合は`Func<T>`は実行されません。
 結合元の値が成功の場合だけ、結合する`Func<T>`が実行されます。
 
 ```cs
-var combineResult = Result.Error<string>(new SourceError()).Combine(() => Reulst.Error<string>(new DestError()));
+var combineResult = Result.Error<string>(new SourceError())
+  .Combine(() => Reulst.Error<string>(new DestError()));
 combineResult.MapError(e => 
 {
   if(e is SourceError srcErr) 
