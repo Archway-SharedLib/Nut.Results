@@ -32,6 +32,28 @@ Result dataNotFoundResult = Result.Error(new DataNotFoundError());
 Result errorResult = Result.Error("This method is fail.");
 ```
 
+## 処理結果に応じたResultを作成する(Tryメソッド)
+
+処理の結果に応じて`Result`を作成するには、`Result`型の静的メソッドである`Try(Action)`メソッドを利用します。
+
+```cs
+Result ok = Result.Try(() => DoSomeMethod());
+```
+
+処理中に例外が発生した場合は、発生した例外を保持した`ExceptionalError`を含んだ失敗の`Result`が返ります。
+
+```cs
+void RaiseException() => throw new Exception();
+var error = Result.Try(() => RaiseException());
+```
+
+これら以外の`Try`のオーバーライドには次のようなものがあります。どのオーバーライドも例外が発生した場合に、`ExceptionalError`を含んだ失敗の結果が変える動きは同じです。
+
+- 引数に受け取るデリゲートで`Result`を返すもの
+- 引数に受け取るデリゲートで`Task`を返すもの
+- 引数に受け取るデリゲートで`Task{Result}`を返すもの
+- 上記のそれぞれデリゲートが、さらに値付きで返すもの
+
 ## 結果が成功だったか失敗だったかを確認する(IsOk/IsErrorメソッド)
 
 `Result`と`Result{T}`の両方ともに成功かどうかを確認する`IsOk`メソッドと、失敗かどうかを確認する`IsError`メソッドが用意されています。
