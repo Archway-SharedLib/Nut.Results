@@ -5,11 +5,11 @@
 
 trigger:
   branches:
-   include:
-     - main
+    include:
+    - main
   tags:
     include:
-      - v*
+    - v*
 
 pool:
   vmImage: 'ubuntu-latest'
