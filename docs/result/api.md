@@ -223,3 +223,30 @@ Result.Ok("Hello").Empty()
 var nested = Result.Ok(Reulst.Ok("Good"));
 var flat = nested.Flatten(); //Reulst.Ok("Good")
 ```
+
+## 成功の場合の値が意図している値かを取得する(Contains)
+
+`Result{T}`が成功の場合に、含まれている値が意図している値かどうかを調べます。失敗の場合は必ず`false`が返ります。
+メソッドのオーバーライドで値だけを指定した場合は、`EqualityComparer<T>.Default`を利用して、比較されます。
+また、`Func<T, bool>`を指定して比較ロジックを直接指定することもできます。
+
+```cs
+Result.Ok("Ok").Contains("Ok"); // true
+Result.Ok("ok").Contains("OK", StringComparer.InvariantCultureIgnoreCase); // true
+Result.Ok("Ok").Contains(v => v == "Ok"); // true
+Result.Error<string>("err").Contains("err"); // false
+```
+
+## 失敗の場合の値が意図している値かを取得する(ContainsError)
+
+`Result`および`Result{T}`が失敗の場合に、含まれているエラーの値が意図している値かどうかを調べます。成功の場合は必ず`false`が返ります。
+メソッドのオーバーライドで値だけを指定した場合は、`EqualityComparer<IError>.Default`を利用して、比較されます。
+また、`Func<IError, bool>`を指定して比較ロジックを直接指定することもできます。
+
+```cs
+var err = new Error();
+Result.Error<string>(err).ContainsError(err); // true
+Result.Error(err).ContainsError(err, EqualityComparer<IError>.Default); // true
+Result.Error(err).ContainsError(e => e == err); // true
+Result.Ok("err").ContainsError("err"); // false
+```
