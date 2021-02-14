@@ -73,7 +73,7 @@ namespace Nut.Results.Test
         {
             ResultHelper.IsResultType(typeof(string)).Should().BeFalse();
         }
-
+        
         [Fact]
         public void GetOkType_ResultTのTの型が取得できるべき()
         {
@@ -87,6 +87,22 @@ namespace Nut.Results.Test
             act.Should().Throw<InvalidOperationException>();
         }
 
+        [Fact]
+        public void TryGetOkType_trueが返りResultTのTの型が取得できるべき()
+        {
+            var result = ResultHelper.TryGetOkType(typeof(Result<string>), out var type);
+            result.Should().BeTrue();
+            type.Should().Be(typeof(string));
+        }
+        
+        [Fact]
+        public void TryGetOkType_ResultTでない場合はfalseが返りnullになるべき()
+        {
+            var result = ResultHelper.TryGetOkType(typeof(Result), out var type);
+            result.Should().BeFalse();
+            type.Should().BeNull();
+        }
+        
         [Fact]
         public void CreateErrorResult_型パラメーターがResultもしくはResultTでない場合は例外が発生するべき()
         {
@@ -110,6 +126,96 @@ namespace Nut.Results.Test
             var result = ResultHelper.CreateErrorResult<Result<string>>(error);
             result.Should().BeError();
             result.GetError().Should().BeSameAs(error);
+        }
+
+        [Fact]
+        public void TryGetOkValue_Okの値が取得できて結果はtrueが返るべき()
+        {
+            var result = ResultHelper.TryGetOkValue(Result.Ok("Hello"), out string value);
+            result.Should().BeTrue();
+            value.Should().Be("Hello");
+        }
+        
+        [Fact]
+        public void TryGetOkValue_ResultTでない場合はfalseが返りデフォルト値になる()
+        {
+            var result = ResultHelper.TryGetOkValue(Result.Ok(), out string value);
+            result.Should().BeFalse();
+            value.Should().Be(default);
+        }
+        
+        [Fact]
+        public void TryGetOkValue_ResultTで失敗の場合はfalseが返りデフォルト値になる()
+        {
+            var result = ResultHelper.TryGetOkValue(Result.Error<string>(new Error()), out string value);
+            result.Should().BeFalse();
+            value.Should().Be(default);
+        }
+        
+        [Fact]
+        public void TryGetOkValue_sourceがnullの場合はfalseが返りデフォルト値になる()
+        {
+            var result = ResultHelper.TryGetOkValue(null, out string value);
+            result.Should().BeFalse();
+            value.Should().Be(default);
+        }
+        
+        [Fact]
+        public void TryGetOkValue_設定されている型とoutの型が一致しない場合はfalseが返りデフォルト値になる()
+        {
+            var result = ResultHelper.TryGetOkValue(Result.Ok("Hello"), out int value);
+            result.Should().BeFalse();
+            value.Should().Be(default);
+        }
+        
+        [Fact]
+        public void TryGetErrorValue_失敗の値が取得できて結果はtrueが返るべき()
+        {
+            var error = new Error();
+            var result = ResultHelper.TryGetErrorValue(Result.Error(error), out IError value);
+            result.Should().BeTrue();
+            value.Should().Be(error);
+        }
+        
+        [Fact]
+        public void TryGetErrorValue_成功の場合は結果はfalseが返るべき()
+        {
+            var result = ResultHelper.TryGetErrorValue(Result.Ok(), out IError value);
+            result.Should().BeFalse();
+            value.Should().BeNull();
+        }
+        
+        [Fact]
+        public void T_TryGetErrorValue_失敗の値が取得できて結果はtrueが返るべき()
+        {
+            var error = new Error();
+            var result = ResultHelper.TryGetErrorValue(Result.Error<string>(error), out IError value);
+            result.Should().BeTrue();
+            value.Should().Be(error);
+        }
+        
+        [Fact]
+        public void T_TryGetErrorValue_成功の場合は結果はfalseが返るべき()
+        {
+            var result = ResultHelper.TryGetErrorValue(Result.Ok("Hello"), out IError value);
+            result.Should().BeFalse();
+            value.Should().BeNull();
+        }
+
+        [Fact]
+        public void TryGetErrorValue_Resultでない場合はfalseが返るべき()
+        {
+            var result = ResultHelper.TryGetErrorValue(new Error(), out IError value);
+            result.Should().BeFalse();
+            value.Should().BeNull();
+        }
+        
+        [Fact]
+        public void TryGetErrorValue_nullの場合はfalseが返るべき()
+        {
+            var result = ResultHelper.TryGetErrorValue(null, out IError value);
+            result.Should().BeFalse();
+            value.Should().BeNull();
         }
     }
 }
