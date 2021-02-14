@@ -1,8 +1,10 @@
 ﻿using Nut.Results.Internals;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
@@ -50,25 +52,17 @@ namespace Nut.Results
             }
         }
 
+        private static readonly ConcurrentDictionary<Type, Accessor> cache = new ();
         public static bool TryGetOkValue<T>(object source, [NotNullWhen(true)]out T? value)
         {
             value = default;
             var sourceType = source?.GetType();
             if (!IsWithValueResultType(sourceType)) return false;
-            
-            // cache?
-            var isOkProp = sourceType.GetProperty("IsOk", BindingFlags.Instance | BindingFlags.Public);
-            if (!(bool)isOkProp!.GetValue(source))
-            {
-                return false;
-            }
-            
-            // cache?
-            var valueField = sourceType.GetField("value", BindingFlags.Instance | BindingFlags.NonPublic);
-            var fieldValue = valueField!.GetValue(source);
+            var accessor = cache.GetOrAdd(sourceType, t => new Accessor(t));
+            if (!accessor.GetIsOk(source!)) return false;
+            var fieldValue = accessor.GetValue!(source!);
             if (fieldValue is not T castValue) return false;
-
-            value = castValue;
+            value = castValue!;
             return true;
         }
         
@@ -77,19 +71,58 @@ namespace Nut.Results
             value = null;
             var sourceType = source?.GetType();
             if (!IsResultType(sourceType)) return false;
-            
-            // cache?
-            var isErrorProp = sourceType.GetProperty("IsError", BindingFlags.Instance | BindingFlags.Public);
-            if (!(bool)isErrorProp!.GetValue(source))
+            var accessor = cache.GetOrAdd(sourceType, t => new Accessor(t));
+            if (!accessor.GetIsError(source!)) return false;
+            value = accessor.GetErrorValue(source!);
+            return true;
+        }
+        
+        private class Accessor
+        {
+            public Accessor(Type target)
             {
-                return false;
+                this.GetValue = GetValueExpression(target);
+                this.GetErrorValue = GetErrorValueExpression(target);
+                this.GetIsOk = GetBoolPropertyExpression(target, "IsOk");
+                this.GetIsError = GetBoolPropertyExpression(target, "IsError");
+            }
+            public Func<object, object>? GetValue { get; }
+            
+            public Func<object, IError> GetErrorValue { get; }
+            
+            public Func<object, bool> GetIsOk { get; }
+            
+            public Func<object, bool> GetIsError { get; }
+
+            private static Func<object, object>? GetValueExpression(Type sourceType)
+            {
+                var fieldInfo = sourceType.GetField("value", BindingFlags.Instance | BindingFlags.NonPublic);
+                if (fieldInfo is null) return null;
+                var sourceParam = Expression.Parameter(typeof(object));
+                var returnExpression = Expression.Field(Expression.Convert(sourceParam, sourceType), fieldInfo!);
+                var lambda = Expression.Lambda(returnExpression, sourceParam);
+                return (Func<object, object>)lambda.Compile();
             }
             
-            // cache?
-            var errValueField = sourceType.GetField("errorValue", BindingFlags.Instance | BindingFlags.NonPublic);
-            var fieldValue = errValueField!.GetValue(source);
-            value = (IError)fieldValue;
-            return true;
+            private static Func<object, IError> GetErrorValueExpression(Type sourceType)
+            {
+                var fieldInfo = sourceType.GetField("errorValue", BindingFlags.Instance | BindingFlags.NonPublic);
+                var sourceParam = Expression.Parameter(typeof(object));
+                var returnExpression = Expression.Field(Expression.Convert(sourceParam, sourceType), fieldInfo!);
+                var lambda = Expression.Lambda(returnExpression, sourceParam);
+                return (Func<object, IError>)lambda.Compile();
+            }
+        
+            private static Func<object, bool> GetBoolPropertyExpression(Type sourceType, string propertyName)
+            {
+                var propertyInfo = sourceType.GetProperty(propertyName, BindingFlags.Instance | BindingFlags.Public);
+                var sourceObjectParam = Expression.Parameter(typeof(object));
+                var returnExpression = 
+                    Expression.Call(Expression.Convert
+                        (sourceObjectParam, sourceType), propertyInfo!.GetMethod);
+                return (Func<object, bool>)Expression.Lambda
+                    (returnExpression, sourceObjectParam).Compile();
+            }
         }
     }
 }

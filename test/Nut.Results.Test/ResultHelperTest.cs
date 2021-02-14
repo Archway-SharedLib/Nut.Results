@@ -209,7 +209,7 @@ namespace Nut.Results.Test
             result.Should().BeFalse();
             value.Should().BeNull();
         }
-        
+
         [Fact]
         public void TryGetErrorValue_nullの場合はfalseが返るべき()
         {
