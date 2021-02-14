@@ -11,7 +11,9 @@ namespace Nut.Results
         public static bool IsResultType(Type target) =>
             IsWithValueResultType(target) || IsNoValueResultType(target);
         public static bool IsWithValueResultType(Type target) =>
-            target.IsGenericType && target.GetGenericTypeDefinition() == typeof(Result<>);
+            target is not null &&
+            target.IsGenericType && 
+            target.GetGenericTypeDefinition() == typeof(Result<>);
 
         public static bool IsNoValueResultType(Type target) =>
             target == typeof(Result);

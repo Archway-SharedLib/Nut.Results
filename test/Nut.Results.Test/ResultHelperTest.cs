@@ -10,6 +10,24 @@ namespace Nut.Results.Test
     public class ResultHelperTest
     {
         [Fact]
+        public void IsWithValueResultType_nullならfalseが返るべき()
+        {
+            ResultHelper.IsWithValueResultType(null).Should().BeFalse();
+        }
+        
+        [Fact]
+        public void IsNoValueResultType_nullならfalseが返るべき()
+        {
+            ResultHelper.IsNoValueResultType(null).Should().BeFalse();
+        }
+        
+        [Fact]
+        public void IsResultType_nullならfalseが返るべき()
+        {
+            ResultHelper.IsResultType(null).Should().BeFalse();
+        }
+        
+        [Fact]
         public void IsWithValueResultType_ResultTならtrueが返るべき()
         {
             ResultHelper.IsWithValueResultType(typeof(Result<string>))
