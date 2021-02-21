@@ -206,7 +206,7 @@ combineResult.MapError(e =>
 });
 ```
 
-## Result{T}の値を空にする(Empty)
+## Result{T}の値を空にする(Emptyメソッド)
 
 `Result{T}`の値を削除して`Result`を作成するには`Empty`メソッドを利用します。
 結果が失敗の場合には、そのエラーは戻り値の`Result`に引き継がれます。
@@ -215,7 +215,7 @@ combineResult.MapError(e =>
 Result.Ok("Hello").Empty()
 ```
 
-## ネストしたResultを解除する(Flatten)
+## ネストしたResultを解除する(Flattenメソッド)
 
 `Result{T}`の型パラメーターが`Result{T}`もしくは`Reulst`の場合に、ネストを解除するには`Flatten`メソッドを利用します。
 
@@ -224,7 +224,7 @@ var nested = Result.Ok(Reulst.Ok("Good"));
 var flat = nested.Flatten(); //Reulst.Ok("Good")
 ```
 
-## 成功の場合の値が意図している値かを取得する(Contains)
+## 成功の場合の値が意図している値かを取得する(Containsメソッド)
 
 `Result{T}`が成功の場合に、含まれている値が意図している値かどうかを調べます。失敗の場合は必ず`false`が返ります。
 メソッドのオーバーライドで値だけを指定した場合は、`EqualityComparer<T>.Default`を利用して、比較されます。
@@ -237,7 +237,7 @@ Result.Ok("Ok").Contains(v => v == "Ok"); // true
 Result.Error<string>("err").Contains("err"); // false
 ```
 
-## 失敗の場合の値が意図している値かを取得する(ContainsError)
+## 失敗の場合の値が意図している値かを取得する(ContainsErrorメソッド)
 
 `Result`および`Result{T}`が失敗の場合に、含まれているエラーの値が意図している値かどうかを調べます。成功の場合は必ず`false`が返ります。
 メソッドのオーバーライドで値だけを指定した場合は、`EqualityComparer<IError>.Default`を利用して、比較されます。
@@ -249,4 +249,15 @@ Result.Error<string>(err).ContainsError(err); // true
 Result.Error(err).ContainsError(err, EqualityComparer<IError>.Default); // true
 Result.Error(err).ContainsError(e => e == err); // true
 Result.Ok("err").ContainsError("err"); // false
+```
+
+## 成功の場合と失敗の場合の処理を行う(Matchメソッド)
+
+`Result`および`Result{T}`で設定された結果ごとの処理を実行します。設定した処理は`Result`または`Result{T}`を返し、その値が`Match`メソッドの結果として利用されます。
+
+```cs
+Result.Ok("ok").Match(
+  ok: value => SomethingProcess(value),
+  err: error => HandleError(error)
+);
 ```
