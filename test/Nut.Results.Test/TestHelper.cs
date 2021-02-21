@@ -29,9 +29,5 @@ namespace Nut.Results.Test
                 CultureInfo.CurrentUICulture = sourceCulture;
             }
         }
-
-        public static Task<Result> AsTask(this Result source) => Task.FromResult(source);
-
-        public static Task<Result<T>> AsTask<T>(this Result<T> source) => Task.FromResult(source);
     }
 }

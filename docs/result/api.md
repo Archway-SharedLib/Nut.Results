@@ -261,3 +261,11 @@ Result.Ok("ok").Match(
   err: error => HandleError(error)
 );
 ```
+
+## Taskに変換する(AsTaskメソッド)
+
+`Result`および`Result{T}`の`AsTask`メソッドで`Task`に変換できます。
+
+```cs
+await Result.Ok("ok").AsTask();
+```
