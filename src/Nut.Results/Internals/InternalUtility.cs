@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Nut.Results
+namespace Nut.Results.Internals
 {
     internal static class InternalUtility
     {

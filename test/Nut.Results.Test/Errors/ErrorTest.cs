@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace Nut.Results.Test
+namespace Nut.Results.Test.Errors
 {
     public class ErrorTest
     {

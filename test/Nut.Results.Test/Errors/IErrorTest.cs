@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace Nut.Results.Test
+namespace Nut.Results.Test.Errors
 {
     public class IErrorTest
     {
@@ -14,7 +14,16 @@ namespace Nut.Results.Test
         {
             IError error = new TestErrorWithMessage();
             var ex = error.ToException();
-            ex.Should().BeOfType(typeof(Exception));
+            ex.Should().BeOfType(typeof(ResultErrorException));
+        }
+        
+        [Fact]
+        public void ToException_ResultErrorExceptionのSourceErrorには自信のインスタンスが設定されている()
+        {
+            IError error = new TestErrorWithMessage();
+            var ex = error.ToException();
+            ex.Should().BeOfType(typeof(ResultErrorException));
+            ((ResultErrorException) ex).SourceError.Should().Be(error);
         }
 
         [Fact]
@@ -26,35 +35,27 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void ToException_メッセージが空の場合はメッセージが空のExceptionが生成される()
+        public void ToException_オーバーライドされている場合はそちらが利用される()
         {
-            IError error = new TestEerorWithEmptyMessage();
+            IError error = new ToExceptionOverrideError();
             var ex = error.ToException();
-            ex.Message.Should().BeEmpty();
+            ex.Should().BeOfType(typeof(Exception));
         }
-
-        [Fact]
-        public void ToException_メッセージがnullの場合はExceptionのデフォルトのメッセージが設定される()
-        {
-            IError error = new TestErrorWithNullMessage();
-            var ex = error.ToException();
-            ex.Message.Should().Be((new Exception()).Message);
-        }
-
-        private class TestErrorWithNullMessage : IError
-        {
-            public string Message => null;
-        }
-
-        private class TestEerorWithEmptyMessage : IError
-        {
-            public string Message => string.Empty;
-        }
-
+        
         private class TestErrorWithMessage : IError
         {
 
             public string Message => "Error Message For test";
+        }
+
+        private class ToExceptionOverrideError : IError
+        {
+            public string Message => "message";
+
+            public Exception ToException()
+            {
+                return new Exception();
+            }
         }
     }
 }

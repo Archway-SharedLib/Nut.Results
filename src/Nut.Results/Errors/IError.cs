@@ -9,8 +9,6 @@ namespace Nut.Results
         string? Message { get; }
 
         Exception ToException()
-        {
-            return Message is null ? new Exception() : new Exception(Message);
-        }
+            => new ResultErrorException(this, Message);
     }
 }
