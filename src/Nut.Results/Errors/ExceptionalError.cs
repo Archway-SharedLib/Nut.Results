@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SR = Nut.Results.Resources.Strings;
 
 namespace Nut.Results
 {

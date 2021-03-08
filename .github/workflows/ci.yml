@@ -22,9 +22,9 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: Test Nut.Results
-      run: dotnet test --no-restore --verbosity normal ./test/Nut.Results.Test/Nut.Results.Test.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../../nut.results.coverage.xml /p:Exclude="[Nut.Results.FluentAssertions*]*"
+      run: dotnet test --no-restore --verbosity normal ./test/Nut.Results.Test/Nut.Results.Test.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../../nut.results.coverage.xml /p:Exclude="[Nut.Results.FluentAssertions*]*" /p:ExcludeByAttribute=CompilerGenerated
     - name: Test Nut.Results.FluentAssertions
-      run: dotnet test --no-restore --verbosity normal ./test/Nut.Results.FluentAssertions.Test/Nut.Results.FluentAssertions.Test.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../../nut.results.fluentassertions.coverage.xml /p:Include="[Nut.Results.FluentAssertions*]*"
+      run: dotnet test --no-restore --verbosity normal ./test/Nut.Results.FluentAssertions.Test/Nut.Results.FluentAssertions.Test.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=../../nut.results.fluentassertions.coverage.xml /p:Include="[Nut.Results.FluentAssertions*]*" /p:ExcludeByAttribute=CompilerGenerated
     - name: Codecov
       uses: codecov/codecov-action@v1.0.14
       with:

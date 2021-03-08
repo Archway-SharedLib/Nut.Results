@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using SR = Nut.Results.Resources.Strings;
 
 namespace Nut.Results.Internals
 {

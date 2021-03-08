@@ -1,4 +1,5 @@
 using System;
+using SR = Nut.Results.Resources.Strings;
 
 namespace Nut.Results
 {
