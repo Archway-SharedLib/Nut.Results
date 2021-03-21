@@ -1,19 +1,17 @@
-# リファクタリングからみるNut.Resultsの使い方
+# How to use Nut.Results from refactoring
 
-ここでは、一般的によく記載されるコードから、Nut.Resultsを利用することでどのように安全になるかを
-リファクタリングを通して説明します。
-リファクタリングのコードは`sample`ディレクトリに配置されているため、参照してください。
+In this section, we will refactor some common dangerous codes using Nut.Results.The refactoring code is placed in the `sample` directory, so please refer to it.
 
-## 初期の状態(0)
+## Initial code(0)
 
-リファクタリングをするサンプルのストーリーは、よくある次のようなものになります。
+The sample stories to be refactored are as follows.
 
-1. サービスは指定されたIDでリポジトリからデータを取得する
-2. 取得したデータを引数で指定された値を設定して更新
-3. 更新した値をリポジトリを使って保存
-4. 保存の結果返ってきた値を呼び出し元に返す
+1. The service retrieves data from the repository with the specified ID.
+2. The service updates the retrieved data with the value specified in the argument.
+3. The updated value is saved using the repository.
+4. The value returned as a result of the storage is returned to the caller.
 
-この処理のコードは次になります。
+The code for this process is as follows.
 
 ```cs
 public class UserService
@@ -28,7 +26,7 @@ public class UserService
 }
 ```
 
-リポジトリの実装は次になります。
+The implementation of the repository is as follows.
 
 ```cs
 public class UserRepository
@@ -45,16 +43,16 @@ public class UserRepository
 }
 ```
 
-このコードには次のような問題があります。
+This code has the following problems.
 
-- リポジトリから返されるnullチェックをしていないので例外が発生する。
-- リポジトリから返されるnullという値がデータが無い(が正しい動きなのか、失敗な)のか、何らかのエラーが発生したのかなど、なにを意味するのか分からない。
+- The repository is returning null, which causes an exception.
+- The meaning of the null value returned from the repository cannot be determined whether there is no data or some error has occurred.
 
-この問題に対応するためにリポジトリからは`Result{T}`を返すように変更します。
+To deal with this problem, the repository will be changed to return `Result{T}`.
 
-## Resultによる結果の明示(1)
+## Specify the result by `Result{T}`(1)
 
-リポジトリからは`Result{T}`を返すように変更しました。また、データがない旨も`DatanotFoundError`型を返すことで明示できています。
+The repository has been changed to return `Result{T}`. Also, the fact that there is no data is made clear by returning the type `DatanotFoundError`.
 
 ```cs
 public class UserRepository
@@ -66,13 +64,13 @@ public class UserRepository
 
     public Result<string> Save(User user)
     {
-        // 自動的に Result.Ok に変換される
+        // Automatically converted to Result.
         return user.Id;
     }
 }
 ```
 
-これを受けてサービス側を次のように修正します。
+Change the `UserService` as follows.
 
 ```cs
 public class UserService
@@ -80,7 +78,7 @@ public class UserService
     public string UpdateUserName(string userId, string name)
     {
         var repository = new UserRepository();
-        var result = repository.GetUserById(userId); //　resultが返ってくる
+        var result = repository.GetUserById(userId); //　return Result
         var user = result.Get();
         user.Name = name;
         var saveResult = repository.Save(user);
@@ -89,17 +87,17 @@ public class UserService
 }
 ```
 
-しかし、これにも次のような問題があります。
+However, this also has the following problems.
 
-- `Get`メソッドは失敗だった場合に例外が発生する。
+- The `Result.Get` method raises an exception in case of failure.
 
-`Get`メソッドは状態が失敗だった場合は`InvalidOperationException`を発行します。これは状態のチェックを必ずしなければならない実装の不具合であることを明示するための仕様です。
+The `Result.Get` method will issue an `InvalidOperationException` if the state is a failure. This is a specification to make it clear that this is a bug in the implementation that the state must be checked.
 
-この問題に対応するために結果が成功かどうかをチェックするように変更します。
+To deal with this problem, change the result to check for succeeded or not.
 
-## Resultの状態をチェックする(2)
+## Check the Result status.(2)
 
-`IsOk`プロパティを使って`Get`の前にチェックするように変更しました。
+Changed to use the `IsOk` property to check before the `Get` method.
 
 ```cs
 public class UserService
@@ -123,16 +121,16 @@ public class UserService
 }
 ```
 
-この変更で成功した場合、失敗した場合の確実な処理が実行されるようになりましたが、失敗の場合に`null`を返してしまっており、次のような問題を生んでしまいました。
+This change ensures that the process is executed in case of success and in case of failure. However, it returned `null` in case of failure, which caused the following problem.
 
-- このメソッドの呼び出し元が`null`を受け取ってしまい、`null`の意味が理解できない。
-- リポジトリからデータがないということが明示されていたのに、消してしまっている。
+- The caller of this method receives `null` and does not understand the meaning of `null`.
+- The information that there is no data returned from the repository has disappeared.
 
-この問題に対応するためにサービスでも`Result{T}`を返すように変更します。
+To deal with this problem, we will change the service to return `Result{T}` as well.
 
-## サービスからもResultを返す(3)
+## The service returns a Result.(3)
 
-サービスのメソッドの戻り値も`Result{T}`に変更しました。
+The return value of the service method has been changed to `Result{T}`.
 
 ```cs
 public class UserService
@@ -156,16 +154,16 @@ public class UserService
 }
 ```
 
-これで失敗の場合の原因も呼び出し元に明示できるようになり、呼び出し元も含めて確実な処理を行ってもらえるようになりました。しかし、このコードには次のような問題があり可読性が下がってしまっています。
+Now, the cause of failure can be made clear to the caller, and the caller and others can be assured of the process. However, this code has the following problems that reduce its readability.
 
-- if文がネストしてしまっており冗長になっている。
-- エラーを詰めなおしているだけで冗長になっている。
+- The if statement is nested and is redundant.
+- Errors are being re-stuffed, resulting in redundancy.
 
-この問題に対応するために`Result`および`Result{T}`に提供されている拡張メソッドを利用するように変更します。
+To deal with this problem, change to use the extension methods provided for `Result` and `Result{T}`.
 
-## 拡張メソッドを利用して直線的な処理に変更する(4)
+## Use extension methods(4)
 
-`Map`や`FlatMap`を利用してコードの記述が直線的になるように変更しました。成功だった場合などの条件分岐を取り除いています。
+Use the `Map` and `FlatMap` methods to remove the conditional branching.
 
 ```cs
 public class UserService
@@ -186,14 +184,14 @@ public class UserService
 }
 ```
 
-ここまででほぼリファクタリングは完了しています。最後に不要な変数の削除などを行います。
+So far, the refactoring is almost complete. The last thing to do is to remove unnecessary variables.
 
-## 不要な変数などの削除(5)
+## Remove unnecessary variables(5)
 
-次の変更を行いました。
+The following changes have been made
 
-- `result`変数が不要で冗長なため削除
-- `FlatMap`のラムダ式は直接`Save`メソッドを指定できるため削除
+- Remove the `result` variable as it is unnecessary and redundant.
+- Remove the parameter of `FlatMap` method because it can specify the `Save` method.
 
 ```cs
 public class UserService
@@ -210,4 +208,4 @@ public class UserService
 }
 ```
 
-これでリファクタリングは終了です。途中、チェック処理などを挿むことでコードが長くなってしまったり、ネストが発生して可読性が下がってしまう箇所もありました。しかし、拡張メソッドを活用することで最終的には直線的でシンプルなコードになりました。
+This is the end of the refactoring. During the refactoring process, there were some parts where the code became long due to the insertion of checks and other processes, and there were also some parts where readability was reduced due to nesting. However, by utilizing the extension methods, the code became linear and simple in the end.

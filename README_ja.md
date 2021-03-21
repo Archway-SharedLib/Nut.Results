@@ -26,9 +26,9 @@ Nut.Resultsはシンプルな処理結果を表す.NETのオブジェクトを�
 var okResult = Result.Ok("The process was successful!");
 ```
 
-詳細な使い方は[ドキュメント](./docs/result/refactoring_step.md)を参照してください。
+詳細な使い方は[ドキュメント](./docs/ja/result/refactoring_step.md)を参照してください。
 リファクタリングを通して使い方を確認できます。
-用意されているAPIについては[APIドキュメント](./docs/result/api.md)を参照してください。
+用意されているAPIについては[APIドキュメント](./docs/ja/result/api.md)を参照してください。
 
 # Nut.Results.FluentAssertions
 
@@ -43,4 +43,4 @@ var result = Result.Ok();
 result.Should().BeOk();
 ```
 
-詳細な使い方は[ドキュメント](./docs/fluentassertions/howtouse.md)を参照してください。
+詳細な使い方は[ドキュメント](./docs/ja/fluentassertions/howtouse.md)を参照してください。
