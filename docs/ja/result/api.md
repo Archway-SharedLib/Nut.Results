@@ -43,16 +43,20 @@ Result ok = Result.Try(() => DoSomeMethod());
 処理中に例外が発生した場合は、発生した例外を保持した`ExceptionalError`を含んだ失敗の`Result`が返ります。
 
 ```cs
-void RaiseException() => throw new Exception();
-var error = Result.Try(() => RaiseException());
+var error = Result.Try(() => throw new Exception());
 ```
 
-これら以外の`Try`のオーバーライドには次のようなものがあります。どのオーバーライドも例外が発生した場合に、`ExceptionalError`を含んだ失敗の結果が変える動きは同じです。
+第2引数に例外が発生した場合のコールバックを設定することもできます。コールバックで発生した例外を確認し、設定する`IError`を返します。
 
-- 引数に受け取るデリゲートで`Result`を返すもの
-- 引数に受け取るデリゲートで`Task`を返すもの
-- 引数に受け取るデリゲートで`Task{Result}`を返すもの
-- 上記のそれぞれデリゲートが、さらに値付きで返すもの
+```cs
+var error = Result.Try(() => SomeDataAccess(), (ex) => 
+{
+  return ex switch {
+    DuplicateKeyException _ => new OptimisticConcurrencyError(ex.Message),
+    _ => new ExceptionalError(ex)
+  };
+});
+```
 
 ## 結果が成功だったか失敗だったかを確認する(IsOk/IsErrorメソッド)
 

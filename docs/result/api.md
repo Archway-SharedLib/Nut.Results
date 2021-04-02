@@ -47,12 +47,17 @@ void RaiseException() => throw new Exception();
 var error = Result.Try(() => RaiseException());
 ```
 
-Other than these, the overrides for `Try` are as follows. All overrides have the same behavior of returning a failure result with `ExceptionalError` when an exception is raised.
+The second argument can also be used to set a callback in case an exception occurs. It will check the exception raised by the callback and return `IError` to be set.
 
-- Delegates that return `Result` as an argument
-- Delegates that return a `Task` as an argument
-- Delegates that return `Task{Result}` as an argument
-- Each of the above delegates returns with an additional value
+```cs
+var error = Result.Try(() => SomeDataAccess(), (ex) => 
+{
+  return ex switch {
+    DuplicateKeyException _ => new OptimisticConcurrencyError(ex.Message),
+    _ => new ExceptionalError(ex)
+  };
+});
+```
 
 ## Check if the result is a success or failure.(IsOk/IsError method)
 
