@@ -1,62 +1,62 @@
-# Nut.Resultsの使い方
+# How to use Nut.Results
 
-## 成功の結果を表すResultを作成する(Okメソッド)
+## Create a Result that represents the result of success.(Ok method)
 
-成功の結果を表す`Result`を作成するには`Result`型の静的メソッドである`Ok()`を利用します。
+Use `Ok()`, a static method of type `Result`, to create a `Result` representing a successful result.
 
 ```cs
 Result okResult = Result.Ok();
 ```
 
-上記は単純に成功を表しています。値を含めたい場合は`Result{T}`を利用します。作成するには`Result`型の静的メソッドである`Ok{T}()`を利用します。
+The above simply represents success. If you want to include a value, use `Result{T}`. To create it, use `Ok{T}()`, a static method of type `Result`.
 
 ```cs
 Result<string> okResult = Result.Ok("This is ok result!");
 Result<int> ageResult = Result.Ok(18);
 ```
 
-`Result{T}`の値には`null`を渡すことはできません。`null`になる可能性がある場合は、処理の内容を再検討し必ず何らかの値が返るようにするか、`Result`型を返すようにしてください。
+You cannot pass `null` as the value of `Result{T}`. If there is a possibility that the value will be `null`, please reconsider the process and make sure that some value is returned, or return a `Result` type.
 
-## 失敗の結果を表すResultを作成する(Errorメソッド)
+## Create a Result that represents the result of failure.(Error method)
 
-成功の結果を表す`Result`を作成するには`Result`型の静的メソッドである`Error(IError)`を利用します。
+Use `Error(IError)`, a static method of type `Result`, to create a `Result` representing the result of failure.
 
 ```cs
 Result dataNotFoundResult = Result.Error(new DataNotFoundError());
 ```
 
-`IError`インターフェイスは失敗の詳細を表します。エラーの詳細がメッセージだけなどの場合は`Error(string)`メソッドを利用します。
-この場合は、インスタンスには`Error`型が利用されます。
+The `IError` interface represents the details of the failure. If the details of the error are just a message, etc., use the `Error(string)` method.
+In this case, the `Error` type is used for the instance.
 
 ```cs
 Result errorResult = Result.Error("This method is fail.");
 ```
 
-## 処理結果に応じたResultを作成する(Tryメソッド)
+## Create a Result according to the processing result.(Try method)
 
-処理の結果に応じて`Result`を作成するには、`Result`型の静的メソッドである`Try(Action)`メソッドを利用します。
+To create a `Result` based on the result of processing, use the `Try(Action)` method, which is a static method of type `Result`.
 
 ```cs
 Result ok = Result.Try(() => DoSomeMethod());
 ```
 
-処理中に例外が発生した場合は、発生した例外を保持した`ExceptionalError`を含んだ失敗の`Result`が返ります。
+If an exception occurs during processing, the `Result` of the failure will be returned, which contains an `ExceptionalError` holding the exception that occurred.
 
 ```cs
 void RaiseException() => throw new Exception();
 var error = Result.Try(() => RaiseException());
 ```
 
-これら以外の`Try`のオーバーライドには次のようなものがあります。どのオーバーライドも例外が発生した場合に、`ExceptionalError`を含んだ失敗の結果が変える動きは同じです。
+Other than these, the overrides for `Try` are as follows. All overrides have the same behavior of returning a failure result with `ExceptionalError` when an exception is raised.
 
-- 引数に受け取るデリゲートで`Result`を返すもの
-- 引数に受け取るデリゲートで`Task`を返すもの
-- 引数に受け取るデリゲートで`Task{Result}`を返すもの
-- 上記のそれぞれデリゲートが、さらに値付きで返すもの
+- Delegates that return `Result` as an argument
+- Delegates that return a `Task` as an argument
+- Delegates that return `Task{Result}` as an argument
+- Each of the above delegates returns with an additional value
 
-## 結果が成功だったか失敗だったかを確認する(IsOk/IsErrorメソッド)
+## Check if the result is a success or failure.(IsOk/IsError method)
 
-`Result`と`Result{T}`の両方ともに成功かどうかを確認する`IsOk`メソッドと、失敗かどうかを確認する`IsError`メソッドが用意されています。
+Both `Result` and `Result{T}` have an `IsOk` method to check for success, and an `IsError` method to check for failure.
 
 ```cs
 var taskResult = DoTask();
@@ -65,12 +65,11 @@ if (taskResult.IsOk())
   var task2Result = DoTask2();
   if (task2Result.IsError()) 
   {
-
   }
 }
 ```
 
-これらのメソッドは処理結果を単純に確認できますが、複雑な条件を生んでしまう可能性があるため、後述する`Tap`/`Map`/`FlatMap` メソッドを利用して処理を組み立てることを推奨します。
+Although these methods allow you to simply check the processing results, they may create complex conditions, so it is recommended to use the `Tap`/`Map`/`FlatMap` methods described below to assemble the processing.
 
 ## 結果の値を取得する(Get/GetErrorメソッド)
 

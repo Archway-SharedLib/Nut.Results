@@ -2,7 +2,7 @@
 
 In this section, we will refactor some common dangerous codes using Nut.Results.The refactoring code is placed in the `sample` directory, so please refer to it.
 
-## Initial code(0)
+## 0. Initial code
 
 The sample stories to be refactored are as follows.
 
@@ -50,7 +50,7 @@ This code has the following problems.
 
 To deal with this problem, the repository will be changed to return `Result{T}`.
 
-## Specify the result by `Result{T}`(1)
+## 1. Specify the result by `Result{T}`
 
 The repository has been changed to return `Result{T}`. Also, the fact that there is no data is made clear by returning the type `DatanotFoundError`.
 
@@ -95,7 +95,7 @@ The `Result.Get` method will issue an `InvalidOperationException` if the state i
 
 To deal with this problem, change the result to check for succeeded or not.
 
-## Check the Result status.(2)
+## 2. Check the Result status.
 
 Changed to use the `IsOk` property to check before the `Get` method.
 
@@ -128,7 +128,7 @@ This change ensures that the process is executed in case of success and in case 
 
 To deal with this problem, we will change the service to return `Result{T}` as well.
 
-## The service returns a Result.(3)
+## 3. The service returns a Result.
 
 The return value of the service method has been changed to `Result{T}`.
 
@@ -161,7 +161,7 @@ Now, the cause of failure can be made clear to the caller, and the caller and ot
 
 To deal with this problem, change to use the extension methods provided for `Result` and `Result{T}`.
 
-## Use extension methods(4)
+## 4. Use extension methods
 
 Use the `Map` and `FlatMap` methods to remove the conditional branching.
 
@@ -186,7 +186,7 @@ public class UserService
 
 So far, the refactoring is almost complete. The last thing to do is to remove unnecessary variables.
 
-## Remove unnecessary variables(5)
+## 5. Remove unnecessary variables
 
 The following changes have been made
 

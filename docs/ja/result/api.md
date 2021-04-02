@@ -19,7 +19,7 @@ Result<int> ageResult = Result.Ok(18);
 
 ## 失敗の結果を表すResultを作成する(Errorメソッド)
 
-成功の結果を表す`Result`を作成するには`Result`型の静的メソッドである`Error(IError)`を利用します。
+失敗の結果を表す`Result`を作成するには`Result`型の静的メソッドである`Error(IError)`を利用します。
 
 ```cs
 Result dataNotFoundResult = Result.Error(new DataNotFoundError());
