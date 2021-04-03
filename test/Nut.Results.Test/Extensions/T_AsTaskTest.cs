@@ -9,7 +9,7 @@ namespace Nut.Results.Test
     public class T_AsTaskTest
     {
         [Fact]
-        public async Task T_AsTask_Taskに変換できる()
+        public async Task Taskに変換できる()
         {
             var ok = Result.Ok("ok");
             var taskOk = await ok.AsTask().ConfigureAwait(false);
