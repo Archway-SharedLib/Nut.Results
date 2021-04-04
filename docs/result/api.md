@@ -273,3 +273,12 @@ Result.Ok("ok").Match(
 ```cs
 await Result.Ok("ok").AsTask();
 ```
+
+## 失敗の場合に成功の型を変換したResultを返す(PassOnErrorメソッド)
+
+`Result`および`Result{T}`が失敗の場合に、成功の型を変換したいことがあります。そのような場合は`PassOnError`メソッドを利用します。
+
+```cs
+Result<string> result = Somemethod();
+if(result.IsError()) return result.PassOnError<string, int>();
+```
