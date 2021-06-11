@@ -59,7 +59,7 @@ namespace Nut.Results
         /// 指定された <see cref="Type"/> が <see cref="Result{T}"/> だった場合に型パラメーターの型を取得します。
         /// </summary>
         /// <param name="target">取得する型</param>
-        /// <param name="okType"><see cref="Result{T}"/> だった場合の型パラメーターの型</returns></param>
+        /// <param name="okType"><see cref="Result{T}"/> だった場合の型パラメーターの型</param>
         /// <returns>型パラメーターの型が取得できた場合は true 、そうでない場合は false</returns>
         public static bool TryGetOkType(Type target, [NotNullWhen(true)]out Type? okType)
         {
@@ -175,7 +175,7 @@ namespace Nut.Results
         }
 
         /// <summary>
-        /// 指定されたオブジェクトが <see cref="Result"> または <see cref="Result{T}"/> で結果が成功だった場合に成功の値を取得します。
+        /// 指定されたオブジェクトが <see cref="Result"/> または <see cref="Result{T}"/> で結果が成功だった場合に成功の値を取得します。
         /// </summary>
         /// <param name="source">元となるオブジェクトの値</param>
         /// <param name="value">取得した失敗の値</param>
