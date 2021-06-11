@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading.Tasks;
 using SR = Nut.Results.Resources.Strings;
 
 namespace Nut.Results
@@ -103,6 +104,21 @@ namespace Nut.Results
         }
 
         /// <summary>
+        /// 複数の <see cref="Result"/> の結果をマージします。
+        /// </summary>
+        /// <remarks>
+        /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateError"/> にまとめられます。
+        /// </remarks>
+        /// <param name="results">マージする結果</param>
+        /// <returns>マージした結果</returns>
+        public static async Task<Result> MergeAsync(params Task<Result>[] results)
+        {
+            if (results is null) throw new ArgumentNullException(nameof(results));
+            var r = await Task.WhenAll(results).ConfigureAwait(false);
+            return Merge(r);
+        }
+
+        /// <summary>
         /// 複数の <see cref="Result{T}"/> の結果をマージします。
         /// </summary>
         /// <remarks>
@@ -117,6 +133,23 @@ namespace Nut.Results
 
             var errors = results.Where(r => r.IsError).Select(r => r.GetError());
             return errors.Any() ? Result.Error<T[]>(new AggregateError(errors)) : Result.Ok(results.Select(r => r.Get()).ToArray());
+        }
+
+        /// <summary>
+        /// 複数の <see cref="Result{T}"/> の結果をマージします。
+        /// </summary>
+        /// <remarks>
+        /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateError"/> にまとめられます。
+        /// </remarks>
+        /// <typeparam name="T">結果の値の型</typeparam>
+        /// <param name="results">マージする結果</param>
+        /// <returns>マージした結果</returns>
+        public static async Task<Result<T[]>> MergeAsync<T>(params Task<Result<T>>[] results)
+        {
+            if (results is null) throw new ArgumentNullException(nameof(results));
+
+            var r = await Task.WhenAll(results).ConfigureAwait(false);
+            return Merge(r);
         }
 
         private static readonly ConcurrentDictionary<Type, Accessor> cache = new ();

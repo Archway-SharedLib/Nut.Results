@@ -1,9 +1,8 @@
 ﻿using FluentAssertions;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
 using Nut.Results.FluentAssertions;
+using System;
+using System.Threading.Tasks;
+using Xunit;
 
 namespace Nut.Results.Test
 {
@@ -242,6 +241,33 @@ namespace Nut.Results.Test
         }
 
         [Fact]
+        public void MergeAsync_引数がnullの場合は例外が発生するべき()
+        {
+            Func<Task> act = () => ResultHelper.MergeAsync(null);
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public async Task MergeAsync_全て成功の場合は成功になる()
+        {
+            var result = await ResultHelper.MergeAsync(Result.Ok().AsTask(), Result.Ok().AsTask());
+            result.Should().BeOk();
+        }
+
+        [Fact]
+        public async Task MergeAsync_失敗がある場合は失敗になる()
+        {
+            var result = await ResultHelper.MergeAsync(Result.Ok().AsTask(), 
+                Result.Error(new Error("1")).AsTask(), 
+                Result.Ok().AsTask(), 
+                Result.Error(new Error("2")).AsTask(), 
+                Result.Ok().AsTask());
+            result.Should().BeError().And.BeOfType<AggregateError>();
+            var errors = result.GetError().As<AggregateError>();
+            errors.Errors.Should().HaveCount(2);
+        }
+
+        [Fact]
         public void MergeT_引数がnullの場合は例外が発生するべき()
         {
             Action act = () => ResultHelper.Merge<string>(null);
@@ -264,6 +290,34 @@ namespace Nut.Results.Test
                 Result.Ok("2"), 
                 Result.Error<string>(new Error("2")),
                 Result.Ok("3"));
+            result.Should().BeError().And.BeOfType<AggregateError>();
+            var errors = result.GetError().As<AggregateError>();
+            errors.Errors.Should().HaveCount(2);
+        }
+
+        [Fact]
+        public void MergeAsyncT_引数がnullの場合は例外が発生するべき()
+        {
+            Func<Task> act = () => ResultHelper.MergeAsync<string>(null);
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public async Task MergeAsyncT_全て成功の場合は成功になる()
+        {
+            var result = await ResultHelper.MergeAsync(Result.Ok("A").AsTask(), Result.Ok("B").AsTask());
+            result.Should().BeOk();
+            result.Get().Should().HaveCount(2);
+        }
+
+        [Fact]
+        public async Task MergeAsyncT_失敗がある場合は失敗になる()
+        {
+            var result = await ResultHelper.MergeAsync(Result.Ok("1").AsTask(),
+                Result.Error<string>(new Error("1")).AsTask(),
+                Result.Ok("2").AsTask(),
+                Result.Error<string>(new Error("2")).AsTask(),
+                Result.Ok("3").AsTask());
             result.Should().BeError().And.BeOfType<AggregateError>();
             var errors = result.GetError().As<AggregateError>();
             errors.Errors.Should().HaveCount(2);
