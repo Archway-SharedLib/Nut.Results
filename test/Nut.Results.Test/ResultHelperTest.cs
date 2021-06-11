@@ -217,5 +217,56 @@ namespace Nut.Results.Test
             result.Should().BeFalse();
             value.Should().BeNull();
         }
+
+        [Fact]
+        public void Merge_引数がnullの場合は例外が発生するべき()
+        {
+            Action act = () => ResultHelper.Merge(null);
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void Merge_全て成功の場合は成功になる()
+        {
+            var result = ResultHelper.Merge(Result.Ok(), Result.Ok());
+            result.Should().BeOk();
+        }
+
+        [Fact]
+        public void Merge_失敗がある場合は失敗になる()
+        {
+            var result = ResultHelper.Merge(Result.Ok(), Result.Error(new Error("1")), Result.Ok(), Result.Error(new Error("2")), Result.Ok());
+            result.Should().BeError().And.BeOfType<AggregateError>();
+            var errors = result.GetError().As<AggregateError>();
+            errors.Errors.Should().HaveCount(2);
+        }
+
+        [Fact]
+        public void MergeT_引数がnullの場合は例外が発生するべき()
+        {
+            Action act = () => ResultHelper.Merge<string>(null);
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void MergeT_全て成功の場合は成功になる()
+        {
+            var result = ResultHelper.Merge(Result.Ok("A"), Result.Ok("B"));
+            result.Should().BeOk();
+            result.Get().Should().HaveCount(2);
+        }
+
+        [Fact]
+        public void MergeT_失敗がある場合は失敗になる()
+        {
+            var result = ResultHelper.Merge(Result.Ok("1"), 
+                Result.Error<string>(new Error("1")), 
+                Result.Ok("2"), 
+                Result.Error<string>(new Error("2")),
+                Result.Ok("3"));
+            result.Should().BeError().And.BeOfType<AggregateError>();
+            var errors = result.GetError().As<AggregateError>();
+            errors.Errors.Should().HaveCount(2);
+        }
     }
 }
