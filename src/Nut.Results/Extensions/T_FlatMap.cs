@@ -8,6 +8,14 @@ namespace Nut.Results
         //T1 -> Void
 
         // sync - sync T1 -> Void
+        
+        /// <summary>
+        /// 成功の値をもとに新しい結果を作成します。失敗の場合は、失敗がそのまま返ります。
+        /// </summary>
+        /// <param name="source">もととなる値を持った結果</param>
+        /// <param name="ok">新しい結果を作成する処理</param>
+        /// <typeparam name="T">成功の結果の型</typeparam>
+        /// <returns>新しい結果</returns>
         public static Result FlatMap<T>(this Result<T> source, Func<T, Result> ok)
         {
             if (ok is null) throw new ArgumentNullException(nameof(ok));
@@ -15,6 +23,14 @@ namespace Nut.Results
         }
 
         //async - sync T1 -> Void
+
+        /// <summary>
+        /// 成功の値をもとに新しい結果を作成します。失敗の場合は、失敗がそのまま返ります。
+        /// </summary>
+        /// <param name="source">もととなる値を持った結果</param>
+        /// <param name="ok">新しい結果を作成する処理</param>
+        /// <typeparam name="T">成功の結果の型</typeparam>
+        /// <returns>新しい結果</returns>
         public static async Task<Result> FlatMap<T>(this Task<Result<T>> source, Func<T, Result> ok)
         {
             if (source is null) throw new ArgumentNullException(nameof(source));
@@ -25,6 +41,14 @@ namespace Nut.Results
         }
 
         //sync - async T1 -> Void
+        
+        /// <summary>
+        /// 成功の値をもとに新しい結果を作成します。失敗の場合は、失敗がそのまま返ります。
+        /// </summary>
+        /// <param name="source">もととなる値を持った結果</param>
+        /// <param name="ok">新しい結果を作成する処理</param>
+        /// <typeparam name="T">成功の結果の型</typeparam>
+        /// <returns>新しい結果</returns>
         public static async Task<Result> FlatMap<T>(this Result<T> source, Func<T, Task<Result>> ok)
         {
             if (ok is null) throw new ArgumentNullException(nameof(ok));
@@ -34,6 +58,14 @@ namespace Nut.Results
         }
 
         //async - async T1 -> Void 
+        
+        /// <summary>
+        /// 成功の値をもとに新しい結果を作成します。失敗の場合は、失敗がそのまま返ります。
+        /// </summary>
+        /// <param name="source">もととなる値を持った結果</param>
+        /// <param name="ok">新しい結果を作成する処理</param>
+        /// <typeparam name="T">成功の結果の型</typeparam>
+        /// <returns>新しい結果</returns>
         public static async Task<Result> FlatMap<T>(this Task<Result<T>> source, Func<T, Task<Result>> ok)
         {
             if (source is null) throw new ArgumentNullException(nameof(source));
@@ -48,6 +80,15 @@ namespace Nut.Results
         //T1 -> T2
 
         // sync - sync T1 -> T2
+        
+        /// <summary>
+        /// 成功の値をもとに新しい値をもった結果を作成します。失敗の場合は、失敗がそのまま返ります。
+        /// </summary>
+        /// <param name="source">もととなる値を持った結果</param>
+        /// <param name="ok">新しい値をもった結果を作成する処理</param>
+        /// <typeparam name="T">成功の結果の型</typeparam>
+        /// <typeparam name="TResult">新しい結果の型</typeparam>
+        /// <returns>新しい値をもった結果</returns>
         public static Result<TResult> FlatMap<T, TResult>(this Result<T> source, Func<T, Result<TResult>> ok)
         {
             if (ok is null) throw new ArgumentNullException(nameof(ok));
@@ -55,6 +96,15 @@ namespace Nut.Results
         }
 
         //async - sync T1 -> T2
+
+        /// <summary>
+        /// 成功の値をもとに新しい値をもった結果を作成します。失敗の場合は、失敗がそのまま返ります。
+        /// </summary>
+        /// <param name="source">もととなる値を持った結果</param>
+        /// <param name="ok">新しい値をもった結果を作成する処理</param>
+        /// <typeparam name="T">成功の結果の型</typeparam>
+        /// <typeparam name="TResult">新しい結果の型</typeparam>
+        /// <returns>新しい値をもった結果</returns>
         public static async Task<Result<TResult>> FlatMap<T, TResult>(this Task<Result<T>> source, Func<T, Result<TResult>> ok)
         {
             if (source is null) throw new ArgumentNullException(nameof(source));
@@ -65,6 +115,15 @@ namespace Nut.Results
         }
 
         //sync - async T1 -> T2
+        
+        /// <summary>
+        /// 成功の値をもとに新しい値をもった結果を作成します。失敗の場合は、失敗がそのまま返ります。
+        /// </summary>
+        /// <param name="source">もととなる値を持った結果</param>
+        /// <param name="ok">新しい値をもった結果を作成する処理</param>
+        /// <typeparam name="T">成功の結果の型</typeparam>
+        /// <typeparam name="TResult">新しい結果の型</typeparam>
+        /// <returns>新しい値をもった結果</returns>
         public static async Task<Result<TResult>> FlatMap<T, TResult>(this Result<T> source, Func<T, Task<Result<TResult>>> ok)
         {
             if (ok is null) throw new ArgumentNullException(nameof(ok));
@@ -74,6 +133,15 @@ namespace Nut.Results
         }
 
         //async - async T1 -> T2 
+        
+        /// <summary>
+        /// 成功の値をもとに新しい値をもった結果を作成します。失敗の場合は、失敗がそのまま返ります。
+        /// </summary>
+        /// <param name="source">もととなる値を持った結果</param>
+        /// <param name="ok">新しい値をもった結果を作成する処理</param>
+        /// <typeparam name="T">成功の結果の型</typeparam>
+        /// <typeparam name="TResult">新しい結果の型</typeparam>
+        /// <returns>新しい値をもった結果</returns>
         public static async Task<Result<TResult>> FlatMap<T, TResult>(this Task<Result<T>> source, Func<T, Task<Result<TResult>>> ok)
         {
             if (source is null) throw new ArgumentNullException(nameof(source));
