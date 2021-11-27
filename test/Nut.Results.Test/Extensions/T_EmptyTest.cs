@@ -22,10 +22,11 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void Async_sourceがnullの場合は例外が発生する()
+        public async Task Async_sourceがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Empty(null as Task<Result<string>>);
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("source");
         }
 
         [Fact]

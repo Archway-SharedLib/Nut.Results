@@ -241,10 +241,10 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void MergeAsync_引数がnullの場合は例外が発生するべき()
+        public async Task MergeAsync_引数がnullの場合は例外が発生するべき()
         {
             Func<Task> act = () => ResultHelper.MergeAsync(null);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
@@ -296,10 +296,10 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void MergeAsyncT_引数がnullの場合は例外が発生するべき()
+        public async Task MergeAsyncT_引数がnullの場合は例外が発生するべき()
         {
             Func<Task> act = () => ResultHelper.MergeAsync<string>(null);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]

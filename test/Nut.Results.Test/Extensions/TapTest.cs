@@ -44,17 +44,19 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
+        public async Task AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok().AsTask().Tap(null as Action);
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public void AsyncSync_sourceが指定されていない場合は例外が発生する()
+        public async Task AsyncSync_sourceが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Tap(null as Task<Result>, () => { });
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("source");
         }
         
         [Fact]
@@ -83,10 +85,11 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void SyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
+        public async Task SyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok().Tap(null as Func<Task>);
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("ok");
         }
 
         [Fact]
@@ -122,17 +125,19 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void AsyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
+        public async Task AsyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok().AsTask().Tap(null as Func<Task>);
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public void AsyncAsync_sourceが指定されていない場合は例外が発生する()
+        public async Task AsyncAsync_sourceが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Tap(null as Task<Result>, () => { return Task.Run(() => { }); });
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("source");
         }
         
         [Fact]

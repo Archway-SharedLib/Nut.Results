@@ -53,17 +53,19 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void Func_AsyncSync_Sourceがnullの場合は例外が発生する()
+        public async Task Func_AsyncSync_Sourceがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Combine(null as Task<Result<string>>, () => Result.Ok("ok"));
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("source");
         }
 
         [Fact]
-        public void Func_AsyncSync_Destがnullの場合は例外が発生する()
+        public async Task Func_AsyncSync_Destがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Combine(Result.Ok("Ok").AsTask(), (Func<Result<int>>)null);
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("destFunc");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("destFunc");
         }
 
         [Fact]
@@ -102,10 +104,11 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void Func_SyncAsync_Destがnullの場合は例外が発生する()
+        public async Task Func_SyncAsync_Destがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Combine(Result.Ok("Ok"), (Func<Task<Result<int>>>)null);
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("destFunc");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("destFunc");
         }
 
         [Fact]
@@ -144,17 +147,19 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void Func_AsyncAsync_Sourceがnullの場合は例外が発生する()
+        public async Task Func_AsyncAsync_Sourceがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Combine(null as Task<Result<string>>, () => Result.Ok("ok").AsTask());
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("source");
         }
 
         [Fact]
-        public void Func_AsyncAsync_Destがnullの場合は例外が発生する()
+        public async Task Func_AsyncAsync_Destがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Combine(Result.Ok("Ok").AsTask(), (Func<Task<Result<int>>>)null);
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("destFunc");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("destFunc");
         }
 
         [Fact]

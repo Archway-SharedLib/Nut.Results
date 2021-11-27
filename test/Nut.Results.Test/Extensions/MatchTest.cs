@@ -233,24 +233,24 @@ namespace Nut.Results.Test
         // result to result--- 
         
         [Fact]
-        public void R2R_ASS_sourceがnullの場合は例外が発生する()
+        public async Task R2R_ASS_sourceがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match((Task<Result>)null, () => Result.Ok(), (IError err) => Result.Ok());
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void R2R_ASS_okがnullの場合は例外が発生する()
+        public async Task R2R_ASS_okがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match(Result.Ok().AsTask(), (Func<Result>) null, (IError err) => Result.Ok());
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void R2R_ASS_errがnullの場合は例外が発生する()
+        public async Task R2R_ASS_errがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match(Result.Ok().AsTask(), () => Result.Ok(), (Func<IError, Result>)null);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
@@ -295,24 +295,24 @@ namespace Nut.Results.Test
         // result to result--- 
         
         [Fact]
-        public void R2R_AAS_sourceがnullの場合は例外が発生する()
+        public async Task R2R_AAS_sourceがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match((Task<Result>)null, () => Result.Ok().AsTask(), (IError err) => Result.Ok());
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void R2R_AAS_okがnullの場合は例外が発生する()
+        public async Task R2R_AAS_okがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match(Result.Ok().AsTask(), (Func<Task<Result>>) null, (IError err) => Result.Ok());
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void R2R_AAS_errがnullの場合は例外が発生する()
+        public async Task R2R_AAS_errがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match(Result.Ok().AsTask(), () => Result.Ok().AsTask(), (Func<IError, Result>)null);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
@@ -357,24 +357,24 @@ namespace Nut.Results.Test
         // result to result--- 
         
         [Fact]
-        public void R2R_ASA_sourceがnullの場合は例外が発生する()
+        public async Task R2R_ASA_sourceがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match((Task<Result>)null, () => Result.Ok(), (IError err) => Result.Ok().AsTask());
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void R2R_ASA_okがnullの場合は例外が発生する()
+        public async Task R2R_ASA_okがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match(Result.Ok().AsTask(), (Func<Result>) null, (IError err) => Result.Ok().AsTask());
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void R2R_ASA_errがnullの場合は例外が発生する()
+        public async Task R2R_ASA_errがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match(Result.Ok().AsTask(), () => Result.Ok(), (Func<IError, Task<Result>>)null);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
@@ -419,24 +419,24 @@ namespace Nut.Results.Test
         // result to result--- 
         
         [Fact]
-        public void R2R_AAA_sourceがnullの場合は例外が発生する()
+        public async Task R2R_AAA_sourceがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match((Task<Result>)null, () => Result.Ok().AsTask(), (IError err) => Result.Ok().AsTask());
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void R2R_AAA_okがnullの場合は例外が発生する()
+        public async Task R2R_AAA_okがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match(Result.Ok().AsTask(), (Func<Task<Result>>) null, (IError err) => Result.Ok().AsTask());
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void R2R_AAA_errがnullの場合は例外が発生する()
+        public async Task R2R_AAA_errがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match(Result.Ok().AsTask(), () => Result.Ok().AsTask(), (Func<IError, Task<Result>>)null);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
@@ -701,24 +701,24 @@ namespace Nut.Results.Test
         // result to result<T>--- 
         
         [Fact]
-        public void R2T_ASS_sourceがnullの場合は例外が発生する()
+        public async Task R2T_ASS_sourceがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match((Task<Result>)null, () => Result.Ok("A"), (IError err) => Result.Ok("A"));
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void R2T_ASS_okがnullの場合は例外が発生する()
+        public async Task R2T_ASS_okがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match(Result.Ok().AsTask(), (Func<Result<string>>) null, (IError err) => Result.Ok("A"));
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void R2T_ASS_errがnullの場合は例外が発生する()
+        public async Task R2T_ASS_errがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match(Result.Ok().AsTask(), () => Result.Ok("A"), (Func<IError, Result<string>>)null);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
@@ -763,24 +763,24 @@ namespace Nut.Results.Test
         // result to result<T>--- 
         
         [Fact]
-        public void R2T_AAS_sourceがnullの場合は例外が発生する()
+        public async Task R2T_AAS_sourceがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match((Task<Result>)null, () => Result.Ok("A").AsTask(), (IError err) => Result.Ok("A"));
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void R2T_AAS_okがnullの場合は例外が発生する()
+        public async Task R2T_AAS_okがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match(Result.Ok().AsTask(), (Func<Task<Result<string>>>) null, (IError err) => Result.Ok("A"));
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void R2T_AAS_errがnullの場合は例外が発生する()
+        public async Task R2T_AAS_errがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match(Result.Ok().AsTask(), () => Result.Ok("A").AsTask(), (Func<IError, Result<string>>)null);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
@@ -825,24 +825,24 @@ namespace Nut.Results.Test
         // result to result<T>--- 
         
         [Fact]
-        public void R2T_ASA_sourceがnullの場合は例外が発生する()
+        public async Task R2T_ASA_sourceがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match((Task<Result>)null, () => Result.Ok("A"), (IError err) => Result.Ok("A").AsTask());
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void R2T_ASA_okがnullの場合は例外が発生する()
+        public async Task R2T_ASA_okがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match(Result.Ok().AsTask(), (Func<Result<string>>) null, (IError err) => Result.Ok("A").AsTask());
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void R2T_ASA_errがnullの場合は例外が発生する()
+        public async Task R2T_ASA_errがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match(Result.Ok().AsTask(), () => Result.Ok("A"), (Func<IError, Task<Result<string>>>)null);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
@@ -887,24 +887,24 @@ namespace Nut.Results.Test
         // result to result<T>--- 
         
         [Fact]
-        public void R2T_AAA_sourceがnullの場合は例外が発生する()
+        public async Task R2T_AAA_sourceがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match((Task<Result>)null, () => Result.Ok("A").AsTask(), (IError err) => Result.Ok("A").AsTask());
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void R2T_AAA_okがnullの場合は例外が発生する()
+        public async Task R2T_AAA_okがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match(Result.Ok().AsTask(), (Func<Task<Result<string>>>) null, (IError err) => Result.Ok("A").AsTask());
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void R2T_AAA_errがnullの場合は例外が発生する()
+        public async Task R2T_AAA_errがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Match(Result.Ok().AsTask(), () => Result.Ok("A").AsTask(), (Func<IError, Task<Result<string>>>)null);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
