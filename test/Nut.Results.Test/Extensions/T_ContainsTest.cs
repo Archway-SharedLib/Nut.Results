@@ -88,10 +88,10 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void Async_Contains_nullの場合は例外が発生する()
+        public async Task Async_Contains_nullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Contains(source: null, "ABCD");
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
@@ -114,10 +114,10 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void Async_Eq_Contains_nullの場合は例外が発生する()
+        public async Task Async_Eq_Contains_nullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Contains(source: null, "ABCD", StringComparer.Ordinal);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
@@ -145,21 +145,21 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void Async_Predicate_Contains_sourceがnullの場合は例外が発生する()
+        public async Task Async_Predicate_Contains_sourceがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Contains<string>(
                 source: null,
                 predicate: _ => true);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void Async_Predicate_Contains_Predicateがnullの場合は例外が発生する()
+        public async Task Async_Predicate_Contains_Predicateがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Contains<string>(
                 source: Result.Ok("A").AsTask(),
                 predicate: null);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]

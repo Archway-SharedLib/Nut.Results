@@ -70,10 +70,10 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void NoReturn_Async_引数がない場合は例外は発生する()
+        public async Task NoReturn_Async_引数がない場合は例外は発生する()
         {
             Func<Task> act = () => Result.Try((Func<Task>)null!);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
@@ -97,17 +97,17 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void NoReturn_Async_wizHandle_引数1がない場合は例外は発生する()
+        public async Task NoReturn_Async_wizHandle_引数1がない場合は例外は発生する()
         {
             Func<Task> act = () => Result.Try((Func<Task>)null!, e => new TestError());
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void NoReturn_Async_wizHandle_引数2がない場合は例外は発生する()
+        public async Task NoReturn_Async_wizHandle_引数2がない場合は例外は発生する()
         {
             Func<Task> act = () => Result.Try(() => Task.CompletedTask, null!);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         //---------------------
@@ -174,10 +174,10 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void T_Async_引数がない場合は例外は発生する()
+        public async Task T_Async_引数がない場合は例外は発生する()
         {
             Func<Task> act = () => Result.Try((Func<Task<string>>)null!);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
@@ -201,17 +201,17 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void T_Async_wizHandle_引数1がない場合は例外は発生する()
+        public async Task T_Async_wizHandle_引数1がない場合は例外は発生する()
         {
             Func<Task> act = () => Result.Try((Func<Task<string>>)null!, e => new TestError());
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void T_Async_wizHandle_引数2がない場合は例外は発生する()
+        public async Task T_Async_wizHandle_引数2がない場合は例外は発生する()
         {
             Func<Task> act = () => Result.Try(() => Task.FromResult("success"), null!);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         //---------------------------
@@ -281,10 +281,10 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void Result_Async_引数がない場合は例外は発生する()
+        public async Task Result_Async_引数がない場合は例外は発生する()
         {
             Func<Task> act = () => Result.Try((Func<Task<Result>>)null!);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
@@ -308,17 +308,17 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void Result_Async_wizHandle_引数1がない場合は例外は発生する()
+        public async Task Result_Async_wizHandle_引数1がない場合は例外は発生する()
         {
             Func<Task> act = () => Result.Try((Func<Task<Result>>)null!, e => new TestError());
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void Result_Async_wizHandle_引数2がない場合は例外は発生する()
+        public async Task Result_Async_wizHandle_引数2がない場合は例外は発生する()
         {
             Func<Task> act = () => Result.Try(() => Result.Ok().AsTask(), null!);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         //-------------------------------
@@ -388,10 +388,10 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void ResultT_Async_引数がない場合は例外は発生する()
+        public async Task ResultT_Async_引数がない場合は例外は発生する()
         {
             Func<Task> act = () => Result.Try((Func<Task<Result<string>>>)null!);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
@@ -415,17 +415,17 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void ResultT_Async_wizHandle_引数1がない場合は例外は発生する()
+        public async Task ResultT_Async_wizHandle_引数1がない場合は例外は発生する()
         {
             Func<Task> act = () => Result.Try((Func<Task<Result<string>>>)null!, e => new TestError());
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void ResultT_Async_wizHandle_引数2がない場合は例外は発生する()
+        public async Task ResultT_Async_wizHandle_引数2がない場合は例外は発生する()
         {
             Func<Task> act = () => Result.Try(() => Result.Ok("Good").AsTask(), null!);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         //-----------------------------

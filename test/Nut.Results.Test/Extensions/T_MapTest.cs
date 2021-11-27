@@ -56,17 +56,19 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
+        public async Task AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok("A").AsTask().Map(null as Func<string, string>);
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public void AsyncSync_sourceパラメーターが指定されていない場合は例外が発生する()
+        public async Task AsyncSync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Map(null as Task<Result<string>>, _ => "v");
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("source");
         }
         
         [Fact]
@@ -101,17 +103,18 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void AsyncSync_戻り値がnullの場合は例外が発生する()
+        public async Task AsyncSync_戻り値がnullの場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok("ok").AsTask().Map(_ => null as string);
-            act.Should().Throw<InvalidReturnValueException>();
+            await act.Should().ThrowAsync<InvalidReturnValueException>();
         }
         
         [Fact]
-        public void SyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
+        public async Task SyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok("A").Map(null as Func<string, Task<string>>);
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("ok");
         }
         
         [Fact]
@@ -146,24 +149,26 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void SyncAsync_戻り値がnullの場合は例外が発生する()
+        public async Task SyncAsync_戻り値がnullの場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok("ok").Map(_ => Task.FromResult(null as string));
-            act.Should().Throw<InvalidReturnValueException>();
+            await act.Should().ThrowAsync<InvalidReturnValueException>();
         }
         
         [Fact]
-        public void AsyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
+        public async Task AsyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok("A").AsTask().Map(null as Func<string, Task<string>>);
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("ok");
         }
         
         [Fact]
-        public void AsyncAsync_sourceパラメーターが指定されていない場合は例外が発生する()
+        public async Task AsyncAsync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.Map(null as Task<Result<string>>, _ => Task.FromResult("v"));
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("source");
         }
         
         [Fact]
@@ -198,10 +203,10 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void AsyncAsync_戻り値がnullの場合は例外が発生する()
+        public async Task AsyncAsync_戻り値がnullの場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok("ok").AsTask().Map(_ => Task.FromResult(null as string));
-            act.Should().Throw<InvalidReturnValueException>();
+            await act.Should().ThrowAsync<InvalidReturnValueException>();
         }
     }
 }

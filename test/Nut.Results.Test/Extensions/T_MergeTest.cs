@@ -41,10 +41,10 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void T_引数がnullの場合は例外が発生するべき()
+        public async Task T_引数がnullの場合は例外が発生するべき()
         {
             Func<Task> act = () => ResultExtensions.Merge((IEnumerable<Task<Result<string>>>)null);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
@@ -71,10 +71,10 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void A_引数がnullの場合は例外が発生するべき()
+        public async Task A_引数がnullの場合は例外が発生するべき()
         {
             Func<Task> act = () => ResultExtensions.Merge((Task<IEnumerable<Result<string>>>)null);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
@@ -101,10 +101,10 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void TA_引数がnullの場合は例外が発生するべき()
+        public async Task TA_引数がnullの場合は例外が発生するべき()
         {
             Func<Task> act = () => ResultExtensions.Merge((Task<IEnumerable<Task<Result<string>>>>)null);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]

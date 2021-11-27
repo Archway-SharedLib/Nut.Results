@@ -44,17 +44,17 @@ namespace Nut.Results.Test
 
         //async - sync
         [Fact]
-        public void AsyncSync_ifOkがnullの場合は例外が発生する()
+        public async Task AsyncSync_ifOkがnullの場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok().AsTask().GetErrorOr((Func<IError>)null);
-            act.Should().Throw<ArgumentNullException>();
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
-        public void AsyncSync_sourceがnullの場合は例外が発生する()
+        public async Task AsyncSync_sourceがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.GetErrorOr((Task<Result>)null, () => new Error());
-            act.Should().Throw<ArgumentNullException>();
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
@@ -82,10 +82,10 @@ namespace Nut.Results.Test
 
         //sync - async
         [Fact]
-        public void SyncAsync_ifOkがnullの場合は例外が発生する()
+        public async Task SyncAsync_ifOkがnullの場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok().GetErrorOr((Func<Task<IError>>)null);
-            act.Should().Throw<ArgumentNullException>();
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
@@ -113,17 +113,17 @@ namespace Nut.Results.Test
 
         //async - async
         [Fact]
-        public void AsyncAsync_ifOkがnullの場合は例外が発生する()
+        public async Task AsyncAsync_ifOkがnullの場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok().AsTask().GetErrorOr((Func<Task<IError>>)null);
-            act.Should().Throw<ArgumentNullException>();
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]
-        public void AsyncAsync_sourceがnullの場合は例外が発生する()
+        public async Task AsyncAsync_sourceがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.GetErrorOr((Task<Result>)null, () => Task.FromResult(new Error()));
-            act.Should().Throw<ArgumentNullException>();
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
         [Fact]

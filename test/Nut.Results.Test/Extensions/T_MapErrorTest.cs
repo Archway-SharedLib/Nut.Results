@@ -61,18 +61,20 @@ namespace Nut.Results.Test
 
         //async - sync
         [Fact]
-        public void AsyncSync_errorパラメーターが指定されていない場合は例外が発生する()
+        public async Task AsyncSync_errorパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Result.Error<string>(new Error()).AsTask()
                 .MapError((Func<IError, IError>)null);
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("error");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("error");
         }
 
         [Fact]
-        public void AsyncSync_sourceパラメーターが指定されていない場合は例外が発生する()
+        public async Task AsyncSync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.MapError((Task<Result<string>>)null, _ => new Error());
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("source");
         }
 
         [Fact]
@@ -110,18 +112,19 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void AsyncSync_アクションの結果にnullが渡されると例外が発生する()
+        public async Task AsyncSync_アクションの結果にnullが渡されると例外が発生する()
         {
             Func<Task> act = () => Result.Error<string>(new Error()).AsTask().MapError(_ => (IError)null);
-            act.Should().Throw<InvalidReturnValueException>();
+            await act.Should().ThrowAsync<InvalidReturnValueException>();
         }
 
         //sync - async
         [Fact]
-        public void SyncAsync_errorパラメーターが指定されていない場合は例外が発生する()
+        public async Task SyncAsync_errorパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Result.Error<string>(new Error()).MapError((Func<IError, Task<IError>>)null);
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("error");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("error");
         }
 
         [Fact]
@@ -159,32 +162,34 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void SyncAsync_アクションの結果がnullの場合は例外が発生する()
+        public async Task SyncAsync_アクションの結果がnullの場合は例外が発生する()
         {
             Func<Task> act = () => Result.Error<string>(new Error()).MapError(_ => (Task<IError>)null);
-            act.Should().Throw<InvalidReturnValueException>();
+            await act.Should().ThrowAsync<InvalidReturnValueException>();
         }
 
         [Fact]
-        public void SyncAsync_アクションの結果にnullが渡された場合は例外が発生する()
+        public async Task SyncAsync_アクションの結果にnullが渡された場合は例外が発生する()
         {
             Func<Task> act = () => Result.Error<string>(new Error()).MapError(_ => Task.FromResult((IError)null));
-            act.Should().Throw<InvalidReturnValueException>();
+            await act.Should().ThrowAsync<InvalidReturnValueException>();
         }
 
         //async - async
         [Fact]
-        public void AsyncAsync_errorパラメーターが指定されていない場合は例外が発生する()
+        public async Task AsyncAsync_errorパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Result.Error<string>(new Error()).AsTask().MapError((Func<IError, Task<IError>>)null);
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("error");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("error");
         }
 
         [Fact]
-        public void AsyncAsync_sourceパラメーターが指定されていない場合は例外が発生する()
+        public async Task AsyncAsync_sourceパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.MapError((Task<Result<string>>)null, _ => Task.FromResult(new Error()));
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("source");
         }
 
         [Fact]
@@ -222,17 +227,17 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void AsyncAsync_アクションの結果がnullの場合は例外が発生する()
+        public async Task AsyncAsync_アクションの結果がnullの場合は例外が発生する()
         {
             Func<Task> act = () => Result.Error<string>(new Error()).AsTask().MapError(_ => (Task<IError>)null);
-            act.Should().Throw<InvalidReturnValueException>();
+            await act.Should().ThrowAsync<InvalidReturnValueException>();
         }
 
         [Fact]
-        public void AsyncAsync_アクションの結果にnullが渡された場合は例外が発生する()
+        public async Task AsyncAsync_アクションの結果にnullが渡された場合は例外が発生する()
         {
             Func<Task> act = () => Result.Error<string>(new Error()).AsTask().MapError(_ => Task.FromResult((IError)null));
-            act.Should().Throw<InvalidReturnValueException>();
+            await act.Should().ThrowAsync<InvalidReturnValueException>();
         }
     }
 }

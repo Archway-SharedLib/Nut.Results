@@ -48,17 +48,19 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void AsyncSync_Errorパラメーターが指定されていない場合は例外が発生する()
+        public async Task AsyncSync_Errorパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok("success").AsTask().TapError(null as Action<IError>);
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("error");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("error");
         }
         
         [Fact]
-        public void AsyncSync_sourceが指定されていない場合は例外が発生する()
+        public async Task AsyncSync_sourceが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.TapError(null as Task<Result<string>>, _ => {});
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("source");
         }
         
         [Fact]
@@ -91,10 +93,11 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void SyncAsync_Errorパラメーターが指定されていない場合は例外が発生する()
+        public async Task SyncAsync_Errorパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok("success").TapError(null as Func<IError, Task>);
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("error");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("error");
         }
         
         [Fact]
@@ -134,17 +137,19 @@ namespace Nut.Results.Test
         
         
         [Fact]
-        public void AsyncAsync_Errorパラメーターが指定されていない場合は例外が発生する()
+        public async Task AsyncAsync_Errorパラメーターが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => Result.Ok("success").AsTask().TapError(null as Func<IError, Task>);
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("error");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("error");
         }
         
         [Fact]
-        public void AsyncAsync_sourceが指定されていない場合は例外が発生する()
+        public async Task AsyncAsync_sourceが指定されていない場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.TapError(null as Task<Result<string>>, _ => Task.Run(() => { }));
-            act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("source");
+            var result = await act.Should().ThrowAsync<ArgumentNullException>();
+            result.And.ParamName.Should().Be("source");
         }
         
         [Fact]

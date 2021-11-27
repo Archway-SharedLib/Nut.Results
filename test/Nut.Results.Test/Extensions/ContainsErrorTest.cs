@@ -99,12 +99,12 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void Async_nullの場合は例外が発生する()
+        public async Task Async_nullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.ContainsError(
                 source: null as Task<Result>, 
                 new Error());
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
@@ -130,14 +130,14 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void Async_Eq_nullの場合は例外が発生する()
+        public async Task Async_Eq_nullの場合は例外が発生する()
         {
             Func<Task> act = () => 
                 ResultExtensions.ContainsError(
                     source: null as Task<Result>,
                     new Error(),
                     EqualityComparer<IError>.Default);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
@@ -167,21 +167,21 @@ namespace Nut.Results.Test
         }
         
         [Fact]
-        public void Async_Predicate_sourceがnullの場合は例外が発生する()
+        public async Task Async_Predicate_sourceがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.ContainsError(
                 source: null as Task<Result>,
                 predicate: _ => true);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]
-        public void Async_Predicate_Predicateがnullの場合は例外が発生する()
+        public async Task Async_Predicate_Predicateがnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultExtensions.ContainsError(
                 source: Result.Ok().AsTask(),
                 predicate: null);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
         
         [Fact]

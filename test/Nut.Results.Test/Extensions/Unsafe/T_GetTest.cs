@@ -29,17 +29,17 @@ namespace Nut.Results.Test
         }
 
         [Fact]
-        public void Async_失敗の場合は例外が発生する()
+        public async Task Async_失敗の場合は例外が発生する()
         {
             Func<Task> act = () =>Result.Error<string>(new Error()).AsTask().Get();
-            act.Should().Throw<InvalidOperationException>();
+            await act.Should().ThrowAsync<InvalidOperationException>();
         }
 
         [Fact]
-        public void Async_引数がnullの場合は例外が発生する()
+        public async Task Async_引数がnullの場合は例外が発生する()
         {
             Func<Task> act = () => ResultUnsafeExtensions.Get((Task<Result<string>>)null);
-            act.Should().Throw<ArgumentNullException>();
+            await act.Should().ThrowAsync<ArgumentNullException>();
         }
 
     }
