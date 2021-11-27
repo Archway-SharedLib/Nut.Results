@@ -1,62 +1,61 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Nut.Results
+namespace Nut.Results;
+
+public static partial class ResultExtensions
 {
-    public static partial class ResultExtensions
+
+    public static Result<(TSource Left, TDest Right)> Combine<TSource, TDest>(
+        this in Result<TSource> source,
+        Func<Result<TDest>> destFunc)
     {
 
-        public static Result<(TSource Left, TDest Right)> Combine<TSource, TDest>(
-            this in Result<TSource> source,
-            Func<Result<TDest>> destFunc)
+        if (destFunc is null) throw new ArgumentNullException(nameof(destFunc));
+
+        if (source.IsError)
         {
-
-            if (destFunc is null) throw new ArgumentNullException(nameof(destFunc));
-
-            if (source.IsError)
-            {
-                return Result.Error<(TSource Left, TDest Right)>(source.GetError());
-            }
-            var dest = destFunc();
-            if (dest.IsError) return Result.Error<(TSource Left, TDest Right)>(dest.GetError());
-            return Result.Ok((source.Get(), dest.Get()));
+            return Result.Error<(TSource Left, TDest Right)>(source.GetError());
         }
+        var dest = destFunc();
+        if (dest.IsError) return Result.Error<(TSource Left, TDest Right)>(dest.GetError());
+        return Result.Ok((source.Get(), dest.Get()));
+    }
 
-        public static async Task<Result<(TSource Left, TDest Right)>> Combine<TSource, TDest>(
-            this Task<Result<TSource>> source,
-            Func<Result<TDest>> destFunc)
+    public static async Task<Result<(TSource Left, TDest Right)>> Combine<TSource, TDest>(
+        this Task<Result<TSource>> source,
+        Func<Result<TDest>> destFunc)
+    {
+        if (source is null) throw new ArgumentNullException(nameof(source));
+        if (destFunc is null) throw new ArgumentNullException(nameof(destFunc));
+
+        var sourceResult = await source.ConfigureAwait(false);
+        return Combine(sourceResult, destFunc);
+    }
+
+    public static async Task<Result<(TSource Left, TDest Right)>> Combine<TSource, TDest>(
+        this Task<Result<TSource>> source,
+        Func<Task<Result<TDest>>> destFunc)
+    {
+        if (source is null) throw new ArgumentNullException(nameof(source));
+        if (destFunc is null) throw new ArgumentNullException(nameof(destFunc));
+
+        var sourceResult = await source.ConfigureAwait(false);
+        return await Combine(sourceResult, destFunc).ConfigureAwait(false);
+    }
+
+    public static async Task<Result<(TSource Left, TDest Right)>> Combine<TSource, TDest>(
+        this Result<TSource> source,
+        Func<Task<Result<TDest>>> destFunc)
+    {
+        if (destFunc is null) throw new ArgumentNullException(nameof(destFunc));
+
+        if (source.IsError)
         {
-            if (source is null) throw new ArgumentNullException(nameof(source));
-            if (destFunc is null) throw new ArgumentNullException(nameof(destFunc));
-
-            var sourceResult = await source.ConfigureAwait(false);
-            return Combine(sourceResult, destFunc);
+            return Result.Error<(TSource Left, TDest Right)>(source.GetError());
         }
-
-        public static async Task<Result<(TSource Left, TDest Right)>> Combine<TSource, TDest>(
-            this Task<Result<TSource>> source,
-            Func<Task<Result<TDest>>> destFunc)
-        {
-            if (source is null) throw new ArgumentNullException(nameof(source));
-            if (destFunc is null) throw new ArgumentNullException(nameof(destFunc));
-
-            var sourceResult = await source.ConfigureAwait(false);
-            return await Combine(sourceResult, destFunc).ConfigureAwait(false);
-        }
-
-        public static async Task<Result<(TSource Left, TDest Right)>> Combine<TSource, TDest>(
-            this Result<TSource> source,
-            Func<Task<Result<TDest>>> destFunc)
-        {
-            if (destFunc is null) throw new ArgumentNullException(nameof(destFunc));
-            
-            if (source.IsError)
-            {
-                return Result.Error<(TSource Left, TDest Right)>(source.GetError());
-            }
-            var dest = await destFunc().ConfigureAwait(false);
-            if (dest.IsError) return Result.Error<(TSource Left, TDest Right)>(dest.GetError());
-            return Result.Ok((source.Get(), dest.Get()));
-        }
+        var dest = await destFunc().ConfigureAwait(false);
+        if (dest.IsError) return Result.Error<(TSource Left, TDest Right)>(dest.GetError());
+        return Result.Ok((source.Get(), dest.Get()));
     }
 }

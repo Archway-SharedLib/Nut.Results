@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SR = Nut.Results.Resources.Strings;
+﻿using SR = Nut.Results.Resources.Strings;
 
-namespace Nut.Results.Internals
+namespace Nut.Results.Internals;
+
+internal static class InternalUtility
 {
-    internal static class InternalUtility
+    public static T CheckReturnValueNotNull<T>(T returnValue)
     {
-        public static T CheckReturnValueNotNull<T>(T returnValue)
-        {
-            if (returnValue is null) RaizeReturnValueNotNull();
-            return returnValue;
-        }
-
-        public static void RaizeReturnValueNotNull()
-            => throw new InvalidReturnValueException(SR.Exception_CannotSetNullToReturnValue);
+        if (returnValue is null)
+            throw new InvalidReturnValueException(SR.Exception_CannotSetNullToReturnValue);
+        return returnValue;
     }
+
+    public static void RaizeReturnValueNotNull()
+        => throw new InvalidReturnValueException(SR.Exception_CannotSetNullToReturnValue);
 }

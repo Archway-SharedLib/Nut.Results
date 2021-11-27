@@ -1,33 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using System.Threading.Tasks;
+using FluentAssertions.Specialized;
 
-namespace Nut.Results.Test
+namespace Nut.Results.Test;
+
+public static class TestHelper
 {
-    public static class TestHelper
+    public static IDisposable SetEnglishCulture()
     {
-        public static IDisposable SetEnglishCulture()
+        return new CultureSwitcher(CultureInfo.GetCultureInfo("en"));
+    }
+
+    private class CultureSwitcher : IDisposable
+    {
+        private readonly CultureInfo _sourceCulture;
+        public CultureSwitcher(CultureInfo targetCulture)
         {
-            return new CultureSwitcher(CultureInfo.GetCultureInfo("en"));
+            _sourceCulture = CultureInfo.CurrentCulture;
+            CultureInfo.CurrentCulture = targetCulture;
+            CultureInfo.CurrentUICulture = targetCulture;
         }
 
-        private class CultureSwitcher : IDisposable
+        public void Dispose()
         {
-            private CultureInfo sourceCulture = null;
-            public CultureSwitcher(CultureInfo targetCulture)
-            {
-                sourceCulture = CultureInfo.CurrentCulture;
-                CultureInfo.CurrentCulture = targetCulture;
-                CultureInfo.CurrentUICulture = targetCulture;
-            }
-
-            public void Dispose()
-            {
-                CultureInfo.CurrentCulture = sourceCulture;
-                CultureInfo.CurrentUICulture = sourceCulture;
-            }
+            CultureInfo.CurrentCulture = _sourceCulture;
+            CultureInfo.CurrentUICulture = _sourceCulture;
         }
     }
 }
+
