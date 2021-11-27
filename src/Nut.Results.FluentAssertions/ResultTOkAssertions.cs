@@ -5,25 +5,24 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Nut.Results.FluentAssertions
+namespace Nut.Results.FluentAssertions;
+
+public class ResultOkAssertions<T>
 {
-    public class ResultOkAssertions<T>
+    private readonly Result<T> _instance;
+
+    public ResultOkAssertions(Result<T> instance)
     {
-        private readonly Result<T> instance;
+        _instance = instance;
+    }
 
-        public ResultOkAssertions(Result<T> instance)
-        {
-            this.instance = instance;
-        }
-
-        public AndConstraint<ResultOkAssertions<T>> Match(Expression<Func<T, bool>> predicate,
-            string because = "",
-            params object[] becauseArgs)
-        {
-            Execute.Assertion.ForCondition(predicate.Compile()(this.instance.Get()))
-                .BecauseOf(because, becauseArgs)
-                .FailWith("Expected value to match {0}{reason}, but found {1}.", (object)predicate.Body, (object)this.instance.Get()!);
-            return new AndConstraint<ResultOkAssertions<T>>(this);
-        }
+    public AndConstraint<ResultOkAssertions<T>> Match(Expression<Func<T, bool>> predicate,
+        string because = "",
+        params object[] becauseArgs)
+    {
+        Execute.Assertion.ForCondition(predicate.Compile()(_instance.Get()))
+            .BecauseOf(because, becauseArgs)
+            .FailWith("Expected value to match {0}{reason}, but found {1}.", (object)predicate.Body, (object)_instance.Get()!);
+        return new AndConstraint<ResultOkAssertions<T>>(this);
     }
 }

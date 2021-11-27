@@ -3,52 +3,51 @@ using System.Threading.Tasks;
 using Nut.Results.Internals;
 
 // ReSharper disable CheckNamespace
-namespace Nut.Results
+namespace Nut.Results;
+
+public static partial class ResultExtensions
 {
-    public static partial class ResultExtensions
+    // sync - sync
+    public static Result MapError<TError>(this in Result source, Func<IError, TError> error) where TError : IError
     {
-        // sync - sync
-        public static Result MapError<TError>(this in Result source, Func<IError, TError> error) where TError: IError
-        {
-            if (error is null) throw new ArgumentNullException(nameof(error));
-            return !source.IsError ? source : Result.Error(InternalUtility.CheckReturnValueNotNull(error(source.errorValue)));
-        }
+        if (error is null) throw new ArgumentNullException(nameof(error));
+        return !source.IsError ? source : Result.Error(InternalUtility.CheckReturnValueNotNull(error(source._errorValue)));
+    }
 
-        //async - sync
-        public static async Task<Result> MapError<TError>(this Task<Result> source, Func<IError, TError> error) where TError : IError
-        {
-            if (source is null) throw new ArgumentNullException(nameof(source));
-            if (error is null) throw new ArgumentNullException(nameof(error));
+    //async - sync
+    public static async Task<Result> MapError<TError>(this Task<Result> source, Func<IError, TError> error) where TError : IError
+    {
+        if (source is null) throw new ArgumentNullException(nameof(source));
+        if (error is null) throw new ArgumentNullException(nameof(error));
 
-            var result = await source.ConfigureAwait(false);
-            return !result.IsError ? result : Result.Error(InternalUtility.CheckReturnValueNotNull(error(result.errorValue)));
-        }
+        var result = await source.ConfigureAwait(false);
+        return !result.IsError ? result : Result.Error(InternalUtility.CheckReturnValueNotNull(error(result._errorValue)));
+    }
 
-        //sync - async
-        public static async Task<Result> MapError<TError>(this Result source, Func<IError, Task<TError>> error) where TError : IError
-        {
-            if (error is null) throw new ArgumentNullException(nameof(error));
-            if (!source.IsError) return source;
+    //sync - async
+    public static async Task<Result> MapError<TError>(this Result source, Func<IError, Task<TError>> error) where TError : IError
+    {
+        if (error is null) throw new ArgumentNullException(nameof(error));
+        if (!source.IsError) return source;
 
-            var errorCallbackResult = error(source.errorValue);
-            if (errorCallbackResult == null) InternalUtility.RaizeReturnValueNotNull();
-            var result = await errorCallbackResult!.ConfigureAwait(false);
-            return Result.Error(InternalUtility.CheckReturnValueNotNull(result));
-        }
+        var errorCallbackResult = error(source._errorValue);
+        if (errorCallbackResult == null) InternalUtility.RaizeReturnValueNotNull();
+        var result = await errorCallbackResult!.ConfigureAwait(false);
+        return Result.Error(InternalUtility.CheckReturnValueNotNull(result));
+    }
 
-        //async - async
-        public static async Task<Result> MapError<TError>(this Task<Result> source, Func<IError, Task<TError>> error) where TError : IError
-        {
-            if (source is null) throw new ArgumentNullException(nameof(source));
-            if (error is null) throw new ArgumentNullException(nameof(error));
+    //async - async
+    public static async Task<Result> MapError<TError>(this Task<Result> source, Func<IError, Task<TError>> error) where TError : IError
+    {
+        if (source is null) throw new ArgumentNullException(nameof(source));
+        if (error is null) throw new ArgumentNullException(nameof(error));
 
-            var result = await source.ConfigureAwait(false);
-            if (!result.IsError) return result;
+        var result = await source.ConfigureAwait(false);
+        if (!result.IsError) return result;
 
-            var errorCallbackResult = error(result.errorValue);
-            if (errorCallbackResult == null) InternalUtility.RaizeReturnValueNotNull();
-            var newReturnValue = await errorCallbackResult!.ConfigureAwait(false);
-            return Result.Error(InternalUtility.CheckReturnValueNotNull(newReturnValue));
-        }
+        var errorCallbackResult = error(result._errorValue);
+        if (errorCallbackResult == null) InternalUtility.RaizeReturnValueNotNull();
+        var newReturnValue = await errorCallbackResult!.ConfigureAwait(false);
+        return Result.Error(InternalUtility.CheckReturnValueNotNull(newReturnValue));
     }
 }

@@ -4,16 +4,15 @@ using Nut.Results.FluentAssertions;
 
 // ReSharper disable CheckNamespace
 
-namespace Nut.Results.Test
+namespace Nut.Results.Test;
+
+public class T_AsTaskTest
 {
-    public class T_AsTaskTest
+    [Fact]
+    public async Task Taskに変換できる()
     {
-        [Fact]
-        public async Task Taskに変換できる()
-        {
-            var ok = Result.Ok("ok");
-            var taskOk = await ok.AsTask().ConfigureAwait(false);
-            ok.Should().Be(taskOk).And.BeOk().And.Match(v => v == "ok");
-        }
+        var ok = Result.Ok("ok");
+        var taskOk = await ok.AsTask().ConfigureAwait(false);
+        ok.Should().Be(taskOk).And.BeOk().And.Match(v => v == "ok");
     }
 }
