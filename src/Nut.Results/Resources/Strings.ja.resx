@@ -144,4 +144,7 @@
   <data name="Exception_TypeParameterNeedResultType" xml:space="preserve">
     <value>型パラメーターはResultかResult&lt;&gt;でなければなりません。</value>
   </data>
+  <data name="Exception_CannotMergeNullReuslts" xml:space="preserve">
+    <value>マージする値をnullに設定できません。</value>
+  </data>
 </root>

@@ -13,7 +13,7 @@ public class MergeTest
     [Fact]
     public void 引数がnullの場合は例外が発生するべき()
     {
-        Action act = () => ResultExtensions.Merge((IEnumerable<Result>)null);
+        var act = () => ResultExtensions.Merge((IEnumerable<Result>)null);
         act.Should().Throw<ArgumentNullException>();
     }
 
@@ -36,7 +36,7 @@ public class MergeTest
     [Fact]
     public async Task T_引数がnullの場合は例外が発生するべき()
     {
-        Func<Task> act = () => ResultExtensions.Merge((IEnumerable<Task<Result>>)null);
+        var act = () => ResultExtensions.Merge((IEnumerable<Task<Result>>)null);
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
@@ -59,8 +59,15 @@ public class MergeTest
     [Fact]
     public async Task A_引数がnullの場合は例外が発生するべき()
     {
-        Func<Task> act = () => ResultExtensions.Merge((Task<IEnumerable<Result>>)null);
+        var act = () => ResultExtensions.Merge((Task<IEnumerable<Result>>)null);
         await act.Should().ThrowAsync<ArgumentNullException>();
+    }
+
+    [Fact]
+    public async Task A_引数のTaskの結果がnullの場合は例外が発生するべき()
+    {
+        var act = () => ResultExtensions.Merge(Task.FromResult<IEnumerable<Result>>(null));
+        await act.Should().ThrowAsync<InvalidOperationException>();
     }
 
     [Fact]
@@ -82,8 +89,15 @@ public class MergeTest
     [Fact]
     public async Task TA_引数がnullの場合は例外が発生するべき()
     {
-        Func<Task> act = () => ResultExtensions.Merge((Task<IEnumerable<Task<Result>>>)null);
+        var act = () => ResultExtensions.Merge((Task<IEnumerable<Task<Result>>>)null);
         await act.Should().ThrowAsync<ArgumentNullException>();
+    }
+
+    [Fact]
+    public async Task TA_引数のTaskの結果がnullの場合は例外が発生するべき()
+    {
+        var act = () => ResultExtensions.Merge(Task.FromResult<IEnumerable<Task<Result>>>(null));
+        await act.Should().ThrowAsync<InvalidOperationException>();
     }
 
     [Fact]

@@ -41,7 +41,11 @@ public static partial class ResultExtensions
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         var value = await source.ConfigureAwait(false);
-        return ResultHelper.Merge(value?.ToArray()!);
+        if (value is null)
+        {
+            throw new InvalidOperationException(Resources.Strings.Exception_CannotMergeNullReuslts);
+        }
+        return ResultHelper.Merge(value.ToArray());
     }
 
     /// <summary>
@@ -56,6 +60,10 @@ public static partial class ResultExtensions
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         var value = await source.ConfigureAwait(false);
-        return await ResultHelper.MergeAsync(value?.ToArray()!);
+        if (value is null)
+        {
+            throw new InvalidOperationException(Resources.Strings.Exception_CannotMergeNullReuslts);
+        }
+        return await ResultHelper.MergeAsync(value.ToArray());
     }
 }

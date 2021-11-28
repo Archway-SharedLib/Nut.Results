@@ -6,8 +6,7 @@ internal static class InternalUtility
 {
     public static T CheckReturnValueNotNull<T>(T returnValue)
     {
-        if (returnValue is null)
-            throw new InvalidReturnValueException(SR.Exception_CannotSetNullToReturnValue);
+        if (returnValue is null) RaizeReturnValueNotNull();
         return returnValue;
     }
 
