@@ -57,48 +57,6 @@ public class T_ContainsErrorTest
     }
 
     [Fact]
-    public void Predicate_Predicateがnullの場合は例外が発生する()
-    {
-        Action act = () => ResultExtensions.ContainsError(
-            source: Result.Error<string>(new Error()),
-            predicate: null);
-        act.Should().Throw<ArgumentNullException>();
-    }
-
-    [Fact]
-    public void Predicate_Predicateの引数には値が渡される()
-    {
-        var err = new Error();
-        Result.Error<string>(err).ContainsError(e =>
-        {
-            e.Should().Be(err);
-            return true;
-        });
-    }
-
-    [Fact]
-    public void Predicate_Predicateがtrueを返せばtrueが返る()
-    {
-        Result.Error<string>(new Error())
-            .ContainsError(v => true).Should().BeTrue();
-    }
-
-    [Fact]
-    public void Predicate_Predicateがfalseを返せばfalseが返る()
-    {
-        Result.Error<string>(new Error())
-            .ContainsError(v => false).Should().BeFalse();
-    }
-
-    [Fact]
-    public void Predicate_成功の場合はfalseが返る()
-    {
-        Result.Ok("Error")
-            .ContainsError(_ => true)
-            .Should().BeFalse();
-    }
-
-    [Fact]
     public async Task Async_nullの場合は例外が発生する()
     {
         Func<Task> act = () => ResultExtensions.ContainsError(
@@ -163,57 +121,6 @@ public class T_ContainsErrorTest
     {
         (await Result.Ok("Error").AsTask()
             .ContainsError(new Error(), EqualityComparer<IError>.Default))
-            .Should().BeFalse();
-    }
-
-    [Fact]
-    public async Task Async_Predicate_sourceがnullの場合は例外が発生する()
-    {
-        Func<Task> act = () => ResultExtensions.ContainsError(
-            source: null as Task<Result<string>>,
-            predicate: _ => true);
-        await act.Should().ThrowAsync<ArgumentNullException>();
-    }
-
-    [Fact]
-    public async Task Async_Predicate_Predicateがnullの場合は例外が発生する()
-    {
-        Func<Task> act = () => ResultExtensions.ContainsError(
-            source: Result.Ok("A").AsTask(),
-            predicate: null);
-        await act.Should().ThrowAsync<ArgumentNullException>();
-    }
-
-    [Fact]
-    public async Task Async_Predicate_Predicateの引数には値が渡される()
-    {
-        var err = new Error();
-        await Result.Error<string>(err).AsTask().ContainsError(e =>
-        {
-            e.Should().Be(err);
-            return true;
-        });
-    }
-
-    [Fact]
-    public async Task Async_Predicate_Predicateがtrueを返せばtrueが返る()
-    {
-        (await Result.Error<string>(new Error()).AsTask().ContainsError(v => true))
-            .Should().BeTrue();
-    }
-
-    [Fact]
-    public async Task Async_Predicate_Predicateがfalseを返せばfalseが返る()
-    {
-        (await Result.Error<string>(new Error()).AsTask().ContainsError(v => false))
-            .Should().BeFalse();
-    }
-
-    [Fact]
-    public async Task Async_Predicate_成功の場合はfalseが返る()
-    {
-        (await Result.Ok("Error").AsTask()
-            .ContainsError(_ => true))
             .Should().BeFalse();
     }
 }

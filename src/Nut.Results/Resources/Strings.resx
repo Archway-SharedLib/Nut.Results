@@ -144,4 +144,7 @@
   <data name="Exception_TypeParameterNeedResultType" xml:space="preserve">
     <value>Generic type parameter is not Result or Result&lt;&gt; type.</value>
   </data>
+  <data name="Exception_CannotMergeNullReuslts" xml:space="preserve">
+    <value>The value to be merged cannot be null.</value>
+  </data>
 </root>
