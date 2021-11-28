@@ -8,6 +8,7 @@ public static partial class ResultExtensions
     /// <summary>
     /// 指定した <see cref="Result"/> に含まれている <see cref="IError"/> をチェックします。
     /// </summary>
+    /// <remarks><paramref name="source"/> の値が成功の場合は false が返ります。</remarks>
     /// <param name="source"><see cref="IError"/> を持っている <see cref="Result"/></param>
     /// <param name="predicate">チェックする処理</param>
     /// <returns>チェックする処理の結果</returns>
@@ -20,6 +21,7 @@ public static partial class ResultExtensions
     /// <summary>
     /// 指定した <see cref="Result"/> に含まれている <see cref="IError"/> をチェックします。
     /// </summary>
+    /// <remarks><paramref name="source"/> の値が成功の場合は false が返ります。</remarks>
     /// <param name="source"><see cref="IError"/> を持っている <see cref="Result"/></param>
     /// <param name="predicate">チェックする処理</param>
     /// <returns>チェックする処理の結果</returns>
@@ -30,9 +32,10 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    /// 指定した <see cref="Task{Result}"/> に含まれている <see cref="IError"/> をチェックします。
+    /// 指定した <see cref="Result"/> に含まれている <see cref="IError"/> をチェックします。
     /// </summary>
-    /// <param name="source"><see cref="IError"/> を持っている <see cref="Task{Result}"/></param>
+    /// <remarks><paramref name="source"/> の値が成功の場合は false が返ります。</remarks>
+    /// <param name="source"><see cref="IError"/> を持っている <see cref="Result"/></param>
     /// <param name="predicate">チェックする処理</param>
     /// <returns>チェックする処理の結果</returns>
     public static async Task<bool> ValidateError(this Task<Result> source, Func<IError, bool> predicate)
@@ -44,9 +47,10 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    /// 指定した <see cref="Task{Result}"/> に含まれている <see cref="IError"/> をチェックします。
+    /// 指定した <see cref="Result"/> に含まれている <see cref="IError"/> をチェックします。
     /// </summary>
-    /// <param name="source"><see cref="IError"/> を持っている <see cref="Task{Result}"/></param>
+    /// <remarks><paramref name="source"/> の値が成功の場合は false が返ります。</remarks>
+    /// <param name="source"><see cref="IError"/> を持っている <see cref="Result"/></param>
     /// <param name="predicate">チェックする処理</param>
     /// <returns>チェックする処理の結果</returns>
     public static async Task<bool> ValidateError(this Task<Result> source, Func<IError, Task<bool>> predicate)
