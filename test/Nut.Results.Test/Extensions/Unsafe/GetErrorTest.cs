@@ -19,7 +19,7 @@ public class GetErrorTest
     [Fact]
     public void 成功の場合は例外が発生する()
     {
-        Action act = () => Result.Ok().GetError();
+        var act = () => Result.Ok().GetError();
         act.Should().Throw<InvalidOperationException>();
     }
 
@@ -34,14 +34,14 @@ public class GetErrorTest
     [Fact]
     public async Task Async_成功の場合は例外が発生する()
     {
-        Func<Task> act = () => Result.Ok().AsTask().GetError();
+        var act = () => Result.Ok().AsTask().GetError();
         await act.Should().ThrowAsync<InvalidOperationException>();
     }
 
     [Fact]
     public async Task Async_引数がnullの場合は例外が発生する()
     {
-        Func<Task> act = () => ResultUnsafeExtensions.GetError((Task<Result>)null);
+        var act = () => ResultUnsafeExtensions.GetError((Task<Result>)null);
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 }
