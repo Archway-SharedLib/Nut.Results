@@ -15,7 +15,7 @@ public class T_FlatMapTest
     [Fact]
     public void NoReturn_SyncSync_Okパラメーターが指定されていない場合は例外が発生する()
     {
-        Action act = () => Result.Ok("A").FlatMap(null as Func<string, Result>);
+        var act = () => Result.Ok("A").FlatMap(null as Func<string, Result>);
         act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
     }
 
