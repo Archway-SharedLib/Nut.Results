@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿namespace ResultSample.Refactoring_0;
 
-namespace ResultSample.Refactoring_0
+public class UserRepository
 {
-    public class UserRepository
+    public User GetUserById(string userId)
     {
-        public User GetUserById(string userId)
-        {
-            return null;
-        }
+        return null;
+    }
 
-        public string Save(User user)
-        {
-            return user.Id;
-        }
+    public string Save(User user)
+    {
+        return user.Id;
     }
 }

@@ -1,4 +1,5 @@
-﻿using SR = Nut.Results.Resources.Strings;
+﻿using System.Diagnostics.CodeAnalysis;
+using SR = Nut.Results.Resources.Strings;
 
 namespace Nut.Results.Internals;
 
@@ -10,6 +11,7 @@ internal static class InternalUtility
         return returnValue;
     }
 
+    [DoesNotReturn]
     public static void RaizeReturnValueNotNull()
         => throw new InvalidReturnValueException(SR.Exception_CannotSetNullToReturnValue);
 }

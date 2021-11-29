@@ -1,11 +1,7 @@
 ﻿using Nut.Results;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace ResultSample
+namespace ResultSample;
+
+public class DataNotFoundError : Error
 {
-    public class DataNotFoundError: Error
-    {
-    }
 }
