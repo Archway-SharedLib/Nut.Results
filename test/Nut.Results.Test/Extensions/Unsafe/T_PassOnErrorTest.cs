@@ -13,7 +13,7 @@ public class T_PassOnErrorTest
     [Fact]
     public void TResult_成功の場合は例外が発生する()
     {
-        Action act = () => Result.Ok(123).PassOnError<int, string>();
+        var act = () => Result.Ok(123).PassOnError<int, string>();
         act.Should().Throw<InvalidOperationException>();
     }
 
@@ -27,7 +27,7 @@ public class T_PassOnErrorTest
     [Fact]
     public async Task TResult_Async_成功の場合は例外が発生する()
     {
-        Func<Task> act = () => Result.Ok(123).AsTask().PassOnError<int, string>();
+        var act = () => Result.Ok(123).AsTask().PassOnError<int, string>();
         await act.Should().ThrowAsync<InvalidOperationException>();
     }
 
@@ -42,14 +42,14 @@ public class T_PassOnErrorTest
     [Fact]
     public async Task TResult_Async_引数がnullの場合は例外が発生する()
     {
-        Func<Task> act = () => ResultUnsafeExtensions.PassOnError<int, string>(null!);
+        var act = () => ResultUnsafeExtensions.PassOnError<int, string>(null!);
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
     public void 成功の場合は例外が発生する()
     {
-        Action act = () => Result.Ok(123).PassOnError();
+        var act = () => Result.Ok(123).PassOnError();
         act.Should().Throw<InvalidOperationException>();
     }
 
@@ -63,7 +63,7 @@ public class T_PassOnErrorTest
     [Fact]
     public async Task Async_成功の場合は例外が発生する()
     {
-        Func<Task> act = () => Result.Ok(123).AsTask().PassOnError();
+        var act = () => Result.Ok(123).AsTask().PassOnError();
         await act.Should().ThrowAsync<InvalidOperationException>();
     }
 
@@ -78,7 +78,7 @@ public class T_PassOnErrorTest
     [Fact]
     public async Task Async_引数がnullの場合は例外が発生する()
     {
-        Func<Task> act = () => ResultUnsafeExtensions.PassOnError((Task<Result<int>>)null!);
+        var act = () => ResultUnsafeExtensions.PassOnError((Task<Result<int>>)null!);
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 }
