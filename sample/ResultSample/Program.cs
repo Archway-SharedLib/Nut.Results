@@ -1,13 +1,4 @@
-﻿using System;
+﻿using ResultSample.Refactoring_0;
 
-namespace ResultSample
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            var service = new Refactoring_0.UserService();
-            service.UpdateUserName("1", "Foo");
-        }
-    }
-}
+var service = new UserService();
+service.UpdateUserName("1", "Foo");
