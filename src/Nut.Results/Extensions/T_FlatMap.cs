@@ -10,7 +10,7 @@ public static partial class ResultExtensions
     // sync - sync T1 -> Void
 
     /// <summary>
-    /// 成功の値をもとに新しい結果を作成します。失敗の場合は、失敗がそのまま返ります。
+    /// 成功だった場合に新しい値を持った結果を作成します。失敗の場合は、失敗がそのまま返ります。
     /// </summary>
     /// <param name="source">もととなる値を持った結果</param>
     /// <param name="ok">新しい結果を作成する処理</param>
@@ -25,7 +25,7 @@ public static partial class ResultExtensions
     //async - sync T1 -> Void
 
     /// <summary>
-    /// 成功の値をもとに新しい結果を作成します。失敗の場合は、失敗がそのまま返ります。
+    /// 成功だった場合に新しい値を持った結果を作成します。失敗の場合は、失敗がそのまま返ります。
     /// </summary>
     /// <param name="source">もととなる値を持った結果</param>
     /// <param name="ok">新しい結果を作成する処理</param>
@@ -43,7 +43,7 @@ public static partial class ResultExtensions
     //sync - async T1 -> Void
 
     /// <summary>
-    /// 成功の値をもとに新しい結果を作成します。失敗の場合は、失敗がそのまま返ります。
+    /// 成功だった場合に新しい値を持った結果を作成します。失敗の場合は、失敗がそのまま返ります。
     /// </summary>
     /// <param name="source">もととなる値を持った結果</param>
     /// <param name="ok">新しい結果を作成する処理</param>
@@ -57,10 +57,10 @@ public static partial class ResultExtensions
         return await ok(source._value).ConfigureAwait(false);
     }
 
-    //async - async T1 -> Void 
+    //async - async T1 -> Void
 
     /// <summary>
-    /// 成功の値をもとに新しい結果を作成します。失敗の場合は、失敗がそのまま返ります。
+    /// 成功だった場合に新しい値を持った結果を作成します。失敗の場合は、失敗がそのまま返ります。
     /// </summary>
     /// <param name="source">もととなる値を持った結果</param>
     /// <param name="ok">新しい結果を作成する処理</param>
@@ -82,7 +82,7 @@ public static partial class ResultExtensions
     // sync - sync T1 -> T2
 
     /// <summary>
-    /// 成功の値をもとに新しい値をもった結果を作成します。失敗の場合は、失敗がそのまま返ります。
+    /// 成功だった場合に新しい値を持った結果を作成します。失敗の場合は、失敗がそのまま返ります。
     /// </summary>
     /// <param name="source">もととなる値を持った結果</param>
     /// <param name="ok">新しい値をもった結果を作成する処理</param>
@@ -98,7 +98,7 @@ public static partial class ResultExtensions
     //async - sync T1 -> T2
 
     /// <summary>
-    /// 成功の値をもとに新しい値をもった結果を作成します。失敗の場合は、失敗がそのまま返ります。
+    /// 成功だった場合に新しい値を持った結果を作成します。失敗の場合は、失敗がそのまま返ります。
     /// </summary>
     /// <param name="source">もととなる値を持った結果</param>
     /// <param name="ok">新しい値をもった結果を作成する処理</param>
@@ -117,7 +117,7 @@ public static partial class ResultExtensions
     //sync - async T1 -> T2
 
     /// <summary>
-    /// 成功の値をもとに新しい値をもった結果を作成します。失敗の場合は、失敗がそのまま返ります。
+    /// 成功だった場合に新しい値を持った結果を作成します。失敗の場合は、失敗がそのまま返ります。
     /// </summary>
     /// <param name="source">もととなる値を持った結果</param>
     /// <param name="ok">新しい値をもった結果を作成する処理</param>
@@ -132,10 +132,10 @@ public static partial class ResultExtensions
         return await ok(source._value).ConfigureAwait(false);
     }
 
-    //async - async T1 -> T2 
+    //async - async T1 -> T2
 
     /// <summary>
-    /// 成功の値をもとに新しい値をもった結果を作成します。失敗の場合は、失敗がそのまま返ります。
+    /// 成功だった場合に新しい値を持った結果を作成します。失敗の場合は、失敗がそのまま返ります。
     /// </summary>
     /// <param name="source">もととなる値を持った結果</param>
     /// <param name="ok">新しい値をもった結果を作成する処理</param>

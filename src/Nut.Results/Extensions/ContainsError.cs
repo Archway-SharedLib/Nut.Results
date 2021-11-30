@@ -9,21 +9,21 @@ namespace Nut.Results;
 public static partial class ResultExtensions
 {
     /// <summary>
-    /// w’è‚µ‚½ <see cref="Result"/> ‚Éw’è‚µ‚½ <see cref="IError"/> ‚ªŠÜ‚Ü‚ê‚é‚©‚Ç‚¤‚©‚ğƒ`ƒFƒbƒN‚µ‚Ü‚·B
+    /// æŒ‡å®šã—ãŸ <see cref="Result"/> ã«æŒ‡å®šã—ãŸ <see cref="IError"/> ãŒå«ã¾ã‚Œã‚‹ã‹ã©ã†ã‹ã‚’ãƒã‚§ãƒƒã‚¯ã—ã¾ã™ã€‚
     /// </summary>
-    /// <param name="source"><see cref="IError"/> ‚ğ‚Á‚Ä‚¢‚é <see cref="Result"/></param>
-    /// <param name="error">ƒ`ƒFƒbƒN‚·‚é <see cref="IError"/></param>
-    /// <returns>ŠÜ‚Ü‚ê‚Ä‚¢‚éê‡‚Í true A‚»‚¤‚Å‚È‚¢ê‡‚Í false</returns>
+    /// <param name="source"><see cref="IError"/> ã‚’æŒã£ã¦ã„ã‚‹ <see cref="Result"/></param>
+    /// <param name="error">ãƒã‚§ãƒƒã‚¯ã™ã‚‹ <see cref="IError"/></param>
+    /// <returns>å«ã¾ã‚Œã¦ã„ã‚‹å ´åˆã¯ true ã€ãã†ã§ãªã„å ´åˆã¯ false</returns>
     public static bool ContainsError(this in Result source, IError error)
         => ContainsError(source, error, null);
 
     /// <summary>
-    /// w’è‚µ‚½ <see cref="Result"/> ‚Éw’è‚µ‚½ <see cref="IError"/> ‚ªŠÜ‚Ü‚ê‚é‚©‚Ç‚¤‚©‚ğƒ`ƒFƒbƒN‚µ‚Ü‚·B
+    /// æŒ‡å®šã—ãŸ <see cref="Result"/> ã«æŒ‡å®šã—ãŸ <see cref="IError"/> ãŒå«ã¾ã‚Œã‚‹ã‹ã©ã†ã‹ã‚’ãƒã‚§ãƒƒã‚¯ã—ã¾ã™ã€‚
     /// </summary>
-    /// <param name="source"><see cref="IError"/> ‚ğ‚Á‚Ä‚¢‚é <see cref="Result"/></param>
-    /// <param name="error">ƒ`ƒFƒbƒN‚·‚é <see cref="IError"/></param>
-    /// <param name="comparer">”äŠr‚·‚éˆ—</param>
-    /// <returns>ŠÜ‚Ü‚ê‚Ä‚¢‚éê‡‚Í true A‚»‚¤‚Å‚È‚¢ê‡‚Í false</returns>
+    /// <param name="source"><see cref="IError"/> ã‚’æŒã£ã¦ã„ã‚‹ <see cref="Result"/></param>
+    /// <param name="error">ãƒã‚§ãƒƒã‚¯ã™ã‚‹ <see cref="IError"/></param>
+    /// <param name="comparer">æ¯”è¼ƒã™ã‚‹å‡¦ç†</param>
+    /// <returns>å«ã¾ã‚Œã¦ã„ã‚‹å ´åˆã¯ true ã€ãã†ã§ãªã„å ´åˆã¯ false</returns>
     public static bool ContainsError(this in Result source, IError error, IEqualityComparer<IError>? comparer)
     {
         if (source.IsOk) return false;
@@ -32,21 +32,21 @@ public static partial class ResultExtensions
     }
 
     /// <summary>
-    /// w’è‚µ‚½ <see cref="Task{Result}"/> ‚Éw’è‚µ‚½ <see cref="IError"/> ‚ªŠÜ‚Ü‚ê‚é‚©‚Ç‚¤‚©‚ğƒ`ƒFƒbƒN‚µ‚Ü‚·B
+    /// æŒ‡å®šã—ãŸ <see cref="Task{Result}"/> ã«æŒ‡å®šã—ãŸ <see cref="IError"/> ãŒå«ã¾ã‚Œã‚‹ã‹ã©ã†ã‹ã‚’ãƒã‚§ãƒƒã‚¯ã—ã¾ã™ã€‚
     /// </summary>
-    /// <param name="source"><see cref="IError"/> ‚ğ‚Á‚Ä‚¢‚é <see cref="Task{Result}"/></param>
-    /// <param name="error">ƒ`ƒFƒbƒN‚·‚é <see cref="IError"/></param>
-    /// <returns>ŠÜ‚Ü‚ê‚Ä‚¢‚éê‡‚Í true A‚»‚¤‚Å‚È‚¢ê‡‚Í false</returns>
+    /// <param name="source"><see cref="IError"/> ã‚’æŒã£ã¦ã„ã‚‹ <see cref="Task{Result}"/></param>
+    /// <param name="error">ãƒã‚§ãƒƒã‚¯ã™ã‚‹ <see cref="IError"/></param>
+    /// <returns>å«ã¾ã‚Œã¦ã„ã‚‹å ´åˆã¯ true ã€ãã†ã§ãªã„å ´åˆã¯ false</returns>
     public static Task<bool> ContainsError(this Task<Result> source, IError error)
         => ContainsError(source, error, null);
 
     /// <summary>
-    /// w’è‚µ‚½ <see cref="Task{Result}"/> ‚Éw’è‚µ‚½ <see cref="IError"/> ‚ªŠÜ‚Ü‚ê‚é‚©‚Ç‚¤‚©‚ğƒ`ƒFƒbƒN‚µ‚Ü‚·B
+    /// æŒ‡å®šã—ãŸ <see cref="Task{Result}"/> ã«æŒ‡å®šã—ãŸ <see cref="IError"/> ãŒå«ã¾ã‚Œã‚‹ã‹ã©ã†ã‹ã‚’ãƒã‚§ãƒƒã‚¯ã—ã¾ã™ã€‚
     /// </summary>
-    /// <param name="source"><see cref="IError"/> ‚ğ‚Á‚Ä‚¢‚é <see cref="Task{Result}"/></param>
-    /// <param name="error">ƒ`ƒFƒbƒN‚·‚é <see cref="IError"/></param>
-    /// <param name="comparer">”äŠr‚·‚éˆ—</param>
-    /// <returns>ŠÜ‚Ü‚ê‚Ä‚¢‚éê‡‚Í true A‚»‚¤‚Å‚È‚¢ê‡‚Í false</returns>
+    /// <param name="source"><see cref="IError"/> ã‚’æŒã£ã¦ã„ã‚‹ <see cref="Task{Result}"/></param>
+    /// <param name="error">ãƒã‚§ãƒƒã‚¯ã™ã‚‹ <see cref="IError"/></param>
+    /// <param name="comparer">æ¯”è¼ƒã™ã‚‹å‡¦ç†</param>
+    /// <returns>å«ã¾ã‚Œã¦ã„ã‚‹å ´åˆã¯ true ã€ãã†ã§ãªã„å ´åˆã¯ false</returns>
     public static async Task<bool> ContainsError(this Task<Result> source, IError error, IEqualityComparer<IError>? comparer)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
