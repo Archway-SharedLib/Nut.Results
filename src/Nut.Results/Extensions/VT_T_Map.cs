@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Nut.Results.Internals;
 
+// ReSharper disable CheckNamespace
 namespace Nut.Results;
 
 public static partial class ResultExtensions
