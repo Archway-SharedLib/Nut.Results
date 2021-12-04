@@ -1,4 +1,4 @@
-﻿using Nut.Results;
+using Nut.Results;
 
 namespace ResultSample.Refactoring_2;
 

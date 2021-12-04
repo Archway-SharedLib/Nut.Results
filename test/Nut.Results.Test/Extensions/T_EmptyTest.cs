@@ -1,7 +1,7 @@
-﻿using FluentAssertions;
-using Nut.Results.FluentAssertions;
 using System;
 using System.Threading.Tasks;
+using FluentAssertions;
+using Nut.Results.FluentAssertions;
 using Xunit;
 
 namespace Nut.Results.Test;

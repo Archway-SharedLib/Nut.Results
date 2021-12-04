@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using SR = Nut.Results.Resources.Strings;
 
-// ReSharper disable CheckNamespace
+
 
 namespace Nut.Results;
 

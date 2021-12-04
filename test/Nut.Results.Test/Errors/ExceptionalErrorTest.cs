@@ -1,6 +1,6 @@
-﻿using FluentAssertions;
 using System;
 using System.Runtime.InteropServices;
+using FluentAssertions;
 using Xunit;
 
 namespace Nut.Results.Test.Errors;

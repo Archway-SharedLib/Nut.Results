@@ -6,7 +6,7 @@ namespace Nut.Results;
 
 public static partial class ResultUnsafeExtensions
 {
-   
+
     /// <summary>
     /// 失敗の結果を使って、新しい<see cref="Result{T}"/>を作成します。
     /// </summary>

@@ -1,4 +1,3 @@
-﻿using Nut.Results.Internals;
 using System;
 using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
@@ -6,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
+using Nut.Results.Internals;
 using SR = Nut.Results.Resources.Strings;
 
 namespace Nut.Results;

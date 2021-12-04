@@ -1,10 +1,10 @@
-﻿using FluentAssertions;
-using FluentAssertions.Execution;
-using FluentAssertions.Primitives;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
+using FluentAssertions;
+using FluentAssertions.Execution;
+using FluentAssertions.Primitives;
 
 namespace Nut.Results.FluentAssertions;
 

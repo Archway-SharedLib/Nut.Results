@@ -1,11 +1,11 @@
-﻿using FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using FluentAssertions;
 using Xunit;
 
-// ReSharper disable CheckNamespace
+
 
 namespace Nut.Results.Test;
 

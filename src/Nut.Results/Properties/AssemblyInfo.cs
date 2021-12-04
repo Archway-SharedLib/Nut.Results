@@ -1,3 +1,3 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 
-[assembly:InternalsVisibleTo("Nut.Results.Test")]
+[assembly: InternalsVisibleTo("Nut.Results.Test")]

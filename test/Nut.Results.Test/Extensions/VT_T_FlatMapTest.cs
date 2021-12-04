@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xunit;
-using Nut.Results.FluentAssertions;
 using FluentAssertions;
+using Nut.Results.FluentAssertions;
+using Xunit;
 
 namespace Nut.Results.Test;
 

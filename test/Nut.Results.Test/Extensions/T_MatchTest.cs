@@ -1,16 +1,16 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
-using Xunit;
 using Nut.Results.FluentAssertions;
+using Xunit;
 
-// ReSharper disable CheckNamespace
+
 
 namespace Nut.Results.Test;
 
 public class T_MatchTest
 {
-    // result<T> to result--- 
+    // result<T> to result---
 
     [Fact]
     public void T2R_SSS_okがnullの場合は例外が発生する()
@@ -66,7 +66,7 @@ public class T_MatchTest
         executedError.Should().BeTrue();
     }
 
-    // result<T> to result--- 
+    // result<T> to result---
 
     [Fact]
     public void T2R_SAS_okがnullの場合は例外が発生する()
@@ -122,7 +122,7 @@ public class T_MatchTest
         executedError.Should().BeTrue();
     }
 
-    // result<T> to result--- 
+    // result<T> to result---
 
     [Fact]
     public void T2R_SSA_okがnullの場合は例外が発生する()
@@ -177,7 +177,7 @@ public class T_MatchTest
         executedError.Should().BeTrue();
     }
 
-    // result<T> to result--- 
+    // result<T> to result---
 
     [Fact]
     public void T2R_SAA_okがnullの場合は例外が発生する()
@@ -233,7 +233,7 @@ public class T_MatchTest
         executedError.Should().BeTrue();
     }
 
-    // result<T> to result--- 
+    // result<T> to result---
 
     [Fact]
     public async Task T2R_ASS_sourceがnullの場合は例外が発生する()
@@ -296,7 +296,7 @@ public class T_MatchTest
         executedError.Should().BeTrue();
     }
 
-    // result<T> to result--- 
+    // result<T> to result---
 
     [Fact]
     public async Task T2R_AAS_sourceがnullの場合は例外が発生する()
@@ -359,7 +359,7 @@ public class T_MatchTest
         executedError.Should().BeTrue();
     }
 
-    // result<T> to result--- 
+    // result<T> to result---
 
     [Fact]
     public async Task T2R_ASA_sourceがnullの場合は例外が発生する()
@@ -422,7 +422,7 @@ public class T_MatchTest
         executedError.Should().BeTrue();
     }
 
-    // result<T> to result--- 
+    // result<T> to result---
 
     [Fact]
     public async Task T2R_AAA_sourceがnullの場合は例外が発生する()
@@ -486,7 +486,7 @@ public class T_MatchTest
     }
 
     // -----------------------------------------------------------------------------
-    // result<T> to result<T>--- 
+    // result<T> to result<T>---
 
     [Fact]
     public void T2T_SSS_okがnullの場合は例外が発生する()
@@ -541,7 +541,7 @@ public class T_MatchTest
         executedError.Should().BeTrue();
     }
 
-    // result<T> to result<T>--- 
+    // result<T> to result<T>---
 
     [Fact]
     public void T2T_SAS_okがnullの場合は例外が発生する()
@@ -596,7 +596,7 @@ public class T_MatchTest
         executedError.Should().BeTrue();
     }
 
-    // result<T> to result<T>--- 
+    // result<T> to result<T>---
 
     [Fact]
     public void T2T_SSA_okがnullの場合は例外が発生する()
@@ -651,7 +651,7 @@ public class T_MatchTest
         executedError.Should().BeTrue();
     }
 
-    // result<T> to result<T>--- 
+    // result<T> to result<T>---
 
     [Fact]
     public void T2T_SAA_okがnullの場合は例外が発生する()
@@ -706,7 +706,7 @@ public class T_MatchTest
         executedError.Should().BeTrue();
     }
 
-    // result<T> to result<T>--- 
+    // result<T> to result<T>---
 
     [Fact]
     public async Task T2T_ASS_sourceがnullの場合は例外が発生する()
@@ -768,7 +768,7 @@ public class T_MatchTest
         executedError.Should().BeTrue();
     }
 
-    // result<T> to result<T>--- 
+    // result<T> to result<T>---
 
     [Fact]
     public async Task T2T_AAS_sourceがnullの場合は例外が発生する()
@@ -830,7 +830,7 @@ public class T_MatchTest
         executedError.Should().BeTrue();
     }
 
-    // result<T> to result<T>--- 
+    // result<T> to result<T>---
 
     [Fact]
     public async Task T2T_ASA_sourceがnullの場合は例外が発生する()
@@ -892,7 +892,7 @@ public class T_MatchTest
         executedError.Should().BeTrue();
     }
 
-    // result<T> to result<T>--- 
+    // result<T> to result<T>---
 
     [Fact]
     public async Task T2T_AAA_sourceがnullの場合は例外が発生する()
