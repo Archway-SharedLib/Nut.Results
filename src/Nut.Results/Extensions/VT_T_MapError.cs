@@ -13,7 +13,7 @@ public static partial class ResultExtensions
     /// <param name="error">新しい失敗の値を作成する処理</param>
     /// <typeparam name="TError">失敗の型</typeparam>
     /// <returns>新しい失敗の値を持った結果</returns>
-    public static async ValueTask<Result<T>> MapError<T,TError>(this ValueTask<Result<T>> source, Func<IError, TError> error) where TError : IError
+    public static async ValueTask<Result<T>> MapError<T, TError>(this ValueTask<Result<T>> source, Func<IError, TError> error) where TError : IError
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
         var value = await source.ConfigureAwait(false);
