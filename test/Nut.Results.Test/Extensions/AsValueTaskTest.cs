@@ -1,8 +1,6 @@
 using System.Threading.Tasks;
-using Xunit;
 using Nut.Results.FluentAssertions;
-
-// ReSharper disable CheckNamespace
+using Xunit;
 
 namespace Nut.Results.Test;
 

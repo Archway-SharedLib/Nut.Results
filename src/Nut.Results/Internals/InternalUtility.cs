@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 using SR = Nut.Results.Resources.Strings;
 
 namespace Nut.Results.Internals;

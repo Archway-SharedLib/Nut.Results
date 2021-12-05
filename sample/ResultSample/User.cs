@@ -1,4 +1,4 @@
-﻿namespace ResultSample;
+namespace ResultSample;
 
 public class User
 {

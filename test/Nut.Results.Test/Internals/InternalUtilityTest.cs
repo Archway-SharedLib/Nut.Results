@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using Nut.Results.Internals;
 using Xunit;
 

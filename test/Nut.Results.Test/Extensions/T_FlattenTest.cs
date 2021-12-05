@@ -1,9 +1,9 @@
-﻿using Nut.Results.FluentAssertions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Nut.Results.FluentAssertions;
 using Xunit;
 
 namespace Nut.Results.Test;

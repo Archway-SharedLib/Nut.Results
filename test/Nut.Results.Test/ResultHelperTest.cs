@@ -1,7 +1,7 @@
-﻿using FluentAssertions;
-using Nut.Results.FluentAssertions;
 using System;
 using System.Threading.Tasks;
+using FluentAssertions;
+using Nut.Results.FluentAssertions;
 using Xunit;
 
 namespace Nut.Results.Test;
@@ -171,7 +171,7 @@ public class ResultHelperTest
     public void TryGetErrorValue_失敗の値が取得できて結果はtrueが返るべき()
     {
         var error = new Error();
-        var result = ResultHelper.TryGetErrorValue(Result.Error(error), out IError value);
+        var result = ResultHelper.TryGetErrorValue(Result.Error(error), out var value);
         result.Should().BeTrue();
         value.Should().Be(error);
     }
@@ -179,7 +179,7 @@ public class ResultHelperTest
     [Fact]
     public void TryGetErrorValue_成功の場合は結果はfalseが返るべき()
     {
-        var result = ResultHelper.TryGetErrorValue(Result.Ok(), out IError value);
+        var result = ResultHelper.TryGetErrorValue(Result.Ok(), out var value);
         result.Should().BeFalse();
         value.Should().BeNull();
     }
@@ -188,7 +188,7 @@ public class ResultHelperTest
     public void T_TryGetErrorValue_失敗の値が取得できて結果はtrueが返るべき()
     {
         var error = new Error();
-        var result = ResultHelper.TryGetErrorValue(Result.Error<string>(error), out IError value);
+        var result = ResultHelper.TryGetErrorValue(Result.Error<string>(error), out var value);
         result.Should().BeTrue();
         value.Should().Be(error);
     }
@@ -196,7 +196,7 @@ public class ResultHelperTest
     [Fact]
     public void T_TryGetErrorValue_成功の場合は結果はfalseが返るべき()
     {
-        var result = ResultHelper.TryGetErrorValue(Result.Ok("Hello"), out IError value);
+        var result = ResultHelper.TryGetErrorValue(Result.Ok("Hello"), out var value);
         result.Should().BeFalse();
         value.Should().BeNull();
     }
@@ -204,7 +204,7 @@ public class ResultHelperTest
     [Fact]
     public void TryGetErrorValue_Resultでない場合はfalseが返るべき()
     {
-        var result = ResultHelper.TryGetErrorValue(new Error(), out IError value);
+        var result = ResultHelper.TryGetErrorValue(new Error(), out var value);
         result.Should().BeFalse();
         value.Should().BeNull();
     }
@@ -212,7 +212,7 @@ public class ResultHelperTest
     [Fact]
     public void TryGetErrorValue_nullの場合はfalseが返るべき()
     {
-        var result = ResultHelper.TryGetErrorValue(null, out IError value);
+        var result = ResultHelper.TryGetErrorValue(null, out var value);
         result.Should().BeFalse();
         value.Should().BeNull();
     }

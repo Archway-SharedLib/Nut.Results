@@ -1,8 +1,8 @@
-﻿using FluentAssertions;
-using Xunit;
-using Nut.Results.FluentAssertions;
-using System.Threading.Tasks;
 using System;
+using System.Threading.Tasks;
+using FluentAssertions;
+using Nut.Results.FluentAssertions;
+using Xunit;
 
 namespace Nut.Results.Test;
 

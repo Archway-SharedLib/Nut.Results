@@ -1,5 +1,3 @@
-// ReSharper disable CheckNamespace
-
 using System.Threading.Tasks;
 
 namespace Nut.Results;

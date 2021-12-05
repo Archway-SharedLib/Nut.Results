@@ -2,7 +2,7 @@ using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
-// ReSharper disable CheckNamespace
+
 
 namespace Nut.Results.Test;
 

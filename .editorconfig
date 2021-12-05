@@ -41,12 +41,6 @@ csharp_indent_labels = one_less_than_current
 # Modifier preferences
 csharp_preferred_modifier_order = public,private,protected,internal,static,extern,new,virtual,abstract,sealed,override,readonly,unsafe,volatile,async:suggestion
 
-# avoid this. unless absolutely necessary
-dotnet_style_qualification_for_field = false:suggestion
-dotnet_style_qualification_for_property = false:suggestion
-dotnet_style_qualification_for_method = false:suggestion
-dotnet_style_qualification_for_event = false:suggestion
-
 # Types: use keywords instead of BCL types, and permit var only when the type is clear
 csharp_style_var_for_built_in_types =true:warning
 csharp_style_var_when_type_is_apparent =true:warning
@@ -154,12 +148,14 @@ csharp_space_between_method_declaration_parameter_list_parentheses = false
 csharp_space_between_parentheses = false
 csharp_space_between_square_brackets = false
 
-# カスタム
+# custom
+charset = utf-8
+end_of_line = lf
 dotnet_style_qualification_for_field=false:error
 dotnet_style_qualification_for_property=false:error
 dotnet_style_qualification_for_method=false:error
 dotnet_style_qualification_for_event=false:error
-# IDE1006: 命名スタイル
+# IDE1006: custom
 dotnet_diagnostic.IDE1006.severity = error
 csharp_style_namespace_declarations=file_scoped:error
 
@@ -198,3 +194,7 @@ indent_size = 2
 end_of_line = lf
 [*.{cmd,bat}]
 end_of_line = crlf
+
+[.editorconfig]
+end_of_line = lf
+charset = utf-8

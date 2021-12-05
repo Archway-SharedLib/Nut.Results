@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-// ReSharper disable CheckNamespace
+
 namespace Nut.Results;
 
 public static partial class ResultExtensions
@@ -8,6 +8,13 @@ public static partial class ResultExtensions
     // Void -> Void
 
     // sync - sync Void -> Void
+
+    /// <summary>
+    /// 失敗だった場合に新しい値を持った結果を作成します。成功の場合は、成功がそのまま返ります。
+    /// </summary>
+    /// <param name="source">もととなる結果</param>
+    /// <param name="error">新しい結果の値を作成する処理</param>
+    /// <returns>新しい値を持った結果</returns>
     public static Result FlatMapError(this in Result source, Func<IError, Result> error)
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
@@ -15,6 +22,13 @@ public static partial class ResultExtensions
     }
 
     //async - sync Void -> Void
+
+    /// <summary>
+    /// 失敗だった場合に新しい値を持った結果を作成します。成功の場合は、成功がそのまま返ります。
+    /// </summary>
+    /// <param name="source">もととなる結果</param>
+    /// <param name="error">新しい結果の値を作成する処理</param>
+    /// <returns>新しい値を持った結果</returns>
     public static async Task<Result> FlatMapError(this Task<Result> source, Func<IError, Result> error)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
@@ -25,6 +39,13 @@ public static partial class ResultExtensions
     }
 
     //sync - async Void -> Void
+
+    /// <summary>
+    /// 失敗だった場合に新しい値を持った結果を作成します。成功の場合は、成功がそのまま返ります。
+    /// </summary>
+    /// <param name="source">もととなる結果</param>
+    /// <param name="error">新しい結果の値を作成する処理</param>
+    /// <returns>新しい値を持った結果</returns>
     public static async Task<Result> FlatMapError(this Result source, Func<IError, Task<Result>> error)
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
@@ -34,6 +55,13 @@ public static partial class ResultExtensions
     }
 
     //async - async Void -> Void
+
+    /// <summary>
+    /// 失敗だった場合に新しい値を持った結果を作成します。成功の場合は、成功がそのまま返ります。
+    /// </summary>
+    /// <param name="source">もととなる結果</param>
+    /// <param name="error">新しい結果の値を作成する処理</param>
+    /// <returns>新しい値を持った結果</returns>
     public static async Task<Result> FlatMapError(this Task<Result> source, Func<IError, Task<Result>> error)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));

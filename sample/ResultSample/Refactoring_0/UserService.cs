@@ -1,4 +1,4 @@
-﻿namespace ResultSample.Refactoring_0;
+namespace ResultSample.Refactoring_0;
 
 public class UserService
 {
