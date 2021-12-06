@@ -11,7 +11,7 @@ public class Tap_T
     [Fact]
     public void SyncSync_Okパラメーターが指定されていない場合は例外が発生する()
     {
-        Action act = () => Result.Ok("success").Tap(null as Action<string>);
+        var act = () => Result.Ok("success").Tap(null as Action<string>);
         act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("ok");
     }
 
@@ -47,7 +47,7 @@ public class Tap_T
     [Fact]
     public async Task AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
     {
-        Func<Task> act = () => Result.Ok("string").AsTask().Tap(null as Action<string>);
+        var act = () => Result.Ok("string").AsTask().Tap(null as Action<string>);
         var result = await act.Should().ThrowAsync<ArgumentNullException>();
         result.And.ParamName.Should().Be("ok");
     }
@@ -55,7 +55,7 @@ public class Tap_T
     [Fact]
     public async Task AsyncSync_sourceが指定されていない場合は例外が発生する()
     {
-        Func<Task> act = () => ResultExtensions.Tap(null as Task<Result<string>>, new Action<string>(_ => { }));
+        var act = () => ResultExtensions.Tap(null as Task<Result<string>>, new Action<string>(_ => { }));
         var result = await act.Should().ThrowAsync<ArgumentNullException>();
         result.And.ParamName.Should().Be("source");
     }
@@ -91,7 +91,7 @@ public class Tap_T
     [Fact]
     public async Task SyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
     {
-        Func<Task> act = () => Result.Ok("success").Tap(null as Func<string, Task>);
+        var act = () => Result.Ok("success").Tap(null as Func<string, Task>);
         var result = await act.Should().ThrowAsync<ArgumentNullException>();
         result.And.ParamName.Should().Be("ok");
     }
@@ -134,7 +134,7 @@ public class Tap_T
     [Fact]
     public async Task AsyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
     {
-        Func<Task> act = () => Result.Ok("success").AsTask().Tap(null as Func<string, Task>);
+        var act = () => Result.Ok("success").AsTask().Tap(null as Func<string, Task>);
         var result = await act.Should().ThrowAsync<ArgumentNullException>();
         result.And.ParamName.Should().Be("ok");
     }
@@ -142,7 +142,7 @@ public class Tap_T
     [Fact]
     public async Task AsyncAsync_sourceが指定されていない場合は例外が発生する()
     {
-        Func<Task> act = () => ResultExtensions.Tap(null as Task<Result<string>>, _ => { return Task.Run(() => { }); });
+        var act = () => ResultExtensions.Tap(null as Task<Result<string>>, _ => { return Task.Run(() => { }); });
         var result = await act.Should().ThrowAsync<ArgumentNullException>();
         result.And.ParamName.Should().Be("source");
     }

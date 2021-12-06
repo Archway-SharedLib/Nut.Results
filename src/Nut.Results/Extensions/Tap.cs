@@ -5,7 +5,12 @@ namespace Nut.Results;
 
 public static partial class ResultExtensions
 {
-    //sync - sync
+    /// <summary>
+    /// 成功の場合に、指定された処理を行いもとの値を返します。
+    /// </summary>
+    /// <param name="source">処理を実行するかどうかの値</param>
+    /// <param name="ok">特定の処理</param>
+    /// <returns>もとの値</returns>
     public static Result Tap(this in Result source, Action ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
@@ -13,7 +18,12 @@ public static partial class ResultExtensions
         return source;
     }
 
-    //async - sync
+    /// <summary>
+    /// 成功の場合に、指定された処理を行いもとの値を返します。
+    /// </summary>
+    /// <param name="source">処理を実行するかどうかの値</param>
+    /// <param name="ok">特定の処理</param>
+    /// <returns>もとの値</returns>
     public static async Task<Result> Tap(this Task<Result> source, Action ok)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
@@ -25,7 +35,12 @@ public static partial class ResultExtensions
         return result;
     }
 
-    //sync - async
+    /// <summary>
+    /// 成功の場合に、指定された処理を行いもとの値を返します。
+    /// </summary>
+    /// <param name="source">処理を実行するかどうかの値</param>
+    /// <param name="ok">特定の処理</param>
+    /// <returns>もとの値</returns>
     public static async Task<Result> Tap(this Result source, Func<Task> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
@@ -33,7 +48,12 @@ public static partial class ResultExtensions
         return source;
     }
 
-    //async - async
+    /// <summary>
+    /// 成功の場合に、指定された処理を行いもとの値を返します。
+    /// </summary>
+    /// <param name="source">処理を実行するかどうかの値</param>
+    /// <param name="ok">特定の処理</param>
+    /// <returns>もとの値</returns>
     public static async Task<Result> Tap(this Task<Result> source, Func<Task> ok)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
