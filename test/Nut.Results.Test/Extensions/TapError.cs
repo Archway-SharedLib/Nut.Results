@@ -11,7 +11,7 @@ public class TapError
     [Fact]
     public void SyncSync_Errorパラメーターが指定されていない場合は例外が発生する()
     {
-        Action act = () => Result.Ok().TapError(null as Action<IError>);
+        var act = () => Result.Ok().TapError(null as Action<IError>);
         act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("error");
     }
 
@@ -48,7 +48,7 @@ public class TapError
     [Fact]
     public async Task AsyncSync_Errorパラメーターが指定されていない場合は例外が発生する()
     {
-        Func<Task> act = () => Result.Ok().AsTask().TapError(null as Action<IError>);
+        var act = () => Result.Ok().AsTask().TapError(null as Action<IError>);
         var result = await act.Should().ThrowAsync<ArgumentNullException>();
         result.And.ParamName.Should().Be("error");
     }
@@ -56,7 +56,7 @@ public class TapError
     [Fact]
     public async Task AsyncSync_sourceが指定されていない場合は例外が発生する()
     {
-        Func<Task> act = () => ResultExtensions.TapError(null as Task<Result>, _ => { });
+        var act = () => ResultExtensions.TapError(null as Task<Result>, _ => { });
         var result = await act.Should().ThrowAsync<ArgumentNullException>();
         result.And.ParamName.Should().Be("source");
     }
@@ -93,7 +93,7 @@ public class TapError
     [Fact]
     public async Task SyncAsync_Errorパラメーターが指定されていない場合は例外が発生する()
     {
-        Func<Task> act = () => Result.Ok().TapError(null as Func<IError, Task>);
+        var act = () => Result.Ok().TapError(null as Func<IError, Task>);
         var result = await act.Should().ThrowAsync<ArgumentNullException>();
         result.And.ParamName.Should().Be("error");
     }
@@ -137,7 +137,7 @@ public class TapError
     [Fact]
     public async Task AsyncAsync_Errorパラメーターが指定されていない場合は例外が発生する()
     {
-        Func<Task> act = () => Result.Ok().AsTask().TapError(null as Func<IError, Task>);
+        var act = () => Result.Ok().AsTask().TapError(null as Func<IError, Task>);
         var result = await act.Should().ThrowAsync<ArgumentNullException>();
         result.And.ParamName.Should().Be("error");
     }
@@ -145,7 +145,7 @@ public class TapError
     [Fact]
     public async Task AsyncAsync_sourceが指定されていない場合は例外が発生する()
     {
-        Func<Task> act = () => ResultExtensions.TapError(null as Task<Result>, _ => Task.Run(() => { }));
+        var act = () => ResultExtensions.TapError(null as Task<Result>, _ => Task.Run(() => { }));
         var result = await act.Should().ThrowAsync<ArgumentNullException>();
         result.And.ParamName.Should().Be("source");
     }

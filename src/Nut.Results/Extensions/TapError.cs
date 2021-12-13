@@ -5,7 +5,12 @@ namespace Nut.Results;
 
 public static partial class ResultExtensions
 {
-    //sync - sync
+    /// <summary>
+    /// 失敗の場合に、指定された処理を行いもとの値を返します。
+    /// </summary>
+    /// <param name="source">処理を実行するかどうかの値</param>
+    /// <param name="error">特定の処理</param>
+    /// <returns>もとの値</returns>
     public static Result TapError(this in Result source, Action<IError> error)
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
@@ -13,7 +18,12 @@ public static partial class ResultExtensions
         return source;
     }
 
-    //async - sync
+    /// <summary>
+    /// 失敗の場合に、指定された処理を行いもとの値を返します。
+    /// </summary>
+    /// <param name="source">処理を実行するかどうかの値</param>
+    /// <param name="error">特定の処理</param>
+    /// <returns>もとの値</returns>
     public static async Task<Result> TapError(this Task<Result> source, Action<IError> error)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
@@ -25,7 +35,12 @@ public static partial class ResultExtensions
         return result;
     }
 
-    //sync - async
+    /// <summary>
+    /// 失敗の場合に、指定された処理を行いもとの値を返します。
+    /// </summary>
+    /// <param name="source">処理を実行するかどうかの値</param>
+    /// <param name="error">特定の処理</param>
+    /// <returns>もとの値</returns>
     public static async Task<Result> TapError(this Result source, Func<IError, Task> error)
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
@@ -33,7 +48,12 @@ public static partial class ResultExtensions
         return source;
     }
 
-    //async - async
+    /// <summary>
+    /// 失敗の場合に、指定された処理を行いもとの値を返します。
+    /// </summary>
+    /// <param name="source">処理を実行するかどうかの値</param>
+    /// <param name="error">特定の処理</param>
+    /// <returns>もとの値</returns>
     public static async Task<Result> TapError(this Task<Result> source, Func<IError, Task> error)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));

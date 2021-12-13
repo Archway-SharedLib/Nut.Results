@@ -10,29 +10,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">処理を実行するかどうかの値</param>
     /// <param name="error">特定の処理</param>
-    /// <typeparam name="T">成功の型</typeparam>
     /// <returns>もとの値</returns>
-    public static Result<T> TapError<T>(this in Result<T> source, Action<IError> error)
+    public static async ValueTask<Result> TapError(this ValueTask<Result> source, Action<IError> error)
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
-        if (source.IsError) error(source._errorValue);
-        return source;
-    }
-
-    /// <summary>
-    /// 失敗の場合に、指定された処理を行いもとの値を返します。
-    /// </summary>
-    /// <param name="source">処理を実行するかどうかの値</param>
-    /// <param name="error">特定の処理</param>
-    /// <typeparam name="T">成功の型</typeparam>
-    /// <returns>もとの値</returns>
-    public static async Task<Result<T>> TapError<T>(this Task<Result<T>> source, Action<IError> error)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (error is null) throw new ArgumentNullException(nameof(error));
-
         var result = await source.ConfigureAwait(false);
-
         if (result.IsError) error(result._errorValue);
         return result;
     }
@@ -42,12 +24,12 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">処理を実行するかどうかの値</param>
     /// <param name="error">特定の処理</param>
-    /// <typeparam name="T">成功の型</typeparam>
     /// <returns>もとの値</returns>
-    public static async Task<Result<T>> TapError<T>(this Result<T> source, Func<IError, Task> error)
+    public static async ValueTask<Result> TapError(this Result source, Func<IError, ValueTask> error)
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
-        if (source.IsError) await error(source._errorValue).ConfigureAwait(false);
+
+        if (source.IsError) await error(source._errorValue);
         return source;
     }
 
@@ -56,11 +38,40 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">処理を実行するかどうかの値</param>
     /// <param name="error">特定の処理</param>
-    /// <typeparam name="T">成功の型</typeparam>
     /// <returns>もとの値</returns>
-    public static async Task<Result<T>> TapError<T>(this Task<Result<T>> source, Func<IError, Task> error)
+    public static async ValueTask<Result> TapError(this ValueTask<Result> source, Func<IError, Task> error)
+    {
+        if (error is null) throw new ArgumentNullException(nameof(error));
+        var result = await source.ConfigureAwait(false);
+
+        if (result.IsError) await error(result._errorValue).ConfigureAwait(false);
+        return result;
+    }
+
+    /// <summary>
+    /// 失敗の場合に、指定された処理を行いもとの値を返します。
+    /// </summary>
+    /// <param name="source">処理を実行するかどうかの値</param>
+    /// <param name="error">特定の処理</param>
+    /// <returns>もとの値</returns>
+    public static async ValueTask<Result> TapError(this Task<Result> source, Func<IError, ValueTask> error)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
+        if (error is null) throw new ArgumentNullException(nameof(error));
+
+        var result = await source.ConfigureAwait(false);
+        if (result.IsError) await error(result._errorValue).ConfigureAwait(false);
+        return result;
+    }
+
+    /// <summary>
+    /// 失敗の場合に、指定された処理を行いもとの値を返します。
+    /// </summary>
+    /// <param name="source">処理を実行するかどうかの値</param>
+    /// <param name="error">特定の処理</param>
+    /// <returns>もとの値</returns>
+    public static async ValueTask<Result> TapError(this ValueTask<Result> source, Func<IError, ValueTask> error)
+    {
         if (error is null) throw new ArgumentNullException(nameof(error));
         var result = await source.ConfigureAwait(false);
 
