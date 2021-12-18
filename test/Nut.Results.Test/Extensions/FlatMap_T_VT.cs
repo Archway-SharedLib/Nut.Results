@@ -14,18 +14,18 @@ public class FlatMap_T_VT
     // VT<R> to R...
 
     [Fact]
-    public static async Task ValTaskResT_ReturnRes_okパラメーターが指定されていない場合は例外が発生する()
+    public async Task ValTaskResT_ReturnRes_okパラメーターが指定されていない場合は例外が発生する()
     {
-        var act = () => Result.Ok("text").AsValueTask().FlatMap((Func<Result>)null).AsTask();
+        var act = () => Result.Ok("text").AsValueTask().FlatMap((Func<string, Result>)null).AsTask();
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public static async Task ValTaskResT_ReturnRes_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
+    public async Task ValTaskResT_ReturnRes_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Error<string>(error).AsValueTask().FlatMap(() =>
+        var result = await Result.Error<string>(error).AsValueTask().FlatMap(_ =>
         {
             executed = true;
             return Result.Ok();
@@ -36,11 +36,11 @@ public class FlatMap_T_VT
     }
 
     [Fact]
-    public static async Task ValTaskResT_ReturnRes_成功の場合はOkアクションが実行されて結果が返る()
+    public async Task ValTaskResT_ReturnRes_成功の場合はOkアクションが実行されて結果が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Ok("text").AsValueTask().FlatMap(() =>
+        var result = await Result.Ok("text").AsValueTask().FlatMap(_ =>
         {
             executed = true;
             return Result.Error(error);
@@ -50,21 +50,37 @@ public class FlatMap_T_VT
         result.Should().BeError().And.Match(v => v == error);
     }
 
+    [Fact]
+    public async Task ValTaskResT_ReturnRes_okの引数には成功の値が設定される()
+    {
+        var error = new Error();
+        var expected = "text";
+        string actual = null;
+        var result = await Result.Ok(expected).AsValueTask().FlatMap(v =>
+        {
+            actual = v;
+            return Result.Error(error);
+        });
+
+        actual.Should().Be(expected);
+        result.Should().BeError().And.Match(v => v == error);
+    }
+
     //--
 
     [Fact]
-    public static async Task ValTaskResT_ReturnTaskRes_okパラメーターが指定されていない場合は例外が発生する()
+    public async Task ValTaskResT_ReturnTaskRes_okパラメーターが指定されていない場合は例外が発生する()
     {
-        var act = () => Result.Ok("text").AsValueTask().FlatMap((Func<Task<Result>>)null).AsTask();
+        var act = () => Result.Ok("text").AsValueTask().FlatMap((Func<string, Task<Result>>)null).AsTask();
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public static async Task ValTaskResT_ReturnTaskRes_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
+    public async Task ValTaskResT_ReturnTaskRes_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Error<string>(error).AsValueTask().FlatMap(() =>
+        var result = await Result.Error<string>(error).AsValueTask().FlatMap(_ =>
         {
             executed = true;
             return Result.Ok().AsTask();
@@ -75,11 +91,11 @@ public class FlatMap_T_VT
     }
 
     [Fact]
-    public static async Task ValTaskResT_ReturnTaskRes_成功の場合はOkアクションが実行されて結果が返る()
+    public async Task ValTaskResT_ReturnTaskRes_成功の場合はOkアクションが実行されて結果が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Ok("text").AsValueTask().FlatMap(() =>
+        var result = await Result.Ok("text").AsValueTask().FlatMap(_ =>
         {
             executed = true;
             return Result.Error(error).AsTask();
@@ -89,21 +105,37 @@ public class FlatMap_T_VT
         result.Should().BeError().And.Match(v => v == error);
     }
 
+    [Fact]
+    public async Task ValTaskResT_ReturnTaskRes_okの引数には成功の値が設定される()
+    {
+        var error = new Error();
+        var expected = "text";
+        string actual = null;
+        var result = await Result.Ok(expected).AsValueTask().FlatMap(v =>
+        {
+            actual = v;
+            return Result.Error(error).AsTask();
+        });
+
+        actual.Should().Be(expected);
+        result.Should().BeError().And.Match(v => v == error);
+    }
+
     //--
 
     [Fact]
-    public static async Task ValTaskResT_ReturnValTaskRes_okパラメーターが指定されていない場合は例外が発生する()
+    public async Task ValTaskResT_ReturnValTaskRes_okパラメーターが指定されていない場合は例外が発生する()
     {
-        var act = () => Result.Ok("text").AsValueTask().FlatMap((Func<ValueTask<Result>>)null).AsTask();
+        var act = () => Result.Ok("text").AsValueTask().FlatMap((Func<string, ValueTask<Result>>)null).AsTask();
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public static async Task ValTaskResT_ReturnValTaskRes_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
+    public async Task ValTaskResT_ReturnValTaskRes_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Error<string>(error).AsValueTask().FlatMap(() =>
+        var result = await Result.Error<string>(error).AsValueTask().FlatMap(_ =>
         {
             executed = true;
             return Result.Ok().AsValueTask();
@@ -114,11 +146,11 @@ public class FlatMap_T_VT
     }
 
     [Fact]
-    public static async Task ValTaskResT_ReturnValTaskRes_成功の場合はOkアクションが実行されて結果が返る()
+    public async Task ValTaskResT_ReturnValTaskRes_成功の場合はOkアクションが実行されて結果が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Ok("text").AsValueTask().FlatMap(() =>
+        var result = await Result.Ok("text").AsValueTask().FlatMap(_ =>
         {
             executed = true;
             return Result.Error(error).AsValueTask();
@@ -128,21 +160,37 @@ public class FlatMap_T_VT
         result.Should().BeError().And.Match(v => v == error);
     }
 
-    // R to VT<R>...
+    [Fact]
+    public async Task ValTaskResT_ReturnValTaskRes_okの引数には成功の値が設定される()
+    {
+        var error = new Error();
+        var expected = "text";
+        string actual = null;
+        var result = await Result.Ok(expected).AsValueTask().FlatMap(v =>
+        {
+            actual = v;
+            return Result.Error(error).AsValueTask();
+        });
+
+        actual.Should().Be(expected);
+        result.Should().BeError().And.Match(v => v == error);
+    }
+
+    // ...
 
     [Fact]
-    public static async Task ResT_ReturnValTaskRes_okパラメーターが指定されていない場合は例外が発生する()
+    public async Task ResT_ReturnValTaskRes_okパラメーターが指定されていない場合は例外が発生する()
     {
-        var act = () => Result.Ok("text").FlatMap((Func<ValueTask<Result>>)null).AsTask();
+        var act = () => Result.Ok("text").FlatMap((Func<string, ValueTask<Result>>)null).AsTask();
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public static async Task ResT_ReturnValTaskRes_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
+    public async Task ResT_ReturnValTaskRes_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Error<string>(error).FlatMap(() =>
+        var result = await Result.Error<string>(error).FlatMap(_ =>
         {
             executed = true;
             return Result.Ok().AsValueTask();
@@ -153,11 +201,11 @@ public class FlatMap_T_VT
     }
 
     [Fact]
-    public static async Task ResT_ReturnValTaskRes_成功の場合はOkアクションが実行されて結果が返る()
+    public async Task ResT_ReturnValTaskRes_成功の場合はOkアクションが実行されて結果が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Ok("text").FlatMap(() =>
+        var result = await Result.Ok("text").FlatMap(_ =>
         {
             executed = true;
             return Result.Error(error).AsValueTask();
@@ -166,29 +214,46 @@ public class FlatMap_T_VT
         executed.Should().BeTrue();
         result.Should().BeError().And.Match(v => v == error);
     }
+
+    [Fact]
+    public async Task ResT_ReturnValTaskRes_okの引数には成功の値が設定される()
+    {
+        var error = new Error();
+        var expected = "text";
+        string actual = null;
+        var result = await Result.Ok(expected).FlatMap(v =>
+        {
+            actual = v;
+            return Result.Error(error).AsValueTask();
+        });
+
+        actual.Should().Be(expected);
+        result.Should().BeError().And.Match(v => v == error);
+    }
+
 
     //---
 
     [Fact]
-    public static async Task TaskResT_ReturnValTaskRes_okパラメーターが指定されていない場合は例外が発生する()
+    public async Task TaskResT_ReturnValTaskRes_okパラメーターが指定されていない場合は例外が発生する()
     {
-        var act = () => Result.Ok("text").AsTask().FlatMap((Func<ValueTask<Result>>)null).AsTask();
+        var act = () => Result.Ok("text").AsTask().FlatMap((Func<string, ValueTask<Result>>)null).AsTask();
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public static async Task TaskResT_ReturnValTaskRes_sourceパラメーターが指定されていない場合は例外が発生する()
+    public async Task TaskResT_ReturnValTaskRes_sourceパラメーターが指定されていない場合は例外が発生する()
     {
-        var act = () => ResultExtensions.FlatMap((Task<Result<string>>)null, () => Result.Ok().AsValueTask()).AsTask();
+        var act = () => ResultExtensions.FlatMap((Task<Result<string>>)null, _ => Result.Ok().AsValueTask()).AsTask();
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public static async Task TaskResT_ReturnValTaskRes_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
+    public async Task TaskResT_ReturnValTaskRes_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Error<string>(error).AsTask().FlatMap(() =>
+        var result = await Result.Error<string>(error).AsTask().FlatMap(_ =>
         {
             executed = true;
             return Result.Ok().AsValueTask();
@@ -199,11 +264,11 @@ public class FlatMap_T_VT
     }
 
     [Fact]
-    public static async Task TaskResT_ReturnValTaskRes_成功の場合はOkアクションが実行されて結果が返る()
+    public async Task TaskResT_ReturnValTaskRes_成功の場合はOkアクションが実行されて結果が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Ok("text").AsTask().FlatMap(() =>
+        var result = await Result.Ok("text").AsTask().FlatMap(_ =>
         {
             executed = true;
             return Result.Error(error).AsValueTask();
@@ -213,21 +278,38 @@ public class FlatMap_T_VT
         result.Should().BeError().And.Match(v => v == error);
     }
 
-    // VT<R> to R<T>...
+    [Fact]
+    public async Task TaskResT_ReturnValTaskRes_okの引数には成功の値が設定される()
+    {
+        var error = new Error();
+        var expected = "text";
+        string actual = null;
+        var result = await Result.Ok(expected).AsTask().FlatMap(v =>
+        {
+            actual = v;
+            return Result.Error(error).AsValueTask();
+        });
+
+        actual.Should().Be(expected);
+        result.Should().BeError().And.Match(v => v == error);
+    }
+
+
+    // ...
 
     [Fact]
-    public static async Task ValTaskResT_ReturnResT_okパラメーターが指定されていない場合は例外が発生する()
+    public async Task ValTaskResT_ReturnResT_okパラメーターが指定されていない場合は例外が発生する()
     {
-        var act = () => Result.Ok("text").AsValueTask().FlatMap((Func<Result<string>>)null).AsTask();
+        var act = () => Result.Ok("text").AsValueTask().FlatMap((Func<string, Result<string>>)null).AsTask();
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public static async Task ValTaskResT_ReturnResT_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
+    public async Task ValTaskResT_ReturnResT_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Error<string>(error).AsValueTask().FlatMap(() =>
+        var result = await Result.Error<string>(error).AsValueTask().FlatMap(_ =>
         {
             executed = true;
             return Result.Ok("text");
@@ -238,11 +320,11 @@ public class FlatMap_T_VT
     }
 
     [Fact]
-    public static async Task ValTaskResT_ReturnResT_成功の場合はOkアクションが実行されて結果が返る()
+    public async Task ValTaskResT_ReturnResT_成功の場合はOkアクションが実行されて結果が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Ok("text").AsValueTask().FlatMap(() =>
+        var result = await Result.Ok("text").AsValueTask().FlatMap(_ =>
         {
             executed = true;
             return Result.Error<string>(error);
@@ -255,18 +337,18 @@ public class FlatMap_T_VT
     //--
 
     [Fact]
-    public static async Task ValTaskResT_ReturnTaskResT_okパラメーターが指定されていない場合は例外が発生する()
+    public async Task ValTaskResT_ReturnTaskResT_okパラメーターが指定されていない場合は例外が発生する()
     {
-        var act = () => Result.Ok("text").AsValueTask().FlatMap((Func<Task<Result<string>>>)null).AsTask();
+        var act = () => Result.Ok("text").AsValueTask().FlatMap((Func<string, Task<Result<string>>>)null).AsTask();
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public static async Task ValTaskResT_ReturnTaskResT_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
+    public async Task ValTaskResT_ReturnTaskResT_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Error<string>(error).AsValueTask().FlatMap(() =>
+        var result = await Result.Error<string>(error).AsValueTask().FlatMap(_ =>
         {
             executed = true;
             return Result.Ok("text").AsTask();
@@ -277,11 +359,11 @@ public class FlatMap_T_VT
     }
 
     [Fact]
-    public static async Task ValTaskResT_ReturnTaskResT_成功の場合はOkアクションが実行されて結果が返る()
+    public async Task ValTaskResT_ReturnTaskResT_成功の場合はOkアクションが実行されて結果が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Ok("text").AsValueTask().FlatMap(() =>
+        var result = await Result.Ok("text").AsValueTask().FlatMap(_ =>
         {
             executed = true;
             return Result.Error<string>(error).AsTask();
@@ -291,21 +373,37 @@ public class FlatMap_T_VT
         result.Should().BeError().And.Match(v => v == error);
     }
 
+    [Fact]
+    public async Task ValTaskResT_ReturnTaskResT_okの引数には成功の値が設定される()
+    {
+        var error = new Error();
+        var expected = "text";
+        string actual = null;
+        var result = await Result.Ok(expected).AsValueTask().FlatMap(v =>
+        {
+            actual = v;
+            return Result.Error<string>(error).AsTask();
+        });
+
+        actual.Should().Be(expected);
+        result.Should().BeError().And.Match(v => v == error);
+    }
+
     //--
 
     [Fact]
-    public static async Task ValTaskResT_ReturnValTaskResT_okパラメーターが指定されていない場合は例外が発生する()
+    public async Task ValTaskResT_ReturnValTaskResT_okパラメーターが指定されていない場合は例外が発生する()
     {
-        var act = () => Result.Ok("text").AsValueTask().FlatMap((Func<ValueTask<Result<string>>>)null).AsTask();
+        var act = () => Result.Ok("text").AsValueTask().FlatMap((Func<string, ValueTask<Result<string>>>)null).AsTask();
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public static async Task ValTaskResT_ReturnValTaskResT_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
+    public async Task ValTaskResT_ReturnValTaskResT_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Error<string>(error).AsValueTask().FlatMap(() =>
+        var result = await Result.Error<string>(error).AsValueTask().FlatMap(_ =>
         {
             executed = true;
             return Result.Ok("text").AsValueTask();
@@ -316,11 +414,11 @@ public class FlatMap_T_VT
     }
 
     [Fact]
-    public static async Task ValTaskResT_ReturnValTaskResT_成功の場合はOkアクションが実行されて結果が返る()
+    public async Task ValTaskResT_ReturnValTaskResT_成功の場合はOkアクションが実行されて結果が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Ok("text").AsValueTask().FlatMap(() =>
+        var result = await Result.Ok("text").AsValueTask().FlatMap(_ =>
         {
             executed = true;
             return Result.Error<string>(error).AsValueTask();
@@ -329,22 +427,39 @@ public class FlatMap_T_VT
         executed.Should().BeTrue();
         result.Should().BeError().And.Match(v => v == error);
     }
+
+    [Fact]
+    public async Task ValTaskResT_ReturnValTaskResT_okの引数には成功の値が設定される()
+    {
+        var error = new Error();
+        var expected = "text";
+        string actual = null;
+        var result = await Result.Ok(expected).AsValueTask().FlatMap(v =>
+        {
+            actual = v;
+            return Result.Error<string>(error).AsValueTask();
+        });
+
+        actual.Should().Be(expected);
+        result.Should().BeError().And.Match(v => v == error);
+    }
+
 
     // R to VT<R>...
 
     [Fact]
-    public static async Task ResT_ReturnValTaskResT_okパラメーターが指定されていない場合は例外が発生する()
+    public async Task ResT_ReturnValTaskResT_okパラメーターが指定されていない場合は例外が発生する()
     {
-        var act = () => Result.Ok("text").FlatMap((Func<ValueTask<Result<string>>>)null).AsTask();
+        var act = () => Result.Ok("text").FlatMap((Func<string, ValueTask<Result<string>>>)null).AsTask();
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public static async Task ResT_ReturnValTaskResT_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
+    public async Task ResT_ReturnValTaskResT_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Error<string>(error).FlatMap(() =>
+        var result = await Result.Error<string>(error).FlatMap(_ =>
         {
             executed = true;
             return Result.Ok("text").AsValueTask();
@@ -355,42 +470,58 @@ public class FlatMap_T_VT
     }
 
     [Fact]
-    public static async Task ResT_ReturnValTaskResT_成功の場合はOkアクションが実行されて結果が返る()
+    public async Task ResT_ReturnValTaskResT_成功の場合はOkアクションが実行されて結果が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Ok("text").FlatMap(() =>
+        var result = await Result.Ok("text").FlatMap(_ =>
         {
             executed = true;
             return Result.Error<string>(error).AsValueTask();
         });
 
         executed.Should().BeTrue();
+        result.Should().BeError().And.Match(v => v == error);
+    }
+
+    [Fact]
+    public async Task ResT_ReturnValTaskResT_okの引数には成功の値が設定される()
+    {
+        var error = new Error();
+        var expected = "text";
+        string actual = null;
+        var result = await Result.Ok(expected).FlatMap(v =>
+        {
+            actual = v;
+            return Result.Error<string>(error).AsValueTask();
+        });
+
+        actual.Should().Be(expected);
         result.Should().BeError().And.Match(v => v == error);
     }
 
     //---
 
     [Fact]
-    public static async Task TaskResT_ReturnValTaskResT_okパラメーターが指定されていない場合は例外が発生する()
+    public async Task TaskResT_ReturnValTaskResT_okパラメーターが指定されていない場合は例外が発生する()
     {
-        var act = () => Result.Ok("text").AsTask().FlatMap((Func<ValueTask<Result<string>>>)null).AsTask();
+        var act = () => Result.Ok("text").AsTask().FlatMap((Func<string, ValueTask<Result<string>>>)null).AsTask();
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public static async Task TaskResT_ReturnValTaskResT_sourceパラメーターが指定されていない場合は例外が発生する()
+    public async Task TaskResT_ReturnValTaskResT_sourceパラメーターが指定されていない場合は例外が発生する()
     {
-        var act = () => ResultExtensions.FlatMap((Task<Result<string>>)null, () => Result.Ok("text").AsValueTask()).AsTask();
+        var act = () => ResultExtensions.FlatMap((Task<Result<string>>)null, _ => Result.Ok("text").AsValueTask()).AsTask();
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public static async Task TaskResT_ReturnValTaskResT_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
+    public async Task TaskResT_ReturnValTaskResT_失敗の場合はOkアクションは実行されず同じErrorの値が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Error<string>(error).AsTask().FlatMap(() =>
+        var result = await Result.Error<string>(error).AsTask().FlatMap(_ =>
         {
             executed = true;
             return Result.Ok("text").AsValueTask();
@@ -401,17 +532,33 @@ public class FlatMap_T_VT
     }
 
     [Fact]
-    public static async Task TaskResT_ReturnValTaskResT_成功の場合はOkアクションが実行されて結果が返る()
+    public async Task TaskResT_ReturnValTaskResT_成功の場合はOkアクションが実行されて結果が返る()
     {
         var error = new Error();
         var executed = false;
-        var result = await Result.Ok("text").AsTask().FlatMap(() =>
+        var result = await Result.Ok("text").AsTask().FlatMap(_ =>
         {
             executed = true;
             return Result.Error<string>(error).AsValueTask();
         });
 
         executed.Should().BeTrue();
+        result.Should().BeError().And.Match(v => v == error);
+    }
+
+    [Fact]
+    public async Task TaskResT_ReturnValTaskResT_okの引数には成功の値が設定される()
+    {
+        var error = new Error();
+        var expected = "text";
+        string actual = null;
+        var result = await Result.Ok(expected).AsTask().FlatMap(v =>
+        {
+            actual = v;
+            return Result.Error<string>(error).AsValueTask();
+        });
+
+        actual.Should().Be(expected);
         result.Should().BeError().And.Match(v => v == error);
     }
 }

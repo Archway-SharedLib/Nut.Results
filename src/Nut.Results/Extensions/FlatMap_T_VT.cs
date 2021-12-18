@@ -15,11 +15,11 @@ public static partial class ResultExtensions
     /// <param name="ok">新しい結果の値を作成する処理</param>
     /// <typeparam name="T">成功の結果の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async ValueTask<Result> FlatMap<T>(this ValueTask<Result<T>> source, Func<Result> ok)
+    public static async ValueTask<Result> FlatMap<T>(this ValueTask<Result<T>> source, Func<T, Result> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         var result = await source.ConfigureAwait(false);
-        return !result.IsOk ? Result.Error(result._errorValue) : ok();
+        return !result.IsOk ? Result.Error(result._errorValue) : ok(result._value);
     }
 
     /// <summary>
@@ -29,11 +29,11 @@ public static partial class ResultExtensions
     /// <param name="ok">新しい結果の値を作成する処理</param>
     /// <typeparam name="T">成功の結果の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async ValueTask<Result> FlatMap<T>(this ValueTask<Result<T>> source, Func<Task<Result>> ok)
+    public static async ValueTask<Result> FlatMap<T>(this ValueTask<Result<T>> source, Func<T, Task<Result>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         var result = await source.ConfigureAwait(false);
-        return !result.IsOk ? Result.Error(result._errorValue) : await ok();
+        return !result.IsOk ? Result.Error(result._errorValue) : await ok(result._value);
     }
 
     /// <summary>
@@ -43,11 +43,11 @@ public static partial class ResultExtensions
     /// <param name="ok">新しい結果の値を作成する処理</param>
     /// <typeparam name="T">成功の結果の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async ValueTask<Result> FlatMap<T>(this ValueTask<Result<T>> source, Func<ValueTask<Result>> ok)
+    public static async ValueTask<Result> FlatMap<T>(this ValueTask<Result<T>> source, Func<T, ValueTask<Result>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         var result = await source.ConfigureAwait(false);
-        return !result.IsOk ? Result.Error(result._errorValue) : await ok();
+        return !result.IsOk ? Result.Error(result._errorValue) : await ok(result._value);
     }
 
     // R to VT<R>...
@@ -59,10 +59,10 @@ public static partial class ResultExtensions
     /// <param name="ok">新しい結果の値を作成する処理</param>
     /// <typeparam name="T">成功の結果の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async ValueTask<Result> FlatMap<T>(this Result<T> source, Func<ValueTask<Result>> ok)
+    public static async ValueTask<Result> FlatMap<T>(this Result<T> source, Func<T, ValueTask<Result>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        return !source.IsOk ? Result.Error(source._errorValue) : await ok();
+        return !source.IsOk ? Result.Error(source._errorValue) : await ok(source._value);
     }
 
     /// <summary>
@@ -72,12 +72,12 @@ public static partial class ResultExtensions
     /// <param name="ok">新しい結果の値を作成する処理</param>
     /// <typeparam name="T">成功の結果の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async ValueTask<Result> FlatMap<T>(this Task<Result<T>> source, Func<ValueTask<Result>> ok)
+    public static async ValueTask<Result> FlatMap<T>(this Task<Result<T>> source, Func<T, ValueTask<Result>> ok)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         var result = await source.ConfigureAwait(false);
-        return !result.IsOk ? Result.Error(result._errorValue) : await ok();
+        return !result.IsOk ? Result.Error(result._errorValue) : await ok(result._value);
     }
 
     // VT<R> to R<T>...
@@ -90,11 +90,11 @@ public static partial class ResultExtensions
     /// <typeparam name="T">成功の結果の型</typeparam>
     /// <typeparam name="TResult">新しい成功の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async ValueTask<Result<TResult>> FlatMap<T, TResult>(this ValueTask<Result<T>> source, Func<Result<TResult>> ok)
+    public static async ValueTask<Result<TResult>> FlatMap<T, TResult>(this ValueTask<Result<T>> source, Func<T, Result<TResult>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         var result = await source.ConfigureAwait(false);
-        return !result.IsOk ? Result.Error<TResult>(result._errorValue) : ok();
+        return !result.IsOk ? Result.Error<TResult>(result._errorValue) : ok(result._value);
     }
 
     /// <summary>
@@ -105,11 +105,11 @@ public static partial class ResultExtensions
     /// <typeparam name="T">成功の結果の型</typeparam>
     /// <typeparam name="TResult">新しい成功の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async ValueTask<Result<TResult>> FlatMap<T, TResult>(this ValueTask<Result<T>> source, Func<Task<Result<TResult>>> ok)
+    public static async ValueTask<Result<TResult>> FlatMap<T, TResult>(this ValueTask<Result<T>> source, Func<T, Task<Result<TResult>>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         var result = await source.ConfigureAwait(false);
-        return !result.IsOk ? Result.Error<TResult>(result._errorValue) : await ok();
+        return !result.IsOk ? Result.Error<TResult>(result._errorValue) : await ok(result._value);
     }
 
     /// <summary>
@@ -120,11 +120,11 @@ public static partial class ResultExtensions
     /// <typeparam name="T">成功の結果の型</typeparam>
     /// <typeparam name="TResult">新しい成功の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async ValueTask<Result<TResult>> FlatMap<T, TResult>(this ValueTask<Result<T>> source, Func<ValueTask<Result<TResult>>> ok)
+    public static async ValueTask<Result<TResult>> FlatMap<T, TResult>(this ValueTask<Result<T>> source, Func<T, ValueTask<Result<TResult>>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         var result = await source.ConfigureAwait(false);
-        return !result.IsOk ? Result.Error<TResult>(result._errorValue) : await ok();
+        return !result.IsOk ? Result.Error<TResult>(result._errorValue) : await ok(result._value);
     }
 
     // R to VT<R<T>>...
@@ -137,10 +137,10 @@ public static partial class ResultExtensions
     /// <typeparam name="T">成功の結果の型</typeparam>
     /// <typeparam name="TResult">新しい成功の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async ValueTask<Result<TResult>> FlatMap<T, TResult>(this Result<T> source, Func<ValueTask<Result<TResult>>> ok)
+    public static async ValueTask<Result<TResult>> FlatMap<T, TResult>(this Result<T> source, Func<T, ValueTask<Result<TResult>>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        return !source.IsOk ? Result.Error<TResult>(source._errorValue) : await ok();
+        return !source.IsOk ? Result.Error<TResult>(source._errorValue) : await ok(source._value);
     }
 
     /// <summary>
@@ -151,11 +151,11 @@ public static partial class ResultExtensions
     /// <typeparam name="T">成功の結果の型</typeparam>
     /// <typeparam name="TResult">新しい成功の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async ValueTask<Result<TResult>> FlatMap<T, TResult>(this Task<Result<T>> source, Func<ValueTask<Result<TResult>>> ok)
+    public static async ValueTask<Result<TResult>> FlatMap<T, TResult>(this Task<Result<T>> source, Func<T, ValueTask<Result<TResult>>> ok)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         var result = await source.ConfigureAwait(false);
-        return !result.IsOk ? Result.Error<TResult>(result._errorValue) : await ok();
+        return !result.IsOk ? Result.Error<TResult>(result._errorValue) : await ok(result._value);
     }
 }
