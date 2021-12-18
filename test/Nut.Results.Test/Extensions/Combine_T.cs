@@ -15,7 +15,7 @@ public class Combine_T
     public void Func_SyncSync_Destがnullの場合は例外が発生する()
     {
         Action act = () => ResultExtensions.Combine(Result.Ok("ok"), (Func<Result<int>>)null);
-        act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("destFunc");
+        act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("rightFunc");
     }
 
     [Fact]
@@ -66,7 +66,7 @@ public class Combine_T
     {
         Func<Task> act = () => ResultExtensions.Combine(Result.Ok("Ok").AsTask(), (Func<Result<int>>)null);
         var result = await act.Should().ThrowAsync<ArgumentNullException>();
-        result.And.ParamName.Should().Be("destFunc");
+        result.And.ParamName.Should().Be("rightFunc");
     }
 
     [Fact]
@@ -110,7 +110,7 @@ public class Combine_T
     {
         Func<Task> act = () => ResultExtensions.Combine(Result.Ok("Ok"), (Func<Task<Result<int>>>)null);
         var result = await act.Should().ThrowAsync<ArgumentNullException>();
-        result.And.ParamName.Should().Be("destFunc");
+        result.And.ParamName.Should().Be("rightFunc");
     }
 
     [Fact]
@@ -162,7 +162,7 @@ public class Combine_T
     {
         Func<Task> act = () => ResultExtensions.Combine(Result.Ok("Ok").AsTask(), (Func<Task<Result<int>>>)null);
         var result = await act.Should().ThrowAsync<ArgumentNullException>();
-        result.And.ParamName.Should().Be("destFunc");
+        result.And.ParamName.Should().Be("rightFunc");
     }
 
     [Fact]
