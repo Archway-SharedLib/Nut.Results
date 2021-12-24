@@ -15,7 +15,7 @@ public static partial class ResultExtensions
     /// <typeparam name="T">成功の値の型</typeparam>
     /// <typeparam name="TError">エラーの型</typeparam>
     /// <returns>失敗の値</returns>
-    public static async ValueTask<IError> GetErrorOr<T, TError>(this  ValueTask<Result<T>> source, Func<T, TError> ifOk) where TError : IError
+    public static async ValueTask<IError> GetErrorOr<T, TError>(this ValueTask<Result<T>> source, Func<T, TError> ifOk) where TError : IError
     {
         if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
         var result = await source.ConfigureAwait(false);
