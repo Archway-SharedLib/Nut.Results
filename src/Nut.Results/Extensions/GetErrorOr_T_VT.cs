@@ -15,26 +15,9 @@ public static partial class ResultExtensions
     /// <typeparam name="T">成功の値の型</typeparam>
     /// <typeparam name="TError">エラーの型</typeparam>
     /// <returns>失敗の値</returns>
-    public static IError GetErrorOr<T, TError>(this in Result<T> source, Func<T, TError> ifOk) where TError : IError
+    public static async ValueTask<IError> GetErrorOr<T, TError>(this  ValueTask<Result<T>> source, Func<T, TError> ifOk) where TError : IError
     {
         if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
-
-        return source.IsOk ? ifOk(source._value) : source._errorValue;
-    }
-
-    /// <summary>
-    /// 失敗の値を取得します。成功の場合は<paramref name="ifOk"/>の結果が返されます。
-    /// </summary>
-    /// <param name="source">もととなる結果</param>
-    /// <param name="ifOk">結果が成功だった場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TError">エラーの型</typeparam>
-    /// <returns>失敗の値</returns>
-    public static async Task<IError> GetErrorOr<T, TError>(this Task<Result<T>> source, Func<T, TError> ifOk) where TError : IError
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
-
         var result = await source.ConfigureAwait(false);
         return result.IsOk ? ifOk(result._value) : result._errorValue;
     }
@@ -47,7 +30,40 @@ public static partial class ResultExtensions
     /// <typeparam name="T">成功の値の型</typeparam>
     /// <typeparam name="TError">エラーの型</typeparam>
     /// <returns>失敗の値</returns>
-    public static async Task<IError> GetErrorOr<T, TError>(this Result<T> source, Func<T, Task<TError>> ifOk) where TError : IError
+    public static async ValueTask<IError> GetErrorOr<T, TError>(this Task<Result<T>> source, Func<T, ValueTask<TError>> ifOk) where TError : IError
+    {
+        if (source is null) throw new ArgumentNullException(nameof(source));
+        if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
+
+        var result = await source.ConfigureAwait(false);
+        return result.IsOk ? await ifOk(result._value) : result._errorValue;
+    }
+
+    /// <summary>
+    /// 失敗の値を取得します。成功の場合は<paramref name="ifOk"/>の結果が返されます。
+    /// </summary>
+    /// <param name="source">もととなる結果</param>
+    /// <param name="ifOk">結果が成功だった場合に実行される処理</param>
+    /// <typeparam name="T">成功の値の型</typeparam>
+    /// <typeparam name="TError">エラーの型</typeparam>
+    /// <returns>失敗の値</returns>
+    public static async ValueTask<IError> GetErrorOr<T, TError>(this ValueTask<Result<T>> source, Func<T, Task<TError>> ifOk) where TError : IError
+    {
+        if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
+        var result = await source.ConfigureAwait(false);
+        if (result.IsOk) return await ifOk(result._value);
+        return result._errorValue;
+    }
+
+    /// <summary>
+    /// 失敗の値を取得します。成功の場合は<paramref name="ifOk"/>の結果が返されます。
+    /// </summary>
+    /// <param name="source">もととなる結果</param>
+    /// <param name="ifOk">結果が成功だった場合に実行される処理</param>
+    /// <typeparam name="T">成功の値の型</typeparam>
+    /// <typeparam name="TError">エラーの型</typeparam>
+    /// <returns>失敗の値</returns>
+    public static async ValueTask<IError> GetErrorOr<T, TError>(this Result<T> source, Func<T, ValueTask<TError>> ifOk) where TError : IError
     {
         if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
 
@@ -63,11 +79,9 @@ public static partial class ResultExtensions
     /// <typeparam name="T">成功の値の型</typeparam>
     /// <typeparam name="TError">エラーの型</typeparam>
     /// <returns>失敗の値</returns>
-    public static async Task<IError> GetErrorOr<T, TError>(this Task<Result<T>> source, Func<T, Task<TError>> ifOk) where TError : IError
+    public static async ValueTask<IError> GetErrorOr<T, TError>(this ValueTask<Result<T>> source, Func<T, ValueTask<TError>> ifOk) where TError : IError
     {
-        if (source is null) throw new ArgumentNullException(nameof(source));
         if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
-
         var result = await source.ConfigureAwait(false);
         if (result.IsOk) return await ifOk(result._value);
         return result._errorValue;
