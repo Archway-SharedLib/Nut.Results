@@ -36,12 +36,25 @@ public readonly partial struct Result : IEquatable<Result>
     /// </example>
     public bool IsError => !IsOk;
 
+    /// <summary>
+    /// 両方とも成功か、または失敗の場合に true を返します。失敗の場合は値の比較も行われます。
+    /// </summary>
+    /// <param name="other">比較する値</param>
+    /// <returns>両方とも成功か、または失敗の場合に true</returns>
     public bool Equals(Result other)
         => IsOk ? other.IsOk : _errorValue.Equals(other._errorValue);
 
+    /// <summary>
+    /// ハッシュコードを取得します。
+    /// </summary>
+    /// <returns>ハッシュコード</returns>
     public override int GetHashCode()
         => IsOk ? IsOk.GetHashCode() : HashCode.Combine(_errorValue, IsOk);
 
+    /// <summary>
+    /// 文字列表現を取得します。
+    /// </summary>
+    /// <returns>文字列表現</returns>
     public override string ToString()
         => IsOk ? "ok" : $"error: {_errorValue?.ToString() ?? "(null)"}";
 }
@@ -82,17 +95,35 @@ public readonly partial struct Result<T> : IEquatable<Result<T>>
     /// </example>
     public bool IsError => !IsOk;
 
+    /// <summary>
+    /// 指定された値を成功の結果にマッピングします。
+    /// </summary>
+    /// <param name="value">マッピングする値</param>
+    /// <returns>成功の結果</returns>
     public static implicit operator Result<T>(T value) => Result.Ok(value);
 
+    /// <summary>
+    /// 両方とも成功か、または失敗の場合に値の比較を行い一致しているかどうかを返します。
+    /// </summary>
+    /// <param name="other">比較する値</param>
+    /// <returns>両方とも成功か、または失敗の場合に値の比較を行い一致しているかどうか</returns>
     public bool Equals(Result<T> other)
         => IsOk ?
             other.IsOk && _value!.Equals(other._value) :
             other.IsError && _errorValue.Equals(other._errorValue);
 
+    /// <summary>
+    /// 文字列表現を返します。
+    /// </summary>
+    /// <returns>文字列表現</returns>
     public override string ToString()
         => IsOk ? $"ok: {PrepareNullText(_value!.ToString())}" :
             $"error: {PrepareNullText(_errorValue?.ToString())}";
 
+    /// <summary>
+    /// ハッシュコードを取得します。
+    /// </summary>
+    /// <returns>ハッシュコード</returns>
     public override int GetHashCode()
         => IsOk ? HashCode.Combine(_value, IsOk) : HashCode.Combine(_errorValue, IsOk);
 
