@@ -31,5 +31,18 @@
     <ProjectReference Include="..\..\src\Nut.Results.FluentAssertions\Nut.Results.FluentAssertions.csproj" />
     <ProjectReference Include="..\..\src\Nut.Results\Nut.Results.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Extensions\Match.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Match.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Extensions\Match.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Match.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
 
 </Project>

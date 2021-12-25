@@ -1,5 +1,5 @@
 <#@ template language="C#" #>
-<#@ output extension=".g.cs" #>
+<#@ output extension=".cs" #>
 <#@ assembly name="System.Core" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
