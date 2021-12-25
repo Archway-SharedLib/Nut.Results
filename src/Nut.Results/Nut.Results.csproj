@@ -56,6 +56,27 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+    <None Update="Extensions\Metch.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Metch.g.cs</LastGenOutput>
+    </None>
+    <None Update="Extensions\MatchGen_Types.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MatchGen_Types.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Update="Extensions\MatchGen_Types.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TargetType.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions\Metch.g.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MetchGen.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

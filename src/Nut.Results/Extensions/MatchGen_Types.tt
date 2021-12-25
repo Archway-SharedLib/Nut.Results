@@ -1,0 +1,105 @@
+<#@ template language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Diagnostics" #>
+<#+
+    public enum MatchGen_TaskType
+    {
+        None,
+        Task,
+        ValueTask
+    }
+    public class MatchGen_TargetType
+    {
+        public MatchGen_TargetType(bool isGeneric, MatchGen_TaskType taskType)
+        {
+            IsGeneric = isGeneric;
+            IsTask = taskType != MatchGen_TaskType.None;
+            TaskType = taskType;
+        }
+
+        public bool IsGeneric { get; private set; }
+
+        public bool IsTask { get; private set; }
+
+        public MatchGen_TaskType TaskType { get; private set; }
+
+        private string GetResultTypeText(bool isResult)
+        {
+            if (IsGeneric) return "Result<" + (isResult ? "TResult" : "T") + ">";
+            return "Result";
+        }
+
+        public string GetTypeText(bool isResult = false)
+        {
+            if (this.IsTask)
+            {
+                return this.TaskType + "<" + GetResultTypeText(isResult) + ">";
+            }
+            return GetResultTypeText(isResult);
+        }
+    }
+
+    public class MatchGen_MethodProcessor
+    {
+        private readonly MatchGen_TargetType rt;
+        private readonly MatchGen_TargetType st;
+        private readonly MatchGen_TargetType ot;
+        private readonly MatchGen_TargetType et;
+
+        public MatchGen_MethodProcessor(MatchGen_TargetType returnType, MatchGen_TargetType sourceType,
+            MatchGen_TargetType okType, MatchGen_TargetType errType)
+        {
+            rt = returnType;
+            st = sourceType;
+            ot = okType;
+            et = errType;
+        }
+
+        public bool CanDeclareMethod()
+        {
+            if (rt.IsTask)
+            {
+                //戻りがタスクの場合は、どれかのパラメーターがタスク
+                if(!st.IsTask && !ot.IsTask && !et.IsTask) return false;
+            }
+            else
+            {
+                //戻りがタスクでない場合は、どのパラメーターもタスクでない
+                if(st.IsTask || ot.IsTask || et.IsTask) return false;
+            }
+
+            //どれかのパラメーターがValueTaskの場合は戻りもvaluetask
+            if (st.TaskType == MatchGen_TaskType.ValueTask || ot.TaskType == MatchGen_TaskType.ValueTask ||
+                et.TaskType == MatchGen_TaskType.ValueTask)
+            {
+                if(rt.TaskType != MatchGen_TaskType.ValueTask) return false;
+            }
+            // 戻りがvaluetaskの場合は、どれかのパラメーターがvaluetask
+            if (rt.TaskType == MatchGen_TaskType.ValueTask)
+            {
+                if (st.TaskType != MatchGen_TaskType.ValueTask && ot.TaskType != MatchGen_TaskType.ValueTask &&
+                    et.TaskType != MatchGen_TaskType.ValueTask) return false;
+            }
+
+            // ok と error と戻りの generic が一致していない場合は完了
+            if (!((ot.IsGeneric && et.IsGeneric && rt.IsGeneric) || (!ot.IsGeneric && !et.IsGeneric && !rt.IsGeneric))) return false;
+
+            return true;
+        }
+
+        public bool IsAsyncMethod()
+        {
+            if (!st.IsTask && ot.IsTask && et.IsTask && ot.TaskType == et.TaskType) return false;
+            return rt.IsTask;
+        }
+
+        public bool NeedAwaitOk() => IsAsyncMethod() && ot.IsTask;
+
+        public bool NeedAwaitError() => IsAsyncMethod() && et.IsTask;
+
+        public bool CanInParam() => !IsAsyncMethod() && !st.IsTask;
+    }
+#>

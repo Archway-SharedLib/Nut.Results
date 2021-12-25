@@ -67,17 +67,17 @@ public class Match_T
     // result<T> to result---
 
     [Fact]
-    public void T2R_SAS_okがnullの場合は例外が発生する()
+    public async Task T2R_SAS_okがnullの場合は例外が発生する()
     {
-        Action act = () => ResultExtensions.Match(Result.Ok("A"), (Func<string, Task<Result>>)null, (IError err) => Result.Ok());
-        act.Should().Throw<ArgumentNullException>();
+        var act = () => ResultExtensions.Match(Result.Ok("A"), (Func<string, Task<Result>>)null, (IError err) => Result.Ok());
+        await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public void T2R_SAS_errがnullの場合は例外が発生する()
+    public async Task T2R_SAS_errがnullの場合は例外が発生する()
     {
-        Action act = () => ResultExtensions.Match(Result.Ok("A"), _ => Result.Ok().AsTask(), (Func<IError, Result>)null);
-        act.Should().Throw<ArgumentNullException>();
+        var act = () => ResultExtensions.Match(Result.Ok("A"), _ => Result.Ok().AsTask(), (Func<IError, Result>)null);
+        await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
@@ -123,17 +123,17 @@ public class Match_T
     // result<T> to result---
 
     [Fact]
-    public void T2R_SSA_okがnullの場合は例外が発生する()
+    public async Task T2R_SSA_okがnullの場合は例外が発生する()
     {
-        Action act = () => ResultExtensions.Match(Result.Ok("A"), (Func<string, Result>)null, (IError err) => Result.Ok().AsTask());
-        act.Should().Throw<ArgumentNullException>();
+        var act = () => ResultExtensions.Match(Result.Ok("A"), (Func<string, Result>)null, (IError err) => Result.Ok().AsTask());
+        await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public void T2R_SSA_errがnullの場合は例外が発生する()
+    public async Task T2R_SSA_errがnullの場合は例外が発生する()
     {
-        Action act = () => ResultExtensions.Match(Result.Ok("A"), _ => Result.Ok(), (Func<IError, Task<Result>>)null);
-        act.Should().Throw<ArgumentNullException>();
+        var act = () => ResultExtensions.Match(Result.Ok("A"), _ => Result.Ok(), (Func<IError, Task<Result>>)null);
+        await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
@@ -178,17 +178,17 @@ public class Match_T
     // result<T> to result---
 
     [Fact]
-    public void T2R_SAA_okがnullの場合は例外が発生する()
+    public async Task T2R_SAA_okがnullの場合は例外が発生する()
     {
-        Action act = () => ResultExtensions.Match(Result.Ok("A"), (Func<string, Task<Result>>)null, (IError err) => Result.Ok().AsTask());
-        act.Should().Throw<ArgumentNullException>();
+        var act = () => ResultExtensions.Match(Result.Ok("A"), (Func<string, Task<Result>>)null, (IError err) => Result.Ok().AsTask());
+        await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public void T2R_SAA_errがnullの場合は例外が発生する()
+    public async Task T2R_SAA_errがnullの場合は例外が発生する()
     {
-        Action act = () => ResultExtensions.Match(Result.Ok("A"), _ => Result.Ok().AsTask(), (Func<IError, Task<Result>>)null);
-        act.Should().Throw<ArgumentNullException>();
+        var act = () => ResultExtensions.Match(Result.Ok("A"), _ => Result.Ok().AsTask(), (Func<IError, Task<Result>>)null);
+        await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
@@ -542,17 +542,17 @@ public class Match_T
     // result<T> to result<T>---
 
     [Fact]
-    public void T2T_SAS_okがnullの場合は例外が発生する()
+    public async Task T2T_SAS_okがnullの場合は例外が発生する()
     {
-        Action act = () => ResultExtensions.Match(Result.Ok("A"), (Func<string, Task<Result<string>>>)null, (IError err) => Result.Ok("A"));
-        act.Should().Throw<ArgumentNullException>();
+        var act = () => ResultExtensions.Match(Result.Ok("A"), (Func<string, Task<Result<string>>>)null, (IError err) => Result.Ok("A"));
+        await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public void T2T_SAS_errがnullの場合は例外が発生する()
+    public async Task T2T_SAS_errがnullの場合は例外が発生する()
     {
-        Action act = () => ResultExtensions.Match(Result.Ok("A"), v => Result.Ok(v).AsTask(), (Func<IError, Result<string>>)null);
-        act.Should().Throw<ArgumentNullException>();
+        var act = () => ResultExtensions.Match(Result.Ok("A"), v => Result.Ok(v).AsTask(), (Func<IError, Result<string>>)null);
+        await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
@@ -597,17 +597,17 @@ public class Match_T
     // result<T> to result<T>---
 
     [Fact]
-    public void T2T_SSA_okがnullの場合は例外が発生する()
+    public async Task T2T_SSA_okがnullの場合は例外が発生する()
     {
-        Action act = () => ResultExtensions.Match(Result.Ok("A"), (Func<string, Result<string>>)null, (IError err) => Result.Ok("A").AsTask());
-        act.Should().Throw<ArgumentNullException>();
+        var act = () => ResultExtensions.Match(Result.Ok("A"), (Func<string, Result<string>>)null, (IError err) => Result.Ok("A").AsTask());
+        await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public void T2T_SSA_errがnullの場合は例外が発生する()
+    public async Task T2T_SSA_errがnullの場合は例外が発生する()
     {
-        Action act = () => ResultExtensions.Match(Result.Ok("A"), v => Result.Ok(v), (Func<IError, Task<Result<string>>>)null);
-        act.Should().Throw<ArgumentNullException>();
+        var act = () => ResultExtensions.Match(Result.Ok("A"), v => Result.Ok(v), (Func<IError, Task<Result<string>>>)null);
+        await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
@@ -652,17 +652,17 @@ public class Match_T
     // result<T> to result<T>---
 
     [Fact]
-    public void T2T_SAA_okがnullの場合は例外が発生する()
+    public async Task T2T_SAA_okがnullの場合は例外が発生する()
     {
-        Action act = () => ResultExtensions.Match(Result.Ok("A"), (Func<string, Task<Result<string>>>)null, (IError err) => Result.Ok("A").AsTask());
-        act.Should().Throw<ArgumentNullException>();
+        var act = () => ResultExtensions.Match(Result.Ok("A"), (Func<string, Task<Result<string>>>)null, (IError err) => Result.Ok("A").AsTask());
+        await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
-    public void T2T_SAA_errがnullの場合は例外が発生する()
+    public async Task T2T_SAA_errがnullの場合は例外が発生する()
     {
-        Action act = () => ResultExtensions.Match(Result.Ok("A"), v => Result.Ok(v).AsTask(), (Func<IError, Task<Result<string>>>)null);
-        act.Should().Throw<ArgumentNullException>();
+        var act = () => ResultExtensions.Match(Result.Ok("A"), v => Result.Ok(v).AsTask(), (Func<IError, Task<Result<string>>>)null);
+        await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
