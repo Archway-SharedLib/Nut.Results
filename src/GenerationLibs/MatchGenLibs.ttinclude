@@ -54,6 +54,14 @@
             et = errType;
         }
 
+        public TargetType Return => rt;
+
+        public TargetType Source => st;
+
+        public TargetType Ok => ot;
+
+        public TargetType Error => et;
+
         public bool CanDeclareMethod()
         {
             if (rt.IsTask)
