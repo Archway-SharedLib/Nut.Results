@@ -24,6 +24,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GenerationLibs", "GenerationLibs", "{27A0DF87-B5C6-495E-825D-BF5B408A0EF9}"
+	ProjectSection(SolutionItems) = preProject
+		src\GenerationLibs\MatchGenLibs.ttinclude = src\GenerationLibs\MatchGenLibs.ttinclude
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +65,7 @@ Global
 		{E82827D3-8824-4FDE-AD6B-42BB59882652} = {313BBCA9-B140-4AE3-A10D-02E13A13005B}
 		{BC48EC97-7B48-424F-B2F9-9E29F106AFBF} = {71B3FCAB-AEFE-4130-A226-10F97A9AEA64}
 		{B60D161C-7AF3-472F-9607-E710ED8729A7} = {0306D2F4-94D5-4B54-9B6B-7D2637627664}
+		{27A0DF87-B5C6-495E-825D-BF5B408A0EF9} = {313BBCA9-B140-4AE3-A10D-02E13A13005B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {07065E24-EDE3-4E76-9FB1-FC2AD4E9C7C8}
