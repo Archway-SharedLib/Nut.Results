@@ -11,7 +11,8 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">もととなる結果</param>
     /// <param name="error">新しい失敗の値を作成する処理</param>
-    /// <typeparam name="TError">失敗の型</typeparam>
+    /// <typeparam name="T">成功の値の型</typeparam>
+    /// <typeparam name="TError">失敗の値の型</typeparam>
     /// <returns>新しい失敗の値を持った結果</returns>
     public static async ValueTask<Result<T>> MapError<T, TError>(this ValueTask<Result<T>> source, Func<IError, TError> error) where TError : IError
     {
@@ -25,7 +26,8 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">もととなる結果</param>
     /// <param name="error">新しい失敗の値を作成する処理</param>
-    /// <typeparam name="TError">失敗の型</typeparam>
+    /// <typeparam name="T">成功の値の型</typeparam>
+    /// <typeparam name="TError">失敗の値の型</typeparam>
     /// <returns>新しい失敗の値を持った結果</returns>
     public static async ValueTask<Result<T>> MapError<T, TError>(this ValueTask<Result<T>> source, Func<IError, Task<TError>> error) where TError : IError
     {
@@ -44,7 +46,8 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">もととなる結果</param>
     /// <param name="error">新しい失敗の値を作成する処理</param>
-    /// <typeparam name="TError">失敗の型</typeparam>
+    /// <typeparam name="T">成功の値の型</typeparam>
+    /// <typeparam name="TError">失敗の値の型</typeparam>
     /// <returns>新しい失敗の値を持った結果</returns>
     public static async ValueTask<Result<T>> MapError<T, TError>(this ValueTask<Result<T>> source, Func<IError, ValueTask<TError>> error) where TError : IError
     {
@@ -62,7 +65,8 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">もととなる結果</param>
     /// <param name="error">新しい失敗の値を作成する処理</param>
-    /// <typeparam name="TError">失敗の型</typeparam>
+    /// <typeparam name="T">成功の値の型</typeparam>
+    /// <typeparam name="TError">失敗の値の型</typeparam>
     /// <returns>新しい失敗の値を持った結果</returns>
     public static async ValueTask<Result<T>> MapError<T, TError>(this Result<T> source, Func<IError, ValueTask<TError>> error) where TError : IError
     {
@@ -80,7 +84,8 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">もととなる結果</param>
     /// <param name="error">新しい失敗の値を作成する処理</param>
-    /// <typeparam name="TError">失敗の型</typeparam>
+    /// <typeparam name="T">成功の値の型</typeparam>
+    /// <typeparam name="TError">失敗の値の型</typeparam>
     /// <returns>新しい失敗の値を持った結果</returns>
     public static async ValueTask<Result<T>> MapError<T, TError>(this Task<Result<T>> source, Func<IError, ValueTask<TError>> error) where TError : IError
     {

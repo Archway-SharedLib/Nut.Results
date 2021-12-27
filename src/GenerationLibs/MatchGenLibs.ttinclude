@@ -30,9 +30,9 @@
 
         public string GetTypeText(bool isResult = false)
         {
-            if (this.IsTask)
+            if (IsTask)
             {
-                return this.TaskType + "<" + GetResultTypeText(isResult) + ">";
+                return TaskType + "<" + GetResultTypeText(isResult) + ">";
             }
             return GetResultTypeText(isResult);
         }

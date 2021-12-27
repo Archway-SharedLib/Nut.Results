@@ -7,14 +7,28 @@ namespace Nut.Results;
 
 public static partial class ResultExtensions
 {
-    // sync - sync
+    /// <summary>
+    /// 失敗だった場合に設定されている失敗の値を新しい失敗の値に変換します。
+    /// </summary>
+    /// <param name="source">もととなる結果</param>
+    /// <param name="error">新しい失敗の値を作成する処理</param>
+    /// <typeparam name="T">成功の値の型</typeparam>
+    /// <typeparam name="TError">失敗の型</typeparam>
+    /// <returns>新しい失敗の値を持った結果</returns>
     public static Result<T> MapError<T, TError>(this in Result<T> source, Func<IError, TError> error) where TError : IError
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
         return !source.IsError ? source : Result.Error<T>(InternalUtility.CheckReturnValueNotNull(error(source._errorValue)));
     }
 
-    //async - sync
+    /// <summary>
+    /// 失敗だった場合に設定されている失敗の値を新しい失敗の値に変換します。
+    /// </summary>
+    /// <param name="source">もととなる結果</param>
+    /// <param name="error">新しい失敗の値を作成する処理</param>
+    /// <typeparam name="T">成功の値の型</typeparam>
+    /// <typeparam name="TError">失敗の型</typeparam>
+    /// <returns>新しい失敗の値を持った結果</returns>
     public static async Task<Result<T>> MapError<T, TError>(this Task<Result<T>> source, Func<IError, TError> error) where TError : IError
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
@@ -24,7 +38,14 @@ public static partial class ResultExtensions
         return !result.IsError ? result : Result.Error<T>(InternalUtility.CheckReturnValueNotNull(error(result._errorValue)));
     }
 
-    //sync - async
+    /// <summary>
+    /// 失敗だった場合に設定されている失敗の値を新しい失敗の値に変換します。
+    /// </summary>
+    /// <param name="source">もととなる結果</param>
+    /// <param name="error">新しい失敗の値を作成する処理</param>
+    /// <typeparam name="T">成功の値の型</typeparam>
+    /// <typeparam name="TError">失敗の型</typeparam>
+    /// <returns>新しい失敗の値を持った結果</returns>
     public static async Task<Result<T>> MapError<T, TError>(this Result<T> source, Func<IError, Task<TError>> error) where TError : IError
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
@@ -36,7 +57,14 @@ public static partial class ResultExtensions
         return Result.Error<T>(InternalUtility.CheckReturnValueNotNull(result));
     }
 
-    //async - async
+    /// <summary>
+    /// 失敗だった場合に設定されている失敗の値を新しい失敗の値に変換します。
+    /// </summary>
+    /// <param name="source">もととなる結果</param>
+    /// <param name="error">新しい失敗の値を作成する処理</param>
+    /// <typeparam name="T">成功の値の型</typeparam>
+    /// <typeparam name="TError">失敗の型</typeparam>
+    /// <returns>新しい失敗の値を持った結果</returns>
     public static async Task<Result<T>> MapError<T, TError>(this Task<Result<T>> source, Func<IError, Task<TError>> error) where TError : IError
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
