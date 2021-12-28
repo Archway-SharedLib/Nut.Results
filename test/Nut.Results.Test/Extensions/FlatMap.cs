@@ -406,5 +406,4 @@ public class FlatMap
         await Result.Ok().AsValueTask().FlatMap(() => new ValueTask<Result<int>>(Result.Ok(1)));
         await Result.Ok().AsValueTask().FlatMap(async () => await DoValueTaskV(1));
     }
-
 }

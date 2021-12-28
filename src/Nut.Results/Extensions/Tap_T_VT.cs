@@ -10,14 +10,15 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">処理を実行するかどうかの値</param>
     /// <param name="ok">特定の処理</param>
+    /// <typeparam name="T">成功の値の型</typeparam>
     /// <returns>もとの値</returns>
-    public static async ValueTask<Result<T>> Tap<T>(this ValueTask<Result<T>> source, Action ok)
+    public static async ValueTask<Result<T>> Tap<T>(this ValueTask<Result<T>> source, Action<T> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
 
         var result = await source.ConfigureAwait(false);
 
-        if (result.IsOk) ok();
+        if (result.IsOk) ok(result._value);
         return result;
     }
 
@@ -26,11 +27,13 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">処理を実行するかどうかの値</param>
     /// <param name="ok">特定の処理</param>
+    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
+    /// <typeparam name="T">成功の値の型</typeparam>
     /// <returns>もとの値</returns>
-    public static async ValueTask<Result<T>> Tap<T>(this Result<T> source, Func<ValueTask> ok)
+    public static async ValueTask<Result<T>> Tap<T>(this Result<T> source, Func<T, ValueTask> ok, DummyParam? _ = null)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (source.IsOk) await ok().ConfigureAwait(false);
+        if (source.IsOk) await ok(source._value).ConfigureAwait(false);
         return source;
     }
 
@@ -39,13 +42,14 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">処理を実行するかどうかの値</param>
     /// <param name="ok">特定の処理</param>
+    /// <typeparam name="T">成功の値の型</typeparam>
     /// <returns>もとの値</returns>
-    public static async ValueTask<Result<T>> Tap<T>(this ValueTask<Result<T>> source, Func<Task> ok)
+    public static async ValueTask<Result<T>> Tap<T>(this ValueTask<Result<T>> source, Func<T, Task> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         var result = await source.ConfigureAwait(false);
 
-        if (result.IsOk) await ok().ConfigureAwait(false);
+        if (result.IsOk) await ok(result._value).ConfigureAwait(false);
         return result;
     }
 
@@ -54,14 +58,16 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">処理を実行するかどうかの値</param>
     /// <param name="ok">特定の処理</param>
+    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
+    /// <typeparam name="T">成功の値の型</typeparam>
     /// <returns>もとの値</returns>
-    public static async ValueTask<Result<T>> Tap<T>(this Task<Result<T>> source, Func<ValueTask> ok)
+    public static async ValueTask<Result<T>> Tap<T>(this Task<Result<T>> source, Func<T, ValueTask> ok, DummyParam? _ = null)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         var result = await source.ConfigureAwait(false);
 
-        if (result.IsOk) await ok().ConfigureAwait(false);
+        if (result.IsOk) await ok(result._value).ConfigureAwait(false);
         return result;
     }
 
@@ -70,13 +76,15 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">処理を実行するかどうかの値</param>
     /// <param name="ok">特定の処理</param>
+    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
+    /// <typeparam name="T">成功の値の型</typeparam>
     /// <returns>もとの値</returns>
-    public static async ValueTask<Result<T>> Tap<T>(this ValueTask<Result<T>> source, Func<ValueTask> ok)
+    public static async ValueTask<Result<T>> Tap<T>(this ValueTask<Result<T>> source, Func<T, ValueTask> ok, DummyParam? _ = null)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         var result = await source.ConfigureAwait(false);
 
-        if (result.IsOk) await ok().ConfigureAwait(false);
+        if (result.IsOk) await ok(result._value).ConfigureAwait(false);
         return result;
     }
 }

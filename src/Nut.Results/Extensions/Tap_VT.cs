@@ -26,8 +26,9 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">処理を実行するかどうかの値</param>
     /// <param name="ok">特定の処理</param>
+    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
     /// <returns>もとの値</returns>
-    public static async ValueTask<Result> Tap(this Result source, Func<ValueTask> ok)
+    public static async ValueTask<Result> Tap(this Result source, Func<ValueTask> ok, DummyParam? _ = null)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (source.IsOk) await ok().ConfigureAwait(false);
@@ -54,8 +55,9 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">処理を実行するかどうかの値</param>
     /// <param name="ok">特定の処理</param>
+    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
     /// <returns>もとの値</returns>
-    public static async ValueTask<Result> Tap(this Task<Result> source, Func<ValueTask> ok)
+    public static async ValueTask<Result> Tap(this Task<Result> source, Func<ValueTask> ok, DummyParam? _ = null)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
@@ -70,8 +72,9 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">処理を実行するかどうかの値</param>
     /// <param name="ok">特定の処理</param>
+    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
     /// <returns>もとの値</returns>
-    public static async ValueTask<Result> Tap(this ValueTask<Result> source, Func<ValueTask> ok)
+    public static async ValueTask<Result> Tap(this ValueTask<Result> source, Func<ValueTask> ok, DummyParam? _ = null)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         var result = await source.ConfigureAwait(false);
