@@ -5,10 +5,6 @@ namespace Nut.Results;
 
 public static partial class ResultExtensions
 {
-    // Void -> T
-
-    // sync - sync Void -> T
-
     /// <summary>
     /// 成功だった場合に新しい値を持った結果を作成します。失敗の場合は、失敗がそのまま返ります。
     /// </summary>
@@ -21,8 +17,6 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         return !source.IsOk ? Result.Error<TResult>(source._errorValue) : ok();
     }
-
-    //async - sync Void -> T
 
     /// <summary>
     /// 成功だった場合に新しい値を持った結果を作成します。失敗の場合は、失敗がそのまま返ります。

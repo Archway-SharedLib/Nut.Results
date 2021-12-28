@@ -4,8 +4,6 @@ using FluentAssertions;
 using Nut.Results.FluentAssertions;
 using Xunit;
 
-
-
 namespace Nut.Results.Test;
 
 public class FlatMap_T
@@ -345,5 +343,62 @@ public class FlatMap_T
 
         executed.Should().BeTrue();
         result.Should().BeOk().And.Match(v => v == "ok");
+    }
+
+    // 書き心地
+    public async Task Lambdaで呼び出す()
+    {
+        Task<Result> DoTask()
+        {
+            return Task.FromResult(Result.Ok());
+        }
+        ValueTask<Result> DoValueTask()
+        {
+            return new ValueTask<Result>();
+        }
+        Task<Result<int>> DoTaskV(int v)
+        {
+            return Task.FromResult(Result.Ok(v));
+        }
+        ValueTask<Result<int>> DoValueTaskV(int v)
+        {
+            return new ValueTask<Result<int>>(v);
+        }
+
+        Result.Ok().FlatMap(() => Result.Ok());
+        await Result.Ok(1).FlatMap(v => Task.FromResult(Result.Ok()));
+        await Result.Ok(1).FlatMap(async v => await DoTask());
+        await Result.Ok(1).FlatMap(v => new ValueTask<Result>(Result.Ok()));
+        await Result.Ok(1).FlatMap(async v => await DoValueTask());
+
+        await Result.Ok(1).AsTask().FlatMap(v => Result.Ok());
+        await Result.Ok(1).AsTask().FlatMap(v => Task.FromResult(Result.Ok()));
+        await Result.Ok(1).AsTask().FlatMap(async v => await DoTask());
+        await Result.Ok(1).AsTask().FlatMap(v => new ValueTask<Result>(Result.Ok()));
+        await Result.Ok(1).AsTask().FlatMap(async v => await DoValueTask());
+
+        await Result.Ok(1).AsValueTask().FlatMap(v => Result.Ok());
+        await Result.Ok(1).AsValueTask().FlatMap(v => Task.FromResult(Result.Ok()));
+        await Result.Ok(1).AsValueTask().FlatMap(async v => await DoTask());
+        await Result.Ok(1).AsValueTask().FlatMap(v => new ValueTask<Result>(Result.Ok()));
+        await Result.Ok(1).AsValueTask().FlatMap(async v => await DoValueTask());
+
+        Result.Ok().FlatMap(() => Result.Ok(1));
+        await Result.Ok(1).FlatMap(v => Task.FromResult(Result.Ok(1)));
+        await Result.Ok(1).FlatMap(async v => await DoTaskV(1));
+        await Result.Ok(1).FlatMap(v => new ValueTask<Result<int>>(Result.Ok(1)));
+        await Result.Ok(1).FlatMap(async v => await DoValueTaskV(1));
+
+        await Result.Ok(1).AsTask().FlatMap(v => Result.Ok(1));
+        await Result.Ok(1).AsTask().FlatMap(v => Task.FromResult(Result.Ok(1)));
+        await Result.Ok(1).AsTask().FlatMap(async v => await DoTaskV(1));
+        await Result.Ok(1).AsTask().FlatMap(v => new ValueTask<Result<int>>(Result.Ok(1)));
+        await Result.Ok(1).AsTask().FlatMap(async v => await DoValueTaskV(1));
+
+        await Result.Ok(1).AsValueTask().FlatMap(v => Result.Ok(1));
+        await Result.Ok(1).AsValueTask().FlatMap(v => Task.FromResult(Result.Ok()));
+        await Result.Ok(1).AsValueTask().FlatMap(async v => await DoTaskV(1));
+        await Result.Ok(1).AsValueTask().FlatMap(v => new ValueTask<Result<int>>(Result.Ok(1)));
+        await Result.Ok(1).AsValueTask().FlatMap(async v => await DoValueTaskV(1));
     }
 }

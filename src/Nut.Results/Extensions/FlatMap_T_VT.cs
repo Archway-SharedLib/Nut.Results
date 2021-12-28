@@ -41,9 +41,10 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">もととなる結果</param>
     /// <param name="ok">新しい結果の値を作成する処理</param>
+    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
     /// <typeparam name="T">成功の結果の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async ValueTask<Result> FlatMap<T>(this ValueTask<Result<T>> source, Func<T, ValueTask<Result>> ok)
+    public static async ValueTask<Result> FlatMap<T>(this ValueTask<Result<T>> source, Func<T, ValueTask<Result>> ok, DummyParam? _ = null)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         var result = await source.ConfigureAwait(false);
@@ -57,9 +58,10 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">もととなる結果</param>
     /// <param name="ok">新しい結果の値を作成する処理</param>
+    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
     /// <typeparam name="T">成功の結果の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async ValueTask<Result> FlatMap<T>(this Result<T> source, Func<T, ValueTask<Result>> ok)
+    public static async ValueTask<Result> FlatMap<T>(this Result<T> source, Func<T, ValueTask<Result>> ok, DummyParam? _ = null)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         return !source.IsOk ? Result.Error(source._errorValue) : await ok(source._value);
@@ -70,9 +72,10 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">もととなる結果</param>
     /// <param name="ok">新しい結果の値を作成する処理</param>
+    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
     /// <typeparam name="T">成功の結果の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async ValueTask<Result> FlatMap<T>(this Task<Result<T>> source, Func<T, ValueTask<Result>> ok)
+    public static async ValueTask<Result> FlatMap<T>(this Task<Result<T>> source, Func<T, ValueTask<Result>> ok, DummyParam? _ = null)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
@@ -117,10 +120,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">もととなる結果</param>
     /// <param name="ok">新しい結果の値を作成する処理</param>
+    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
     /// <typeparam name="T">成功の結果の型</typeparam>
     /// <typeparam name="TResult">新しい成功の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async ValueTask<Result<TResult>> FlatMap<T, TResult>(this ValueTask<Result<T>> source, Func<T, ValueTask<Result<TResult>>> ok)
+    public static async ValueTask<Result<TResult>> FlatMap<T, TResult>(this ValueTask<Result<T>> source, Func<T, ValueTask<Result<TResult>>> ok, DummyParam? _ = null)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         var result = await source.ConfigureAwait(false);
@@ -134,10 +138,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">もととなる結果</param>
     /// <param name="ok">新しい結果の値を作成する処理</param>
+    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
     /// <typeparam name="T">成功の結果の型</typeparam>
     /// <typeparam name="TResult">新しい成功の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async ValueTask<Result<TResult>> FlatMap<T, TResult>(this Result<T> source, Func<T, ValueTask<Result<TResult>>> ok)
+    public static async ValueTask<Result<TResult>> FlatMap<T, TResult>(this Result<T> source, Func<T, ValueTask<Result<TResult>>> ok, DummyParam? _ = null)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         return !source.IsOk ? Result.Error<TResult>(source._errorValue) : await ok(source._value);
@@ -148,10 +153,11 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source">もととなる結果</param>
     /// <param name="ok">新しい結果の値を作成する処理</param>
+    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
     /// <typeparam name="T">成功の結果の型</typeparam>
     /// <typeparam name="TResult">新しい成功の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async ValueTask<Result<TResult>> FlatMap<T, TResult>(this Task<Result<T>> source, Func<T, ValueTask<Result<TResult>>> ok)
+    public static async ValueTask<Result<TResult>> FlatMap<T, TResult>(this Task<Result<T>> source, Func<T, ValueTask<Result<TResult>>> ok, DummyParam? _ = null)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
