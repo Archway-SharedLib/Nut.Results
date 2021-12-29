@@ -58,6 +58,19 @@
         return errType.IsGeneric ? $"Func<IError, Result<TResult>>" : $"Func<IError, Result>";
     }
 
+    bool NeedDummyParamCode(MethodProcessor p)
+        => (p.Error.TaskType == TaskType.ValueTask && p.Ok.TaskType != TaskType.ValueTask) ||
+           (p.Error.TaskType == TaskType.None && p.Ok.TaskType == TaskType.ValueTask);
+
+    string GetDummyParamCodeIfNeeded(MethodProcessor p)
+    {
+        if (NeedDummyParamCode(p))
+        {
+            return ", DummyParam? _ = null";
+        }
+        return string.Empty;
+    }
+
     string GetSourceParamDec(MethodProcessor p)
         => (p.CanInParam() ? "in " : "") + p.Source.GetTypeText();
 
@@ -76,6 +89,8 @@ public static partial class ResultExtensions
     {
         foreach (var st in targetTypes)
         {
+            // if(st.TaskType == TaskType.ValueTask) continue;
+
             foreach (var ot in targetTypes)
             {
                 foreach (var et in targetTypes)
@@ -85,10 +100,28 @@ public static partial class ResultExtensions
 #>
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
+<#
+                    if (rt.IsTask)
+                    {
+#>
+    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
+<#
+                    }
+#>
+
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
     /// <param name="err">失敗の場合に実行される処理</param>
+<#
+                    if (NeedDummyParamCode(p))
+                    {
+#>
+    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
+<#
+
+                    }
+#>
 <#
                     if (st.IsGeneric)
                     {
@@ -106,7 +139,7 @@ public static partial class ResultExtensions
                     }
 #>
     /// <returns>処理の結果</returns>
-    public static<#= p.IsAsyncMethod() ? " async" : "" #> <#= rt.GetTypeText(true) #> <#= GetMethodName(rt, st) #>(this <#= GetSourceParamDec(p) #> source, <#=GetOkType(st, ot)#> ok, <#=GetErrorType(et)#> err)
+    public static<#= p.IsAsyncMethod() ? " async" : "" #> <#= rt.GetTypeText(true) #> <#= GetMethodName(rt, st) #>(this <#= GetSourceParamDec(p) #> source, <#=GetOkType(st, ot)#> ok, <#=GetErrorType(et)#> err<#=GetDummyParamCodeIfNeeded(p)#>)
     {
 <#
                     if (st.TaskType == TaskType.Task)

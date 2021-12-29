@@ -42,6 +42,8 @@ public partial class Match
     {
         foreach (var st in targetTypes)
         {
+            // if(st.TaskType == TaskType.ValueTask) continue;
+
             foreach (var ot in targetTypes)
             {
                 foreach (var et in targetTypes)

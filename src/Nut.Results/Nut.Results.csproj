@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
-  
+
   <PropertyGroup>
     <Authors>Archway</Authors>
     <Description>A simple Result object implementation for .NET</Description>
@@ -29,7 +29,7 @@
     <PackageIcon>logo_128.png</PackageIcon>
     <RepositoryUrl>https://github.com/Archway-SharedLib/Nut.Results</RepositoryUrl>
   </PropertyGroup>
-  
+
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <LangVersion>10.0</LangVersion>
   </PropertyGroup>
@@ -50,7 +50,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-  
+
   <ItemGroup>
     <None Include="..\..\assets\logo\logo_128.png">
       <Pack>True</Pack>
@@ -61,15 +61,7 @@
       <LastGenOutput>Match.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  
-  <ItemGroup>
-   
-  </ItemGroup>
-  
-  <ItemGroup>
-    
-  </ItemGroup>
-  
+
   <ItemGroup>
     <Compile Update="Extensions\Match.cs">
       <AutoGen>True</AutoGen>
