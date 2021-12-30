@@ -2,13 +2,10 @@ using System;
 using System.Threading.Tasks;
 using Nut.Results.Internals;
 
-
 namespace Nut.Results;
 
 public static partial class ResultExtensions
 {
-    //sync - sync T1 -> T2
-
     /// <summary>
     /// 成功の値を別の値にマップします。失敗の場合は、失敗がそのまま返ります。
     /// </summary>
@@ -26,8 +23,6 @@ public static partial class ResultExtensions
 
         return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
     }
-
-    //async - sync T1 -> T2
 
     /// <summary>
     /// 成功の値を別の値にマップします。失敗の場合は、失敗がそのまま返ります。
@@ -50,8 +45,6 @@ public static partial class ResultExtensions
         return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
     }
 
-    //sync - async T1 -> T2
-
     /// <summary>
     /// 成功の値を別の値にマップします。失敗の場合は、失敗がそのまま返ります。
     /// </summary>
@@ -68,8 +61,6 @@ public static partial class ResultExtensions
         var newValue = await ok(source._value).ConfigureAwait(false);
         return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
     }
-
-    //async - async T1 -> T2
 
     /// <summary>
     /// 成功の値を別の値にマップします。失敗の場合は、失敗がそのまま返ります。

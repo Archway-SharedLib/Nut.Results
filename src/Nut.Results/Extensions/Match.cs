@@ -11,7 +11,6 @@ public static partial class ResultExtensions
 {
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -30,7 +29,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -50,7 +48,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -70,7 +67,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -91,8 +87,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -111,8 +105,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -131,8 +123,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -151,8 +141,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -172,8 +160,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -193,8 +179,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -214,8 +198,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -235,8 +217,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -256,8 +236,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -277,8 +255,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -298,8 +274,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -320,8 +294,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -342,8 +314,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -364,8 +334,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -386,8 +354,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -407,8 +373,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -428,8 +392,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -449,8 +411,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -471,8 +431,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -493,8 +451,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -515,8 +471,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -537,8 +491,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -559,8 +511,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -581,8 +531,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -603,8 +551,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -626,8 +572,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -649,8 +593,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -672,8 +614,6 @@ public static partial class ResultExtensions
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
     /// </summary>
     /// <param name="source">もととなる <see cref="Result"/></param>
     /// <param name="ok">成功の場合に実行される処理</param>
@@ -684,1658 +624,6 @@ public static partial class ResultExtensions
     public static async Task<Result<TResult>> Match<T, TResult>(this Task<Result<T>> source, Func<T, Task<Result<TResult>>> ok, Func<IError, Task<Result<TResult>>> err)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this Result source, Func<Result> ok, Func<IError, ValueTask<Result>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok();
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this Result source, Func<Task<Result>> ok, Func<IError, ValueTask<Result>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this Result source, Func<ValueTask<Result>> ok, Func<IError, Result> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this Result source, Func<ValueTask<Result>> ok, Func<IError, Task<Result>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <returns>処理の結果</returns>
-    public static ValueTask<Result> Match(this in Result source, Func<ValueTask<Result>> ok, Func<IError, ValueTask<Result>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok();
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this Result<T> source, Func<T, Result> ok, Func<IError, ValueTask<Result>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this Result<T> source, Func<T, Task<Result>> ok, Func<IError, ValueTask<Result>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this Result<T> source, Func<T, ValueTask<Result>> ok, Func<IError, Result> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this Result<T> source, Func<T, ValueTask<Result>> ok, Func<IError, Task<Result>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static ValueTask<Result> Match<T>(this in Result<T> source, Func<T, ValueTask<Result>> ok, Func<IError, ValueTask<Result>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this Task<Result> source, Func<Result> ok, Func<IError, ValueTask<Result>> err, DummyParam? _ = null)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok();
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this Task<Result> source, Func<Task<Result>> ok, Func<IError, ValueTask<Result>> err, DummyParam? _ = null)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this Task<Result> source, Func<ValueTask<Result>> ok, Func<IError, Result> err, DummyParam? _ = null)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this Task<Result> source, Func<ValueTask<Result>> ok, Func<IError, Task<Result>> err)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this Task<Result> source, Func<ValueTask<Result>> ok, Func<IError, ValueTask<Result>> err)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this Task<Result<T>> source, Func<T, Result> ok, Func<IError, ValueTask<Result>> err, DummyParam? _ = null)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this Task<Result<T>> source, Func<T, Task<Result>> ok, Func<IError, ValueTask<Result>> err, DummyParam? _ = null)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this Task<Result<T>> source, Func<T, ValueTask<Result>> ok, Func<IError, Result> err, DummyParam? _ = null)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this Task<Result<T>> source, Func<T, ValueTask<Result>> ok, Func<IError, Task<Result>> err)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this Task<Result<T>> source, Func<T, ValueTask<Result>> ok, Func<IError, ValueTask<Result>> err)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this ValueTask<Result> source, Func<Result> ok, Func<IError, Result> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok();
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this ValueTask<Result> source, Func<Result> ok, Func<IError, Task<Result>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok();
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this ValueTask<Result> source, Func<Result> ok, Func<IError, ValueTask<Result>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok();
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this ValueTask<Result> source, Func<Task<Result>> ok, Func<IError, Result> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this ValueTask<Result> source, Func<Task<Result>> ok, Func<IError, Task<Result>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this ValueTask<Result> source, Func<Task<Result>> ok, Func<IError, ValueTask<Result>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this ValueTask<Result> source, Func<ValueTask<Result>> ok, Func<IError, Result> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this ValueTask<Result> source, Func<ValueTask<Result>> ok, Func<IError, Task<Result>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match(this ValueTask<Result> source, Func<ValueTask<Result>> ok, Func<IError, ValueTask<Result>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this ValueTask<Result<T>> source, Func<T, Result> ok, Func<IError, Result> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this ValueTask<Result<T>> source, Func<T, Result> ok, Func<IError, Task<Result>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this ValueTask<Result<T>> source, Func<T, Result> ok, Func<IError, ValueTask<Result>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this ValueTask<Result<T>> source, Func<T, Task<Result>> ok, Func<IError, Result> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this ValueTask<Result<T>> source, Func<T, Task<Result>> ok, Func<IError, Task<Result>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this ValueTask<Result<T>> source, Func<T, Task<Result>> ok, Func<IError, ValueTask<Result>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this ValueTask<Result<T>> source, Func<T, ValueTask<Result>> ok, Func<IError, Result> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this ValueTask<Result<T>> source, Func<T, ValueTask<Result>> ok, Func<IError, Task<Result>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result> Match<T>(this ValueTask<Result<T>> source, Func<T, ValueTask<Result>> ok, Func<IError, ValueTask<Result>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this Result source, Func<Result<TResult>> ok, Func<IError, ValueTask<Result<TResult>>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok();
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this Result source, Func<Task<Result<TResult>>> ok, Func<IError, ValueTask<Result<TResult>>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this Result source, Func<ValueTask<Result<TResult>>> ok, Func<IError, Result<TResult>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this Result source, Func<ValueTask<Result<TResult>>> ok, Func<IError, Task<Result<TResult>>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static ValueTask<Result<TResult>> Match<TResult>(this in Result source, Func<ValueTask<Result<TResult>>> ok, Func<IError, ValueTask<Result<TResult>>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok();
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this Result<T> source, Func<T, Result<TResult>> ok, Func<IError, ValueTask<Result<TResult>>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this Result<T> source, Func<T, Task<Result<TResult>>> ok, Func<IError, ValueTask<Result<TResult>>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this Result<T> source, Func<T, ValueTask<Result<TResult>>> ok, Func<IError, Result<TResult>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this Result<T> source, Func<T, ValueTask<Result<TResult>>> ok, Func<IError, Task<Result<TResult>>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static ValueTask<Result<TResult>> Match<T, TResult>(this in Result<T> source, Func<T, ValueTask<Result<TResult>>> ok, Func<IError, ValueTask<Result<TResult>>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this Task<Result> source, Func<Result<TResult>> ok, Func<IError, ValueTask<Result<TResult>>> err, DummyParam? _ = null)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok();
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this Task<Result> source, Func<Task<Result<TResult>>> ok, Func<IError, ValueTask<Result<TResult>>> err, DummyParam? _ = null)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this Task<Result> source, Func<ValueTask<Result<TResult>>> ok, Func<IError, Result<TResult>> err, DummyParam? _ = null)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this Task<Result> source, Func<ValueTask<Result<TResult>>> ok, Func<IError, Task<Result<TResult>>> err)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this Task<Result> source, Func<ValueTask<Result<TResult>>> ok, Func<IError, ValueTask<Result<TResult>>> err)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this Task<Result<T>> source, Func<T, Result<TResult>> ok, Func<IError, ValueTask<Result<TResult>>> err, DummyParam? _ = null)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this Task<Result<T>> source, Func<T, Task<Result<TResult>>> ok, Func<IError, ValueTask<Result<TResult>>> err, DummyParam? _ = null)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this Task<Result<T>> source, Func<T, ValueTask<Result<TResult>>> ok, Func<IError, Result<TResult>> err, DummyParam? _ = null)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this Task<Result<T>> source, Func<T, ValueTask<Result<TResult>>> ok, Func<IError, Task<Result<TResult>>> err)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this Task<Result<T>> source, Func<T, ValueTask<Result<TResult>>> ok, Func<IError, ValueTask<Result<TResult>>> err)
-    {
-        if (source is null) throw new ArgumentNullException(nameof(source));
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this ValueTask<Result> source, Func<Result<TResult>> ok, Func<IError, Result<TResult>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok();
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this ValueTask<Result> source, Func<Result<TResult>> ok, Func<IError, Task<Result<TResult>>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok();
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this ValueTask<Result> source, Func<Result<TResult>> ok, Func<IError, ValueTask<Result<TResult>>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok();
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this ValueTask<Result> source, Func<Task<Result<TResult>>> ok, Func<IError, Result<TResult>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this ValueTask<Result> source, Func<Task<Result<TResult>>> ok, Func<IError, Task<Result<TResult>>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this ValueTask<Result> source, Func<Task<Result<TResult>>> ok, Func<IError, ValueTask<Result<TResult>>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this ValueTask<Result> source, Func<ValueTask<Result<TResult>>> ok, Func<IError, Result<TResult>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this ValueTask<Result> source, Func<ValueTask<Result<TResult>>> ok, Func<IError, Task<Result<TResult>>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<TResult>(this ValueTask<Result> source, Func<ValueTask<Result<TResult>>> ok, Func<IError, ValueTask<Result<TResult>>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this ValueTask<Result<T>> source, Func<T, Result<TResult>> ok, Func<IError, Result<TResult>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this ValueTask<Result<T>> source, Func<T, Result<TResult>> ok, Func<IError, Task<Result<TResult>>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this ValueTask<Result<T>> source, Func<T, Result<TResult>> ok, Func<IError, ValueTask<Result<TResult>>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this ValueTask<Result<T>> source, Func<T, Task<Result<TResult>>> ok, Func<IError, Result<TResult>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this ValueTask<Result<T>> source, Func<T, Task<Result<TResult>>> ok, Func<IError, Task<Result<TResult>>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this ValueTask<Result<T>> source, Func<T, Task<Result<TResult>>> ok, Func<IError, ValueTask<Result<TResult>>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <param name="_">オーバーロードを解決するためのダミーパラメーターです。利用しません。</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this ValueTask<Result<T>> source, Func<T, ValueTask<Result<TResult>>> ok, Func<IError, Result<TResult>> err, DummyParam? _ = null)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return err(sourceValue._errorValue);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this ValueTask<Result<T>> source, Func<T, ValueTask<Result<TResult>>> ok, Func<IError, Task<Result<TResult>>> err)
-    {
-        if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (err is null) throw new ArgumentNullException(nameof(err));
-
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
-        }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
-    }
-    /// <summary>
-    /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
-    /// Lambdaを使った場合にオーバーロードが解決できないときは <see cref="Nut.Results.AsyncLambdaSupport" /> の利用を検討してください。
-
-    /// </summary>
-    /// <param name="source">もととなる <see cref="Result"/></param>
-    /// <param name="ok">成功の場合に実行される処理</param>
-    /// <param name="err">失敗の場合に実行される処理</param>
-    /// <typeparam name="T">成功の値の型</typeparam>
-    /// <typeparam name="TResult">返される結果の成功の値の型</typeparam>
-    /// <returns>処理の結果</returns>
-    public static async ValueTask<Result<TResult>> Match<T, TResult>(this ValueTask<Result<T>> source, Func<T, ValueTask<Result<TResult>>> ok, Func<IError, ValueTask<Result<TResult>>> err)
-    {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 

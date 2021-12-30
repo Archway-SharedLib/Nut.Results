@@ -12,8 +12,8 @@
         new (true, TaskType.None),
         new (false, TaskType.Task),
         new (true, TaskType.Task),
-        new (false, TaskType.ValueTask),
-        new (true, TaskType.ValueTask),
+        // new (false, TaskType.ValueTask),
+        // new (true, TaskType.ValueTask),
     };
 
     string GetTestMethodTypeText(TargetType t)

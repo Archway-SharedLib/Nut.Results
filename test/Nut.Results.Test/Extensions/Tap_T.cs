@@ -180,35 +180,4 @@ public class Tap_T
         executed.Should().BeFalse();
         result.Should().BeError().And.Match(e => e == error);
     }
-
-    // 書き心地
-    public async Task Lambdaで呼び出す()
-    {
-        Task DoTask()
-        {
-            return Task.CompletedTask;
-        }
-        ValueTask DoValueTask()
-        {
-            return new ValueTask();
-        }
-
-        Result.Ok(1).Tap((v) => { });
-        await Result.Ok(1).Tap((v) => Task.CompletedTask);
-        await Result.Ok(1).Tap(async (v) => await DoTask());
-        await Result.Ok(1).Tap((v) => new ValueTask());
-        await Result.Ok(1).Tap(async (v) => await DoValueTask());
-
-        await Result.Ok(1).AsTask().Tap((v) => { });
-        await Result.Ok(1).AsTask().Tap((v) => Task.CompletedTask);
-        await Result.Ok(1).AsTask().Tap(async (v) => await DoTask());
-        await Result.Ok(1).AsTask().Tap((v) => new ValueTask());
-        await Result.Ok(1).AsTask().Tap(async (v) => await DoValueTask());
-
-        await Result.Ok(1).AsValueTask().Tap((v) => { });
-        await Result.Ok(1).AsValueTask().Tap((v) => Task.CompletedTask);
-        await Result.Ok(1).AsValueTask().Tap(async (v) => await DoTask());
-        await Result.Ok(1).AsValueTask().Tap((v) => new ValueTask());
-        await Result.Ok(1).AsValueTask().Tap(async (v) => await DoValueTask());
-    }
 }
