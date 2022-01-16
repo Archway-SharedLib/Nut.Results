@@ -58,16 +58,10 @@
     </None>
     <None Update="Extensions\Match.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Match.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Extensions\Match.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Match.tt</DependentUpon>
-    </Compile>
+    <None Update="Extensions\Combine.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+    </None>
   </ItemGroup>
 
 </Project>
