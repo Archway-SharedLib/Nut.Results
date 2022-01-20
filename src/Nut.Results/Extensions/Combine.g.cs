@@ -20,12 +20,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1)>(source._errorValue);
 
-        var v0 = source.Get();
+        var v0 = source._value;
         var destResult = dest(v0);
-        if (destResult.IsError) return Result.Error<(T0, T1)>(destResult.GetError());
-        return Result.Ok((v0, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1)>(destResult._errorValue);
+        return Result.Ok((v0, destResult._value));
     }
 
     /// <summary>
@@ -61,12 +61,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1)>(source._errorValue);
 
-        var v0 = source.Get();
+        var v0 = source._value;
         var destResult = await dest(v0).ConfigureAwait(false);
-        if (destResult.IsError) return Result.Error<(T0, T1)>(destResult.GetError());
-        return Result.Ok((v0, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1)>(destResult._errorValue);
+        return Result.Ok((v0, destResult._value));
     }
 
     /// <summary>
@@ -103,12 +103,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2)>(source._errorValue);
 
-        var (v0, v1) = source.Get();
+        var (v0, v1) = source._value;
         var destResult = dest((v0, v1));
-        if (destResult.IsError) return Result.Error<(T0, T1, T2)>(destResult.GetError());
-        return Result.Ok((v0, v1, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2)>(destResult._errorValue);
+        return Result.Ok((v0, v1, destResult._value));
     }
 
     /// <summary>
@@ -146,12 +146,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2)>(source._errorValue);
 
-        var (v0, v1) = source.Get();
+        var (v0, v1) = source._value;
         var destResult = await dest((v0, v1)).ConfigureAwait(false);
-        if (destResult.IsError) return Result.Error<(T0, T1, T2)>(destResult.GetError());
-        return Result.Ok((v0, v1, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2)>(destResult._errorValue);
+        return Result.Ok((v0, v1, destResult._value));
     }
 
     /// <summary>
@@ -190,12 +190,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3)>(source._errorValue);
 
-        var (v0, v1, v2) = source.Get();
+        var (v0, v1, v2) = source._value;
         var destResult = dest((v0, v1, v2));
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, destResult._value));
     }
 
     /// <summary>
@@ -235,12 +235,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3)>(source._errorValue);
 
-        var (v0, v1, v2) = source.Get();
+        var (v0, v1, v2) = source._value;
         var destResult = await dest((v0, v1, v2)).ConfigureAwait(false);
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, destResult._value));
     }
 
     /// <summary>
@@ -281,12 +281,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4)>(source._errorValue);
 
-        var (v0, v1, v2, v3) = source.Get();
+        var (v0, v1, v2, v3) = source._value;
         var destResult = dest((v0, v1, v2, v3));
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, destResult._value));
     }
 
     /// <summary>
@@ -328,12 +328,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4)>(source._errorValue);
 
-        var (v0, v1, v2, v3) = source.Get();
+        var (v0, v1, v2, v3) = source._value;
         var destResult = await dest((v0, v1, v2, v3)).ConfigureAwait(false);
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, destResult._value));
     }
 
     /// <summary>
@@ -376,12 +376,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4) = source.Get();
+        var (v0, v1, v2, v3, v4) = source._value;
         var destResult = dest((v0, v1, v2, v3, v4));
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, destResult._value));
     }
 
     /// <summary>
@@ -425,12 +425,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4) = source.Get();
+        var (v0, v1, v2, v3, v4) = source._value;
         var destResult = await dest((v0, v1, v2, v3, v4)).ConfigureAwait(false);
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, destResult._value));
     }
 
     /// <summary>
@@ -475,12 +475,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5) = source.Get();
+        var (v0, v1, v2, v3, v4, v5) = source._value;
         var destResult = dest((v0, v1, v2, v3, v4, v5));
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, destResult._value));
     }
 
     /// <summary>
@@ -526,12 +526,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5) = source.Get();
+        var (v0, v1, v2, v3, v4, v5) = source._value;
         var destResult = await dest((v0, v1, v2, v3, v4, v5)).ConfigureAwait(false);
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, destResult._value));
     }
 
     /// <summary>
@@ -578,12 +578,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6) = source._value;
         var destResult = dest((v0, v1, v2, v3, v4, v5, v6));
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, destResult._value));
     }
 
     /// <summary>
@@ -631,12 +631,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6) = source._value;
         var destResult = await dest((v0, v1, v2, v3, v4, v5, v6)).ConfigureAwait(false);
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, destResult._value));
     }
 
     /// <summary>
@@ -685,12 +685,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6, v7) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6, v7) = source._value;
         var destResult = dest((v0, v1, v2, v3, v4, v5, v6, v7));
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, destResult._value));
     }
 
     /// <summary>
@@ -740,12 +740,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6, v7) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6, v7) = source._value;
         var destResult = await dest((v0, v1, v2, v3, v4, v5, v6, v7)).ConfigureAwait(false);
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, destResult._value));
     }
 
     /// <summary>
@@ -796,12 +796,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6, v7, v8) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6, v7, v8) = source._value;
         var destResult = dest((v0, v1, v2, v3, v4, v5, v6, v7, v8));
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, destResult._value));
     }
 
     /// <summary>
@@ -853,12 +853,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6, v7, v8) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6, v7, v8) = source._value;
         var destResult = await dest((v0, v1, v2, v3, v4, v5, v6, v7, v8)).ConfigureAwait(false);
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, destResult._value));
     }
 
     /// <summary>
@@ -911,12 +911,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9) = source._value;
         var destResult = dest((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9));
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, destResult._value));
     }
 
     /// <summary>
@@ -970,12 +970,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9) = source._value;
         var destResult = await dest((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9)).ConfigureAwait(false);
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, destResult._value));
     }
 
     /// <summary>
@@ -1030,12 +1030,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10) = source._value;
         var destResult = dest((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10));
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, destResult._value));
     }
 
     /// <summary>
@@ -1091,12 +1091,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10) = source._value;
         var destResult = await dest((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10)).ConfigureAwait(false);
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, destResult._value));
     }
 
     /// <summary>
@@ -1153,12 +1153,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11) = source._value;
         var destResult = dest((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11));
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, destResult._value));
     }
 
     /// <summary>
@@ -1216,12 +1216,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11) = source._value;
         var destResult = await dest((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11)).ConfigureAwait(false);
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, destResult._value));
     }
 
     /// <summary>
@@ -1280,12 +1280,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12) = source._value;
         var destResult = dest((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12));
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, destResult._value));
     }
 
     /// <summary>
@@ -1345,12 +1345,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12) = source._value;
         var destResult = await dest((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12)).ConfigureAwait(false);
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, destResult._value));
     }
 
     /// <summary>
@@ -1411,12 +1411,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13) = source._value;
         var destResult = dest((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13));
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, destResult._value));
     }
 
     /// <summary>
@@ -1478,12 +1478,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13) = source._value;
         var destResult = await dest((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13)).ConfigureAwait(false);
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, destResult._value));
     }
 
     /// <summary>
@@ -1546,12 +1546,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14) = source._value;
         var destResult = dest((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14));
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, destResult._value));
     }
 
     /// <summary>
@@ -1615,12 +1615,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15)>(source.GetError());
+        if (source.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15)>(source._errorValue);
 
-        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14) = source.Get();
+        var (v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14) = source._value;
         var destResult = await dest((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14)).ConfigureAwait(false);
-        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15)>(destResult.GetError());
-        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15)>(destResult._errorValue);
+        return Result.Ok((v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, destResult._value));
     }
 
     /// <summary>

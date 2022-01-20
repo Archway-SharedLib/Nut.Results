@@ -99,7 +99,7 @@ public static class ResultHelper
     {
         if (results is null) throw new ArgumentNullException(nameof(results));
 
-        var errors = results.Where(r => r.IsError).Select(r => r.GetError());
+        var errors = results.Where(r => r.IsError).Select(r => r._errorValue);
         return errors.Any() ? Result.Error(new AggregateError(errors)) : Result.Ok();
     }
 
@@ -131,8 +131,8 @@ public static class ResultHelper
     {
         if (results is null) throw new ArgumentNullException(nameof(results));
 
-        var errors = results.Where(r => r.IsError).Select(r => r.GetError());
-        return errors.Any() ? Result.Error<T[]>(new AggregateError(errors)) : Result.Ok(results.Select(r => r.Get()).ToArray());
+        var errors = results.Where(r => r.IsError).Select(r => r._errorValue);
+        return errors.Any() ? Result.Error<T[]>(new AggregateError(errors)) : Result.Ok(results.Select(r => r._value).ToArray());
     }
 
     /// <summary>

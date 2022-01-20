@@ -36,12 +36,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(<#= typeArgs #>)>(source.GetError());
+        if (source.IsError) return Result.Error<(<#= typeArgs #>)>(source._errorValue);
 
-        var <#= sourceResultVarDecl #> = source.Get();
+        var <#= sourceResultVarDecl #> = source._value;
         var destResult = dest(<#= sourceResultVarDecl #>);
-        if (destResult.IsError) return Result.Error<(<#= typeArgs #>)>(destResult.GetError());
-        return Result.Ok((<#= sourceResultVars #>, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(<#= typeArgs #>)>(destResult._errorValue);
+        return Result.Ok((<#= sourceResultVars #>, destResult._value));
     }
 
     <#= comment #>
@@ -63,12 +63,12 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(<#= typeArgs #>)>(source.GetError());
+        if (source.IsError) return Result.Error<(<#= typeArgs #>)>(source._errorValue);
 
-        var <#= sourceResultVarDecl #> = source.Get();
+        var <#= sourceResultVarDecl #> = source._value;
         var destResult = await dest(<#= sourceResultVarDecl #>).ConfigureAwait(false);
-        if (destResult.IsError) return Result.Error<(<#= typeArgs #>)>(destResult.GetError());
-        return Result.Ok((<#= sourceResultVars #>, destResult.Get()));
+        if (destResult.IsError) return Result.Error<(<#= typeArgs #>)>(destResult._errorValue);
+        return Result.Ok((<#= sourceResultVars #>, destResult._value));
     }
 
     <#= comment #>

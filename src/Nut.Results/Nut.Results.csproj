@@ -58,10 +58,28 @@
     </None>
     <None Update="Extensions\Match.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Match.g.cs</LastGenOutput>
     </None>
     <None Update="Extensions\Combine.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Combine.g.cs</LastGenOutput>
     </None>
+    <None Update="Extensions\Merge_Tuple.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Merge_Tuple.g.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Extensions\Match.g.cs">
+      <DependentUpon>Match.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions\Combine.g.cs">
+      <DependentUpon>Combine.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Extensions\Merge_Tuple.g.cs">
+      <DependentUpon>Merge_Tuple.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

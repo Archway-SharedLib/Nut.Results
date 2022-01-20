@@ -51,9 +51,9 @@ public static partial class ResultExtensions
     public static async Task<Result<IEnumerable<TResult>>> MapEach<T, TResult>(this Result<IEnumerable<T>> source, Func<T, Task<TResult>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (source.IsError) return Result.Error<IEnumerable<TResult>>(source.GetError());
+        if (source.IsError) return Result.Error<IEnumerable<TResult>>(source._errorValue);
 
-        var items = source.Get();
+        var items = source._value;
         var tasks = new List<Task<TResult>>();
         foreach (var item in items)
         {
