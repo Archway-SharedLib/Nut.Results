@@ -32,8 +32,14 @@ public class ResultAssertions<T>
     {
         Execute.Assertion.ForCondition(_instance.IsOk)
             .BecauseOf(because, becauseArgs)
-            .FailWith("Expected ok, but error.");
+            .FailWith($"Expected ok, but error.\n{ToErrorMessage(_instance._errorValue)}");
         return new AndConstraint<ResultOkAssertions<T>>(new ResultOkAssertions<T>(_instance));
+    }
+
+    private string ToErrorMessage(IError? error)
+    {
+        if (error is null) return string.Empty;
+        return $"Type: {error.GetType().Name}\nMessage: {error.Message}";
     }
 
     /// <summary>

@@ -36,6 +36,13 @@ public class ResultAssertionsTest
     }
 
     [Fact]
+    public void BeOk_Errorの場合は失敗の内容が出力される()
+    {
+        Action act = () => Result.Error(new Error("Raise Error")).Should().BeOk();
+        act.Should().Throw<XunitException>().And.Message.Should().Be("Expected ok, but error.\nType: Error\nMessage: Raise Error");
+    }
+
+    [Fact]
     public void BeError_Errorの場合は成功する()
     {
         Result.Error(new Error()).Should().BeError();
