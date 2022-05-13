@@ -6,9 +6,9 @@ namespace Nut.Results.Internals;
 
 internal static class ErrorResultFactory<T>
 {
-    public static readonly Func<IError, T> Create = CreateFactory();
+    public static readonly Func<Exception, T> Create = CreateFactory();
 
-    private static Func<IError, T> CreateFactory()
+    private static Func<Exception, T> CreateFactory()
     {
         if (!ResultHelper.IsResultType(typeof(T)))
         {
@@ -19,17 +19,17 @@ internal static class ErrorResultFactory<T>
         {
             // Result<T>
             var genericArg = ResultHelper.GetOkType(typeof(T));
-            var parameter = Expression.Parameter(typeof(IError));
+            var parameter = Expression.Parameter(typeof(Exception));
             var call = Expression.Call(typeof(Result), nameof(Result.Error),
                 new Type[] { genericArg }, parameter);
-            return Expression.Lambda<Func<IError, T>>(call, parameter).Compile();
+            return Expression.Lambda<Func<Exception, T>>(call, parameter).Compile();
         }
         else
         {
             // Result
-            var parameter = Expression.Parameter(typeof(IError));
+            var parameter = Expression.Parameter(typeof(Exception));
             var call = Expression.Call(typeof(Result), nameof(Result.Error), null, parameter);
-            return Expression.Lambda<Func<IError, T>>(call, parameter).Compile();
+            return Expression.Lambda<Func<Exception, T>>(call, parameter).Compile();
         }
     }
 }

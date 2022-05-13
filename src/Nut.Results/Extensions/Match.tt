@@ -53,9 +53,9 @@
     {
         if (errType.IsTask)
         {
-            return errType.IsGeneric ? $"Func<IError, {errType.TaskType}<Result<TResult>>>" : $"Func<IError, {errType.TaskType}<Result>>";
+            return errType.IsGeneric ? $"Func<Exception, {errType.TaskType}<Result<TResult>>>" : $"Func<Exception, {errType.TaskType}<Result>>";
         }
-        return errType.IsGeneric ? $"Func<IError, Result<TResult>>" : $"Func<IError, Result>";
+        return errType.IsGeneric ? $"Func<Exception, Result<TResult>>" : $"Func<Exception, Result>";
     }
 
     bool NeedDummyParamCode(MethodProcessor p)

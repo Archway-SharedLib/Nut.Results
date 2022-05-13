@@ -9,9 +9,9 @@ namespace Nut.Results;
 /// </summary>
 public readonly partial struct Result : IEquatable<Result>
 {
-    internal readonly IError _errorValue;
+    internal readonly Exception _errorValue;
 
-    internal Result(IError? errorValue, bool isOk)
+    internal Result(Exception? errorValue, bool isOk)
     {
         if (errorValue is null && !isOk) throw new ArgumentNullException(nameof(errorValue));
         _errorValue = (isOk ? null : errorValue)!;
@@ -66,9 +66,9 @@ public readonly partial struct Result : IEquatable<Result>
 public readonly partial struct Result<T> : IEquatable<Result<T>>
 {
     internal readonly T _value;
-    internal readonly IError _errorValue;
+    internal readonly Exception _errorValue;
 
-    internal Result(T value, IError errorValue, bool isOk)
+    internal Result(T value, Exception errorValue, bool isOk)
     {
         if (value is null && isOk) throw new ArgumentNullException(nameof(value));
         if (errorValue is null && !isOk) throw new ArgumentNullException(nameof(errorValue));

@@ -17,8 +17,8 @@ public class Empty_T
     [Fact]
     public void Sync_Errorの場合は同じErrorが返る()
     {
-        Result.Error<string>(new Error("Error")).Empty().Should().BeError()
-            .And.Match(e => e.Message == "Error");
+        Result.Error<string>(new Exception("Error")).Empty().Should().BeError()
+            .And.WithMessage("Error");
     }
 
     [Fact]
@@ -39,8 +39,8 @@ public class Empty_T
     [Fact]
     public async Task Async_Errorの場合は同じErrorが返る()
     {
-        var result = await Result.Error<string>(new Error("Error")).AsTask().Empty().ConfigureAwait(false);
+        var result = await Result.Error<string>(new Exception("Error")).AsTask().Empty().ConfigureAwait(false);
         result.Should().BeError()
-            .And.Match(e => e.Message == "Error");
+            .And.WithMessage("Error");
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using FluentAssertions;
 using FluentAssertions.Execution;
 
@@ -36,7 +37,7 @@ public class ResultAssertions<T>
         return new AndConstraint<ResultOkAssertions<T>>(new ResultOkAssertions<T>(_instance));
     }
 
-    private string ToErrorMessage(IError? error)
+    private string ToErrorMessage(Exception? error)
     {
         if (error is null) return string.Empty;
         return $"Type: {error.GetType().Name}\nMessage: {error.Message}";

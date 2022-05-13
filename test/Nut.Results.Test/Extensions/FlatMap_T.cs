@@ -20,7 +20,7 @@ public class FlatMap_T
     [Fact]
     public void NoReturn_SyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
     {
-        var error = new Error();
+        var error = new Exception();
         var errResult = Result.Error<string>(error);
         var executed = false;
         var result = errResult.FlatMap(_ =>
@@ -66,7 +66,7 @@ public class FlatMap_T
     [Fact]
     public async Task NoReturn_AsyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
     {
-        var error = new Error();
+        var error = new Exception();
         var errResult = Result.Error<string>(error).AsTask();
         var executed = false;
         var result = await errResult.FlatMap(_ =>
@@ -104,7 +104,7 @@ public class FlatMap_T
     [Fact]
     public async Task NoReturn_SyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
     {
-        var error = new Error();
+        var error = new Exception();
         var errResult = Result.Error<string>(error);
         var executed = false;
         var result = await errResult.FlatMap(_ =>
@@ -150,7 +150,7 @@ public class FlatMap_T
     [Fact]
     public async Task NoReturn_AsyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
     {
-        var error = new Error();
+        var error = new Exception();
         var errResult = Result.Error<string>(error).AsTask();
         var executed = false;
         var result = await errResult.FlatMap(_ =>
@@ -188,7 +188,7 @@ public class FlatMap_T
     [Fact]
     public void ReturnT_SyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
     {
-        var error = new Error();
+        var error = new Exception();
         var errResult = Result.Error<string>(error);
         var executed = false;
         var result = errResult.FlatMap(_ =>
@@ -234,7 +234,7 @@ public class FlatMap_T
     [Fact]
     public async Task ReturnT_AsyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
     {
-        var error = new Error();
+        var error = new Exception();
         var errResult = Result.Error<string>(error).AsTask();
         var executed = false;
         var result = await errResult.FlatMap(_ =>
@@ -272,7 +272,7 @@ public class FlatMap_T
     [Fact]
     public async Task ReturnT_SyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
     {
-        var error = new Error();
+        var error = new Exception();
         var errResult = Result.Error<string>(error);
         var executed = false;
         var result = await errResult.FlatMap(_ =>
@@ -318,7 +318,7 @@ public class FlatMap_T
     [Fact]
     public async Task ReturnT_AsyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
     {
-        var error = new Error();
+        var error = new Exception();
         var errResult = Result.Error<string>(error).AsTask();
         var executed = false;
         var result = await errResult.FlatMap(_ =>

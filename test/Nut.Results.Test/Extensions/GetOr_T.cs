@@ -13,7 +13,7 @@ public class GetOr_T
     [Fact]
     public void SyncSync_ifErrorがnullの場合は例外が発生する()
     {
-        Action act = () => Result.Ok("ok").GetOr((Func<IError, string>)null);
+        Action act = () => Result.Ok("ok").GetOr((Func<Exception, string>)null);
         act.Should().Throw<ArgumentNullException>();
     }
 
@@ -30,8 +30,8 @@ public class GetOr_T
     {
         var actionResult = "NG";
         var actionExecuted = false;
-        var sourceError = new Error();
-        IError paramError = null;
+        var sourceError = new Exception();
+        Exception paramError = null;
         var result = Result.Error<string>(sourceError).GetOr(e =>
         {
             paramError = e;
@@ -48,7 +48,7 @@ public class GetOr_T
     [Fact]
     public async Task AsyncSync_ifErrorがnullの場合は例外が発生する()
     {
-        Func<Task> act = () => Result.Ok("ok").AsTask().GetOr((Func<IError, string>)null);
+        Func<Task> act = () => Result.Ok("ok").AsTask().GetOr((Func<Exception, string>)null);
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
@@ -72,8 +72,8 @@ public class GetOr_T
     {
         var actionResult = "NG";
         var actionExecuted = false;
-        var sourceError = new Error();
-        IError paramError = null;
+        var sourceError = new Exception();
+        Exception paramError = null;
         var result = await Result.Error<string>(sourceError).AsTask().GetOr(e =>
         {
             paramError = e;
@@ -90,7 +90,7 @@ public class GetOr_T
     [Fact]
     public async Task SyncAsync_ifErrorがnullの場合は例外が発生する()
     {
-        Func<Task> act = () => Result.Ok("ok").GetOr((Func<IError, Task<string>>)null);
+        Func<Task> act = () => Result.Ok("ok").GetOr((Func<Exception, Task<string>>)null);
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
@@ -107,8 +107,8 @@ public class GetOr_T
     {
         var actionResult = "NG";
         var actionExecuted = false;
-        var sourceError = new Error();
-        IError paramError = null;
+        var sourceError = new Exception();
+        Exception paramError = null;
         var result = await Result.Error<string>(sourceError).GetOr(e =>
         {
             paramError = e;
@@ -125,7 +125,7 @@ public class GetOr_T
     [Fact]
     public async Task AsyncAsync_ifErrorがnullの場合は例外が発生する()
     {
-        Func<Task> act = () => Result.Ok("ok").AsTask().GetOr((Func<IError, Task<string>>)null);
+        Func<Task> act = () => Result.Ok("ok").AsTask().GetOr((Func<Exception, Task<string>>)null);
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
@@ -149,8 +149,8 @@ public class GetOr_T
     {
         var actionResult = "NG";
         var actionExecuted = false;
-        var sourceError = new Error();
-        IError paramError = null;
+        var sourceError = new Exception();
+        Exception paramError = null;
         var result = await Result.Error<string>(sourceError).AsTask().GetOr(e =>
         {
             paramError = e;

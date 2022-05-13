@@ -11,17 +11,17 @@ public class TapError
     [Fact]
     public void SyncSync_Errorパラメーターが指定されていない場合は例外が発生する()
     {
-        var act = () => Result.Ok().TapError(null as Action<IError>);
+        var act = () => Result.Ok().TapError(null as Action<Exception>);
         act.Should().Throw<ArgumentNullException>().And.ParamName.Should().Be("error");
     }
 
     [Fact]
     public void SyncSync_失敗の場合はerrorのactionが実行さ呼び出した値と同じ値が返る()
     {
-        var expectedError = new Error();
+        var expectedError = new Exception();
         var expected = Result.Error(expectedError);
         var executed = false;
-        IError error = null;
+        Exception error = null;
         var result = expected.TapError(e =>
         {
             error = e;
@@ -48,7 +48,7 @@ public class TapError
     [Fact]
     public async Task AsyncSync_Errorパラメーターが指定されていない場合は例外が発生する()
     {
-        var act = () => Result.Ok().AsTask().TapError(null as Action<IError>);
+        var act = () => Result.Ok().AsTask().TapError(null as Action<Exception>);
         var result = await act.Should().ThrowAsync<ArgumentNullException>();
         result.And.ParamName.Should().Be("error");
     }
@@ -64,10 +64,10 @@ public class TapError
     [Fact]
     public async Task AsyncSync_失敗の場合はerrorのactionが実行される呼び出した値と同じ値が返る()
     {
-        var expectedError = new Error();
+        var expectedError = new Exception();
         var expected = Result.Error(expectedError);
         var executed = false;
-        IError error = null;
+        Exception error = null;
         var result = await expected.AsTask().TapError(e =>
         {
             error = e;
@@ -93,7 +93,7 @@ public class TapError
     [Fact]
     public async Task SyncAsync_Errorパラメーターが指定されていない場合は例外が発生する()
     {
-        var act = () => Result.Ok().TapError(null as Func<IError, Task>);
+        var act = () => Result.Ok().TapError(null as Func<Exception, Task>);
         var result = await act.Should().ThrowAsync<ArgumentNullException>();
         result.And.ParamName.Should().Be("error");
     }
@@ -101,10 +101,10 @@ public class TapError
     [Fact]
     public async Task SyncAsync_失敗の場合はerrorのactionが実行される呼び出した値と同じ値が返る()
     {
-        var expectedError = new Error();
+        var expectedError = new Exception();
         var expected = Result.Error(expectedError);
         var executed = false;
-        IError error = null;
+        Exception error = null;
         var result = await expected.TapError(e =>
         {
             return Task.Run(() =>
@@ -137,7 +137,7 @@ public class TapError
     [Fact]
     public async Task AsyncAsync_Errorパラメーターが指定されていない場合は例外が発生する()
     {
-        var act = () => Result.Ok().AsTask().TapError(null as Func<IError, Task>);
+        var act = () => Result.Ok().AsTask().TapError(null as Func<Exception, Task>);
         var result = await act.Should().ThrowAsync<ArgumentNullException>();
         result.And.ParamName.Should().Be("error");
     }
@@ -153,10 +153,10 @@ public class TapError
     [Fact]
     public async Task AsyncAsync_失敗の場合はerrorのactionが実行される呼び出した値と同じ値が返る()
     {
-        var expectedError = new Error();
+        var expectedError = new Exception();
         var expected = Result.Error(expectedError);
         var executed = false;
-        IError error = null;
+        Exception error = null;
         var result = await expected.AsTask().TapError(e =>
         {
             return Task.Run(() =>

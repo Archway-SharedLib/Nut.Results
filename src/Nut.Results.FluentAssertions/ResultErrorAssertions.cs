@@ -7,29 +7,29 @@ using FluentAssertions.Primitives;
 namespace Nut.Results.FluentAssertions;
 
 /// <summary>
-/// <see cref="IError"/>をアサーションします。
+/// <see cref="Exception"/>をアサーションします。
 /// </summary>
 public class ResultErrorAssertions
 {
-    private readonly IError _instance;
+    private readonly Exception _instance;
 
     /// <summary>
-    /// アサーションする対象の <see cref="IError"/> を指定してインスタンスを初期化します。
+    /// アサーションする対象の <see cref="Exception"/> を指定してインスタンスを初期化します。
     /// </summary>
-    /// <param name="instance">アサーションする対象の <see cref="IError"/> </param>
-    public ResultErrorAssertions(IError instance)
+    /// <param name="instance">アサーションする対象の <see cref="Exception"/> </param>
+    public ResultErrorAssertions(Exception instance)
     {
         _instance = instance;
     }
 
     /// <summary>
-    /// <see cref="IError"/> が指定された条件に一致することをアサーションします。
+    /// <see cref="Exception"/> が指定された条件に一致することをアサーションします。
     /// </summary>
     /// <param name="predicate">条件</param>
     /// <param name="because">理由のメッセージを設定します。</param>
     /// <param name="becauseArgs">理由のメッセージの引数を設定します。</param>
     /// <returns>チェインしてアサーションするための <see cref="AndConstraint{T}"/> を返します。</returns>
-    public AndConstraint<ResultErrorAssertions> Match(Expression<Func<IError, bool>> predicate,
+    public AndConstraint<ResultErrorAssertions> Match(Expression<Func<Exception, bool>> predicate,
         string because = "",
         params object[] becauseArgs)
     {
@@ -40,9 +40,9 @@ public class ResultErrorAssertions
     }
 
     /// <summary>
-    /// <see cref="IError"/> の型が指定された型と一致することをアサーションします。
+    /// <see cref="Exception"/> の型が指定された型と一致することをアサーションします。
     /// </summary>
-    /// <typeparam name="T">期待する <see cref="IError"/> の値の型</typeparam>
+    /// <typeparam name="T">期待する <see cref="Exception"/> の値の型</typeparam>
     /// <param name="because">理由のメッセージを設定します。</param>
     /// <param name="becauseArgs">理由のメッセージの引数を設定します。</param>
     /// <returns>チェインしてアサーションするための <see cref="AndConstraint{T}"/> を返します。</returns>
@@ -55,9 +55,9 @@ public class ResultErrorAssertions
     }
 
     /// <summary>
-    /// <see cref="IError"/> の型が指定された型と一致することをアサーションします。
+    /// <see cref="Exception"/> の型が指定された型と一致することをアサーションします。
     /// </summary>
-    /// <param name="expectedType">期待する <see cref="IError"/> の値の型</param>
+    /// <param name="expectedType">期待する <see cref="Exception"/> の値の型</param>
     /// <param name="because">理由のメッセージを設定します。</param>
     /// <param name="becauseArgs">理由のメッセージの引数を設定します。</param>
     /// <returns>チェインしてアサーションするための <see cref="AndConstraint{T}"/> を返します。</returns>
@@ -71,7 +71,7 @@ public class ResultErrorAssertions
     }
 
     /// <summary>
-    /// <see cref="IError"/> に設定されているメッセージが指定された値と一致することをアサーションします。
+    /// <see cref="Exception"/> に設定されているメッセージが指定された値と一致することをアサーションします。
     /// </summary>
     /// <param name="expectedWildcardPattern">メッセージのパターン</param>
     /// <param name="because">理由のメッセージを設定します。</param>

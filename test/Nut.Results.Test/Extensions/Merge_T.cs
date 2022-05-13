@@ -30,14 +30,14 @@ public class Merge_T
     {
         var result = ResultExtensions.Merge(new[] {
                 Result.Ok("1"),
-                Result.Error<string>(new Error("1")),
+                Result.Error<string>(new Exception("1")),
                 Result.Ok("2"),
-                Result.Error<string>(new Error("2")),
+                Result.Error<string>(new Exception("2")),
                 Result.Ok("3")
             });
-        result.Should().BeError().And.BeOfType<AggregateError>();
-        var errors = result.GetError().As<AggregateError>();
-        errors.Errors.Should().HaveCount(2);
+        result.Should().BeError().And.BeOfType<AggregateException>();
+        var errors = result.GetError().As<AggregateException>();
+        errors.InnerExceptions.Should().HaveCount(2);
     }
 
     [Fact]
@@ -60,14 +60,14 @@ public class Merge_T
     {
         var result = await ResultExtensions.Merge(new[] {
                 Result.Ok("1").AsTask(),
-                Result.Error<string>(new Error("1")).AsTask(),
+                Result.Error<string>(new Exception("1")).AsTask(),
                 Result.Ok("2").AsTask(),
-                Result.Error<string>(new Error("2")).AsTask(),
+                Result.Error<string>(new Exception("2")).AsTask(),
                 Result.Ok("3").AsTask()
             });
-        result.Should().BeError().And.BeOfType<AggregateError>();
-        var errors = result.GetError().As<AggregateError>();
-        errors.Errors.Should().HaveCount(2);
+        result.Should().BeError().And.BeOfType<AggregateException>();
+        var errors = result.GetError().As<AggregateException>();
+        errors.InnerExceptions.Should().HaveCount(2);
     }
 
     [Fact]
@@ -97,14 +97,14 @@ public class Merge_T
     {
         var result = await ResultExtensions.Merge(Task.FromResult(new[] {
                 Result.Ok("1"),
-                Result.Error<string>(new Error("1")),
+                Result.Error<string>(new Exception("1")),
                 Result.Ok("2"),
-                Result.Error<string>(new Error("2")),
+                Result.Error<string>(new Exception("2")),
                 Result.Ok("3")
             }.AsEnumerable()));
-        result.Should().BeError().And.BeOfType<AggregateError>();
-        var errors = result.GetError().As<AggregateError>();
-        errors.Errors.Should().HaveCount(2);
+        result.Should().BeError().And.BeOfType<AggregateException>();
+        var errors = result.GetError().As<AggregateException>();
+        errors.InnerExceptions.Should().HaveCount(2);
     }
 
     [Fact]
@@ -134,13 +134,13 @@ public class Merge_T
     {
         var result = await ResultExtensions.Merge(Task.FromResult(new[] {
                 Result.Ok("1").AsTask(),
-                Result.Error<string>(new Error("1")).AsTask(),
+                Result.Error<string>(new Exception("1")).AsTask(),
                 Result.Ok("2").AsTask(),
-                Result.Error<string>(new Error("2")).AsTask(),
+                Result.Error<string>(new Exception("2")).AsTask(),
                 Result.Ok("3").AsTask()
             }.AsEnumerable()));
-        result.Should().BeError().And.BeOfType<AggregateError>();
-        var errors = result.GetError().As<AggregateError>();
-        errors.Errors.Should().HaveCount(2);
+        result.Should().BeError().And.BeOfType<AggregateException>();
+        var errors = result.GetError().As<AggregateException>();
+        errors.InnerExceptions.Should().HaveCount(2);
     }
 }

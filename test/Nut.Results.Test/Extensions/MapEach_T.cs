@@ -20,7 +20,7 @@ public class MapEach_T
     [Fact]
     public void SyncSync_失敗の場合はActionは実行されず同じErrorの値が返る()
     {
-        var error = new Error();
+        var error = new Exception();
         var errResult = Result.Error<IEnumerable<int>>(error);
         var executed = false;
         var result = errResult.MapEach(_ =>
@@ -69,7 +69,7 @@ public class MapEach_T
     [Fact]
     public async Task AsyncSync_失敗の場合はActionは実行されず同じErrorの値が返る()
     {
-        var error = new Error();
+        var error = new Exception();
         var errResult = Result.Error<IEnumerable<int>>(error).AsTask();
         var executed = false;
         var result = await errResult.MapEach(_ =>
@@ -109,7 +109,7 @@ public class MapEach_T
     [Fact]
     public async Task SyncAsync_失敗の場合はActionは実行されず同じErrorの値が返る()
     {
-        var error = new Error();
+        var error = new Exception();
         var errResult = Result.Error<IEnumerable<int>>(error);
         var executed = false;
         var result = await errResult.MapEach(_ =>
@@ -158,7 +158,7 @@ public class MapEach_T
     [Fact]
     public async Task AsyncAsync_失敗の場合はActionは実行されず同じErrorの値が返る()
     {
-        var error = new Error();
+        var error = new Exception();
         var errResult = Result.Error<IEnumerable<int>>(error).AsTask();
         var executed = false;
         var result = await errResult.MapEach(_ =>

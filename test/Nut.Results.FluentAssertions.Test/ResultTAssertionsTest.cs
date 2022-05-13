@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using FluentAssertions;
 using Xunit;
 using Xunit.Sdk;
@@ -31,21 +29,21 @@ public class ResultTAssertionsTest
     [Fact]
     public void BeOk_Errorの場合は失敗する()
     {
-        Action act = () => Result.Error<string>(new Error()).Should().BeOk();
+        Action act = () => Result.Error<string>(new Exception()).Should().BeOk();
         act.Should().Throw<XunitException>();
     }
 
     [Fact]
     public void BeOk_Errorの場合は失敗の内容が出力される()
     {
-        Action act = () => Result.Error(new Error("Raise Error")).Should().BeOk();
-        act.Should().Throw<XunitException>().And.Message.Should().Be("Expected ok, but error.\nType: Error\nMessage: Raise Error");
+        Action act = () => Result.Error(new Exception("Raise Error")).Should().BeOk();
+        act.Should().Throw<XunitException>().And.Message.Should().Be("Expected ok, but error.\nType: Exception\nMessage: Raise Error");
     }
 
     [Fact]
     public void BeError_Errorの場合は成功する()
     {
-        Result.Error<string>(new Error()).Should().BeError();
+        Result.Error<string>(new Exception()).Should().BeError();
     }
 
     [Fact]

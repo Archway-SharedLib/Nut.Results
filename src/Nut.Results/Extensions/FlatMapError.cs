@@ -15,7 +15,7 @@ public static partial class ResultExtensions
     /// <param name="source">もととなる結果</param>
     /// <param name="error">新しい結果の値を作成する処理</param>
     /// <returns>新しい値を持った結果</returns>
-    public static Result FlatMapError(this in Result source, Func<IError, Result> error)
+    public static Result FlatMapError(this in Result source, Func<Exception, Result> error)
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
         return !source.IsError ? source : error(source._errorValue);
@@ -29,7 +29,7 @@ public static partial class ResultExtensions
     /// <param name="source">もととなる結果</param>
     /// <param name="error">新しい結果の値を作成する処理</param>
     /// <returns>新しい値を持った結果</returns>
-    public static async Task<Result> FlatMapError(this Task<Result> source, Func<IError, Result> error)
+    public static async Task<Result> FlatMapError(this Task<Result> source, Func<Exception, Result> error)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (error is null) throw new ArgumentNullException(nameof(error));
@@ -46,7 +46,7 @@ public static partial class ResultExtensions
     /// <param name="source">もととなる結果</param>
     /// <param name="error">新しい結果の値を作成する処理</param>
     /// <returns>新しい値を持った結果</returns>
-    public static async Task<Result> FlatMapError(this Result source, Func<IError, Task<Result>> error)
+    public static async Task<Result> FlatMapError(this Result source, Func<Exception, Task<Result>> error)
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
         if (!source.IsError) return source;
@@ -62,7 +62,7 @@ public static partial class ResultExtensions
     /// <param name="source">もととなる結果</param>
     /// <param name="error">新しい結果の値を作成する処理</param>
     /// <returns>新しい値を持った結果</returns>
-    public static async Task<Result> FlatMapError(this Task<Result> source, Func<IError, Task<Result>> error)
+    public static async Task<Result> FlatMapError(this Task<Result> source, Func<Exception, Task<Result>> error)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (error is null) throw new ArgumentNullException(nameof(error));

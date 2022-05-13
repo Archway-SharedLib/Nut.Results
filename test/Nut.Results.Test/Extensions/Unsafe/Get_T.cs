@@ -24,14 +24,14 @@ public class Get_T
     [Fact]
     public void 失敗の場合は例外が発生する()
     {
-        var act = () => Result.Error<string>(new Error()).Get();
+        var act = () => Result.Error<string>(new Exception()).Get();
         act.Should().Throw<InvalidOperationException>();
     }
 
     [Fact]
     public async Task Async_失敗の場合は例外が発生する()
     {
-        var act = () => Result.Error<string>(new Error()).AsTask().Get();
+        var act = () => Result.Error<string>(new Exception()).AsTask().Get();
         await act.Should().ThrowAsync<InvalidOperationException>();
     }
 

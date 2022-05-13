@@ -14,7 +14,7 @@ public static partial class ResultExtensions
     /// <param name="error">新しい失敗の値を作成する処理</param>
     /// <typeparam name="TError">失敗の型</typeparam>
     /// <returns>新しい失敗の値を持った結果</returns>
-    public static Result MapError<TError>(this in Result source, Func<IError, TError> error) where TError : IError
+    public static Result MapError<TError>(this in Result source, Func<Exception, TError> error) where TError : Exception
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
         return !source.IsError ? source : Result.Error(InternalUtility.CheckReturnValueNotNull(error(source._errorValue)));
@@ -28,7 +28,7 @@ public static partial class ResultExtensions
     /// <param name="error">新しい失敗の値を作成する処理</param>
     /// <typeparam name="TError">失敗の型</typeparam>
     /// <returns>新しい失敗の値を持った結果</returns>
-    public static async Task<Result> MapError<TError>(this Task<Result> source, Func<IError, TError> error) where TError : IError
+    public static async Task<Result> MapError<TError>(this Task<Result> source, Func<Exception, TError> error) where TError : Exception
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (error is null) throw new ArgumentNullException(nameof(error));
@@ -45,7 +45,7 @@ public static partial class ResultExtensions
     /// <param name="error">新しい失敗の値を作成する処理</param>
     /// <typeparam name="TError">失敗の型</typeparam>
     /// <returns>新しい失敗の値を持った結果</returns>
-    public static async Task<Result> MapError<TError>(this Result source, Func<IError, Task<TError>> error) where TError : IError
+    public static async Task<Result> MapError<TError>(this Result source, Func<Exception, Task<TError>> error) where TError : Exception
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
         if (!source.IsError) return source;
@@ -64,7 +64,7 @@ public static partial class ResultExtensions
     /// <param name="error">新しい失敗の値を作成する処理</param>
     /// <typeparam name="TError">失敗の型</typeparam>
     /// <returns>新しい失敗の値を持った結果</returns>
-    public static async Task<Result> MapError<TError>(this Task<Result> source, Func<IError, Task<TError>> error) where TError : IError
+    public static async Task<Result> MapError<TError>(this Task<Result> source, Func<Exception, Task<TError>> error) where TError : Exception
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (error is null) throw new ArgumentNullException(nameof(error));

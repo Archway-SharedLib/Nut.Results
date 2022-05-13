@@ -12,7 +12,7 @@ public static partial class ResultExtensions
     /// <param name="ifError">結果が失敗だった場合に実行される処理</param>
     /// <typeparam name="T">成功の値の型</typeparam>
     /// <returns>成功の値</returns>
-    public static T GetOr<T>(this in Result<T> source, Func<IError, T> ifError)
+    public static T GetOr<T>(this in Result<T> source, Func<Exception, T> ifError)
     {
         if (ifError is null) throw new ArgumentNullException(nameof(ifError));
 
@@ -26,7 +26,7 @@ public static partial class ResultExtensions
     /// <param name="ifError">結果が失敗だった場合に実行される処理</param>
     /// <typeparam name="T">成功の値の型</typeparam>
     /// <returns>成功の値</returns>
-    public static async Task<T> GetOr<T>(this Task<Result<T>> source, Func<IError, T> ifError)
+    public static async Task<T> GetOr<T>(this Task<Result<T>> source, Func<Exception, T> ifError)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ifError is null) throw new ArgumentNullException(nameof(ifError));
@@ -42,7 +42,7 @@ public static partial class ResultExtensions
     /// <param name="ifError">結果が失敗だった場合に実行される処理</param>
     /// <typeparam name="T">成功の値の型</typeparam>
     /// <returns>成功の値</returns>
-    public static async Task<T> GetOr<T>(this Result<T> source, Func<IError, Task<T>> ifError)
+    public static async Task<T> GetOr<T>(this Result<T> source, Func<Exception, Task<T>> ifError)
     {
         if (ifError is null) throw new ArgumentNullException(nameof(ifError));
 
@@ -57,7 +57,7 @@ public static partial class ResultExtensions
     /// <param name="ifError">結果が失敗だった場合に実行される処理</param>
     /// <typeparam name="T">成功の値の型</typeparam>
     /// <returns>成功の値</returns>
-    public static async Task<T> GetOr<T>(this Task<Result<T>> source, Func<IError, Task<T>> ifError)
+    public static async Task<T> GetOr<T>(this Task<Result<T>> source, Func<Exception, Task<T>> ifError)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ifError is null) throw new ArgumentNullException(nameof(ifError));

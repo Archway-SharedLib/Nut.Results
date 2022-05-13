@@ -18,7 +18,7 @@ public class Map_T
     [Fact]
     public void SyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
     {
-        var error = new Error();
+        var error = new Exception();
         var errResult = Result.Error<string>(error);
         var executed = false;
         var result = errResult.Map(_ =>
@@ -72,7 +72,7 @@ public class Map_T
     [Fact]
     public async Task AsyncSync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
     {
-        var error = new Error();
+        var error = new Exception();
         var errResult = Result.Error<string>(error).AsTask();
         var executed = false;
         var result = await errResult.Map(_ =>
@@ -118,7 +118,7 @@ public class Map_T
     [Fact]
     public async Task SyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
     {
-        var error = new Error();
+        var error = new Exception();
         var errResult = Result.Error<string>(error);
         var executed = false;
         var result = await errResult.Map(_ =>
@@ -172,7 +172,7 @@ public class Map_T
     [Fact]
     public async Task AsyncAsync_失敗の場合は同じActionは実行されず同じErrorの値が返る()
     {
-        var error = new Error();
+        var error = new Exception();
         var errResult = Result.Error<string>(error).AsTask();
         var executed = false;
         var result = await errResult.Map(_ =>

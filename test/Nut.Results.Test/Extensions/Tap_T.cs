@@ -35,7 +35,7 @@ public class Tap_T
     public void SyncSync_失敗の場合はokのactionは実行されず呼び出した値と同じ値が返る()
     {
         var executed = false;
-        var expected = Result.Error<string>(new Error());
+        var expected = Result.Error<string>(new Exception());
         var result = expected.Tap((v) =>
         {
             executed = true;
@@ -79,7 +79,7 @@ public class Tap_T
     public async Task AsyncSync_失敗の場合はokのactionは実行されず失敗の値がそのまま帰る()
     {
         var executed = false;
-        var error = new Error();
+        var error = new Exception();
         var result = await Result.Error<string>(error).AsTask().Tap(v =>
         {
             executed = true;
@@ -119,7 +119,7 @@ public class Tap_T
     public async Task SyncAsync_失敗の場合はokのactionは実行されず呼び出した値と同じ値が返る()
     {
         var executed = false;
-        var expected = Result.Error<string>(new Error());
+        var expected = Result.Error<string>(new Exception());
         var result = await expected.Tap(v =>
         {
             return Task.Run(() =>
@@ -169,7 +169,7 @@ public class Tap_T
     public async Task AsyncAsync_失敗の場合はokのactionは実行されず失敗の値がそのまま帰る()
     {
         var executed = false;
-        var error = new Error();
+        var error = new Exception();
         var result = await Result.Error<string>(error).AsTask().Tap(_ =>
         {
             return Task.Run(() =>

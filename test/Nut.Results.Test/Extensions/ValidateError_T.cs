@@ -12,15 +12,15 @@ public class ValidateError_T
     public void Predicateがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.ValidateError(
-            source: Result.Error<string>(new Error()),
-            predicate: (Func<IError, bool>)null);
+            source: Result.Error<string>(new Exception()),
+            predicate: (Func<Exception, bool>)null);
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
     public void Predicateの引数には値が渡される()
     {
-        var err = new Error();
+        var err = new Exception();
         Result.Error<string>(err).ValidateError(e =>
         {
             e.Should().Be(err);
@@ -31,14 +31,14 @@ public class ValidateError_T
     [Fact]
     public void Predicateがtrueを返せばtrueが返る()
     {
-        Result.Error<string>(new Error())
+        Result.Error<string>(new Exception())
             .ValidateError(v => true).Should().BeTrue();
     }
 
     [Fact]
     public void Predicateがfalseを返せばfalseが返る()
     {
-        Result.Error<string>(new Error())
+        Result.Error<string>(new Exception())
             .ValidateError(v => false).Should().BeFalse();
     }
 
@@ -66,14 +66,14 @@ public class ValidateError_T
     {
         var act = () => ResultExtensions.ValidateError(
             source: Result.Ok("A").AsTask(),
-            predicate: (Func<IError, bool>)null);
+            predicate: (Func<Exception, bool>)null);
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
     public async Task Async_Predicateの引数には値が渡される()
     {
-        var err = new Error();
+        var err = new Exception();
         await Result.Error<string>(err).AsTask().ValidateError(e =>
         {
             e.Should().Be(err);
@@ -84,14 +84,14 @@ public class ValidateError_T
     [Fact]
     public async Task Async_Predicateがtrueを返せばtrueが返る()
     {
-        (await Result.Error<string>(new Error()).AsTask().ValidateError(v => true))
+        (await Result.Error<string>(new Exception()).AsTask().ValidateError(v => true))
             .Should().BeTrue();
     }
 
     [Fact]
     public async Task Async_Predicateがfalseを返せばfalseが返る()
     {
-        (await Result.Error<string>(new Error()).AsTask().ValidateError(v => false))
+        (await Result.Error<string>(new Exception()).AsTask().ValidateError(v => false))
             .Should().BeFalse();
     }
 
@@ -109,15 +109,15 @@ public class ValidateError_T
     public async Task TaskPredicateがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.ValidateError(
-            source: Result.Error<string>(new Error()),
-            predicate: (Func<IError, Task<bool>>)null);
+            source: Result.Error<string>(new Exception()),
+            predicate: (Func<Exception, Task<bool>>)null);
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
     public async Task TaskPredicateの引数には値が渡される()
     {
-        var err = new Error();
+        var err = new Exception();
         await Result.Error<string>(err).ValidateError(e =>
         {
             e.Should().Be(err);
@@ -128,7 +128,7 @@ public class ValidateError_T
     [Fact]
     public async Task TaskPredicateがtrueを返せばtrueが返る()
     {
-        var result = await Result.Error<string>(new Error())
+        var result = await Result.Error<string>(new Exception())
             .ValidateError(v => Task.FromResult(true));
         result.Should().BeTrue();
     }
@@ -136,7 +136,7 @@ public class ValidateError_T
     [Fact]
     public async Task TaskPredicateがfalseを返せばfalseが返る()
     {
-        var result = await Result.Error<string>(new Error())
+        var result = await Result.Error<string>(new Exception())
             .ValidateError(v => Task.FromResult(false));
         result.Should().BeFalse();
     }
@@ -164,15 +164,15 @@ public class ValidateError_T
     public async Task Async_TaskPredicateがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.ValidateError(
-            source: Result.Error<string>(new Error()).AsTask(),
-            predicate: (Func<IError, Task<bool>>)null);
+            source: Result.Error<string>(new Exception()).AsTask(),
+            predicate: (Func<Exception, Task<bool>>)null);
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
     public async Task Async_TaskPredicateの引数には値が渡される()
     {
-        var err = new Error();
+        var err = new Exception();
         await Result.Error<string>(err).AsTask().ValidateError(e =>
         {
             e.Should().Be(err);
@@ -183,7 +183,7 @@ public class ValidateError_T
     [Fact]
     public async Task Async_TaskPredicateがtrueを返せばtrueが返る()
     {
-        var result = await Result.Error<string>(new Error()).AsTask()
+        var result = await Result.Error<string>(new Exception()).AsTask()
             .ValidateError(v => Task.FromResult(true));
         result.Should().BeTrue();
     }
@@ -191,7 +191,7 @@ public class ValidateError_T
     [Fact]
     public async Task Async_TaskPredicateがfalseを返せばfalseが返る()
     {
-        var result = await Result.Error<string>(new Error()).AsTask()
+        var result = await Result.Error<string>(new Exception()).AsTask()
             .ValidateError(v => Task.FromResult(false));
         result.Should().BeFalse();
     }

@@ -14,7 +14,7 @@ public static partial class ResultExtensions
     /// <param name="ifOk">結果が成功だった場合に実行される処理</param>
     /// <typeparam name="TError">エラーの型</typeparam>
     /// <returns>失敗の値</returns>
-    public static IError GetErrorOr<TError>(this in Result source, Func<TError> ifOk) where TError : IError
+    public static Exception GetErrorOr<TError>(this in Result source, Func<TError> ifOk) where TError : Exception
     {
         if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
 
@@ -28,7 +28,7 @@ public static partial class ResultExtensions
     /// <param name="ifOk">結果が成功だった場合に実行される処理</param>
     /// <typeparam name="TError">エラーの型</typeparam>
     /// <returns>失敗の値</returns>
-    public static async Task<IError> GetErrorOr<TError>(this Task<Result> source, Func<TError> ifOk) where TError : IError
+    public static async Task<Exception> GetErrorOr<TError>(this Task<Result> source, Func<TError> ifOk) where TError : Exception
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
@@ -44,7 +44,7 @@ public static partial class ResultExtensions
     /// <param name="ifOk">結果が成功だった場合に実行される処理</param>
     /// <typeparam name="TError">エラーの型</typeparam>
     /// <returns>失敗の値</returns>
-    public static async Task<IError> GetErrorOr<TError>(this Result source, Func<Task<TError>> ifOk) where TError : IError
+    public static async Task<Exception> GetErrorOr<TError>(this Result source, Func<Task<TError>> ifOk) where TError : Exception
     {
         if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
 
@@ -59,7 +59,7 @@ public static partial class ResultExtensions
     /// <param name="ifOk">結果が成功だった場合に実行される処理</param>
     /// <typeparam name="TError">エラーの型</typeparam>
     /// <returns>失敗の値</returns>
-    public static async Task<IError> GetErrorOr<TError>(this Task<Result> source, Func<Task<TError>> ifOk) where TError : IError
+    public static async Task<Exception> GetErrorOr<TError>(this Task<Result> source, Func<Task<TError>> ifOk) where TError : Exception
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));

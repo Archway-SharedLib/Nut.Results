@@ -12,7 +12,7 @@ public static partial class ResultExtensions
     /// <param name="error">特定の処理</param>
     /// <typeparam name="T">成功の型</typeparam>
     /// <returns>もとの値</returns>
-    public static Result<T> TapError<T>(this in Result<T> source, Action<IError> error)
+    public static Result<T> TapError<T>(this in Result<T> source, Action<Exception> error)
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
         if (source.IsError) error(source._errorValue);
@@ -26,7 +26,7 @@ public static partial class ResultExtensions
     /// <param name="error">特定の処理</param>
     /// <typeparam name="T">成功の型</typeparam>
     /// <returns>もとの値</returns>
-    public static async Task<Result<T>> TapError<T>(this Task<Result<T>> source, Action<IError> error)
+    public static async Task<Result<T>> TapError<T>(this Task<Result<T>> source, Action<Exception> error)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (error is null) throw new ArgumentNullException(nameof(error));
@@ -44,7 +44,7 @@ public static partial class ResultExtensions
     /// <param name="error">特定の処理</param>
     /// <typeparam name="T">成功の型</typeparam>
     /// <returns>もとの値</returns>
-    public static async Task<Result<T>> TapError<T>(this Result<T> source, Func<IError, Task> error)
+    public static async Task<Result<T>> TapError<T>(this Result<T> source, Func<Exception, Task> error)
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
         if (source.IsError) await error(source._errorValue).ConfigureAwait(false);
@@ -58,7 +58,7 @@ public static partial class ResultExtensions
     /// <param name="error">特定の処理</param>
     /// <typeparam name="T">成功の型</typeparam>
     /// <returns>もとの値</returns>
-    public static async Task<Result<T>> TapError<T>(this Task<Result<T>> source, Func<IError, Task> error)
+    public static async Task<Result<T>> TapError<T>(this Task<Result<T>> source, Func<Exception, Task> error)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (error is null) throw new ArgumentNullException(nameof(error));

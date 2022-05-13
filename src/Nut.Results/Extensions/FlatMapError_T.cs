@@ -16,7 +16,7 @@ public static partial class ResultExtensions
     /// <param name="error">新しい結果の値を作成する処理</param>
     /// <typeparam name="T">成功の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static Result<T> FlatMapError<T>(this in Result<T> source, Func<IError, Result<T>> error)
+    public static Result<T> FlatMapError<T>(this in Result<T> source, Func<Exception, Result<T>> error)
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
         return !source.IsError ? source : error(source._errorValue);
@@ -31,7 +31,7 @@ public static partial class ResultExtensions
     /// <param name="error">新しい結果の値を作成する処理</param>
     /// <typeparam name="T">成功の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async Task<Result<T>> FlatMapError<T>(this Task<Result<T>> source, Func<IError, Result<T>> error)
+    public static async Task<Result<T>> FlatMapError<T>(this Task<Result<T>> source, Func<Exception, Result<T>> error)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (error is null) throw new ArgumentNullException(nameof(error));
@@ -49,7 +49,7 @@ public static partial class ResultExtensions
     /// <param name="error">新しい結果の値を作成する処理</param>
     /// <typeparam name="T">成功の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async Task<Result<T>> FlatMapError<T>(this Result<T> source, Func<IError, Task<Result<T>>> error)
+    public static async Task<Result<T>> FlatMapError<T>(this Result<T> source, Func<Exception, Task<Result<T>>> error)
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
         if (!source.IsError) return source;
@@ -66,7 +66,7 @@ public static partial class ResultExtensions
     /// <param name="error">新しい結果の値を作成する処理</param>
     /// <typeparam name="T">成功の型</typeparam>
     /// <returns>新しい値を持った結果</returns>
-    public static async Task<Result<T>> FlatMapError<T>(this Task<Result<T>> source, Func<IError, Task<Result<T>>> error)
+    public static async Task<Result<T>> FlatMapError<T>(this Task<Result<T>> source, Func<Exception, Task<Result<T>>> error)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (error is null) throw new ArgumentNullException(nameof(error));

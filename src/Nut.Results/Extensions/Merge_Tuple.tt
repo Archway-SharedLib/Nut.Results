@@ -31,7 +31,7 @@ public static partial class ResultExtensions
     <#= comment #>
     public static Result<(<#= typeArgs #>)> Merge<<#= typeArgs #>>(this in Result<T0> source, <#= destArgs #>)
     {
-        var errors = new List<IError>();
+        var errors = new List<Exception>();
         if(source.IsError) errors.Add(source._errorValue);
 <#
         foreach (var l in range.Skip(1))
@@ -41,7 +41,7 @@ public static partial class ResultExtensions
 <#
         }
 #>
-        if (errors.Count > 0) return Result.Error<(<#= typeArgs #>)>(new AggregateError(errors));
+        if (errors.Count > 0) return Result.Error<(<#= typeArgs #>)>(new AggregateException(errors));
         return Result.Ok((source._value, <#= getDestValues #>));
     }
 

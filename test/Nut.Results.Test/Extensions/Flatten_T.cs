@@ -21,14 +21,14 @@ public class Flatten_T
     public void WithT_成功の場合で中の値が失敗の場合は失敗が返る()
     {
         var source = Result.Ok(Result.Error<string>("NG"));
-        source.Flatten().Should().BeError().And.Match(e => e.Message == "NG");
+        source.Flatten().Should().BeError().And.WithMessage("NG");
     }
 
     [Fact]
     public void WithT_失敗の場合は失敗が返る()
     {
-        var source = Result.Error<Result<string>>(new Error("NG"));
-        source.Flatten().Should().BeError().And.Match(e => e.Message == "NG");
+        var source = Result.Error<Result<string>>(new Exception("NG"));
+        source.Flatten().Should().BeError().And.WithMessage("NG");
     }
 
     [Fact]
@@ -42,13 +42,13 @@ public class Flatten_T
     public void Plain_成功の場合で中の値が失敗の場合は失敗が返る()
     {
         var source = Result.Ok(Result.Error("NG"));
-        source.Flatten().Should().BeError().And.Match(e => e.Message == "NG");
+        source.Flatten().Should().BeError().And.WithMessage("NG");
     }
 
     [Fact]
     public void Plain_失敗の場合は失敗が返る()
     {
-        var source = Result.Error<Result>(new Error("NG"));
-        source.Flatten().Should().BeError().And.Match(e => e.Message == "NG");
+        var source = Result.Error<Result>(new Exception("NG"));
+        source.Flatten().Should().BeError().And.WithMessage("NG");
     }
 }

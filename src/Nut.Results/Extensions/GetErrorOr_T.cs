@@ -15,7 +15,7 @@ public static partial class ResultExtensions
     /// <typeparam name="T">成功の値の型</typeparam>
     /// <typeparam name="TError">エラーの型</typeparam>
     /// <returns>失敗の値</returns>
-    public static IError GetErrorOr<T, TError>(this in Result<T> source, Func<T, TError> ifOk) where TError : IError
+    public static Exception GetErrorOr<T, TError>(this in Result<T> source, Func<T, TError> ifOk) where TError : Exception
     {
         if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
 
@@ -30,7 +30,7 @@ public static partial class ResultExtensions
     /// <typeparam name="T">成功の値の型</typeparam>
     /// <typeparam name="TError">エラーの型</typeparam>
     /// <returns>失敗の値</returns>
-    public static async Task<IError> GetErrorOr<T, TError>(this Task<Result<T>> source, Func<T, TError> ifOk) where TError : IError
+    public static async Task<Exception> GetErrorOr<T, TError>(this Task<Result<T>> source, Func<T, TError> ifOk) where TError : Exception
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
@@ -47,7 +47,7 @@ public static partial class ResultExtensions
     /// <typeparam name="T">成功の値の型</typeparam>
     /// <typeparam name="TError">エラーの型</typeparam>
     /// <returns>失敗の値</returns>
-    public static async Task<IError> GetErrorOr<T, TError>(this Result<T> source, Func<T, Task<TError>> ifOk) where TError : IError
+    public static async Task<Exception> GetErrorOr<T, TError>(this Result<T> source, Func<T, Task<TError>> ifOk) where TError : Exception
     {
         if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
 
@@ -63,7 +63,7 @@ public static partial class ResultExtensions
     /// <typeparam name="T">成功の値の型</typeparam>
     /// <typeparam name="TError">エラーの型</typeparam>
     /// <returns>失敗の値</returns>
-    public static async Task<IError> GetErrorOr<T, TError>(this Task<Result<T>> source, Func<T, Task<TError>> ifOk) where TError : IError
+    public static async Task<Exception> GetErrorOr<T, TError>(this Task<Result<T>> source, Func<T, Task<TError>> ifOk) where TError : Exception
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));

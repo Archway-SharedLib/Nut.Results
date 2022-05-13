@@ -75,7 +75,7 @@ public static class ResultHelper
     /// <typeparam name="T">成功の値の型</typeparam>
     /// <param name="errorValue">失敗の値</param>
     /// <returns>作成した失敗の結果</returns>
-    public static T CreateErrorResult<T>(IError errorValue)
+    public static T CreateErrorResult<T>(Exception errorValue)
     {
         try
         {
@@ -91,7 +91,7 @@ public static class ResultHelper
     /// 複数の <see cref="Result"/> の結果をマージします。
     /// </summary>
     /// <remarks>
-    /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateError"/> にまとめられます。
+    /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateException"/> にまとめられます。
     /// </remarks>
     /// <param name="results">マージする結果</param>
     /// <returns>マージした結果</returns>
@@ -99,15 +99,15 @@ public static class ResultHelper
     {
         if (results is null) throw new ArgumentNullException(nameof(results));
 
-        var errors = results.Where(r => r.IsError).Select(r => r._errorValue);
-        return errors.Any() ? Result.Error(new AggregateError(errors)) : Result.Ok();
+        var errors = results.Where(r => r.IsError).Select(r => r._errorValue).ToList();
+        return errors.Any() ? Result.Error(new AggregateException(errors)) : Result.Ok();
     }
 
     /// <summary>
     /// 複数の <see cref="Result"/> の結果をマージします。
     /// </summary>
     /// <remarks>
-    /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateError"/> にまとめられます。
+    /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateException"/> にまとめられます。
     /// </remarks>
     /// <param name="results">マージする結果</param>
     /// <returns>マージした結果</returns>
@@ -122,7 +122,7 @@ public static class ResultHelper
     /// 複数の <see cref="Result{T}"/> の結果をマージします。
     /// </summary>
     /// <remarks>
-    /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateError"/> にまとめられます。
+    /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateException"/> にまとめられます。
     /// </remarks>
     /// <typeparam name="T">結果の値の型</typeparam>
     /// <param name="results">マージする結果</param>
@@ -131,15 +131,15 @@ public static class ResultHelper
     {
         if (results is null) throw new ArgumentNullException(nameof(results));
 
-        var errors = results.Where(r => r.IsError).Select(r => r._errorValue);
-        return errors.Any() ? Result.Error<T[]>(new AggregateError(errors)) : Result.Ok(results.Select(r => r._value).ToArray());
+        var errors = results.Where(r => r.IsError).Select(r => r._errorValue).ToList();
+        return errors.Any() ? Result.Error<T[]>(new AggregateException(errors)) : Result.Ok(results.Select(r => r._value).ToArray());
     }
 
     /// <summary>
     /// 複数の <see cref="Result{T}"/> の結果をマージします。
     /// </summary>
     /// <remarks>
-    /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateError"/> にまとめられます。
+    /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateException"/> にまとめられます。
     /// </remarks>
     /// <typeparam name="T">結果の値の型</typeparam>
     /// <param name="results">マージする結果</param>
@@ -180,7 +180,7 @@ public static class ResultHelper
     /// <param name="source">元となるオブジェクトの値</param>
     /// <param name="value">取得した失敗の値</param>
     /// <returns>失敗の値が取得できた場合は true 、そうでない場合は false</returns>
-    public static bool TryGetErrorValue(object source, [NotNullWhen(true)] out IError? value)
+    public static bool TryGetErrorValue(object source, [NotNullWhen(true)] out Exception? value)
     {
         value = null;
         var sourceType = source?.GetType();
@@ -202,7 +202,7 @@ public static class ResultHelper
         }
         public Func<object, object>? GetValue { get; }
 
-        public Func<object, IError> GetErrorValue { get; }
+        public Func<object, Exception> GetErrorValue { get; }
 
         public Func<object, bool> GetIsOk { get; }
 
@@ -218,13 +218,13 @@ public static class ResultHelper
             return (Func<object, object>)lambda.Compile();
         }
 
-        private static Func<object, IError> GetErrorValueExpression(Type sourceType)
+        private static Func<object, Exception> GetErrorValueExpression(Type sourceType)
         {
             var fieldInfo = sourceType.GetField("_errorValue", BindingFlags.Instance | BindingFlags.NonPublic);
             var sourceParam = Expression.Parameter(typeof(object));
             var returnExpression = Expression.Field(Expression.Convert(sourceParam, sourceType), fieldInfo!);
             var lambda = Expression.Lambda(returnExpression, sourceParam);
-            return (Func<object, IError>)lambda.Compile();
+            return (Func<object, Exception>)lambda.Compile();
         }
 
         private static Func<object, bool> GetBoolPropertyExpression(Type sourceType, string propertyName)

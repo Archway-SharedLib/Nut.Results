@@ -6,7 +6,7 @@ public class UserRepository
 {
     public Result<User> GetUserById(string userId)
     {
-        return Result.Error<User>(new DataNotFoundError());
+        return Result.Error<User>(new DataNotFoundException());
     }
 
     public Result<string> Save(User user)

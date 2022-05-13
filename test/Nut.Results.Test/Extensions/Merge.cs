@@ -27,10 +27,10 @@ public class Merge
     [Fact]
     public void 失敗がある場合は失敗になる()
     {
-        var result = ResultExtensions.Merge(new[] { Result.Ok(), Result.Error(new Error("1")), Result.Ok(), Result.Error(new Error("2")), Result.Ok() });
-        result.Should().BeError().And.BeOfType<AggregateError>();
-        var errors = result.GetError().As<AggregateError>();
-        errors.Errors.Should().HaveCount(2);
+        var result = ResultExtensions.Merge(new[] { Result.Ok(), Result.Error(new Exception("1")), Result.Ok(), Result.Error(new Exception("2")), Result.Ok() });
+        result.Should().BeError().And.BeOfType<AggregateException>();
+        var errors = result.GetError().As<AggregateException>();
+        errors.InnerExceptions.Should().HaveCount(2);
     }
 
     [Fact]
@@ -50,10 +50,10 @@ public class Merge
     [Fact]
     public async Task T_失敗がある場合は失敗になる()
     {
-        var result = await ResultExtensions.Merge(new[] { Result.Ok().AsTask(), Result.Error(new Error("1")).AsTask(), Result.Ok().AsTask(), Result.Error(new Error("2")).AsTask(), Result.Ok().AsTask() });
-        result.Should().BeError().And.BeOfType<AggregateError>();
-        var errors = result.GetError().As<AggregateError>();
-        errors.Errors.Should().HaveCount(2);
+        var result = await ResultExtensions.Merge(new[] { Result.Ok().AsTask(), Result.Error(new Exception("1")).AsTask(), Result.Ok().AsTask(), Result.Error(new Exception("2")).AsTask(), Result.Ok().AsTask() });
+        result.Should().BeError().And.BeOfType<AggregateException>();
+        var errors = result.GetError().As<AggregateException>();
+        errors.InnerExceptions.Should().HaveCount(2);
     }
 
     [Fact]
@@ -80,10 +80,10 @@ public class Merge
     [Fact]
     public async Task A_失敗がある場合は失敗になる()
     {
-        var result = await ResultExtensions.Merge(Task.FromResult(new[] { Result.Ok(), Result.Error(new Error("1")), Result.Ok(), Result.Error(new Error("2")), Result.Ok() }.AsEnumerable()));
-        result.Should().BeError().And.BeOfType<AggregateError>();
-        var errors = result.GetError().As<AggregateError>();
-        errors.Errors.Should().HaveCount(2);
+        var result = await ResultExtensions.Merge(Task.FromResult(new[] { Result.Ok(), Result.Error(new Exception("1")), Result.Ok(), Result.Error(new Exception("2")), Result.Ok() }.AsEnumerable()));
+        result.Should().BeError().And.BeOfType<AggregateException>();
+        var errors = result.GetError().As<AggregateException>();
+        errors.InnerExceptions.Should().HaveCount(2);
     }
 
     [Fact]
@@ -110,9 +110,9 @@ public class Merge
     [Fact]
     public async Task TA_失敗がある場合は失敗になる()
     {
-        var result = await ResultExtensions.Merge(Task.FromResult(new[] { Result.Ok().AsTask(), Result.Error(new Error("1")).AsTask(), Result.Ok().AsTask(), Result.Error(new Error("2")).AsTask(), Result.Ok().AsTask() }.AsEnumerable()));
-        result.Should().BeError().And.BeOfType<AggregateError>();
-        var errors = result.GetError().As<AggregateError>();
-        errors.Errors.Should().HaveCount(2);
+        var result = await ResultExtensions.Merge(Task.FromResult(new[] { Result.Ok().AsTask(), Result.Error(new Exception("1")).AsTask(), Result.Ok().AsTask(), Result.Error(new Exception("2")).AsTask(), Result.Ok().AsTask() }.AsEnumerable()));
+        result.Should().BeError().And.BeOfType<AggregateException>();
+        var errors = result.GetError().As<AggregateException>();
+        errors.InnerExceptions.Should().HaveCount(2);
     }
 }

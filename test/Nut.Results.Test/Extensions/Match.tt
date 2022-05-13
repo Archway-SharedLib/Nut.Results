@@ -61,7 +61,7 @@ public partial class Match
     [Fact]
     public <#= rt.IsTask ? "async Task" : "void" #> <#= GetTestMethodPrefix(p) #>_Errorがnullの場合は例外が発生する()
     {
-        var act = () => ResultExtensions.Match(Result.Ok(<#=T(st.IsGeneric, "1")#>)<#=T(st.IsTask, $".As{st.TaskType}()")#>, (<#=T(st.IsGeneric, "_")#>) => Result.Ok(<#=T(ot.IsGeneric, "1")#>)<#=T(ot.TaskType != TaskType.None, $".As{ot.TaskType}()")#>, (Func<IError, <#=T(et.TaskType != TaskType.None, $"{et.TaskType}<")#>Result<#=T(et.IsGeneric, "<int>")#>><#=T(et.TaskType != TaskType.None, ">")#>)null)<#=T(rt.TaskType == TaskType.ValueTask, ".AsTask()")#>;
+        var act = () => ResultExtensions.Match(Result.Ok(<#=T(st.IsGeneric, "1")#>)<#=T(st.IsTask, $".As{st.TaskType}()")#>, (<#=T(st.IsGeneric, "_")#>) => Result.Ok(<#=T(ot.IsGeneric, "1")#>)<#=T(ot.TaskType != TaskType.None, $".As{ot.TaskType}()")#>, (Func<Exception, <#=T(et.TaskType != TaskType.None, $"{et.TaskType}<")#>Result<#=T(et.IsGeneric, "<int>")#>><#=T(et.TaskType != TaskType.None, ">")#>)null)<#=T(rt.TaskType == TaskType.ValueTask, ".AsTask()")#>;
         <#= rt.IsTask ? "await " : ""#>act.Should().Throw<#= rt.IsTask ? "Async" : ""#><ArgumentNullException>();
     }
 
@@ -104,7 +104,7 @@ public partial class Match
     {
         var executedOk = false;
         var executedError = false;
-        var err = new Error();
+        var err = new Exception();
         var result = <#=T(rt.IsTask,"await ")#>Result.Error<#=T(st.IsGeneric,"<int>")#>(err)<#=T(st.TaskType != TaskType.None,$".As{st.TaskType}()")#>.Match((<#=T(st.IsGeneric, "v")#>) =>
         {
             <#=T(st.IsGeneric, "v.Should().Be(1);")#>

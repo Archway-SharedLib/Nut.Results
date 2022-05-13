@@ -19,10 +19,10 @@ public class Merge_Tuple
     public void エラーが一つ以上あった場合は失敗が返る()
     {
         var result = Result.Ok("1").Merge(Result.Error<int>("IntError"), Result.Ok(true), Result.Error<DateTime>("DateTimeError"));
-        result.Should().BeError().And.Match(e => e is AggregateError);
-        var err = result.GetError() as AggregateError;
-        err.Errors.Should().HaveCount(2);
-        err.Errors.First().Message.Should().Be("IntError");
-        err.Errors.Skip(1).First().Message.Should().Be("DateTimeError");
+        result.Should().BeError().And.Match(e => e is AggregateException);
+        var err = result.GetError() as AggregateException;
+        err.InnerExceptions.Should().HaveCount(2);
+        err.InnerExceptions.First().Message.Should().Be("IntError");
+        err.InnerExceptions.Skip(1).First().Message.Should().Be("DateTimeError");
     }
 }

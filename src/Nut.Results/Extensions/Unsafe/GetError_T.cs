@@ -12,7 +12,7 @@ public static partial class ResultUnsafeExtensions
     /// <param name="source">もととなる結果</param>
     /// <returns>失敗の値</returns>
     /// <exception cref="InvalidOperationException">結果が成功だった場合に発生します。</exception>
-    public static IError GetError<T>(this in Result<T> source)
+    public static Exception GetError<T>(this in Result<T> source)
     {
         if (source.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotErrorBeforeCheck);
         return source._errorValue;
@@ -24,7 +24,7 @@ public static partial class ResultUnsafeExtensions
     /// <param name="source">もととなる結果</param>
     /// <returns>失敗の値</returns>
     /// <exception cref="InvalidOperationException">結果が成功だった場合に発生します。</exception>
-    public static async Task<IError> GetError<T>(this Task<Result<T>> source)
+    public static async Task<Exception> GetError<T>(this Task<Result<T>> source)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
 

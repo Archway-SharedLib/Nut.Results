@@ -10,14 +10,14 @@ public class GetError_T
     [Fact]
     public void エラーの値を取得できる()
     {
-        var expect = new Error();
+        var expect = new Exception();
         Result.Error<string>(expect).GetError().Should().Be(expect);
     }
 
     [Fact]
     public async Task Async_エラーの値を取得できる()
     {
-        var expect = new Error();
+        var expect = new Exception();
         var error = await Result.Error<string>(expect).AsTask().GetError();
         error.Should().Be(expect);
     }

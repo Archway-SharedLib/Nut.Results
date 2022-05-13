@@ -22,13 +22,13 @@ public class Combine_T
     public void Func_SyncSync_Sourceがエラーの場合でDestは実行されずSourceのエラーが返る()
     {
         var executed = false;
-        var result = Result.Error<string>(new SourceError()).Combine(_ =>
+        var result = Result.Error<string>(new SourceException()).Combine(_ =>
         {
             executed = true;
-            return Result.Error<int>(new DestError());
+            return Result.Error<int>(new DestException());
         });
         executed.Should().BeFalse();
-        result.Should().BeError().And.Match(e => e is SourceError);
+        result.Should().BeError().And.Match(e => e is SourceException);
     }
 
     [Fact]
@@ -38,10 +38,10 @@ public class Combine_T
         var result = Result.Ok<string>("ok").Combine(_ =>
         {
             executed = true;
-            return Result.Error<int>(new DestError());
+            return Result.Error<int>(new DestException());
         });
         executed.Should().BeTrue();
-        result.Should().BeError().And.Match(e => e is DestError);
+        result.Should().BeError().And.Match(e => e is DestException);
     }
 
     [Fact]
@@ -73,13 +73,13 @@ public class Combine_T
     public async Task Func_AsyncSync_Sourceがエラーの場合でDestは実行されずSourceのエラーが返る()
     {
         var executed = false;
-        var result = await Result.Error<string>(new SourceError()).AsTask().Combine(_ =>
+        var result = await Result.Error<string>(new SourceException()).AsTask().Combine(_ =>
         {
             executed = true;
-            return Result.Error<int>(new DestError());
+            return Result.Error<int>(new DestException());
         }).ConfigureAwait(false);
         executed.Should().BeFalse();
-        result.Should().BeError().And.Match(e => e is SourceError);
+        result.Should().BeError().And.Match(e => e is SourceException);
     }
 
     [Fact]
@@ -89,10 +89,10 @@ public class Combine_T
         var result = await Result.Ok<string>("ok").AsTask().Combine(_ =>
         {
             executed = true;
-            return Result.Error<int>(new DestError());
+            return Result.Error<int>(new DestException());
         }).ConfigureAwait(false);
         executed.Should().BeTrue();
-        result.Should().BeError().And.Match(e => e is DestError);
+        result.Should().BeError().And.Match(e => e is DestException);
     }
 
     [Fact]
@@ -117,13 +117,13 @@ public class Combine_T
     public async Task Func_SyncAsync_Sourceがエラーの場合でDestは実行されずSourceのエラーが返る()
     {
         var executed = false;
-        var result = await Result.Error<string>(new SourceError()).Combine(_ =>
+        var result = await Result.Error<string>(new SourceException()).Combine(_ =>
         {
             executed = true;
-            return Result.Error<int>(new DestError()).AsTask();
+            return Result.Error<int>(new DestException()).AsTask();
         }).ConfigureAwait(false);
         executed.Should().BeFalse();
-        result.Should().BeError().And.Match(e => e is SourceError);
+        result.Should().BeError().And.Match(e => e is SourceException);
     }
 
     [Fact]
@@ -133,10 +133,10 @@ public class Combine_T
         var result = await Result.Ok<string>("ok").Combine(_ =>
         {
             executed = true;
-            return Result.Error<int>(new DestError()).AsTask();
+            return Result.Error<int>(new DestException()).AsTask();
         }).ConfigureAwait(false);
         executed.Should().BeTrue();
-        result.Should().BeError().And.Match(e => e is DestError);
+        result.Should().BeError().And.Match(e => e is DestException);
     }
 
     [Fact]
@@ -169,13 +169,13 @@ public class Combine_T
     public async Task Func_AsyncAsync_Sourceがエラーの場合でDestは実行されずSourceのエラーが返る()
     {
         var executed = false;
-        var result = await Result.Error<string>(new SourceError()).AsTask().Combine(_ =>
+        var result = await Result.Error<string>(new SourceException()).AsTask().Combine(_ =>
         {
             executed = true;
-            return Result.Error<int>(new DestError()).AsTask();
+            return Result.Error<int>(new DestException()).AsTask();
         }).ConfigureAwait(false);
         executed.Should().BeFalse();
-        result.Should().BeError().And.Match(e => e is SourceError);
+        result.Should().BeError().And.Match(e => e is SourceException);
     }
 
     [Fact]
@@ -185,10 +185,10 @@ public class Combine_T
         var result = await Result.Ok<string>("ok").AsTask().Combine(_ =>
         {
             executed = true;
-            return Result.Error<int>(new DestError()).AsTask();
+            return Result.Error<int>(new DestException()).AsTask();
         }).ConfigureAwait(false);
         executed.Should().BeTrue();
-        result.Should().BeError().And.Match(e => e is DestError);
+        result.Should().BeError().And.Match(e => e is DestException);
     }
 
     [Fact]
@@ -201,8 +201,8 @@ public class Combine_T
         result.Should().BeOk().And.Match(v => v.Item1 == leftExpect && v.Item2 == rightExpect);
     }
 
-    public class SourceError : Error { }
+    public class SourceException : Exception { }
 
-    public class DestError : Error { }
+    public class DestException : Exception { }
 
 }

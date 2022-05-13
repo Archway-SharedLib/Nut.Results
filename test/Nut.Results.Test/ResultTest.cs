@@ -34,14 +34,14 @@ public class ResultTest
     [Fact]
     public void ctor_Errorがnullでなくokがfalseの場合は失敗のインスタンスが作成される()
     {
-        var r = new Result(new Error(), false);
+        var r = new Result(new Exception(), false);
         r.IsError.Should().BeTrue();
     }
 
     [Fact]
     public void ctor_Errorがnullでなくokがtrueの場合は成功のインスタンスになる()
     {
-        var r = new Result(new Error(), true);
+        var r = new Result(new Exception(), true);
         r.IsOk.Should().BeTrue();
     }
 
@@ -57,14 +57,14 @@ public class ResultTest
     public void Equals_成功と失敗の場合はfalse()
     {
         var r1 = Result.Ok();
-        var r2 = Result.Error(new Error());
+        var r2 = Result.Error(new Exception());
         r1.Equals(r2).Should().BeFalse();
     }
 
     [Fact]
     public void Equals_両方とも失敗の場合は失敗がEqualならtrue()
     {
-        var er = new Error();
+        var er = new Exception();
         var r1 = Result.Error(er);
         var r2 = Result.Error(er);
         r1.Equals(r2).Should().BeTrue();
@@ -73,8 +73,8 @@ public class ResultTest
     [Fact]
     public void Equals_両方とも失敗の場合は失敗がEqualでないならfalse()
     {
-        var er1 = new Error();
-        var er2 = new Error();
+        var er1 = new Exception();
+        var er2 = new Exception();
         var r1 = Result.Error(er1);
         var r2 = Result.Error(er2);
         r1.Equals(r2).Should().BeFalse();
@@ -92,14 +92,14 @@ public class ResultTest
     public void GetHashCode_成功と失敗の場合は違う値になる()
     {
         var r1 = Result.Ok();
-        var r2 = Result.Error(new Error());
+        var r2 = Result.Error(new Exception());
         r1.GetHashCode().Should().NotBe(r2.GetHashCode());
     }
 
     [Fact]
     public void GetHashCode_両方とも失敗の場合は失敗のハッシュコードが一致する場合は一致する()
     {
-        var er = new Error();
+        var er = new Exception();
         var r1 = Result.Error(er);
         var r2 = Result.Error(er);
         r1.GetHashCode().Should().Be(r2.GetHashCode());
@@ -108,8 +108,8 @@ public class ResultTest
     [Fact]
     public void GetHashCode_両方とも失敗の場合は失敗のハッシュコードが一致しない場合は一致しない()
     {
-        var er1 = new Error();
-        var er2 = new Error();
+        var er1 = new Exception();
+        var er2 = new Exception();
         var r1 = Result.Error(er1);
         var r2 = Result.Error(er2);
         er1.GetHashCode().Should().NotBe(er2.GetHashCode());
@@ -126,14 +126,14 @@ public class ResultTest
     [Fact]
     public void ToString_失敗の場合は失敗オブジェクトのToStringに接頭辞でerrorが付いた値が返される()
     {
-        var r = Result.Error(new TestError());
+        var r = Result.Error(new TestException());
         r.ToString().Should().Be("error: Test Error");
     }
 
     [Fact]
     public void ToString_失敗で失敗オブジェクトのToStringがnullの場合はerror_nullと返される()
     {
-        var r = Result.Error(new TestNullError());
+        var r = Result.Error(new TestNullException());
         r.ToString().Should().Be("error: (null)");
     }
 
@@ -170,28 +170,28 @@ public class ResultTest
     [Fact]
     public void T_ctor_Errorがnullでなくokがfalseの場合は失敗のインスタンスが作られる()
     {
-        var r = new Result<string>(null, new Error(), false);
+        var r = new Result<string>(null, new Exception(), false);
         r.IsError.Should().BeTrue();
     }
 
     [Fact]
     public void T_ctor_Valueがnullでなくokがtrueの場合は成功のインスタンスが作られる()
     {
-        var r = new Result<string>("success", new Error(), true);
+        var r = new Result<string>("success", new Exception(), true);
         r.IsOk.Should().BeTrue();
     }
 
     [Fact]
     public void T_ctor_Errorがnullでなくokがtrueの場合は成功のインスタンスになる()
     {
-        var r = new Result<int>(1, new Error(), true);
+        var r = new Result<int>(1, new Exception(), true);
         r.IsOk.Should().BeTrue();
     }
 
     [Fact]
     public void T_ctor_Valueがnullでなくokがfalseの場合は失敗のインスタンスになる()
     {
-        var r = new Result<int>(1, new Error(), false);
+        var r = new Result<int>(1, new Exception(), false);
         r.IsError.Should().BeTrue();
     }
 
@@ -222,16 +222,16 @@ public class ResultTest
     [Fact]
     public void T_Equals_成功と失敗の場合は値がequalでもfalse()
     {
-        var error = new Error();
+        var error = new Exception();
         var r1 = Result.Ok(error);
-        var r2 = Result.Error<Error>(error);
+        var r2 = Result.Error<Exception>(error);
         r1.Equals(r2).Should().BeFalse();
     }
 
     [Fact]
     public void T_Equals_両方とも失敗の場合は値がEqualならtrue()
     {
-        var er = new Error();
+        var er = new Exception();
         var r1 = Result.Error<string>(er);
         var r2 = Result.Error<string>(er);
         r1.Equals(r2).Should().BeTrue();
@@ -240,8 +240,8 @@ public class ResultTest
     [Fact]
     public void T_Equals_両方とも失敗の場合は値がEqualでないならfalse()
     {
-        var er1 = new Error();
-        var er2 = new Error();
+        var er1 = new Exception();
+        var er2 = new Exception();
         var r1 = Result.Error<string>(er1);
         var r2 = Result.Error<string>(er2);
         r1.Equals(r2).Should().BeFalse();
@@ -250,7 +250,7 @@ public class ResultTest
     [Fact]
     public void T_Equals_失敗と成功のfalse()
     {
-        var er = new Error();
+        var er = new Exception();
         var r1 = Result.Error<string>(er);
         var r2 = Result.Ok("Success");
         r1.Equals(r2).Should().BeFalse();
@@ -275,7 +275,7 @@ public class ResultTest
     [Fact]
     public void T_GetHashCode_成功と失敗の場合は違う値になる()
     {
-        var er = new Error();
+        var er = new Exception();
         var r1 = Result.Ok(er);
         var r2 = Result.Error<string>(er);
         r1.GetHashCode().Should().NotBe(r2.GetHashCode());
@@ -284,7 +284,7 @@ public class ResultTest
     [Fact]
     public void T_GetHashCode_両方とも失敗の場合は失敗のハッシュコードが一致する場合は一致する()
     {
-        var er = new Error();
+        var er = new Exception();
         var r1 = Result.Error<string>(er);
         var r2 = Result.Error<string>(er);
         r1.GetHashCode().Should().Be(r2.GetHashCode());
@@ -293,8 +293,8 @@ public class ResultTest
     [Fact]
     public void T_GetHashCode_両方とも失敗の場合は失敗のハッシュコードが一致しない場合は一致しない()
     {
-        var er1 = new Error();
-        var er2 = new Error();
+        var er1 = new Exception();
+        var er2 = new Exception();
         var r1 = Result.Error<string>(er1);
         var r2 = Result.Error<string>(er2);
         er1.GetHashCode().Should().NotBe(er2.GetHashCode());
@@ -318,14 +318,14 @@ public class ResultTest
     [Fact]
     public void T_ToString_失敗の場合は失敗オブジェクトのToStringに接頭辞でerrorが付いた値が返される()
     {
-        var r = Result.Error<string>(new TestError());
+        var r = Result.Error<string>(new TestException());
         r.ToString().Should().Be("error: Test Error");
     }
 
     [Fact]
     public void T_ToString_失敗で失敗オブジェクトのToStringがnullの場合はerror_nullと返される()
     {
-        var r = Result.Error<string>(new TestNullError());
+        var r = Result.Error<string>(new TestNullException());
         r.ToString().Should().Be("error: (null)");
     }
 
@@ -341,15 +341,13 @@ public class ResultTest
         public override string ToString() => null;
     }
 
-    private class TestError : IError
+    private class TestException : Exception
     {
-        public string Message => "";
         public override string ToString() => "Test Error";
     }
 
-    private class TestNullError : IError
+    private class TestNullException : Exception
     {
-        public string Message => "";
         public override string ToString() => null;
     }
 }

@@ -11,7 +11,7 @@ public static partial class ResultExtensions
     /// <param name="source">処理を実行するかどうかの値</param>
     /// <param name="error">特定の処理</param>
     /// <returns>もとの値</returns>
-    public static Result TapError(this in Result source, Action<IError> error)
+    public static Result TapError(this in Result source, Action<Exception> error)
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
         if (source.IsError) error(source._errorValue);
@@ -24,7 +24,7 @@ public static partial class ResultExtensions
     /// <param name="source">処理を実行するかどうかの値</param>
     /// <param name="error">特定の処理</param>
     /// <returns>もとの値</returns>
-    public static async Task<Result> TapError(this Task<Result> source, Action<IError> error)
+    public static async Task<Result> TapError(this Task<Result> source, Action<Exception> error)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (error is null) throw new ArgumentNullException(nameof(error));
@@ -41,7 +41,7 @@ public static partial class ResultExtensions
     /// <param name="source">処理を実行するかどうかの値</param>
     /// <param name="error">特定の処理</param>
     /// <returns>もとの値</returns>
-    public static async Task<Result> TapError(this Result source, Func<IError, Task> error)
+    public static async Task<Result> TapError(this Result source, Func<Exception, Task> error)
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
         if (source.IsError) await error(source._errorValue).ConfigureAwait(false);
@@ -54,7 +54,7 @@ public static partial class ResultExtensions
     /// <param name="source">処理を実行するかどうかの値</param>
     /// <param name="error">特定の処理</param>
     /// <returns>もとの値</returns>
-    public static async Task<Result> TapError(this Task<Result> source, Func<IError, Task> error)
+    public static async Task<Result> TapError(this Task<Result> source, Func<Exception, Task> error)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (error is null) throw new ArgumentNullException(nameof(error));

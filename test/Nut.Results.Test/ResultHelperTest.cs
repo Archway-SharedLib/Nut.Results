@@ -105,14 +105,14 @@ public class ResultHelperTest
     [Fact]
     public void CreateErrorResult_型パラメーターがResultもしくはResultTでない場合は例外が発生するべき()
     {
-        Action act = () => ResultHelper.CreateErrorResult<string>(new Error());
+        Action act = () => ResultHelper.CreateErrorResult<string>(new Exception());
         act.Should().Throw<InvalidOperationException>();
     }
 
     [Fact]
     public void CreateErrorResult_型パラメーターがResultの場合はResult型でエラーを持っている値が返るべき()
     {
-        var error = new Error();
+        var error = new Exception();
         var result = ResultHelper.CreateErrorResult<Result>(error);
         result.Should().BeError();
         result.GetError().Should().BeSameAs(error);
@@ -121,7 +121,7 @@ public class ResultHelperTest
     [Fact]
     public void CreateErrorResult_型パラメーターがResultTの場合はResultT型でエラーを持っている値が返るべき()
     {
-        var error = new Error();
+        var error = new Exception();
         var result = ResultHelper.CreateErrorResult<Result<string>>(error);
         result.Should().BeError();
         result.GetError().Should().BeSameAs(error);
@@ -146,7 +146,7 @@ public class ResultHelperTest
     [Fact]
     public void TryGetOkValue_ResultTで失敗の場合はfalseが返りデフォルト値になる()
     {
-        var result = ResultHelper.TryGetOkValue(Result.Error<string>(new Error()), out string value);
+        var result = ResultHelper.TryGetOkValue(Result.Error<string>(new Exception()), out string value);
         result.Should().BeFalse();
         value.Should().Be(default);
     }
@@ -170,7 +170,7 @@ public class ResultHelperTest
     [Fact]
     public void TryGetErrorValue_失敗の値が取得できて結果はtrueが返るべき()
     {
-        var error = new Error();
+        var error = new Exception();
         var result = ResultHelper.TryGetErrorValue(Result.Error(error), out var value);
         result.Should().BeTrue();
         value.Should().Be(error);
@@ -187,7 +187,7 @@ public class ResultHelperTest
     [Fact]
     public void T_TryGetErrorValue_失敗の値が取得できて結果はtrueが返るべき()
     {
-        var error = new Error();
+        var error = new Exception();
         var result = ResultHelper.TryGetErrorValue(Result.Error<string>(error), out var value);
         result.Should().BeTrue();
         value.Should().Be(error);
@@ -204,7 +204,7 @@ public class ResultHelperTest
     [Fact]
     public void TryGetErrorValue_Resultでない場合はfalseが返るべき()
     {
-        var result = ResultHelper.TryGetErrorValue(new Error(), out var value);
+        var result = ResultHelper.TryGetErrorValue(new Exception(), out var value);
         result.Should().BeFalse();
         value.Should().BeNull();
     }
@@ -234,10 +234,10 @@ public class ResultHelperTest
     [Fact]
     public void Merge_失敗がある場合は失敗になる()
     {
-        var result = ResultHelper.Merge(Result.Ok(), Result.Error(new Error("1")), Result.Ok(), Result.Error(new Error("2")), Result.Ok());
-        result.Should().BeError().And.BeOfType<AggregateError>();
-        var errors = result.GetError().As<AggregateError>();
-        errors.Errors.Should().HaveCount(2);
+        var result = ResultHelper.Merge(Result.Ok(), Result.Error(new Exception("1")), Result.Ok(), Result.Error(new Exception("2")), Result.Ok());
+        result.Should().BeError().And.BeOfType<AggregateException>();
+        var errors = result.GetError().As<AggregateException>();
+        errors.InnerExceptions.Should().HaveCount(2);
     }
 
     [Fact]
@@ -258,13 +258,13 @@ public class ResultHelperTest
     public async Task MergeAsync_失敗がある場合は失敗になる()
     {
         var result = await ResultHelper.MergeAsync(Result.Ok().AsTask(),
-            Result.Error(new Error("1")).AsTask(),
+            Result.Error(new Exception("1")).AsTask(),
             Result.Ok().AsTask(),
-            Result.Error(new Error("2")).AsTask(),
+            Result.Error(new Exception("2")).AsTask(),
             Result.Ok().AsTask());
-        result.Should().BeError().And.BeOfType<AggregateError>();
-        var errors = result.GetError().As<AggregateError>();
-        errors.Errors.Should().HaveCount(2);
+        result.Should().BeError().And.BeOfType<AggregateException>();
+        var errors = result.GetError().As<AggregateException>();
+        errors.InnerExceptions.Should().HaveCount(2);
     }
 
     [Fact]
@@ -286,13 +286,13 @@ public class ResultHelperTest
     public void MergeT_失敗がある場合は失敗になる()
     {
         var result = ResultHelper.Merge(Result.Ok("1"),
-            Result.Error<string>(new Error("1")),
+            Result.Error<string>(new Exception("1")),
             Result.Ok("2"),
-            Result.Error<string>(new Error("2")),
+            Result.Error<string>(new Exception("2")),
             Result.Ok("3"));
-        result.Should().BeError().And.BeOfType<AggregateError>();
-        var errors = result.GetError().As<AggregateError>();
-        errors.Errors.Should().HaveCount(2);
+        result.Should().BeError().And.BeOfType<AggregateException>();
+        var errors = result.GetError().As<AggregateException>();
+        errors.InnerExceptions.Should().HaveCount(2);
     }
 
     [Fact]
@@ -314,12 +314,12 @@ public class ResultHelperTest
     public async Task MergeAsyncT_失敗がある場合は失敗になる()
     {
         var result = await ResultHelper.MergeAsync(Result.Ok("1").AsTask(),
-            Result.Error<string>(new Error("1")).AsTask(),
+            Result.Error<string>(new Exception("1")).AsTask(),
             Result.Ok("2").AsTask(),
-            Result.Error<string>(new Error("2")).AsTask(),
+            Result.Error<string>(new Exception("2")).AsTask(),
             Result.Ok("3").AsTask());
-        result.Should().BeError().And.BeOfType<AggregateError>();
-        var errors = result.GetError().As<AggregateError>();
-        errors.Errors.Should().HaveCount(2);
+        result.Should().BeError().And.BeOfType<AggregateException>();
+        var errors = result.GetError().As<AggregateException>();
+        errors.InnerExceptions.Should().HaveCount(2);
     }
 }
