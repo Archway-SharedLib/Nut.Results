@@ -53,6 +53,24 @@ public class FlatMapError_T
     }
 
     [Fact]
+    public void SyncSync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = false;
+        var expected = new Exception();
+        Exception param = null;
+        var result = Result.Error<string>(expected).FlatMapError(e =>
+        {
+            executed = true;
+            param = e;
+            return Result.Ok(""[0].ToString()); // throw exception
+        });
+
+        executed.Should().BeTrue();
+        param.Should().Be(expected);
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task AsyncSync_errorパラメーターが指定されていない場合は例外が発生する()
     {
         Func<Task> act = () => Result.Ok("ok").AsTask().FlatMapError(null as Func<Exception, Result<string>>);
@@ -102,6 +120,24 @@ public class FlatMapError_T
     }
 
     [Fact]
+    public async Task AsyncSync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = false;
+        var expected = new Exception();
+        Exception param = null;
+        var result = await Result.Error<string>(expected).AsTask().FlatMapError(e =>
+        {
+            executed = true;
+            param = e;
+            return Result.Ok(""[0].ToString()); // throw exception
+        });
+
+        executed.Should().BeTrue();
+        param.Should().Be(expected);
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task SyncAsync_errorパラメーターが指定されていない場合は例外が発生する()
     {
         Func<Task> act = () => Result.Ok("ok").FlatMapError(null as Func<Exception, Task<Result<string>>>);
@@ -140,6 +176,24 @@ public class FlatMapError_T
 
         executed.Should().BeFalse();
         result.Should().BeOk().And.Match(v => v == "ok");
+    }
+
+    [Fact]
+    public async Task SyncAsync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = false;
+        var expected = new Exception();
+        Exception param = null;
+        var result = await Result.Error<string>(expected).FlatMapError(e =>
+        {
+            executed = true;
+            param = e;
+            return Result.Ok(""[0].ToString()).AsTask(); // throw exception
+        });
+
+        executed.Should().BeTrue();
+        param.Should().Be(expected);
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -189,5 +243,23 @@ public class FlatMapError_T
 
         executed.Should().BeFalse();
         result.Should().BeOk().And.Match(v => v == "ok");
+    }
+
+    [Fact]
+    public async Task AsyncAsync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = false;
+        var expected = new Exception();
+        Exception param = null;
+        var result = await Result.Error<string>(expected).AsTask().FlatMapError(e =>
+        {
+            executed = true;
+            param = e;
+            return Result.Ok(""[0].ToString()).AsTask(); // throw exception
+        });
+
+        executed.Should().BeTrue();
+        param.Should().Be(expected);
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 }

@@ -1,6 +1,8 @@
 using System;
 using System.Threading.Tasks;
 
+using static Nut.Results.Result;
+
 namespace Nut.Results;
 
 public static partial class ResultExtensions
@@ -15,7 +17,7 @@ public static partial class ResultExtensions
     public static Result<TResult> FlatMap<TResult>(this in Result source, Func<Result<TResult>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        return !source.IsOk ? Result.Error<TResult>(source._errorValue) : ok();
+        return !source.IsOk ? Error<TResult>(source._errorValue) : Try(ok);
     }
 
     /// <summary>
@@ -31,7 +33,7 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
 
         var result = await source.ConfigureAwait(false);
-        return !result.IsOk ? Result.Error<TResult>(result._errorValue) : ok();
+        return !result.IsOk ? Error<TResult>(result._errorValue) : Try(ok);
     }
 
     //sync - async Void -> T
@@ -46,9 +48,9 @@ public static partial class ResultExtensions
     public static async Task<Result<TResult>> FlatMap<TResult>(this Result source, Func<Task<Result<TResult>>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (!source.IsOk) return Result.Error<TResult>(source._errorValue);
+        if (!source.IsOk) return Error<TResult>(source._errorValue);
 
-        return await ok().ConfigureAwait(false);
+        return await Result.Try(ok).ConfigureAwait(false);
     }
 
     //async - async Void -> T
@@ -66,9 +68,9 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
 
         var result = await source.ConfigureAwait(false);
-        if (!result.IsOk) return Result.Error<TResult>(result._errorValue);
+        if (!result.IsOk) return Error<TResult>(result._errorValue);
 
-        return await ok().ConfigureAwait(false);
+        return await Try(ok).ConfigureAwait(false);
     }
 
     // Void -> Void
@@ -84,7 +86,7 @@ public static partial class ResultExtensions
     public static Result FlatMap(this in Result source, Func<Result> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        return !source.IsOk ? source : ok();
+        return !source.IsOk ? source : Result.Try(ok);
     }
 
     //async - sync Void -> Void
@@ -101,7 +103,7 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
 
         var result = await source.ConfigureAwait(false);
-        return !result.IsOk ? result : ok();
+        return !result.IsOk ? result : Try(ok);
     }
 
     //sync - async Void -> Void
@@ -117,7 +119,7 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (!source.IsOk) return source;
 
-        return await ok().ConfigureAwait(false);
+        return await Try(ok).ConfigureAwait(false);
     }
 
     //async - async Void -> Void
@@ -136,6 +138,6 @@ public static partial class ResultExtensions
         var result = await source.ConfigureAwait(false);
         if (!result.IsOk) return result;
 
-        return await ok().ConfigureAwait(false);
+        return await Try(ok).ConfigureAwait(false);
     }
 }
