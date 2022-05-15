@@ -19,7 +19,14 @@ public static partial class ResultExtensions
     public static Result<T> FlatMapError<T>(this in Result<T> source, Func<Exception, Result<T>> error)
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
-        return !source.IsError ? source : Try(error, source._errorValue);
+        try
+        {
+            return !source.IsError ? source : error(source._errorValue);
+        }
+        catch (Exception e)
+        {
+            return Result.Error<T>(e);
+        }
     }
 
     //async - sync T -> T
@@ -36,8 +43,15 @@ public static partial class ResultExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (error is null) throw new ArgumentNullException(nameof(error));
 
-        var result = await source.ConfigureAwait(false);
-        return !result.IsError ? result : Try(error, result._errorValue);
+        try
+        {
+            var result = await source.ConfigureAwait(false);
+            return !result.IsError ? result : error(result._errorValue);
+        }
+        catch (Exception e)
+        {
+            return Result.Error<T>(e);
+        }
     }
 
     //sync - async T -> T
@@ -54,7 +68,14 @@ public static partial class ResultExtensions
         if (error is null) throw new ArgumentNullException(nameof(error));
         if (!source.IsError) return source;
 
-        return await Try(error, source._errorValue).ConfigureAwait(false);
+        try
+        {
+            return await error(source._errorValue).ConfigureAwait(false);
+        }
+        catch (Exception e)
+        {
+            return Result.Error<T>(e);
+        }
     }
 
     //async - async T -> T
@@ -71,9 +92,15 @@ public static partial class ResultExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (error is null) throw new ArgumentNullException(nameof(error));
 
-        var result = await source.ConfigureAwait(false);
-        if (!result.IsError) return result;
-
-        return await Try(error, result._errorValue).ConfigureAwait(false);
+        try
+        {
+            var result = await source.ConfigureAwait(false);
+            if (!result.IsError) return result;
+            return await error(result._errorValue).ConfigureAwait(false);
+        }
+        catch (Exception e)
+        {
+            return Result.Error<T>(e);
+        }
     }
 }

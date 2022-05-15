@@ -1,8 +1,6 @@
 using System;
 using System.Threading.Tasks;
 
-using static Nut.Results.Result;
-
 namespace Nut.Results;
 
 public static partial class ResultExtensions
@@ -17,7 +15,14 @@ public static partial class ResultExtensions
     public static Result<TResult> FlatMap<TResult>(this in Result source, Func<Result<TResult>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        return !source.IsOk ? Error<TResult>(source._errorValue) : Try(ok);
+        try
+        {
+            return !source.IsOk ? Result.Error<TResult>(source._errorValue) : ok();
+        }
+        catch (Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
 
     /// <summary>
@@ -32,8 +37,15 @@ public static partial class ResultExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
 
-        var result = await source.ConfigureAwait(false);
-        return !result.IsOk ? Error<TResult>(result._errorValue) : Try(ok);
+        try
+        {
+            var result = await source.ConfigureAwait(false);
+            return !result.IsOk ? Result.Error<TResult>(result._errorValue) : ok();
+        }
+        catch (Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
 
     //sync - async Void -> T
@@ -48,9 +60,15 @@ public static partial class ResultExtensions
     public static async Task<Result<TResult>> FlatMap<TResult>(this Result source, Func<Task<Result<TResult>>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (!source.IsOk) return Error<TResult>(source._errorValue);
-
-        return await Result.Try(ok).ConfigureAwait(false);
+        try
+        {
+            if (!source.IsOk) return Result.Error<TResult>(source._errorValue);
+            return await ok().ConfigureAwait(false);
+        }
+        catch (Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
 
     //async - async Void -> T
@@ -66,11 +84,16 @@ public static partial class ResultExtensions
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-
-        var result = await source.ConfigureAwait(false);
-        if (!result.IsOk) return Error<TResult>(result._errorValue);
-
-        return await Try(ok).ConfigureAwait(false);
+        try
+        {
+            var result = await source.ConfigureAwait(false);
+            if (!result.IsOk) return Result.Error<TResult>(result._errorValue);
+            return await ok().ConfigureAwait(false);
+        }
+        catch (Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
 
     // Void -> Void
@@ -86,7 +109,14 @@ public static partial class ResultExtensions
     public static Result FlatMap(this in Result source, Func<Result> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        return !source.IsOk ? source : Result.Try(ok);
+        try
+        {
+            return !source.IsOk ? source : ok();
+        }
+        catch (Exception e)
+        {
+            return Result.Error(e);
+        }
     }
 
     //async - sync Void -> Void
@@ -101,9 +131,15 @@ public static partial class ResultExtensions
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-
-        var result = await source.ConfigureAwait(false);
-        return !result.IsOk ? result : Try(ok);
+        try
+        {
+            var result = await source.ConfigureAwait(false);
+            return !result.IsOk ? result : ok();
+        }
+        catch (Exception e)
+        {
+            return Result.Error(e);
+        }
     }
 
     //sync - async Void -> Void
@@ -117,9 +153,15 @@ public static partial class ResultExtensions
     public static async Task<Result> FlatMap(this Result source, Func<Task<Result>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (!source.IsOk) return source;
-
-        return await Try(ok).ConfigureAwait(false);
+        try
+        {
+            if (!source.IsOk) return source;
+            return await ok().ConfigureAwait(false);
+        }
+        catch (Exception e)
+        {
+            return Result.Error(e);
+        }
     }
 
     //async - async Void -> Void
@@ -134,10 +176,15 @@ public static partial class ResultExtensions
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-
-        var result = await source.ConfigureAwait(false);
-        if (!result.IsOk) return result;
-
-        return await Try(ok).ConfigureAwait(false);
+        try
+        {
+            var result = await source.ConfigureAwait(false);
+            if (!result.IsOk) return result;
+            return await ok().ConfigureAwait(false);
+        }
+        catch (Exception e)
+        {
+            return Result.Error(e);
+        }
     }
 }

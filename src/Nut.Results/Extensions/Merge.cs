@@ -1,5 +1,3 @@
-
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +15,20 @@ public static partial class ResultExtensions
     /// </remarks>
     /// <param name="source">マージする結果</param>
     /// <returns>マージした結果</returns>
-    public static Result Merge(this IEnumerable<Result> source) => ResultHelper.Merge(source?.ToArray()!);
+    public static Result Merge(this IEnumerable<Result> source)
+    {
+        if (source is null) throw new ArgumentNullException(nameof(source));
+        return ResultHelper.Merge(source.ToArray());
+        // 例外が発生しないためコメントアウト
+        // try
+        // {
+        //     return ResultHelper.Merge(source.ToArray());
+        // }
+        // catch (Exception e)
+        // {
+        //     return Result.Error(e);
+        // }
+    }
 
     /// <summary>
     /// <see cref="Result"/> の結果をマージします。
@@ -27,7 +38,18 @@ public static partial class ResultExtensions
     /// </remarks>
     /// <param name="source">マージする結果</param>
     /// <returns>マージした結果</returns>
-    public static Task<Result> Merge(this IEnumerable<Task<Result>> source) => ResultHelper.MergeAsync(source?.ToArray()!);
+    public static async Task<Result> Merge(this IEnumerable<Task<Result>> source)
+    {
+        if (source is null) throw new ArgumentNullException(nameof(source));
+        try
+        {
+            return await ResultHelper.MergeAsync(source.ToArray());
+        }
+        catch (Exception e)
+        {
+            return Result.Error(e);
+        }
+    }
 
     /// <summary>
     /// <see cref="Result"/> の結果をマージします。
@@ -40,12 +62,19 @@ public static partial class ResultExtensions
     public static async Task<Result> Merge(this Task<IEnumerable<Result>> source)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
-        var value = await source.ConfigureAwait(false);
-        if (value is null)
+        try
         {
-            throw new InvalidOperationException(Resources.Strings.Exception_CannotMergeNullReuslts);
+            var value = await source.ConfigureAwait(false);
+            if (value is null)
+            {
+                throw new InvalidOperationException(Resources.Strings.Exception_CannotMergeNullReuslts);
+            }
+            return ResultHelper.Merge(value.ToArray());
         }
-        return ResultHelper.Merge(value.ToArray());
+        catch (Exception e)
+        {
+            return Result.Error(e);
+        }
     }
 
     /// <summary>
@@ -59,11 +88,18 @@ public static partial class ResultExtensions
     public static async Task<Result> Merge(this Task<IEnumerable<Task<Result>>> source)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
-        var value = await source.ConfigureAwait(false);
-        if (value is null)
+        try
         {
-            throw new InvalidOperationException(Resources.Strings.Exception_CannotMergeNullReuslts);
+            var value = await source.ConfigureAwait(false);
+            if (value is null)
+            {
+                throw new InvalidOperationException(Resources.Strings.Exception_CannotMergeNullReuslts);
+            }
+            return await ResultHelper.MergeAsync(value.ToArray());
         }
-        return await ResultHelper.MergeAsync(value.ToArray());
+        catch (Exception e)
+        {
+            return Result.Error(e);
+        }
     }
 }

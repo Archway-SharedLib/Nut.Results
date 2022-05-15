@@ -49,8 +49,22 @@ public class Map_T
     [Fact]
     public void SyncSync_戻り値がnullの場合は例外が発生する()
     {
-        Action act = () => Result.Ok("ok").Map(_ => null as string);
-        act.Should().Throw<InvalidReturnValueException>();
+        var result = Result.Ok("ok").Map(_ => null as string);
+        result.Should().BeError().And.BeOfType<InvalidReturnValueException>();
+    }
+
+    [Fact]
+    public void SyncSync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = false;
+        var result = Result.Ok("123").Map(_ =>
+        {
+            executed = true;
+            return ""[0].ToString(); // throw exception
+        });
+
+        executed.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -103,8 +117,22 @@ public class Map_T
     [Fact]
     public async Task AsyncSync_戻り値がnullの場合は例外が発生する()
     {
-        Func<Task> act = () => Result.Ok("ok").AsTask().Map(_ => null as string);
-        await act.Should().ThrowAsync<InvalidReturnValueException>();
+        var result = await Result.Ok("ok").AsTask().Map(_ => null as string);
+        result.Should().BeError().And.BeOfType<InvalidReturnValueException>();
+    }
+
+    [Fact]
+    public async Task AsyncSync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = false;
+        var result = await Result.Ok("123").AsTask().Map(_ =>
+        {
+            executed = true;
+            return ""[0].ToString(); // throw exception
+        });
+
+        executed.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -149,8 +177,22 @@ public class Map_T
     [Fact]
     public async Task SyncAsync_戻り値がnullの場合は例外が発生する()
     {
-        Func<Task> act = () => Result.Ok("ok").Map(_ => Task.FromResult(null as string));
-        await act.Should().ThrowAsync<InvalidReturnValueException>();
+        var result = await Result.Ok("ok").Map(_ => Task.FromResult(null as string));
+        result.Should().BeError().And.BeOfType<InvalidReturnValueException>();
+    }
+
+    [Fact]
+    public async Task SyncAsync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = false;
+        var result = await Result.Ok("123").Map(_ =>
+        {
+            executed = true;
+            return Task.FromResult(""[0].ToString()); // throw exception
+        });
+
+        executed.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -201,9 +243,23 @@ public class Map_T
     }
 
     [Fact]
-    public async Task AsyncAsync_戻り値がnullの場合は例外が発生する()
+    public async Task AsyncAsync_戻り値がnullの場合は失敗になる()
     {
-        Func<Task> act = () => Result.Ok("ok").AsTask().Map(_ => Task.FromResult(null as string));
-        await act.Should().ThrowAsync<InvalidReturnValueException>();
+        var result = await Result.Ok("ok").AsTask().Map(_ => Task.FromResult(null as string));
+        result.Should().BeError().And.BeOfType<InvalidReturnValueException>();
+    }
+
+    [Fact]
+    public async Task AsyncAsync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = false;
+        var result = await Result.Ok("123").AsTask().Map(_ =>
+        {
+            executed = true;
+            return Task.FromResult(""[0].ToString()); // throw exception
+        });
+
+        executed.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 }

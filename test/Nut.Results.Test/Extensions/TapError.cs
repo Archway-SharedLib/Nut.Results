@@ -46,6 +46,20 @@ public class TapError
     }
 
     [Fact]
+    public void SyncSync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = false;
+        var result = Result.Error(new Exception()).TapError(_ =>
+        {
+            executed = true;
+            ""[0].ToString(); // throw exception
+        });
+
+        executed.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task AsyncSync_Errorパラメーターが指定されていない場合は例外が発生する()
     {
         var act = () => Result.Ok().AsTask().TapError(null as Action<Exception>);
@@ -91,6 +105,20 @@ public class TapError
     }
 
     [Fact]
+    public async Task AsyncSync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = false;
+        var result = await Result.Error(new Exception()).AsTask().TapError(_ =>
+        {
+            executed = true;
+            ""[0].ToString(); // throw exception
+        });
+
+        executed.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task SyncAsync_Errorパラメーターが指定されていない場合は例外が発生する()
     {
         var act = () => Result.Ok().TapError(null as Func<Exception, Task>);
@@ -133,6 +161,19 @@ public class TapError
         result.Should().BeOk();
     }
 
+    [Fact]
+    public async Task SyncAsync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = false;
+        var result = await Result.Error(new Exception()).TapError(async _ =>
+        {
+            executed = true;
+            await Task.FromResult(""[0].ToString()); // throw exception
+        });
+
+        executed.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
 
     [Fact]
     public async Task AsyncAsync_Errorパラメーターが指定されていない場合は例外が発生する()
@@ -183,5 +224,19 @@ public class TapError
         });
         executed.Should().BeFalse();
         result.Should().BeOk();
+    }
+
+    [Fact]
+    public async Task AsyncAsync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = false;
+        var result = await Result.Error(new Exception()).AsTask().TapError(async _ =>
+        {
+            executed = true;
+            await Task.FromResult(""[0].ToString()); // throw exception
+        });
+
+        executed.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 }

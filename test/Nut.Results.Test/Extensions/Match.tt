@@ -120,6 +120,49 @@ public partial class Match
         executedError.Should().BeTrue();
     }
 
+    [Fact]
+    public <#= rt.IsTask ? "async Task" : "void" #> <#= GetTestMethodPrefix(p) #>_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = <#=T(rt.IsTask,"await ")#>Result.Ok(<#=T(st.IsGeneric,"1")#>)<#=T(st.TaskType != TaskType.None,$".As{st.TaskType}()")#>.Match((<#=T(st.IsGeneric, "v")#>) =>
+        {
+            <#=T(st.IsGeneric, "v.Should().Be(1);")#>
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok(<#=T(ot.IsGeneric,"1")#>)<#=T(ot.TaskType != TaskType.None,$".As{ot.TaskType}()")#>;
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error<#=T(et.IsGeneric,"<int>")#>(err)<#=T(et.TaskType != TaskType.None,$".As{et.TaskType}()")#>;
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public <#= rt.IsTask ? "async Task" : "void" #> <#= GetTestMethodPrefix(p) #>_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = <#=T(rt.IsTask,"await ")#>Result.Error<#=T(st.IsGeneric,"<int>")#>(err)<#=T(st.TaskType != TaskType.None,$".As{st.TaskType}()")#>.Match((<#=T(st.IsGeneric, "v")#>) =>
+        {
+            <#=T(st.IsGeneric, "v.Should().Be(1);")#>
+            executedOk = true;
+            return Result.Ok(<#=T(ot.IsGeneric,"1")#>)<#=T(ot.TaskType != TaskType.None,$".As{ot.TaskType}()")#>;
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error<#=T(et.IsGeneric,"<int>")#>(err)<#=T(et.TaskType != TaskType.None,$".As{et.TaskType}()")#>;
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
 <#
                 }
             }

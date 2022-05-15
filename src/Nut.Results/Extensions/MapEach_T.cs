@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-
 namespace Nut.Results;
 
 public static partial class ResultExtensions
@@ -20,7 +19,17 @@ public static partial class ResultExtensions
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
 
-        return source.Map(v => v.Select(vi => ok(vi)).ToList().AsEnumerable());
+        return source.Map(v => v.Select(ok).ToList().AsEnumerable());
+
+        // try/catch は不要。 source.Map ですでに例外が補足されているため。
+        // try
+        // {
+        //     return source.Map(v => v.Select(ok).ToList().AsEnumerable());
+        // }
+        // catch (Exception e)
+        // {
+        //     return Result.Error<IEnumerable<TResult>>(e);
+        // }
     }
 
     /// <summary>
@@ -36,8 +45,15 @@ public static partial class ResultExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
 
-        var value = await source.ConfigureAwait(false);
-        return MapEach(value, ok);
+        try
+        {
+            var value = await source.ConfigureAwait(false);
+            return MapEach(value, ok);
+        }
+        catch (Exception e)
+        {
+            return Result.Error<IEnumerable<TResult>>(e);
+        }
     }
 
     /// <summary>
@@ -53,16 +69,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (source.IsError) return Result.Error<IEnumerable<TResult>>(source._errorValue);
 
-        var items = source._value;
-        var tasks = new List<Task<TResult>>();
-        foreach (var item in items)
+        try
         {
-            tasks.Add(ok(item));
+            var items = source._value;
+            var tasks = items.Select(ok);
+
+            var result = await Task.WhenAll(tasks).ConfigureAwait(false);
+            return Result.Ok(result.AsEnumerable());
         }
-
-        var result = await Task.WhenAll(tasks).ConfigureAwait(false);
-
-        return Result.Ok(result.AsEnumerable());
+        catch (Exception e)
+        {
+            return Result.Error<IEnumerable<TResult>>(e);
+        }
     }
 
     /// <summary>
@@ -78,7 +96,14 @@ public static partial class ResultExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
 
-        var value = await source.ConfigureAwait(false);
-        return await MapEach(value, ok).ConfigureAwait(false);
+        try
+        {
+            var value = await source.ConfigureAwait(false);
+            return await MapEach(value, ok).ConfigureAwait(false);
+        }
+        catch (Exception e)
+        {
+            return Result.Error<IEnumerable<TResult>>(e);
+        }
     }
 }

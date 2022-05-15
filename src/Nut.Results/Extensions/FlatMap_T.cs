@@ -1,73 +1,10 @@
 using System;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-
-using static Nut.Results.Result;
 
 namespace Nut.Results;
 
 public static partial class ResultExtensions
 {
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static Result<T> Try<T>(Func<Result<T>> fun) => Result.Try(fun);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static Task<Result<T>> Try<T>(Func<Task<Result<T>>> fun) => Result.Try(fun);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static Result Try(Func<Result> fun) => Result.Try(fun);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static Task<Result> Try(Func<Task<Result>> fun) => Result.Try(fun);
-
-    private static Result Try<T>(Func<T, Result> fun, T value)
-    {
-        try
-        {
-            return fun(value);
-        }
-        catch (Exception e)
-        {
-            return Error(e);
-        }
-    }
-
-    private static async Task<Result> Try<T>(Func<T, Task<Result>> fun, T value)
-    {
-        try
-        {
-            return await fun(value).ConfigureAwait(false);
-        }
-        catch (Exception e)
-        {
-            return Error(e);
-        }
-    }
-
-    private static Result<TResult> Try<T, TResult>(Func<T, Result<TResult>> fun, T value)
-    {
-        try
-        {
-            return fun(value);
-        }
-        catch (Exception e)
-        {
-            return Error<TResult>(e);
-        }
-    }
-
-    private static Task<Result<TResult>> Try<T, TResult>(Func<T, Task<Result<TResult>>> fun, T value)
-    {
-        try
-        {
-            return fun(value);
-        }
-        catch (Exception e)
-        {
-            return Error<TResult>(e).AsTask();
-        }
-    }
-
     //T1 -> Void
 
     // sync - sync T1 -> Void
@@ -82,7 +19,14 @@ public static partial class ResultExtensions
     public static Result FlatMap<T>(this Result<T> source, Func<T, Result> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        return !source.IsOk ? Error(source._errorValue) : Try(ok, source._value);
+        try
+        {
+            return !source.IsOk ? Result.Error(source._errorValue) : ok(source._value);
+        }
+        catch (Exception e)
+        {
+            return Result.Error(e);
+        }
     }
 
     //async - sync T1 -> Void
@@ -99,8 +43,15 @@ public static partial class ResultExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
 
-        var result = await source.ConfigureAwait(false);
-        return !result.IsOk ? Error(result._errorValue) : Try(ok, result._value);
+        try
+        {
+            var result = await source.ConfigureAwait(false);
+            return !result.IsOk ? Result.Error(result._errorValue) : ok(result._value);
+        }
+        catch (Exception e)
+        {
+            return Result.Error(e);
+        }
     }
 
     //sync - async T1 -> Void
@@ -115,9 +66,16 @@ public static partial class ResultExtensions
     public static async Task<Result> FlatMap<T>(this Result<T> source, Func<T, Task<Result>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (!source.IsOk) return Error(source._errorValue);
 
-        return await Try(ok, source._value).ConfigureAwait(false);
+        try
+        {
+            if (!source.IsOk) return Result.Error(source._errorValue);
+            return await ok(source._value).ConfigureAwait(false);
+        }
+        catch (Exception e)
+        {
+            return Result.Error(e);
+        }
     }
 
     //async - async T1 -> Void
@@ -134,10 +92,16 @@ public static partial class ResultExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
 
-        var result = await source.ConfigureAwait(false);
-        if (!result.IsOk) return Error(result._errorValue);
-
-        return await Try(ok, result._value).ConfigureAwait(false);
+        try
+        {
+            var result = await source.ConfigureAwait(false);
+            if (!result.IsOk) return Result.Error(result._errorValue);
+            return await ok(result._value).ConfigureAwait(false);
+        }
+        catch (Exception e)
+        {
+            return Result.Error(e);
+        }
     }
 
     //T1 -> T2
@@ -155,7 +119,14 @@ public static partial class ResultExtensions
     public static Result<TResult> FlatMap<T, TResult>(this Result<T> source, Func<T, Result<TResult>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        return !source.IsOk ? Error<TResult>(source._errorValue) : Try(ok, source._value);
+        try
+        {
+            return !source.IsOk ? Result.Error<TResult>(source._errorValue) : ok(source._value);
+        }
+        catch (Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
 
     //async - sync T1 -> T2
@@ -173,8 +144,15 @@ public static partial class ResultExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
 
-        var result = await source.ConfigureAwait(false);
-        return !result.IsOk ? Error<TResult>(result._errorValue) : Try(ok, result._value);
+        try
+        {
+            var result = await source.ConfigureAwait(false);
+            return !result.IsOk ? Result.Error<TResult>(result._errorValue) : ok(result._value);
+        }
+        catch (Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
 
     //sync - async T1 -> T2
@@ -190,9 +168,16 @@ public static partial class ResultExtensions
     public static async Task<Result<TResult>> FlatMap<T, TResult>(this Result<T> source, Func<T, Task<Result<TResult>>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (!source.IsOk) return Error<TResult>(source._errorValue);
 
-        return await Try(ok, source._value).ConfigureAwait(false);
+        try
+        {
+            if (!source.IsOk) return Result.Error<TResult>(source._errorValue);
+            return await ok(source._value).ConfigureAwait(false);
+        }
+        catch (Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
 
     //async - async T1 -> T2
@@ -210,9 +195,15 @@ public static partial class ResultExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
 
-        var result = await source.ConfigureAwait(false);
-        if (!result.IsOk) return Error<TResult>(result._errorValue);
-
-        return await Try(ok, result._value).ConfigureAwait(false);
+        try
+        {
+            var result = await source.ConfigureAwait(false);
+            if (!result.IsOk) return Result.Error<TResult>(result._errorValue);
+            return await ok(result._value).ConfigureAwait(false);
+        }
+        catch (Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
 }

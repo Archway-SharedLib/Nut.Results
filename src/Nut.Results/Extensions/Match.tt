@@ -134,11 +134,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = <#= st.IsTask ? "await source.ConfigureAwait(false)" : "source" #>;
-        if (sourceValue.IsOk) {
-            return <#= p.NeedAwaitOk() ? "await " : "" #>ok(<#= st.IsGeneric ? "sourceValue._value" : "" #>)<#= p.NeedAwaitOk() ? ".ConfigureAwait(false)" : "" #>;
+        try
+        {
+            var sourceValue = <#= st.IsTask ? "await source.ConfigureAwait(false)" : "source" #>;
+            if (sourceValue.IsOk) {
+                return <#= p.NeedAwaitOk() ? "await " : "" #>ok(<#= st.IsGeneric ? "sourceValue._value" : "" #>)<#= p.NeedAwaitOk() ? ".ConfigureAwait(false)" : "" #>;
+            }
+            return <#= p.NeedAwaitError() ? "await " : "" #>err(sourceValue._errorValue)<#= p.NeedAwaitError() ? ".ConfigureAwait(false)" : "" #>;
         }
-        return <#= p.NeedAwaitError() ? "await " : "" #>err(sourceValue._errorValue)<#= p.NeedAwaitError() ? ".ConfigureAwait(false)" : "" #>;
+        catch(Exception e)
+        {
+            return Result.Error<#= rt.IsGeneric ? "<TResult>" : ""#>(e)<#= (!p.IsAsyncMethod() && (st.IsTask || rt.IsTask)) ? ".AsTask()" : ""#>;
+        }
     }
 <#
                 }

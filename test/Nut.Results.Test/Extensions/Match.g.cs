@@ -68,6 +68,49 @@ public partial class Match
     }
 
     [Fact]
+    public void Res_Res_Res_Res_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = Result.Ok().Match(() =>
+        {
+            
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error(err);
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public void Res_Res_Res_Res_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = Result.Error(err).Match(() =>
+        {
+            
+            executedOk = true;
+            return Result.Ok();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error(err);
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public void Res_ResT_Res_Res_Okがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.Match(Result.Ok(1), (Func<int, Result>)null, (_) => Result.Ok());
@@ -120,6 +163,49 @@ public partial class Match
         result.Should().BeError().And.Match(error => err == error);
         executedOk.Should().BeFalse();
         executedError.Should().BeTrue();
+    }
+
+    [Fact]
+    public void Res_ResT_Res_Res_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = Result.Ok(1).Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error(err);
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public void Res_ResT_Res_Res_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = Result.Error<int>(err).Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            return Result.Ok();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error(err);
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -178,6 +264,49 @@ public partial class Match
     }
 
     [Fact]
+    public void ResT_Res_ResT_ResT_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = Result.Ok().Match(() =>
+        {
+            
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok(1);
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error<int>(err);
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public void ResT_Res_ResT_ResT_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = Result.Error(err).Match(() =>
+        {
+            
+            executedOk = true;
+            return Result.Ok(1);
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error<int>(err);
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public void ResT_ResT_ResT_ResT_Okがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.Match(Result.Ok(1), (Func<int, Result<int>>)null, (_) => Result.Ok(1));
@@ -230,6 +359,49 @@ public partial class Match
         result.Should().BeError().And.Match(error => err == error);
         executedOk.Should().BeFalse();
         executedError.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ResT_ResT_ResT_ResT_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = Result.Ok(1).Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok(1);
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error<int>(err);
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public void ResT_ResT_ResT_ResT_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = Result.Error<int>(err).Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            return Result.Ok(1);
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error<int>(err);
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -288,6 +460,49 @@ public partial class Match
     }
 
     [Fact]
+    public async Task TaskRes_Res_Res_TaskRes_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok().Match(() =>
+        {
+            
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error(err).AsTask();
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskRes_Res_Res_TaskRes_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error(err).Match(() =>
+        {
+            
+            executedOk = true;
+            return Result.Ok();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error(err).AsTask();
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task TaskRes_Res_TaskRes_Res_Okがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.Match(Result.Ok(), (Func<Task<Result>>)null, (_) => Result.Ok());
@@ -340,6 +555,49 @@ public partial class Match
         result.Should().BeError().And.Match(error => err == error);
         executedOk.Should().BeFalse();
         executedError.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TaskRes_Res_TaskRes_Res_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok().Match(() =>
+        {
+            
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok().AsTask();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error(err);
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskRes_Res_TaskRes_Res_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error(err).Match(() =>
+        {
+            
+            executedOk = true;
+            return Result.Ok().AsTask();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error(err);
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -398,6 +656,49 @@ public partial class Match
     }
 
     [Fact]
+    public async Task TaskRes_Res_TaskRes_TaskRes_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok().Match(() =>
+        {
+            
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok().AsTask();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error(err).AsTask();
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskRes_Res_TaskRes_TaskRes_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error(err).Match(() =>
+        {
+            
+            executedOk = true;
+            return Result.Ok().AsTask();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error(err).AsTask();
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task TaskRes_ResT_Res_TaskRes_Okがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.Match(Result.Ok(1), (Func<int, Result>)null, (_) => Result.Ok().AsTask());
@@ -450,6 +751,49 @@ public partial class Match
         result.Should().BeError().And.Match(error => err == error);
         executedOk.Should().BeFalse();
         executedError.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TaskRes_ResT_Res_TaskRes_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok(1).Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error(err).AsTask();
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskRes_ResT_Res_TaskRes_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error<int>(err).Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            return Result.Ok();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error(err).AsTask();
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -508,6 +852,49 @@ public partial class Match
     }
 
     [Fact]
+    public async Task TaskRes_ResT_TaskRes_Res_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok(1).Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok().AsTask();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error(err);
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskRes_ResT_TaskRes_Res_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error<int>(err).Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            return Result.Ok().AsTask();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error(err);
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task TaskRes_ResT_TaskRes_TaskRes_Okがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.Match(Result.Ok(1), (Func<int, Task<Result>>)null, (_) => Result.Ok().AsTask());
@@ -560,6 +947,49 @@ public partial class Match
         result.Should().BeError().And.Match(error => err == error);
         executedOk.Should().BeFalse();
         executedError.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TaskRes_ResT_TaskRes_TaskRes_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok(1).Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok().AsTask();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error(err).AsTask();
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskRes_ResT_TaskRes_TaskRes_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error<int>(err).Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            return Result.Ok().AsTask();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error(err).AsTask();
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -625,6 +1055,49 @@ public partial class Match
     }
 
     [Fact]
+    public async Task TaskRes_TaskRes_Res_Res_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok().AsTask().Match(() =>
+        {
+            
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error(err);
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskRes_TaskRes_Res_Res_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error(err).AsTask().Match(() =>
+        {
+            
+            executedOk = true;
+            return Result.Ok();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error(err);
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task TaskRes_TaskRes_Res_TaskRes_Okがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.Match(Result.Ok().AsTask(), (Func<Result>)null, (_) => Result.Ok().AsTask());
@@ -684,6 +1157,49 @@ public partial class Match
         result.Should().BeError().And.Match(error => err == error);
         executedOk.Should().BeFalse();
         executedError.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TaskRes_TaskRes_Res_TaskRes_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok().AsTask().Match(() =>
+        {
+            
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error(err).AsTask();
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskRes_TaskRes_Res_TaskRes_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error(err).AsTask().Match(() =>
+        {
+            
+            executedOk = true;
+            return Result.Ok();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error(err).AsTask();
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -749,6 +1265,49 @@ public partial class Match
     }
 
     [Fact]
+    public async Task TaskRes_TaskRes_TaskRes_Res_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok().AsTask().Match(() =>
+        {
+            
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok().AsTask();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error(err);
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskRes_TaskRes_TaskRes_Res_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error(err).AsTask().Match(() =>
+        {
+            
+            executedOk = true;
+            return Result.Ok().AsTask();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error(err);
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task TaskRes_TaskRes_TaskRes_TaskRes_Okがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.Match(Result.Ok().AsTask(), (Func<Task<Result>>)null, (_) => Result.Ok().AsTask());
@@ -808,6 +1367,49 @@ public partial class Match
         result.Should().BeError().And.Match(error => err == error);
         executedOk.Should().BeFalse();
         executedError.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TaskRes_TaskRes_TaskRes_TaskRes_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok().AsTask().Match(() =>
+        {
+            
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok().AsTask();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error(err).AsTask();
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskRes_TaskRes_TaskRes_TaskRes_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error(err).AsTask().Match(() =>
+        {
+            
+            executedOk = true;
+            return Result.Ok().AsTask();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error(err).AsTask();
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -873,6 +1475,49 @@ public partial class Match
     }
 
     [Fact]
+    public async Task TaskRes_TaskResT_Res_Res_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok(1).AsTask().Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error(err);
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskRes_TaskResT_Res_Res_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error<int>(err).AsTask().Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            return Result.Ok();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error(err);
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task TaskRes_TaskResT_Res_TaskRes_Okがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.Match(Result.Ok(1).AsTask(), (Func<int, Result>)null, (_) => Result.Ok().AsTask());
@@ -932,6 +1577,49 @@ public partial class Match
         result.Should().BeError().And.Match(error => err == error);
         executedOk.Should().BeFalse();
         executedError.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TaskRes_TaskResT_Res_TaskRes_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok(1).AsTask().Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error(err).AsTask();
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskRes_TaskResT_Res_TaskRes_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error<int>(err).AsTask().Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            return Result.Ok();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error(err).AsTask();
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -997,6 +1685,49 @@ public partial class Match
     }
 
     [Fact]
+    public async Task TaskRes_TaskResT_TaskRes_Res_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok(1).AsTask().Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok().AsTask();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error(err);
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskRes_TaskResT_TaskRes_Res_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error<int>(err).AsTask().Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            return Result.Ok().AsTask();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error(err);
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task TaskRes_TaskResT_TaskRes_TaskRes_Okがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.Match(Result.Ok(1).AsTask(), (Func<int, Task<Result>>)null, (_) => Result.Ok().AsTask());
@@ -1059,6 +1790,49 @@ public partial class Match
     }
 
     [Fact]
+    public async Task TaskRes_TaskResT_TaskRes_TaskRes_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok(1).AsTask().Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok().AsTask();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error(err).AsTask();
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskRes_TaskResT_TaskRes_TaskRes_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error<int>(err).AsTask().Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            return Result.Ok().AsTask();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error(err).AsTask();
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task TaskResT_Res_ResT_TaskResT_Okがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.Match(Result.Ok(), (Func<Result<int>>)null, (_) => Result.Ok(1).AsTask());
@@ -1111,6 +1885,49 @@ public partial class Match
         result.Should().BeError().And.Match(error => err == error);
         executedOk.Should().BeFalse();
         executedError.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TaskResT_Res_ResT_TaskResT_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok().Match(() =>
+        {
+            
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok(1);
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error<int>(err).AsTask();
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskResT_Res_ResT_TaskResT_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error(err).Match(() =>
+        {
+            
+            executedOk = true;
+            return Result.Ok(1);
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error<int>(err).AsTask();
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -1169,6 +1986,49 @@ public partial class Match
     }
 
     [Fact]
+    public async Task TaskResT_Res_TaskResT_ResT_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok().Match(() =>
+        {
+            
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok(1).AsTask();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error<int>(err);
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskResT_Res_TaskResT_ResT_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error(err).Match(() =>
+        {
+            
+            executedOk = true;
+            return Result.Ok(1).AsTask();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error<int>(err);
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task TaskResT_Res_TaskResT_TaskResT_Okがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.Match(Result.Ok(), (Func<Task<Result<int>>>)null, (_) => Result.Ok(1).AsTask());
@@ -1221,6 +2081,49 @@ public partial class Match
         result.Should().BeError().And.Match(error => err == error);
         executedOk.Should().BeFalse();
         executedError.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TaskResT_Res_TaskResT_TaskResT_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok().Match(() =>
+        {
+            
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok(1).AsTask();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error<int>(err).AsTask();
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskResT_Res_TaskResT_TaskResT_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error(err).Match(() =>
+        {
+            
+            executedOk = true;
+            return Result.Ok(1).AsTask();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error<int>(err).AsTask();
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -1279,6 +2182,49 @@ public partial class Match
     }
 
     [Fact]
+    public async Task TaskResT_ResT_ResT_TaskResT_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok(1).Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok(1);
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error<int>(err).AsTask();
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskResT_ResT_ResT_TaskResT_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error<int>(err).Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            return Result.Ok(1);
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error<int>(err).AsTask();
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task TaskResT_ResT_TaskResT_ResT_Okがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.Match(Result.Ok(1), (Func<int, Task<Result<int>>>)null, (_) => Result.Ok(1));
@@ -1334,6 +2280,49 @@ public partial class Match
     }
 
     [Fact]
+    public async Task TaskResT_ResT_TaskResT_ResT_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok(1).Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok(1).AsTask();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error<int>(err);
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskResT_ResT_TaskResT_ResT_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error<int>(err).Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            return Result.Ok(1).AsTask();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error<int>(err);
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task TaskResT_ResT_TaskResT_TaskResT_Okがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.Match(Result.Ok(1), (Func<int, Task<Result<int>>>)null, (_) => Result.Ok(1).AsTask());
@@ -1386,6 +2375,49 @@ public partial class Match
         result.Should().BeError().And.Match(error => err == error);
         executedOk.Should().BeFalse();
         executedError.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TaskResT_ResT_TaskResT_TaskResT_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok(1).Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok(1).AsTask();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error<int>(err).AsTask();
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskResT_ResT_TaskResT_TaskResT_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error<int>(err).Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            return Result.Ok(1).AsTask();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error<int>(err).AsTask();
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -1451,6 +2483,49 @@ public partial class Match
     }
 
     [Fact]
+    public async Task TaskResT_TaskRes_ResT_ResT_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok().AsTask().Match(() =>
+        {
+            
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok(1);
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error<int>(err);
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskResT_TaskRes_ResT_ResT_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error(err).AsTask().Match(() =>
+        {
+            
+            executedOk = true;
+            return Result.Ok(1);
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error<int>(err);
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task TaskResT_TaskRes_ResT_TaskResT_Okがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.Match(Result.Ok().AsTask(), (Func<Result<int>>)null, (_) => Result.Ok(1).AsTask());
@@ -1510,6 +2585,49 @@ public partial class Match
         result.Should().BeError().And.Match(error => err == error);
         executedOk.Should().BeFalse();
         executedError.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TaskResT_TaskRes_ResT_TaskResT_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok().AsTask().Match(() =>
+        {
+            
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok(1);
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error<int>(err).AsTask();
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskResT_TaskRes_ResT_TaskResT_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error(err).AsTask().Match(() =>
+        {
+            
+            executedOk = true;
+            return Result.Ok(1);
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error<int>(err).AsTask();
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -1575,6 +2693,49 @@ public partial class Match
     }
 
     [Fact]
+    public async Task TaskResT_TaskRes_TaskResT_ResT_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok().AsTask().Match(() =>
+        {
+            
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok(1).AsTask();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error<int>(err);
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskResT_TaskRes_TaskResT_ResT_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error(err).AsTask().Match(() =>
+        {
+            
+            executedOk = true;
+            return Result.Ok(1).AsTask();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error<int>(err);
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task TaskResT_TaskRes_TaskResT_TaskResT_Okがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.Match(Result.Ok().AsTask(), (Func<Task<Result<int>>>)null, (_) => Result.Ok(1).AsTask());
@@ -1634,6 +2795,49 @@ public partial class Match
         result.Should().BeError().And.Match(error => err == error);
         executedOk.Should().BeFalse();
         executedError.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TaskResT_TaskRes_TaskResT_TaskResT_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok().AsTask().Match(() =>
+        {
+            
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok(1).AsTask();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error<int>(err).AsTask();
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskResT_TaskRes_TaskResT_TaskResT_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error(err).AsTask().Match(() =>
+        {
+            
+            executedOk = true;
+            return Result.Ok(1).AsTask();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error<int>(err).AsTask();
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -1699,6 +2903,49 @@ public partial class Match
     }
 
     [Fact]
+    public async Task TaskResT_TaskResT_ResT_ResT_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok(1).AsTask().Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok(1);
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error<int>(err);
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskResT_TaskResT_ResT_ResT_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error<int>(err).AsTask().Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            return Result.Ok(1);
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error<int>(err);
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task TaskResT_TaskResT_ResT_TaskResT_Okがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.Match(Result.Ok(1).AsTask(), (Func<int, Result<int>>)null, (_) => Result.Ok(1).AsTask());
@@ -1758,6 +3005,49 @@ public partial class Match
         result.Should().BeError().And.Match(error => err == error);
         executedOk.Should().BeFalse();
         executedError.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TaskResT_TaskResT_ResT_TaskResT_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok(1).AsTask().Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok(1);
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error<int>(err).AsTask();
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskResT_TaskResT_ResT_TaskResT_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error<int>(err).AsTask().Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            return Result.Ok(1);
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error<int>(err).AsTask();
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -1823,6 +3113,49 @@ public partial class Match
     }
 
     [Fact]
+    public async Task TaskResT_TaskResT_TaskResT_ResT_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok(1).AsTask().Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok(1).AsTask();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error<int>(err);
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskResT_TaskResT_TaskResT_ResT_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error<int>(err).AsTask().Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            return Result.Ok(1).AsTask();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error<int>(err);
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task TaskResT_TaskResT_TaskResT_TaskResT_Okがnullの場合は例外が発生する()
     {
         var act = () => ResultExtensions.Match(Result.Ok(1).AsTask(), (Func<int, Task<Result<int>>>)null, (_) => Result.Ok(1).AsTask());
@@ -1882,6 +3215,49 @@ public partial class Match
         result.Should().BeError().And.Match(error => err == error);
         executedOk.Should().BeFalse();
         executedError.Should().BeTrue();
+    }
+
+    [Fact]
+    public async Task TaskResT_TaskResT_TaskResT_TaskResT_Okの場合はokが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var result = await Result.Ok(1).AsTask().Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            ""[0].ToString(); // throw error
+            return Result.Ok(1).AsTask();
+        }, err =>
+        {
+            executedError = true;
+            return Result.Error<int>(err).AsTask();
+        });
+        executedOk.Should().BeTrue();
+        executedError.Should().BeFalse();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task TaskResT_TaskResT_TaskResT_TaskResT_Errorの場合はerrが実行されて例外が発生した場合は失敗になる()
+    {
+        var executedOk = false;
+        var executedError = false;
+        var err = new Exception();
+        var result = await Result.Error<int>(err).AsTask().Match((v) =>
+        {
+            v.Should().Be(1);
+            executedOk = true;
+            return Result.Ok(1).AsTask();
+        }, err =>
+        {
+            executedError = true;
+            ""[0].ToString(); // throw error
+            return Result.Error<int>(err).AsTask();
+        });
+        executedOk.Should().BeFalse();
+        executedError.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
 }

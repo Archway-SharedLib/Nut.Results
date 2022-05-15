@@ -19,9 +19,15 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (!source.IsOk) return Result.Error<TResult>(source._errorValue);
 
-        var newValue = ok(source._value);
-
-        return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
+        try
+        {
+            var newValue = ok(source._value);
+            return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
+        }
+        catch (Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
 
     /// <summary>
@@ -37,12 +43,18 @@ public static partial class ResultExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
 
-        var result = await source.ConfigureAwait(false);
-        if (!result.IsOk) return Result.Error<TResult>(result._errorValue);
+        try
+        {
+            var result = await source.ConfigureAwait(false);
+            if (!result.IsOk) return Result.Error<TResult>(result._errorValue);
 
-        var newValue = ok(result._value);
-
-        return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
+            var newValue = ok(result._value);
+            return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
+        }
+        catch (Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
 
     /// <summary>
@@ -58,8 +70,15 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (!source.IsOk) return Result.Error<TResult>(source._errorValue);
 
-        var newValue = await ok(source._value).ConfigureAwait(false);
-        return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
+        try
+        {
+            var newValue = await ok(source._value).ConfigureAwait(false);
+            return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
+        }
+        catch (Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
 
     /// <summary>
@@ -75,11 +94,16 @@ public static partial class ResultExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
 
-        var result = await source.ConfigureAwait(false);
-        if (!result.IsOk) return Result.Error<TResult>(result._errorValue);
-
-        var newValue = await ok(result._value).ConfigureAwait(false);
-
-        return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
+        try
+        {
+            var result = await source.ConfigureAwait(false);
+            if (!result.IsOk) return Result.Error<TResult>(result._errorValue);
+            var newValue = await ok(result._value).ConfigureAwait(false);
+            return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
+        }
+        catch (Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
 }

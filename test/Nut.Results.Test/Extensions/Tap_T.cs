@@ -45,6 +45,20 @@ public class Tap_T
     }
 
     [Fact]
+    public void SyncSync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = false;
+        var result = Result.Ok("123").Tap(_ =>
+        {
+            executed = true;
+            ""[0].ToString(); // throw exception
+        });
+
+        executed.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task AsyncSync_Okパラメーターが指定されていない場合は例外が発生する()
     {
         var act = () => Result.Ok("string").AsTask().Tap(null as Action<string>);
@@ -89,6 +103,20 @@ public class Tap_T
     }
 
     [Fact]
+    public async Task AsyncSync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = false;
+        var result = await Result.Ok("123").AsTask().Tap(_ =>
+        {
+            executed = true;
+            ""[0].ToString(); // throw exception
+        });
+
+        executed.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task SyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
     {
         var act = () => Result.Ok("success").Tap(null as Func<string, Task>);
@@ -129,6 +157,20 @@ public class Tap_T
         });
         executed.Should().BeFalse();
         result.Should().Be(expected).And.BeError();
+    }
+
+    [Fact]
+    public async Task SyncAsync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = false;
+        var result = await Result.Ok("123").Tap(async _ =>
+        {
+            executed = true;
+            await Task.FromResult(""[0].ToString()); // throw exception
+        });
+
+        executed.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -179,5 +221,19 @@ public class Tap_T
         });
         executed.Should().BeFalse();
         result.Should().BeError().And.Match(e => e == error);
+    }
+
+    [Fact]
+    public async Task AsyncAsync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = false;
+        var result = await Result.Ok("123").AsTask().Tap(async _ =>
+        {
+            executed = true;
+            await Task.FromResult(""[0].ToString()); // throw exception
+        });
+
+        executed.Should().BeTrue();
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 }

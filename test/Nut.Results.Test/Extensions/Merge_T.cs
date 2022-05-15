@@ -71,6 +71,17 @@ public class Merge_T
     }
 
     [Fact]
+    public async Task T_タスクが失敗した場合は例外を含んだ失敗になる()
+    {
+        var result = await ResultExtensions.Merge(new[]
+        {
+            Result.Ok("A").AsTask(),
+            Task.Run(() => Result.Ok(""[0].ToString())) // throw exception
+        });
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task A_引数がnullの場合は例外が発生するべき()
     {
         var act = () => ResultExtensions.Merge((Task<IEnumerable<Result<string>>>)null);
@@ -80,8 +91,8 @@ public class Merge_T
     [Fact]
     public async Task A_引数のTaskの結果がnullの場合は例外が発生するべき()
     {
-        var act = () => ResultExtensions.Merge(Task.FromResult<IEnumerable<Result<string>>>(null));
-        await act.Should().ThrowAsync<InvalidOperationException>();
+        var result = await ResultExtensions.Merge(Task.FromResult<IEnumerable<Result<string>>>(null));
+        result.Should().BeError().And.BeOfType<InvalidOperationException>();
     }
 
     [Fact]
@@ -117,8 +128,8 @@ public class Merge_T
     [Fact]
     public async Task TA_引数のTaskの結果がnullの場合は例外が発生するべき()
     {
-        var act = () => ResultExtensions.Merge(Task.FromResult<IEnumerable<Task<Result<string>>>>(null));
-        await act.Should().ThrowAsync<InvalidOperationException>();
+        var result = await ResultExtensions.Merge(Task.FromResult<IEnumerable<Task<Result<string>>>>(null));
+        result.Should().BeError().And.BeOfType<InvalidOperationException>();
     }
 
     [Fact]

@@ -14,8 +14,15 @@ public static partial class ResultExtensions
     public static Result Tap(this in Result source, Action ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (source.IsOk) ok();
-        return source;
+        try
+        {
+            if (source.IsOk) ok();
+            return source;
+        }
+        catch (Exception e)
+        {
+            return Result.Error(e);
+        }
     }
 
     /// <summary>
@@ -29,10 +36,16 @@ public static partial class ResultExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
 
-        var result = await source.ConfigureAwait(false);
-
-        if (result.IsOk) ok();
-        return result;
+        try
+        {
+            var result = await source.ConfigureAwait(false);
+            if (result.IsOk) ok();
+            return result;
+        }
+        catch (Exception e)
+        {
+            return Result.Error(e);
+        }
     }
 
     /// <summary>
@@ -44,8 +57,15 @@ public static partial class ResultExtensions
     public static async Task<Result> Tap(this Result source, Func<Task> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (source.IsOk) await ok().ConfigureAwait(false);
-        return source;
+        try
+        {
+            if (source.IsOk) await ok().ConfigureAwait(false);
+            return source;
+        }
+        catch (Exception e)
+        {
+            return Result.Error(e);
+        }
     }
 
     /// <summary>
@@ -58,9 +78,15 @@ public static partial class ResultExtensions
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        var result = await source.ConfigureAwait(false);
-
-        if (result.IsOk) await ok().ConfigureAwait(false);
-        return result;
+        try
+        {
+            var result = await source.ConfigureAwait(false);
+            if (result.IsOk) await ok().ConfigureAwait(false);
+            return result;
+        }
+        catch (Exception e)
+        {
+            return Result.Error(e);
+        }
     }
 }

@@ -21,11 +21,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok();
+        try
+        {
+            var sourceValue = source;
+            if (sourceValue.IsOk) {
+                return ok();
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -40,11 +47,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
+        try
+        {
+            var sourceValue = source;
+            if (sourceValue.IsOk) {
+                return ok(sourceValue._value);
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -59,11 +73,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok();
+        try
+        {
+            var sourceValue = source;
+            if (sourceValue.IsOk) {
+                return ok();
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -79,11 +100,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
+        try
+        {
+            var sourceValue = source;
+            if (sourceValue.IsOk) {
+                return ok(sourceValue._value);
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -97,11 +125,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok();
+        try
+        {
+            var sourceValue = source;
+            if (sourceValue.IsOk) {
+                return ok();
+            }
+            return await err(sourceValue._errorValue).ConfigureAwait(false);
         }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
+        catch(Exception e)
+        {
+            return Result.Error(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -115,11 +150,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
+        try
+        {
+            var sourceValue = source;
+            if (sourceValue.IsOk) {
+                return await ok().ConfigureAwait(false);
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -133,11 +175,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok();
+        try
+        {
+            var sourceValue = source;
+            if (sourceValue.IsOk) {
+                return ok();
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error(e).AsTask();
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -152,11 +201,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
+        try
+        {
+            var sourceValue = source;
+            if (sourceValue.IsOk) {
+                return ok(sourceValue._value);
+            }
+            return await err(sourceValue._errorValue).ConfigureAwait(false);
         }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
+        catch(Exception e)
+        {
+            return Result.Error(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -171,11 +227,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
+        try
+        {
+            var sourceValue = source;
+            if (sourceValue.IsOk) {
+                return await ok(sourceValue._value).ConfigureAwait(false);
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -190,11 +253,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
+        try
+        {
+            var sourceValue = source;
+            if (sourceValue.IsOk) {
+                return ok(sourceValue._value);
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error(e).AsTask();
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -209,11 +279,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok();
+        try
+        {
+            var sourceValue = await source.ConfigureAwait(false);
+            if (sourceValue.IsOk) {
+                return ok();
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -228,11 +305,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok();
+        try
+        {
+            var sourceValue = await source.ConfigureAwait(false);
+            if (sourceValue.IsOk) {
+                return ok();
+            }
+            return await err(sourceValue._errorValue).ConfigureAwait(false);
         }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
+        catch(Exception e)
+        {
+            return Result.Error(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -247,11 +331,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
+        try
+        {
+            var sourceValue = await source.ConfigureAwait(false);
+            if (sourceValue.IsOk) {
+                return await ok().ConfigureAwait(false);
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -266,11 +357,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
+        try
+        {
+            var sourceValue = await source.ConfigureAwait(false);
+            if (sourceValue.IsOk) {
+                return await ok().ConfigureAwait(false);
+            }
+            return await err(sourceValue._errorValue).ConfigureAwait(false);
         }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
+        catch(Exception e)
+        {
+            return Result.Error(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -286,11 +384,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
+        try
+        {
+            var sourceValue = await source.ConfigureAwait(false);
+            if (sourceValue.IsOk) {
+                return ok(sourceValue._value);
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -306,11 +411,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
+        try
+        {
+            var sourceValue = await source.ConfigureAwait(false);
+            if (sourceValue.IsOk) {
+                return ok(sourceValue._value);
+            }
+            return await err(sourceValue._errorValue).ConfigureAwait(false);
         }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
+        catch(Exception e)
+        {
+            return Result.Error(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -326,11 +438,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
+        try
+        {
+            var sourceValue = await source.ConfigureAwait(false);
+            if (sourceValue.IsOk) {
+                return await ok(sourceValue._value).ConfigureAwait(false);
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -346,11 +465,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
+        try
+        {
+            var sourceValue = await source.ConfigureAwait(false);
+            if (sourceValue.IsOk) {
+                return await ok(sourceValue._value).ConfigureAwait(false);
+            }
+            return await err(sourceValue._errorValue).ConfigureAwait(false);
         }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
+        catch(Exception e)
+        {
+            return Result.Error(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -365,11 +491,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok();
+        try
+        {
+            var sourceValue = source;
+            if (sourceValue.IsOk) {
+                return ok();
+            }
+            return await err(sourceValue._errorValue).ConfigureAwait(false);
         }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
+        catch(Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -384,11 +517,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
+        try
+        {
+            var sourceValue = source;
+            if (sourceValue.IsOk) {
+                return await ok().ConfigureAwait(false);
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -403,11 +543,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok();
+        try
+        {
+            var sourceValue = source;
+            if (sourceValue.IsOk) {
+                return ok();
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error<TResult>(e).AsTask();
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -423,11 +570,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
+        try
+        {
+            var sourceValue = source;
+            if (sourceValue.IsOk) {
+                return ok(sourceValue._value);
+            }
+            return await err(sourceValue._errorValue).ConfigureAwait(false);
         }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
+        catch(Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -443,11 +597,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
+        try
+        {
+            var sourceValue = source;
+            if (sourceValue.IsOk) {
+                return await ok(sourceValue._value).ConfigureAwait(false);
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -463,11 +624,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = source;
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
+        try
+        {
+            var sourceValue = source;
+            if (sourceValue.IsOk) {
+                return ok(sourceValue._value);
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error<TResult>(e).AsTask();
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -483,11 +651,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok();
+        try
+        {
+            var sourceValue = await source.ConfigureAwait(false);
+            if (sourceValue.IsOk) {
+                return ok();
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -503,11 +678,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok();
+        try
+        {
+            var sourceValue = await source.ConfigureAwait(false);
+            if (sourceValue.IsOk) {
+                return ok();
+            }
+            return await err(sourceValue._errorValue).ConfigureAwait(false);
         }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
+        catch(Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -523,11 +705,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
+        try
+        {
+            var sourceValue = await source.ConfigureAwait(false);
+            if (sourceValue.IsOk) {
+                return await ok().ConfigureAwait(false);
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -543,11 +732,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok().ConfigureAwait(false);
+        try
+        {
+            var sourceValue = await source.ConfigureAwait(false);
+            if (sourceValue.IsOk) {
+                return await ok().ConfigureAwait(false);
+            }
+            return await err(sourceValue._errorValue).ConfigureAwait(false);
         }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
+        catch(Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -564,11 +760,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
+        try
+        {
+            var sourceValue = await source.ConfigureAwait(false);
+            if (sourceValue.IsOk) {
+                return ok(sourceValue._value);
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -585,11 +788,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return ok(sourceValue._value);
+        try
+        {
+            var sourceValue = await source.ConfigureAwait(false);
+            if (sourceValue.IsOk) {
+                return ok(sourceValue._value);
+            }
+            return await err(sourceValue._errorValue).ConfigureAwait(false);
         }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
+        catch(Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -606,11 +816,18 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
+        try
+        {
+            var sourceValue = await source.ConfigureAwait(false);
+            if (sourceValue.IsOk) {
+                return await ok(sourceValue._value).ConfigureAwait(false);
+            }
+            return err(sourceValue._errorValue);
         }
-        return err(sourceValue._errorValue);
+        catch(Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
     /// <summary>
     /// 結果が成功の場合は、<paramref name="ok"/> の結果を返し、失敗の場合は <paramref name="err"/> の結果を返します。
@@ -627,10 +844,17 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         if (err is null) throw new ArgumentNullException(nameof(err));
 
-        var sourceValue = await source.ConfigureAwait(false);
-        if (sourceValue.IsOk) {
-            return await ok(sourceValue._value).ConfigureAwait(false);
+        try
+        {
+            var sourceValue = await source.ConfigureAwait(false);
+            if (sourceValue.IsOk) {
+                return await ok(sourceValue._value).ConfigureAwait(false);
+            }
+            return await err(sourceValue._errorValue).ConfigureAwait(false);
         }
-        return await err(sourceValue._errorValue).ConfigureAwait(false);
+        catch(Exception e)
+        {
+            return Result.Error<TResult>(e);
+        }
     }
 }

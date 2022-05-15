@@ -50,6 +50,20 @@ public class MapEach_T
     }
 
     [Fact]
+    public void SyncSync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = 0;
+        var result = Result.Ok(Enumerable.Range(0, 2)).MapEach(v =>
+        {
+            executed += 1;
+            return ""[0].ToString(); // throw exception;
+        });
+
+        executed.Should().Be(1);
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task AsyncSync_sourceパラメーターが指定されていない場合は例外が発生する()
     {
 
@@ -99,6 +113,38 @@ public class MapEach_T
     }
 
     [Fact]
+    public async Task AsyncSync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = 0;
+        var result = await Result.Ok(Enumerable.Range(0, 2)).AsTask().MapEach(v =>
+        {
+            executed += 1;
+            return ""[0].ToString(); // throw exception;
+        });
+
+        executed.Should().Be(1);
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task AsyncSync_Taskで例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = 0;
+        var result = await Task.Run(() =>
+        {
+            ""[0].ToString(); // throw exception;
+            return Result.Ok(Enumerable.Range(0, 2));
+        }).MapEach(v =>
+        {
+            executed += 1;
+            return v;
+        });
+
+        executed.Should().Be(0);
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
     public async Task SyncAsync_Okパラメーターが指定されていない場合は例外が発生する()
     {
         Func<Task> act = () => Result.Ok(Enumerable.Range(0, 2)).MapEach(null as Func<int, Task<string>>);
@@ -136,6 +182,20 @@ public class MapEach_T
         executed.Should().BeTrue();
         var values = result.Get();
         values.Should().HaveCount(2).And.BeEquivalentTo("0", "1");
+    }
+
+    [Fact]
+    public async Task SyncAsync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = 0;
+        var result = await Result.Ok(Enumerable.Range(0, 2)).MapEach(v =>
+        {
+            executed += 1;
+            return Task.FromResult(""[0].ToString()); // throw exception;
+        });
+
+        executed.Should().Be(1);
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
     }
 
     [Fact]
@@ -186,4 +246,37 @@ public class MapEach_T
         var values = result.Get();
         values.Should().HaveCount(2).And.BeEquivalentTo("0", "1");
     }
+
+    [Fact]
+    public async Task AsyncAsync_処理内で例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = 0;
+        var result = await Result.Ok(Enumerable.Range(0, 2)).AsTask().MapEach(v =>
+        {
+            executed += 1;
+            return Task.FromResult(""[0].ToString()); // throw exception;
+        });
+
+        executed.Should().Be(1);
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
+    [Fact]
+    public async Task AsyncAsync_Taskで例外が発生した場合は新しい失敗の結果が返る()
+    {
+        var executed = 0;
+        var result = await Task.Run(() =>
+        {
+            ""[0].ToString(); // throw exception;
+            return Result.Ok(Enumerable.Range(0, 2));
+        }).MapEach(v =>
+        {
+            executed += 1;
+            return Task.FromResult(v);
+        });
+
+        executed.Should().Be(0);
+        result.Should().BeError().And.BeOfType<IndexOutOfRangeException>();
+    }
+
 }

@@ -18,7 +18,14 @@ public static partial class ResultExtensions
     public static Result<T> MapError<T, TError>(this in Result<T> source, Func<Exception, TError> error) where TError : Exception
     {
         if (error is null) throw new ArgumentNullException(nameof(error));
-        return !source.IsError ? source : Result.Error<T>(InternalUtility.CheckReturnValueNotNull(error(source._errorValue)));
+        try
+        {
+            return !source.IsError ? source : Result.Error<T>(InternalUtility.CheckReturnValueNotNull(error(source._errorValue)));
+        }
+        catch (Exception e)
+        {
+            return Result.Error<T>(e);
+        }
     }
 
     /// <summary>
@@ -34,8 +41,15 @@ public static partial class ResultExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (error is null) throw new ArgumentNullException(nameof(error));
 
-        var result = await source.ConfigureAwait(false);
-        return !result.IsError ? result : Result.Error<T>(InternalUtility.CheckReturnValueNotNull(error(result._errorValue)));
+        try
+        {
+            var result = await source.ConfigureAwait(false);
+            return !result.IsError ? result : Result.Error<T>(InternalUtility.CheckReturnValueNotNull(error(result._errorValue)));
+        }
+        catch (Exception e)
+        {
+            return Result.Error<T>(e);
+        }
     }
 
     /// <summary>
@@ -51,10 +65,17 @@ public static partial class ResultExtensions
         if (error is null) throw new ArgumentNullException(nameof(error));
         if (!source.IsError) return source;
 
-        var returnValue = error(source._errorValue);
-        if (returnValue == null) InternalUtility.RaizeReturnValueNotNull();
-        var result = await returnValue!.ConfigureAwait(false);
-        return Result.Error<T>(InternalUtility.CheckReturnValueNotNull(result));
+        try
+        {
+            var returnValue = error(source._errorValue);
+            if (returnValue == null) InternalUtility.RaizeReturnValueNotNull();
+            var result = await returnValue!.ConfigureAwait(false);
+            return Result.Error<T>(InternalUtility.CheckReturnValueNotNull(result));
+        }
+        catch (Exception e)
+        {
+            return Result.Error<T>(e);
+        }
     }
 
     /// <summary>
@@ -70,12 +91,19 @@ public static partial class ResultExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (error is null) throw new ArgumentNullException(nameof(error));
 
-        var result = await source.ConfigureAwait(false);
-        if (!result.IsError) return result;
+        try
+        {
+            var result = await source.ConfigureAwait(false);
+            if (!result.IsError) return result;
 
-        var returnValue = error(result._errorValue);
-        if (returnValue is null) InternalUtility.RaizeReturnValueNotNull();
-        var newReturnValue = await returnValue!.ConfigureAwait(false);
-        return Result.Error<T>(InternalUtility.CheckReturnValueNotNull(newReturnValue));
+            var returnValue = error(result._errorValue);
+            if (returnValue is null) InternalUtility.RaizeReturnValueNotNull();
+            var newReturnValue = await returnValue!.ConfigureAwait(false);
+            return Result.Error<T>(InternalUtility.CheckReturnValueNotNull(newReturnValue));
+        }
+        catch (Exception e)
+        {
+            return Result.Error<T>(e);
+        }
     }
 }
