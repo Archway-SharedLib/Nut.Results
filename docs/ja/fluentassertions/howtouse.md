@@ -24,7 +24,7 @@ result.Should().BeOk();
 `Result`もしくは`Result{T}`が失敗かどうかを検証するには`BeError`メソッドを利用します。
 
 ```cs
-var result = Result.Error(new Error());
+var result = Result.Error(new Exception());
 result.Should().BeError();
 ```
 
@@ -36,7 +36,7 @@ result.Should().BeError();
 var okResult = Result.Ok("Success");
 okResult.Should().BeOk().And.Match(value => value == "Success");
 
-var err = new Error();
+var err = new Exception();
 var errorResult = Result.Error(err);
 errorResult.Should().BeError().And.Match(e => e == err);
 ```
@@ -46,18 +46,18 @@ errorResult.Should().BeError().And.Match(e => e == err);
 `Result`もしくは`Result{T}`が失敗の場合に、設定されている`IError`の型が正しいかどうかを検証するには`BeOfType`メソッドを利用します。
 
 ```cs
-var errorResult = Result.Error(new DataNotFoundError());
-errorResult.Should().BeError().And.BeOfType(typeof(DataNotFoundError));
+var errorResult = Result.Error(new DataNotFoundException());
+errorResult.Should().BeError().And.BeOfType(typeof(DataNotFoundException));
 
-var errorResult2 = Result.Error(new DuplicateDataError());
-errorResult2.Should().BeError().And.BeOfType<DuplicateDataError>();
+var errorResult2 = Result.Error(new DuplicateDataException());
+errorResult2.Should().BeError().And.BeOfType<DuplicateDataException>();
 ```
 
 ## 失敗のj場合にエラーオブジェクトに設定されているメッセージが正しいかどうかを検証する(WithMessageメソッド)
 
-`Result`もしくは`Result{T}`が失敗の場合に、設定されている`IError`のメッセージの値が正しいかどうかを検証するには`WithMessage`メソッドを利用します。
+`Result`もしくは`Result{T}`が失敗の場合に、設定されている`Exception`のメッセージの値が正しいかどうかを検証するには`WithMessage`メソッドを利用します。
 
 ```cs
-var errorResult = Result.Error(new Error("Oops."));
+var errorResult = Result.Error(new Exception("Oops."));
 errorResult.Should().BeError().And.WithMessage("Oops.");
 ```

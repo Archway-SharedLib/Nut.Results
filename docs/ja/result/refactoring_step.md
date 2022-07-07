@@ -53,14 +53,14 @@ public class UserRepository
 
 ## 1. Resultによる結果の明示
 
-リポジトリからは`Result{T}`を返すように変更しました。また、データがない旨も`DatanotFoundError`型を返すことで明示できています。
+リポジトリからは`Result{T}`を返すように変更しました。また、データがない旨も`DatanotFoundException`型を返すことで明示できています。
 
 ```cs
 public class UserRepository
 {
     public Result<User> GetUserById(string userId)
     {
-        return Result.Error<User>(new DataNotFoundError());
+        return Result.Error<User>(new DatanotFoundException());
     }
 
     public Result<string> Save(User user)
@@ -180,7 +180,7 @@ public class UserService
         }).FlatMap(user =>
         {
             return repository.Save(user);
-        }); 
+        });
     }
 }
 ```

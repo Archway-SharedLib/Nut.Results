@@ -19,14 +19,14 @@ Result<int> ageResult = Result.Ok(18);
 
 ## 失敗の結果を表すResultを作成する(Errorメソッド)
 
-失敗の結果を表す`Result`を作成するには`Result`型の静的メソッドである`Error(IError)`を利用します。
+失敗の結果を表す`Result`を作成するには`Result`型の静的メソッドである`Error(Exception)`を利用します。
 
 ```cs
-Result dataNotFoundResult = Result.Error(new DataNotFoundError());
+Result dataNotFoundResult = Result.Error(new DataNotFoundException());
 ```
 
 `IError`インターフェイスは失敗の詳細を表します。エラーの詳細がメッセージだけなどの場合は`Error(string)`メソッドを利用します。
-この場合は、インスタンスには`Error`型が利用されます。
+この場合は、インスタンスには`Exception`型が利用されます。
 
 ```cs
 Result errorResult = Result.Error("This method is fail.");
@@ -40,22 +40,10 @@ Result errorResult = Result.Error("This method is fail.");
 Result ok = Result.Try(() => DoSomeMethod());
 ```
 
-処理中に例外が発生した場合は、発生した例外を保持した`ExceptionalError`を含んだ失敗の`Result`が返ります。
+処理中に例外が発生した場合は、発生した例外を保持した失敗の`Result`が返ります。
 
 ```cs
 var error = Result.Try(() => throw new Exception());
-```
-
-第2引数に例外が発生した場合のコールバックを設定することもできます。コールバックで発生した例外を確認し、設定する`IError`を返します。
-
-```cs
-var error = Result.Try(() => SomeDataAccess(), (ex) => 
-{
-  return ex switch {
-    DuplicateKeyException _ => new OptimisticConcurrencyError(ex.Message),
-    _ => new ExceptionalError(ex)
-  };
-});
 ```
 
 ## 結果が成功だったか失敗だったかを確認する(IsOk/IsErrorメソッド)
@@ -64,10 +52,10 @@ var error = Result.Try(() => SomeDataAccess(), (ex) =>
 
 ```cs
 var taskResult = DoTask();
-if (taskResult.IsOk()) 
+if (taskResult.IsOk())
 {
   var task2Result = DoTask2();
-  if (task2Result.IsError()) 
+  if (task2Result.IsError())
   {
 
   }
@@ -83,13 +71,13 @@ if (taskResult.IsOk())
 
 ```cs
 var taskResult = DoTask();
-if (taskResult.IsOk()) 
+if (taskResult.IsOk())
 {
   var value = taskResult.Get();
 }
 
 var task2Result = DoTask2();
-if (task2Result.IsError()) 
+if (task2Result.IsError())
 {
   var error = task2Result.GetError();
 }
@@ -114,7 +102,7 @@ var taskResult = DoTask();
 var value = taskResult.GetOr(_ => "default value");
 
 var task2Result = DoTask2();
-var error = task2Result.GetErrorOr(_ => new WarningError());
+var error = task2Result.GetErrorOr(_ => new WarningException());
 ```
 
 ## 成功の場合に処理を行う(Tapメソッド)
@@ -169,9 +157,9 @@ var somethingResult = DoSuccessTask()
 
 ```cs
 var somethingResult = DoSuccessTask()
-  .FlatMap(result => 
+  .FlatMap(result =>
   {
-    if(IsNotExpectedValue(result)) return Result.Error<string>(new UnexpectedValueError());
+    if(IsNotExpectedValue(result)) return Result.Error<string>(new UnexpectedValueException());
     return Result.Ok("Good value!");
   });
 ```
@@ -184,7 +172,7 @@ var somethingResult = DoSuccessTask()
 
 ```cs
 var somethingResult = DoSuccessTask()
-  .FlatMapError(error => 
+  .FlatMapError(error =>
   {
     if(IsRecoverableError(error)) return Result.Ok(Recovery(error));
     return Result.Error<string>(error);
@@ -199,14 +187,14 @@ var somethingResult = DoSuccessTask()
 結合元の値が成功の場合だけ、結合する`Func<T>`が実行されます。
 
 ```cs
-var combineResult = Result.Error<string>(new SourceError())
-  .Combine(() => Reulst.Error<string>(new DestError()));
-combineResult.MapError(e => 
+var combineResult = Result.Error<string>(new SourceException())
+  .Combine(() => Reulst.Error<string>(new DestException()));
+combineResult.MapError(e =>
 {
-  if(e is SourceError srcErr) 
+  if(e is SourceError srcErr)
   {
     //...
-  } 
+  }
 });
 ```
 
@@ -244,13 +232,13 @@ Result.Error<string>("err").Contains("err"); // false
 ## 失敗の場合の値が意図している値かを取得する(ContainsErrorメソッド)
 
 `Result`および`Result{T}`が失敗の場合に、含まれているエラーの値が意図している値かどうかを調べます。成功の場合は必ず`false`が返ります。
-メソッドのオーバーライドで値だけを指定した場合は、`EqualityComparer<IError>.Default`を利用して、比較されます。
-また、`Func<IError, bool>`を指定して比較ロジックを直接指定することもできます。
+メソッドのオーバーライドで値だけを指定した場合は、`EqualityComparer<Exception>.Default`を利用して、比較されます。
+また、`Func<Exception, bool>`を指定して比較ロジックを直接指定することもできます。
 
 ```cs
 var err = new Error();
 Result.Error<string>(err).ContainsError(err); // true
-Result.Error(err).ContainsError(err, EqualityComparer<IError>.Default); // true
+Result.Error(err).ContainsError(err, EqualityComparer<Exception>.Default); // true
 Result.Error(err).ContainsError(e => e == err); // true
 Result.Ok("err").ContainsError("err"); // false
 ```

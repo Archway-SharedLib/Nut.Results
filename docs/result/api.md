@@ -19,14 +19,14 @@ You cannot pass `null` as the value of `Result{T}`. If there is a possibility th
 
 ## Create a Result that represents the result of failure.(Error method)
 
-Use `Error(IError)`, a static method of type `Result`, to create a `Result` representing the result of failure.
+Use `Error(Exception)`, a static method of type `Result`, to create a `Result` representing the result of failure.
 
 ```cs
-Result dataNotFoundResult = Result.Error(new DataNotFoundError());
+Result dataNotFoundResult = Result.Error(new DataNotFoundException());
 ```
 
-The `IError` interface represents the details of the failure. If the details of the error are just a message, etc., use the `Error(string)` method.
-In this case, the `Error` type is used for the instance.
+If the details of the error are just a message, etc., use the `Error(string)` method.
+In this case, the `Exception` type is used for the instance.
 
 ```cs
 Result errorResult = Result.Error("This method is fail.");
@@ -40,23 +40,11 @@ To create a `Result` based on the result of processing, use the `Try(Action)` me
 Result ok = Result.Try(() => DoSomeMethod());
 ```
 
-If an exception occurs during processing, the `Result` of the failure will be returned, which contains an `ExceptionalError` holding the exception that occurred.
+If an exception occurs during processing, the `Result` of the failure will be returned, which contains an exception that occurred.
 
 ```cs
 void RaiseException() => throw new Exception();
 var error = Result.Try(() => RaiseException());
-```
-
-The second argument can also be used to set a callback in case an exception occurs. It will check the exception raised by the callback and return `IError` to be set.
-
-```cs
-var error = Result.Try(() => SomeDataAccess(), (ex) => 
-{
-  return ex switch {
-    DuplicateKeyException _ => new OptimisticConcurrencyError(ex.Message),
-    _ => new ExceptionalError(ex)
-  };
-});
 ```
 
 ## Check if the result is a success or failure.(IsOk/IsError method)
@@ -65,10 +53,10 @@ Both `Result` and `Result{T}` have an `IsOk` method to check for success, and an
 
 ```cs
 var taskResult = DoTask();
-if (taskResult.IsOk()) 
+if (taskResult.IsOk())
 {
   var task2Result = DoTask2();
-  if (task2Result.IsError()) 
+  if (task2Result.IsError())
   {
   }
 }
@@ -83,13 +71,13 @@ Although these methods allow you to simply check the processing results, they ma
 
 ```cs
 var taskResult = DoTask();
-if (taskResult.IsOk()) 
+if (taskResult.IsOk())
 {
   var value = taskResult.Get();
 }
 
 var task2Result = DoTask2();
-if (task2Result.IsError()) 
+if (task2Result.IsError())
 {
   var error = task2Result.GetError();
 }
@@ -153,12 +141,12 @@ var somethingResult = DoSuccessTask()
 ## 失敗の場合に新しい失敗の値を作成して返す処理を行う(MapErrorメソッド)
 
 `Result`と`Result{T}`には失敗の場合に処理を行う`MapError`メソッドがあります。
-これは、結果が失敗の場合にだけ指定したアクションが実行され、アクションの戻り値である新しい`IError`を設定した新しい失敗の`Result`または`Result{T}`が返されます。
+これは、結果が失敗の場合にだけ指定したアクションが実行され、アクションの戻り値である新しい`Exception`を設定した新しい失敗の`Result`または`Result{T}`が返されます。
 アクションの引数には失敗の値が設定されます。
 
 ```cs
 var somethingResult = DoSuccessTask()
-  .MapError(taskError => NormalizeError(taskError));
+  .MapError(taskEx => NormalizeException(taskEx));
 ```
 
 ## 成功の場合に新しいResultを作成して返す処理を行う(FlatMapメソッド)
@@ -169,9 +157,9 @@ var somethingResult = DoSuccessTask()
 
 ```cs
 var somethingResult = DoSuccessTask()
-  .FlatMap(result => 
+  .FlatMap(result =>
   {
-    if(IsNotExpectedValue(result)) return Result.Error<string>(new UnexpectedValueError());
+    if(IsNotExpectedValue(result)) return Result.Error<string>(new UnexpectedValueException());
     return Result.Ok("Good value!");
   });
 ```
@@ -184,9 +172,9 @@ var somethingResult = DoSuccessTask()
 
 ```cs
 var somethingResult = DoSuccessTask()
-  .FlatMapError(error => 
+  .FlatMapError(error =>
   {
-    if(IsRecoverableError(error)) return Result.Ok(Recovery(error));
+    if(IsRecoverableException(error)) return Result.Ok(Recovery(error));
     return Result.Error<string>(error);
   });
 ```
@@ -201,12 +189,12 @@ var somethingResult = DoSuccessTask()
 ```cs
 var combineResult = Result.Error<string>(new SourceError())
   .Combine(() => Reulst.Error<string>(new DestError()));
-combineResult.MapError(e => 
+combineResult.MapError(e =>
 {
-  if(e is SourceError srcErr) 
+  if(e is SourceError srcErr)
   {
     //...
-  } 
+  }
 });
 ```
 
@@ -244,13 +232,13 @@ Result.Error<string>("err").Contains("err"); // false
 ## 失敗の場合の値が意図している値かを取得する(ContainsErrorメソッド)
 
 `Result`および`Result{T}`が失敗の場合に、含まれているエラーの値が意図している値かどうかを調べます。成功の場合は必ず`false`が返ります。
-メソッドのオーバーライドで値だけを指定した場合は、`EqualityComparer<IError>.Default`を利用して、比較されます。
-また、`Func<IError, bool>`を指定して比較ロジックを直接指定することもできます。
+メソッドのオーバーライドで値だけを指定した場合は、`EqualityComparer<Exception>.Default`を利用して、比較されます。
+また、`Func<Exception, bool>`を指定して比較ロジックを直接指定することもできます。
 
 ```cs
-var err = new Error();
+var err = new Exception();
 Result.Error<string>(err).ContainsError(err); // true
-Result.Error(err).ContainsError(err, EqualityComparer<IError>.Default); // true
+Result.Error(err).ContainsError(err, EqualityComparer<Exception>.Default); // true
 Result.Error(err).ContainsError(e => e == err); // true
 Result.Ok("err").ContainsError("err"); // false
 ```
