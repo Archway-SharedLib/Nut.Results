@@ -197,8 +197,8 @@ public static class ResultHelper
         {
             GetValue = GetValueExpression(target);
             GetErrorValue = GetErrorValueExpression(target);
-            GetIsOk = GetBoolPropertyExpression(target, "IsOk");
-            GetIsError = GetBoolPropertyExpression(target, "IsError");
+            GetIsOk = GetBoolPropertyExpression(target, nameof(Result.IsOk));
+            GetIsError = GetBoolPropertyExpression(target, nameof(Result.IsError));
         }
         public Func<object, object>? GetValue { get; }
 
@@ -210,7 +210,7 @@ public static class ResultHelper
 
         private static Func<object, object>? GetValueExpression(Type sourceType)
         {
-            var fieldInfo = sourceType.GetField("_value", BindingFlags.Instance | BindingFlags.NonPublic);
+            var fieldInfo = sourceType.GetField(nameof(Result<int>._value), BindingFlags.Instance | BindingFlags.NonPublic);
             if (fieldInfo is null) return null;
             var sourceParam = Expression.Parameter(typeof(object));
             var returnExpression = Expression.Field(Expression.Convert(sourceParam, sourceType), fieldInfo!);
@@ -220,7 +220,7 @@ public static class ResultHelper
 
         private static Func<object, Exception> GetErrorValueExpression(Type sourceType)
         {
-            var fieldInfo = sourceType.GetField("_errorValue", BindingFlags.Instance | BindingFlags.NonPublic);
+            var fieldInfo = sourceType.GetField(nameof(Result._errorValue), BindingFlags.Instance | BindingFlags.NonPublic);
             var sourceParam = Expression.Parameter(typeof(object));
             var returnExpression = Expression.Field(Expression.Convert(sourceParam, sourceType), fieldInfo!);
             var lambda = Expression.Lambda(returnExpression, sourceParam);

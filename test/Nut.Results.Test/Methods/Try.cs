@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Nut.Results.Test;
 
-public class ResultBuilderTest_Try
+public class Try
 {
     [Fact]
     public void NoReturn_Sync_例外が発生しない場合は成功が返る()

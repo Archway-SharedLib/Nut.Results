@@ -6,16 +6,8 @@ using Xunit;
 
 namespace Nut.Results.Test;
 
-public class ResultBuilderTest
+public class Error
 {
-    [Fact]
-    public void Ok_成功の結果が返る()
-    {
-        var r = Result.Ok();
-        r.IsOk.Should().BeTrue();
-        r.IsError.Should().BeFalse();
-    }
-
     [Fact]
     public void Error_失敗の結果が返る()
     {
@@ -31,14 +23,6 @@ public class ResultBuilderTest
         r.IsOk.Should().BeFalse();
         r.IsError.Should().BeTrue();
         r.Should().BeError().And.Match(e => e is Exception).And.WithMessage("message");
-    }
-
-    [Fact]
-    public void T_Ok_成功の結果が返る()
-    {
-        var r = Result.Ok("Ok Message");
-        r.IsOk.Should().BeTrue();
-        r.IsError.Should().BeFalse();
     }
 
     [Fact]
