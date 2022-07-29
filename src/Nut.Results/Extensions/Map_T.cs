@@ -17,7 +17,7 @@ public static partial class ResultExtensions
     public static Result<TResult> Map<T, TResult>(this in Result<T> source, Func<T, TResult> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (!source.IsOk) return Result.Error<TResult>(source._errorValue);
+        if (!source.IsOk) return Result.Error<TResult>(source._capturedError);
 
         try
         {
@@ -46,7 +46,7 @@ public static partial class ResultExtensions
         try
         {
             var result = await source.ConfigureAwait(false);
-            if (!result.IsOk) return Result.Error<TResult>(result._errorValue);
+            if (!result.IsOk) return Result.Error<TResult>(result._capturedError);
 
             var newValue = ok(result._value);
             return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
@@ -68,7 +68,7 @@ public static partial class ResultExtensions
     public static async Task<Result<TResult>> Map<T, TResult>(this Result<T> source, Func<T, Task<TResult>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (!source.IsOk) return Result.Error<TResult>(source._errorValue);
+        if (!source.IsOk) return Result.Error<TResult>(source._capturedError);
 
         try
         {
@@ -97,7 +97,7 @@ public static partial class ResultExtensions
         try
         {
             var result = await source.ConfigureAwait(false);
-            if (!result.IsOk) return Result.Error<TResult>(result._errorValue);
+            if (!result.IsOk) return Result.Error<TResult>(result._capturedError);
             var newValue = await ok(result._value).ConfigureAwait(false);
             return Result.Ok(InternalUtility.CheckReturnValueNotNull(newValue));
         }

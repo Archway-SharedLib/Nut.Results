@@ -18,7 +18,7 @@ public static partial class ResultExtensions
     {
         if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
 
-        return source.IsOk ? ifOk() : source._errorValue;
+        return source.IsOk ? ifOk() : source._capturedError.SourceException;
     }
 
     /// <summary>
@@ -34,7 +34,7 @@ public static partial class ResultExtensions
         if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
 
         var result = await source.ConfigureAwait(false);
-        return result.IsOk ? ifOk() : result._errorValue;
+        return result.IsOk ? ifOk() : result._capturedError.SourceException;
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ public static partial class ResultExtensions
         if (ifOk is null) throw new ArgumentNullException(nameof(ifOk));
 
         if (source.IsOk) return await ifOk();
-        return source._errorValue;
+        return source._capturedError.SourceException;
     }
 
     /// <summary>
@@ -66,6 +66,6 @@ public static partial class ResultExtensions
 
         var result = await source.ConfigureAwait(false);
         if (result.IsOk) return await ifOk();
-        return result._errorValue;
+        return result._capturedError.SourceException;
     }
 }

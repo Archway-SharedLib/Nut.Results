@@ -20,7 +20,7 @@ public static partial class ResultExtensions
         if (error is null) throw new ArgumentNullException(nameof(error));
         try
         {
-            return !source.IsError ? source : error(source._errorValue);
+            return !source.IsError ? source : error(source._capturedError.SourceException);
         }
         catch (Exception e)
         {
@@ -44,7 +44,7 @@ public static partial class ResultExtensions
         try
         {
             var result = await source.ConfigureAwait(false);
-            return !result.IsError ? result : error(result._errorValue);
+            return !result.IsError ? result : error(result._capturedError.SourceException);
         }
         catch (Exception e)
         {
@@ -67,7 +67,7 @@ public static partial class ResultExtensions
 
         try
         {
-            return await error(source._errorValue).ConfigureAwait(false);
+            return await error(source._capturedError.SourceException).ConfigureAwait(false);
         }
         catch (Exception e)
         {
@@ -92,7 +92,7 @@ public static partial class ResultExtensions
         {
             var result = await source.ConfigureAwait(false);
             if (!result.IsError) return result;
-            return await error(result._errorValue).ConfigureAwait(false);
+            return await error(result._capturedError.SourceException).ConfigureAwait(false);
         }
         catch (Exception e)
         {

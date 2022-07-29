@@ -15,7 +15,7 @@ public static partial class ResultExtensions
     public static bool ValidateError(this in Result source, Func<Exception, bool> predicate)
     {
         if (predicate is null) throw new ArgumentNullException(nameof(predicate));
-        return !source.IsOk && predicate(source._errorValue);
+        return !source.IsOk && predicate(source._capturedError.SourceException);
     }
 
     /// <summary>
@@ -28,7 +28,7 @@ public static partial class ResultExtensions
     public static async Task<bool> ValidateError(this Result source, Func<Exception, Task<bool>> predicate)
     {
         if (predicate is null) throw new ArgumentNullException(nameof(predicate));
-        return !source.IsOk && await predicate(source._errorValue);
+        return !source.IsOk && await predicate(source._capturedError.SourceException);
     }
 
     /// <summary>
@@ -43,7 +43,7 @@ public static partial class ResultExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (predicate is null) throw new ArgumentNullException(nameof(predicate));
         var s = await source.ConfigureAwait(false);
-        return !s.IsOk && predicate(s._errorValue);
+        return !s.IsOk && predicate(s._capturedError.SourceException);
     }
 
     /// <summary>
@@ -58,6 +58,6 @@ public static partial class ResultExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
         if (predicate is null) throw new ArgumentNullException(nameof(predicate));
         var s = await source.ConfigureAwait(false);
-        return !s.IsOk && await predicate(s._errorValue);
+        return !s.IsOk && await predicate(s._capturedError.SourceException);
     }
 }

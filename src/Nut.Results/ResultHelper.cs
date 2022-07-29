@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 using Nut.Results.Internals;
 using SR = Nut.Results.Resources.Strings;
@@ -99,7 +100,7 @@ public static class ResultHelper
     {
         if (results is null) throw new ArgumentNullException(nameof(results));
 
-        var errors = results.Where(r => r.IsError).Select(r => r._errorValue).ToList();
+        var errors = results.Where(r => r.IsError).Select(r => r._capturedError.SourceException).ToList();
         return errors.Any() ? Result.Error(new AggregateException(errors)) : Result.Ok();
     }
 
@@ -131,7 +132,7 @@ public static class ResultHelper
     {
         if (results is null) throw new ArgumentNullException(nameof(results));
 
-        var errors = results.Where(r => r.IsError).Select(r => r._errorValue).ToList();
+        var errors = results.Where(r => r.IsError).Select(r => r._capturedError.SourceException).ToList();
         return errors.Any() ? Result.Error<T[]>(new AggregateException(errors)) : Result.Ok(results.Select(r => r._value).ToArray());
     }
 
@@ -220,10 +221,13 @@ public static class ResultHelper
 
         private static Func<object, Exception> GetErrorValueExpression(Type sourceType)
         {
-            var fieldInfo = sourceType.GetField(nameof(Result._errorValue), BindingFlags.Instance | BindingFlags.NonPublic);
+            var fieldInfo = sourceType.GetField(nameof(Result._capturedError), BindingFlags.Instance | BindingFlags.NonPublic)!;
             var sourceParam = Expression.Parameter(typeof(object));
-            var returnExpression = Expression.Field(Expression.Convert(sourceParam, sourceType), fieldInfo!);
-            var lambda = Expression.Lambda(returnExpression, sourceParam);
+            var fieldExpr = Expression.Field(Expression.Convert(sourceParam, sourceType), fieldInfo);
+            var propertyInfo = typeof(ExceptionDispatchInfo).GetProperty(nameof(ExceptionDispatchInfo.SourceException),
+                BindingFlags.Instance | BindingFlags.Public)!;
+            var propertyExpr = Expression.Property(fieldExpr, propertyInfo);
+            var lambda = Expression.Lambda(propertyExpr, sourceParam);
             return (Func<object, Exception>)lambda.Compile();
         }
 

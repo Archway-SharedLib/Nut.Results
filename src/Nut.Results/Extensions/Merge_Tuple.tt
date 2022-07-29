@@ -32,12 +32,12 @@ public static partial class ResultExtensions
     public static Result<(<#= typeArgs #>)> Merge<<#= typeArgs #>>(this in Result<T0> source, <#= destArgs #>)
     {
         var errors = new List<Exception>();
-        if(source.IsError) errors.Add(source._errorValue);
+        if(source.IsError) errors.Add(source._capturedError.SourceException);
 <#
         foreach (var l in range.Skip(1))
         {
 #>
-        if(dest<#= l #>.IsError) errors.Add(dest<#= l #>._errorValue);
+        if(dest<#= l #>.IsError) errors.Add(dest<#= l #>._capturedError.SourceException);
 <#
         }
 #>

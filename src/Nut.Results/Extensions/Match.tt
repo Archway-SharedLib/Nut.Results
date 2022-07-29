@@ -140,7 +140,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return <#= p.NeedAwaitOk() ? "await " : "" #>ok(<#= st.IsGeneric ? "sourceValue._value" : "" #>)<#= p.NeedAwaitOk() ? ".ConfigureAwait(false)" : "" #>;
             }
-            return <#= p.NeedAwaitError() ? "await " : "" #>err(sourceValue._errorValue)<#= p.NeedAwaitError() ? ".ConfigureAwait(false)" : "" #>;
+            return <#= p.NeedAwaitError() ? "await " : "" #>err(sourceValue._capturedError.SourceException)<#= p.NeedAwaitError() ? ".ConfigureAwait(false)" : "" #>;
         }
         catch(Exception e)
         {

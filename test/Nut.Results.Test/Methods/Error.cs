@@ -26,6 +26,13 @@ public class Error
     }
 
     [Fact]
+    public void Error_ErrorActionで例外が発生しなかった場合は例外が発生する()
+    {
+        var act = () => Result.Error(() => { });
+        act.Should().Throw<InvalidOperationException>();
+    }
+
+    [Fact]
     public void T_Error_失敗の結果が返る()
     {
         var r = Result.Error<string>(new Exception("message"));
@@ -40,5 +47,12 @@ public class Error
         r.IsOk.Should().BeFalse();
         r.IsError.Should().BeTrue();
         r.Should().BeError().And.Match(e => e is Exception).And.WithMessage("message");
+    }
+
+    [Fact]
+    public void T_Error_ErrorActionで例外が発生しなかった場合は例外が発生する()
+    {
+        var act = () => Result.Error<string>(() => { });
+        act.Should().Throw<InvalidOperationException>();
     }
 }

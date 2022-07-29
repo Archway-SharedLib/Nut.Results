@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using FluentAssertions;
 using Xunit;
 using Nut.Results.FluentAssertions;
@@ -31,6 +32,30 @@ public class DisallowOperation
     }
 
     [Fact]
+    public async Task TaskResultのdefault()
+    {
+        async Task Check(Result res)
+        {
+            res.Should().BeError();
+            (await res.AsTask().GetError()).Should().BeNull();
+        }
+
+        await Check(default);
+    }
+
+    [Fact]
+    public async Task TaskResultのnew()
+    {
+        async Task Check(Result res)
+        {
+            res  .Should().BeError();
+            (await res.AsTask().GetError()).Should().BeNull();
+        }
+
+        await Check(new Result());
+    }
+
+    [Fact]
     public void ResultTのdefault()
     {
         void Check<T>(Result<T> res)
@@ -54,5 +79,31 @@ public class DisallowOperation
 
         Check(new Result<string>());
         Check<int>(new Result<int>());
+    }
+
+    [Fact]
+    public async Task TaskResultTのdefault()
+    {
+        async Task Check<T>(Result<T> res)
+        {
+            res.Should().BeError();
+            (await res.AsTask().GetError()).Should().BeNull();
+        }
+
+        await Check<string>(default);
+        await Check<int>(default);
+    }
+
+    [Fact]
+    public async Task TaskResultTのnew()
+    {
+        async Task Check<T>(Result<T> res)
+        {
+            res  .Should().BeError();
+            (await res.AsTask().GetError()).Should().BeNull();
+        }
+
+        await Check<string>(new Result<string>());
+        await Check<int>(new Result<int>());
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using FluentAssertions;
 using Xunit;
@@ -14,20 +15,20 @@ public class ResultTest
         var r = new Result();
         r.IsOk.Should().BeFalse();
         r.IsError.Should().BeTrue();
-        r._errorValue.Should().BeNull();
+        r._capturedError.Should().BeNull();
     }
 
     [Fact]
     public void ctor_Errorがnullでokがfalseの場合は例外が発生してインスタンスを作れない()
     {
-        Action act = () => new Result(null, false);
+        Action act = () => new Result((Exception)null, false);
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
     public void ctor_Errorがnullでokがtrueの場合は成功のインスタンスが作成される()
     {
-        var r = new Result(null, true);
+        var r = new Result((Exception)null, true);
         r.IsOk.Should().BeTrue();
     }
 
@@ -42,6 +43,34 @@ public class ResultTest
     public void ctor_Errorがnullでなくokがtrueの場合は成功のインスタンスになる()
     {
         var r = new Result(new Exception(), true);
+        r.IsOk.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ctor_EDIがnullでokがfalseの場合は例外が発生してインスタンスを作れない()
+    {
+        Action act = () => new Result((ExceptionDispatchInfo)null, false);
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Fact]
+    public void ctor_EDIがnullでokがtrueの場合は成功のインスタンスが作成される()
+    {
+        var r = new Result((ExceptionDispatchInfo)null, true);
+        r.IsOk.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ctor_EDIがnullでなくokがfalseの場合は失敗のインスタンスが作成される()
+    {
+        var r = new Result( ExceptionDispatchInfo.Capture(new Exception()), false);
+        r.IsError.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ctor_EDIがnullでなくokがtrueの場合は成功のインスタンスになる()
+    {
+        var r = new Result(ExceptionDispatchInfo.Capture(new Exception()), true);
         r.IsOk.Should().BeTrue();
     }
 
@@ -150,20 +179,20 @@ public class ResultTest
         var r = new Result<string>();
         r.IsOk.Should().BeFalse();
         r.IsError.Should().BeTrue();
-        r._errorValue.Should().BeNull();
+        r._capturedError.Should().BeNull();
     }
 
     [Fact]
     public void T_ctor_Errorがnullでokがfalseの場合は例外が発生してインスタンスを作れない()
     {
-        Action act = () => new Result<string>(null, null, false);
+        Action act = () => new Result<string>(null, (Exception)null, false);
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
     public void T_ctor_Valueがnullでokがtrueの場合は例外が発生してインスタンスを作れない()
     {
-        Action act = () => new Result<string>(null, null, true);
+        Action act = () => new Result<string>(null, (Exception)null, true);
         act.Should().Throw<ArgumentNullException>();
     }
 
@@ -192,6 +221,48 @@ public class ResultTest
     public void T_ctor_Valueがnullでなくokがfalseの場合は失敗のインスタンスになる()
     {
         var r = new Result<int>(1, new Exception(), false);
+        r.IsError.Should().BeTrue();
+    }
+
+    [Fact]
+    public void T_ctor_EDIがnullでokがfalseの場合は例外が発生してインスタンスを作れない()
+    {
+        Action act = () => new Result<string>(null, (ExceptionDispatchInfo)null, false);
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Fact]
+    public void T_ctor_EDI_Valueがnullでokがtrueの場合は例外が発生してインスタンスを作れない()
+    {
+        Action act = () => new Result<string>(null, (ExceptionDispatchInfo)null, true);
+        act.Should().Throw<ArgumentNullException>();
+    }
+
+    [Fact]
+    public void T_ctor_EDIがnullでなくokがfalseの場合は失敗のインスタンスが作られる()
+    {
+        var r = new Result<string>(null,  ExceptionDispatchInfo.Capture(new Exception()), false);
+        r.IsError.Should().BeTrue();
+    }
+
+    [Fact]
+    public void T_ctor_EDI_Valueがnullでなくokがtrueの場合は成功のインスタンスが作られる()
+    {
+        var r = new Result<string>("success", ExceptionDispatchInfo.Capture(new Exception()), true);
+        r.IsOk.Should().BeTrue();
+    }
+
+    [Fact]
+    public void T_ctor_EDIがnullでなくokがtrueの場合は成功のインスタンスになる()
+    {
+        var r = new Result<int>(1, ExceptionDispatchInfo.Capture(new Exception()), true);
+        r.IsOk.Should().BeTrue();
+    }
+
+    [Fact]
+    public void T_ctor_EDI_Valueがnullでなくokがfalseの場合は失敗のインスタンスになる()
+    {
+        var r = new Result<int>(1, ExceptionDispatchInfo.Capture(new Exception()), false);
         r.IsError.Should().BeTrue();
     }
 

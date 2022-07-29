@@ -17,7 +17,7 @@ public static partial class ResultUnsafeExtensions
     public static Result<TResult> PassOnError<T, TResult>(this in Result<T> source)
     {
         if (source.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotErrorBeforeCheck);
-        return Result.Error<TResult>(source._errorValue);
+        return Result.Error<TResult>(source._capturedError);
     }
 
     /// <summary>
@@ -34,7 +34,7 @@ public static partial class ResultUnsafeExtensions
 
         var res = await source.ConfigureAwait(false);
         if (res.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotErrorBeforeCheck);
-        return Result.Error<TResult>(res._errorValue);
+        return Result.Error<TResult>(res._capturedError);
     }
 
     /// <summary>
@@ -47,7 +47,7 @@ public static partial class ResultUnsafeExtensions
     public static Result PassOnError<T>(this in Result<T> source)
     {
         if (source.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotErrorBeforeCheck);
-        return Result.Error(source._errorValue);
+        return Result.Error(source._capturedError);
     }
 
     /// <summary>
@@ -63,6 +63,6 @@ public static partial class ResultUnsafeExtensions
 
         var res = await source.ConfigureAwait(false);
         if (res.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotErrorBeforeCheck);
-        return Result.Error(res._errorValue);
+        return Result.Error(res._capturedError);
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.ExceptionServices;
 
 namespace Nut.Results;
 
@@ -7,12 +8,20 @@ namespace Nut.Results;
 /// </summary>
 public readonly partial struct Result : IEquatable<Result>
 {
-    internal readonly Exception _errorValue;
+
+    internal readonly ExceptionDispatchInfo _capturedError;
 
     internal Result(Exception? errorValue, bool isOk)
     {
         if (errorValue is null && !isOk) throw new ArgumentNullException(nameof(errorValue));
-        _errorValue = (isOk ? null : errorValue)!;
+        _capturedError = (isOk ? null : ExceptionDispatchInfo.Capture(errorValue!))!;
+        IsOk = isOk;
+    }
+
+    internal Result(ExceptionDispatchInfo? errorValue, bool isOk)
+    {
+        if (errorValue is null && !isOk) throw new ArgumentNullException(nameof(errorValue));
+        _capturedError = (isOk ? null : errorValue)!;
         IsOk = isOk;
     }
 
@@ -40,21 +49,21 @@ public readonly partial struct Result : IEquatable<Result>
     /// <param name="other">比較する値</param>
     /// <returns>両方とも成功か、または失敗の場合に true</returns>
     public bool Equals(Result other)
-        => IsOk ? other.IsOk : _errorValue.Equals(other._errorValue);
+        => IsOk ? other.IsOk : _capturedError.SourceException.Equals(other._capturedError.SourceException);
 
     /// <summary>
     /// ハッシュコードを取得します。
     /// </summary>
     /// <returns>ハッシュコード</returns>
     public override int GetHashCode()
-        => IsOk ? IsOk.GetHashCode() : HashCode.Combine(_errorValue, IsOk);
+        => IsOk ? IsOk.GetHashCode() : HashCode.Combine(_capturedError.SourceException, IsOk);
 
     /// <summary>
     /// 文字列表現を取得します。
     /// </summary>
     /// <returns>文字列表現</returns>
     public override string ToString()
-        => IsOk ? "ok" : $"error: {_errorValue?.ToString() ?? "(null)"}";
+        => IsOk ? "ok" : $"error: {_capturedError?.SourceException.ToString() ?? "(null)"}";
 }
 
 /// <summary>
@@ -64,14 +73,23 @@ public readonly partial struct Result : IEquatable<Result>
 public readonly partial struct Result<T> : IEquatable<Result<T>>
 {
     internal readonly T _value;
-    internal readonly Exception _errorValue;
+    internal readonly ExceptionDispatchInfo _capturedError;
 
     internal Result(T value, Exception errorValue, bool isOk)
     {
         if (value is null && isOk) throw new ArgumentNullException(nameof(value));
         if (errorValue is null && !isOk) throw new ArgumentNullException(nameof(errorValue));
         _value = (isOk ? value : default)!;
-        _errorValue = (isOk ? null : errorValue)!;
+        _capturedError = (isOk ? null : ExceptionDispatchInfo.Capture(errorValue))!;
+        IsOk = isOk;
+    }
+
+    internal Result(T value, ExceptionDispatchInfo errorValue, bool isOk)
+    {
+        if (value is null && isOk) throw new ArgumentNullException(nameof(value));
+        if (errorValue is null && !isOk) throw new ArgumentNullException(nameof(errorValue));
+        _value = (isOk ? value : default)!;
+        _capturedError = (isOk ? null : errorValue)!;
         IsOk = isOk;
     }
 
@@ -108,7 +126,7 @@ public readonly partial struct Result<T> : IEquatable<Result<T>>
     public bool Equals(Result<T> other)
         => IsOk ?
             other.IsOk && _value!.Equals(other._value) :
-            other.IsError && _errorValue.Equals(other._errorValue);
+            other.IsError && _capturedError.SourceException.Equals(other._capturedError.SourceException);
 
     /// <summary>
     /// 文字列表現を返します。
@@ -116,14 +134,14 @@ public readonly partial struct Result<T> : IEquatable<Result<T>>
     /// <returns>文字列表現</returns>
     public override string ToString()
         => IsOk ? $"ok: {PrepareNullText(_value!.ToString())}" :
-            $"error: {PrepareNullText(_errorValue?.ToString())}";
+            $"error: {PrepareNullText(_capturedError?.SourceException.ToString())}";
 
     /// <summary>
     /// ハッシュコードを取得します。
     /// </summary>
     /// <returns>ハッシュコード</returns>
     public override int GetHashCode()
-        => IsOk ? HashCode.Combine(_value, IsOk) : HashCode.Combine(_errorValue, IsOk);
+        => IsOk ? HashCode.Combine(_value, IsOk) : HashCode.Combine(_capturedError.SourceException, IsOk);
 
     private string PrepareNullText(string? text) => text ?? "(null)";
 }

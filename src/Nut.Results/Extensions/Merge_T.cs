@@ -17,15 +17,6 @@ public static partial class ResultExtensions
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
         return ResultHelper.Merge(source.ToArray());
-        // 例外が発生しないためコメント
-        // try
-        // {
-        //     return ResultHelper.Merge(source?.ToArray()!);
-        // }
-        // catch (Exception e)
-        // {
-        //     return Result.Error<T[]>(e);
-        // }
     }
 
     /// <summary>

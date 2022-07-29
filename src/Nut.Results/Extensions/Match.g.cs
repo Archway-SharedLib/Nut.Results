@@ -27,7 +27,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok();
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -53,7 +53,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok(sourceValue._value);
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -79,7 +79,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok();
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -106,7 +106,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok(sourceValue._value);
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -131,7 +131,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok();
             }
-            return await err(sourceValue._errorValue).ConfigureAwait(false);
+            return await err(sourceValue._capturedError.SourceException).ConfigureAwait(false);
         }
         catch(Exception e)
         {
@@ -156,7 +156,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return await ok().ConfigureAwait(false);
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -181,7 +181,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok();
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -207,7 +207,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok(sourceValue._value);
             }
-            return await err(sourceValue._errorValue).ConfigureAwait(false);
+            return await err(sourceValue._capturedError.SourceException).ConfigureAwait(false);
         }
         catch(Exception e)
         {
@@ -233,7 +233,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return await ok(sourceValue._value).ConfigureAwait(false);
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -259,7 +259,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok(sourceValue._value);
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -285,7 +285,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok();
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -311,7 +311,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok();
             }
-            return await err(sourceValue._errorValue).ConfigureAwait(false);
+            return await err(sourceValue._capturedError.SourceException).ConfigureAwait(false);
         }
         catch(Exception e)
         {
@@ -337,7 +337,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return await ok().ConfigureAwait(false);
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -363,7 +363,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return await ok().ConfigureAwait(false);
             }
-            return await err(sourceValue._errorValue).ConfigureAwait(false);
+            return await err(sourceValue._capturedError.SourceException).ConfigureAwait(false);
         }
         catch(Exception e)
         {
@@ -390,7 +390,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok(sourceValue._value);
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -417,7 +417,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok(sourceValue._value);
             }
-            return await err(sourceValue._errorValue).ConfigureAwait(false);
+            return await err(sourceValue._capturedError.SourceException).ConfigureAwait(false);
         }
         catch(Exception e)
         {
@@ -444,7 +444,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return await ok(sourceValue._value).ConfigureAwait(false);
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -471,7 +471,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return await ok(sourceValue._value).ConfigureAwait(false);
             }
-            return await err(sourceValue._errorValue).ConfigureAwait(false);
+            return await err(sourceValue._capturedError.SourceException).ConfigureAwait(false);
         }
         catch(Exception e)
         {
@@ -497,7 +497,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok();
             }
-            return await err(sourceValue._errorValue).ConfigureAwait(false);
+            return await err(sourceValue._capturedError.SourceException).ConfigureAwait(false);
         }
         catch(Exception e)
         {
@@ -523,7 +523,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return await ok().ConfigureAwait(false);
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -549,7 +549,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok();
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -576,7 +576,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok(sourceValue._value);
             }
-            return await err(sourceValue._errorValue).ConfigureAwait(false);
+            return await err(sourceValue._capturedError.SourceException).ConfigureAwait(false);
         }
         catch(Exception e)
         {
@@ -603,7 +603,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return await ok(sourceValue._value).ConfigureAwait(false);
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -630,7 +630,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok(sourceValue._value);
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -657,7 +657,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok();
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -684,7 +684,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok();
             }
-            return await err(sourceValue._errorValue).ConfigureAwait(false);
+            return await err(sourceValue._capturedError.SourceException).ConfigureAwait(false);
         }
         catch(Exception e)
         {
@@ -711,7 +711,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return await ok().ConfigureAwait(false);
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -738,7 +738,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return await ok().ConfigureAwait(false);
             }
-            return await err(sourceValue._errorValue).ConfigureAwait(false);
+            return await err(sourceValue._capturedError.SourceException).ConfigureAwait(false);
         }
         catch(Exception e)
         {
@@ -766,7 +766,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok(sourceValue._value);
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -794,7 +794,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return ok(sourceValue._value);
             }
-            return await err(sourceValue._errorValue).ConfigureAwait(false);
+            return await err(sourceValue._capturedError.SourceException).ConfigureAwait(false);
         }
         catch(Exception e)
         {
@@ -822,7 +822,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return await ok(sourceValue._value).ConfigureAwait(false);
             }
-            return err(sourceValue._errorValue);
+            return err(sourceValue._capturedError.SourceException);
         }
         catch(Exception e)
         {
@@ -850,7 +850,7 @@ public static partial class ResultExtensions
             if (sourceValue.IsOk) {
                 return await ok(sourceValue._value).ConfigureAwait(false);
             }
-            return await err(sourceValue._errorValue).ConfigureAwait(false);
+            return await err(sourceValue._capturedError.SourceException).ConfigureAwait(false);
         }
         catch(Exception e)
         {

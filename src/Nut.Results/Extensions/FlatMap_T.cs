@@ -21,7 +21,7 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         try
         {
-            return !source.IsOk ? Result.Error(source._errorValue) : ok(source._value);
+            return !source.IsOk ? Result.Error(source._capturedError) : ok(source._value);
         }
         catch (Exception e)
         {
@@ -46,7 +46,7 @@ public static partial class ResultExtensions
         try
         {
             var result = await source.ConfigureAwait(false);
-            return !result.IsOk ? Result.Error(result._errorValue) : ok(result._value);
+            return !result.IsOk ? Result.Error(result._capturedError) : ok(result._value);
         }
         catch (Exception e)
         {
@@ -69,7 +69,7 @@ public static partial class ResultExtensions
 
         try
         {
-            if (!source.IsOk) return Result.Error(source._errorValue);
+            if (!source.IsOk) return Result.Error(source._capturedError);
             return await ok(source._value).ConfigureAwait(false);
         }
         catch (Exception e)
@@ -95,7 +95,7 @@ public static partial class ResultExtensions
         try
         {
             var result = await source.ConfigureAwait(false);
-            if (!result.IsOk) return Result.Error(result._errorValue);
+            if (!result.IsOk) return Result.Error(result._capturedError);
             return await ok(result._value).ConfigureAwait(false);
         }
         catch (Exception e)
@@ -121,7 +121,7 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
         try
         {
-            return !source.IsOk ? Result.Error<TResult>(source._errorValue) : ok(source._value);
+            return !source.IsOk ? Result.Error<TResult>(source._capturedError) : ok(source._value);
         }
         catch (Exception e)
         {
@@ -147,7 +147,7 @@ public static partial class ResultExtensions
         try
         {
             var result = await source.ConfigureAwait(false);
-            return !result.IsOk ? Result.Error<TResult>(result._errorValue) : ok(result._value);
+            return !result.IsOk ? Result.Error<TResult>(result._capturedError) : ok(result._value);
         }
         catch (Exception e)
         {
@@ -171,7 +171,7 @@ public static partial class ResultExtensions
 
         try
         {
-            if (!source.IsOk) return Result.Error<TResult>(source._errorValue);
+            if (!source.IsOk) return Result.Error<TResult>(source._capturedError);
             return await ok(source._value).ConfigureAwait(false);
         }
         catch (Exception e)
@@ -198,7 +198,7 @@ public static partial class ResultExtensions
         try
         {
             var result = await source.ConfigureAwait(false);
-            if (!result.IsOk) return Result.Error<TResult>(result._errorValue);
+            if (!result.IsOk) return Result.Error<TResult>(result._capturedError);
             return await ok(result._value).ConfigureAwait(false);
         }
         catch (Exception e)

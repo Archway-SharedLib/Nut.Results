@@ -27,7 +27,7 @@ public static partial class ResultExtensions
     {
         if (source.IsOk) return false;
         comparer ??= EqualityComparer<Exception>.Default;
-        return comparer.Equals(source._errorValue, error);
+        return comparer.Equals(source._capturedError.SourceException, error);
     }
 
     /// <summary>
@@ -52,6 +52,6 @@ public static partial class ResultExtensions
         var s = await source.ConfigureAwait(false);
         if (s.IsOk) return false;
         comparer ??= EqualityComparer<Exception>.Default;
-        return comparer.Equals(s._errorValue, error);
+        return comparer.Equals(s._capturedError.SourceException, error);
     }
 }

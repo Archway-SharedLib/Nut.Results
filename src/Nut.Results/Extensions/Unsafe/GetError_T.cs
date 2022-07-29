@@ -15,7 +15,7 @@ public static partial class ResultUnsafeExtensions
     public static Exception GetError<T>(this in Result<T> source)
     {
         if (source.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotErrorBeforeCheck);
-        return source._errorValue;
+        return source._capturedError?.SourceException!;
     }
 
     /// <summary>
@@ -30,6 +30,6 @@ public static partial class ResultUnsafeExtensions
 
         var result = await source.ConfigureAwait(false);
         if (result.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotErrorBeforeCheck);
-        return result._errorValue;
+        return result._capturedError?.SourceException!;
     }
 }

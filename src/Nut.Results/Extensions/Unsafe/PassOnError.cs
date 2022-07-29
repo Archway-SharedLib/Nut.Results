@@ -16,7 +16,7 @@ public static partial class ResultUnsafeExtensions
     public static Result<TResult> PassOnError<TResult>(this in Result source)
     {
         if (source.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotErrorBeforeCheck);
-        return Result.Error<TResult>(source._errorValue);
+        return Result.Error<TResult>(source._capturedError);
     }
 
     /// <summary>
@@ -32,6 +32,6 @@ public static partial class ResultUnsafeExtensions
 
         var res = await source.ConfigureAwait(false);
         if (res.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotErrorBeforeCheck);
-        return Result.Error<TResult>(res._errorValue);
+        return Result.Error<TResult>(res._capturedError);
     }
 }

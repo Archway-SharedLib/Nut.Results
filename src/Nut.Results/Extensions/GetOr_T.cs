@@ -16,7 +16,7 @@ public static partial class ResultExtensions
     {
         if (ifError is null) throw new ArgumentNullException(nameof(ifError));
 
-        return source.IsError ? ifError(source._errorValue) : source._value;
+        return source.IsError ? ifError(source._capturedError.SourceException) : source._value;
     }
 
     /// <summary>
@@ -32,7 +32,7 @@ public static partial class ResultExtensions
         if (ifError is null) throw new ArgumentNullException(nameof(ifError));
 
         var result = await source.ConfigureAwait(false);
-        return result.IsError ? ifError(result._errorValue) : result._value;
+        return result.IsError ? ifError(result._capturedError.SourceException) : result._value;
     }
 
     /// <summary>
@@ -46,7 +46,7 @@ public static partial class ResultExtensions
     {
         if (ifError is null) throw new ArgumentNullException(nameof(ifError));
 
-        if (source.IsError) return await ifError(source._errorValue);
+        if (source.IsError) return await ifError(source._capturedError.SourceException);
         return source._value;
     }
 
@@ -63,7 +63,7 @@ public static partial class ResultExtensions
         if (ifError is null) throw new ArgumentNullException(nameof(ifError));
 
         var result = await source.ConfigureAwait(false);
-        if (result.IsError) return await ifError(result._errorValue);
+        if (result.IsError) return await ifError(result._capturedError.SourceException);
         return result._value;
     }
 }

@@ -33,7 +33,7 @@ public class ResultAssertions<T>
     {
         Execute.Assertion.ForCondition(_instance.IsOk)
             .BecauseOf(because, becauseArgs)
-            .FailWith($"Expected ok, but error.\n{ToErrorMessage(_instance._errorValue)}");
+            .FailWith($"Expected ok, but error.\n{ToErrorMessage(_instance._capturedError?.SourceException)}");
         return new AndConstraint<ResultOkAssertions<T>>(new ResultOkAssertions<T>(_instance));
     }
 

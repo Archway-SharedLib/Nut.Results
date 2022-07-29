@@ -20,16 +20,6 @@ public static partial class ResultExtensions
         if (ok is null) throw new ArgumentNullException(nameof(ok));
 
         return source.Map(v => v.Select(ok).ToList().AsEnumerable());
-
-        // try/catch は不要。 source.Map ですでに例外が補足されているため。
-        // try
-        // {
-        //     return source.Map(v => v.Select(ok).ToList().AsEnumerable());
-        // }
-        // catch (Exception e)
-        // {
-        //     return Result.Error<IEnumerable<TResult>>(e);
-        // }
     }
 
     /// <summary>
@@ -67,7 +57,7 @@ public static partial class ResultExtensions
     public static async Task<Result<IEnumerable<TResult>>> MapEach<T, TResult>(this Result<IEnumerable<T>> source, Func<T, Task<TResult>> ok)
     {
         if (ok is null) throw new ArgumentNullException(nameof(ok));
-        if (source.IsError) return Result.Error<IEnumerable<TResult>>(source._errorValue);
+        if (source.IsError) return Result.Error<IEnumerable<TResult>>(source._capturedError);
 
         try
         {
