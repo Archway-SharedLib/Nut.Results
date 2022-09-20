@@ -17,7 +17,7 @@ dotnet test ./test/Nut.Results.FluentAssertions.Test/Nut.Results.FluentAssertion
     /p:ExcludeByFile="**/*.g.cs"
 
 if(!$noReport) {
-    reportgenerator "-reports:./nut.results.coverage.xml;./nut.results.fluentassertions.coverage.xml" `
+    dotnet tool run reportgenerator "-reports:./nut.results.coverage.xml;./nut.results.fluentassertions.coverage.xml" `
         -targetdir:coveragereport `
         -reporttypes:Html
 }

@@ -10,7 +10,7 @@
     <PropertyGroup>
         <Authors>Archway</Authors>
         <Description>A assertion extensions of FluentResults  for Nut.Results</Description>
-        <Copyright>Copyright 2021 (c) Archway inc. All rights reserved.</Copyright>
+        <Copyright>Copyright 2022 (c) Archway inc. All rights reserved.</Copyright>
         <PackageTags>result exception error fluentresults unittest</PackageTags>
         <PackageLicenseExpression>https://github.com/Archway-SharedLib/Nut.Results/blob/main/LICENSE</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/Archway-SharedLib/Nut.Results</PackageProjectUrl>

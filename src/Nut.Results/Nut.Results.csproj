@@ -9,7 +9,7 @@
   <PropertyGroup>
     <Authors>Archway</Authors>
     <Description>A simple Result object implementation for .NET</Description>
-    <Copyright>Copyright 2021 (c) Archway inc. All rights reserved.</Copyright>
+    <Copyright>Copyright 2022 (c) Archway inc. All rights reserved.</Copyright>
     <PackageTags>result exception error</PackageTags>
     <PackageLicenseExpression>https://github.com/Archway-SharedLib/Nut.Results/blob/main/LICENSE</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Archway-SharedLib/Nut.Results</PackageProjectUrl>
