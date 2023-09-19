@@ -407,6 +407,36 @@ public class ResultTest
         r.ToString().Should().Be("error: (null)");
     }
 
+    [Fact]
+    public void op_true_成功の場合はtrue()
+    {
+        var r = Result.Ok();
+        if (r) { }
+        else throw new Exception();
+    }
+
+    [Fact]
+    public void op_true_失敗の場合はfalse()
+    {
+        var r = Result.Error(new Exception());
+        if (r ) throw new Exception();
+    }
+
+    [Fact]
+    public void T_op_true_成功の場合はtrue()
+    {
+        var r = Result.Ok("string");
+        if (r) { }
+        else throw new Exception();
+    }
+
+    [Fact]
+    public void T_op_true_失敗の場合はfalse()
+    {
+        var r = Result.Error<string>(new Exception());
+        if (r) throw new Exception();
+    }
+
     private class TestOk
     {
         public override string ToString() => null;

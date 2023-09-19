@@ -64,6 +64,20 @@ public readonly partial struct Result : IEquatable<Result>
     /// <returns>文字列表現</returns>
     public override string ToString()
         => IsOk ? "ok" : $"error: {_capturedError?.SourceException.ToString() ?? "(null)"}";
+
+    /// <summary>
+    /// 結果が成功していることを示します。
+    /// </summary>
+    /// <param name="result">チェックする結果</param>
+    /// <returns>成功の場合は <see langword="true"/> そうでない場合は <see langword="false"/></returns>
+    public static bool operator true(in Result result) => result.IsOk;
+
+    /// <summary>
+    /// 結果が失敗していることを示します。
+    /// </summary>
+    /// <param name="result">チェックする結果</param>
+    /// <returns>失敗の場合は <see langword="true"/> そうでない場合は <see langword="false"/></returns>
+    public static bool operator false(in Result result) => !result.IsOk;
 }
 
 /// <summary>
@@ -144,4 +158,18 @@ public readonly partial struct Result<T> : IEquatable<Result<T>>
         => IsOk ? HashCode.Combine(_value, IsOk) : HashCode.Combine(_capturedError.SourceException, IsOk);
 
     private string PrepareNullText(string? text) => text ?? "(null)";
+
+    /// <summary>
+    /// 結果が成功していることを示します。
+    /// </summary>
+    /// <param name="result">チェックする結果</param>
+    /// <returns>成功の場合は <see langword="true"/> そうでない場合は <see langword="false"/></returns>
+    public static bool operator true(in Result<T> result) => result.IsOk;
+
+    /// <summary>
+    /// 結果が失敗していることを示します。
+    /// </summary>
+    /// <param name="result">チェックする結果</param>
+    /// <returns>失敗の場合は <see langword="true"/> そうでない場合は <see langword="false"/></returns>
+    public static bool operator false(in Result<T> result) => !result.IsOk;
 }
