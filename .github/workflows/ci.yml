@@ -12,9 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
     - name: Install dependencies
@@ -26,7 +26,7 @@ jobs:
         ./test.ps1 -noReport
       shell: pwsh
     - name: Codecov
-      uses: codecov/codecov-action@v1.0.14
+      uses: codecov/codecov-action@v3.1.4
       with:
         # User defined upload name. Visible in Codecov UI
         name: Nut.Results
