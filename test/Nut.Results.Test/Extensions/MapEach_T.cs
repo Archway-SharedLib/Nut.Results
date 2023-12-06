@@ -90,7 +90,7 @@ public class MapEach_T
         {
             executed = true;
             return "Foo";
-        }).ConfigureAwait(false);
+        });
 
         executed.Should().BeFalse();
         result.Should().BeError().And.Match(v => v == error);
@@ -104,7 +104,7 @@ public class MapEach_T
         {
             executed = true;
             return v.ToString();
-        }).ConfigureAwait(false);
+        });
 
         result.Should().BeOk();
         executed.Should().BeTrue();
@@ -162,7 +162,7 @@ public class MapEach_T
         {
             executed = true;
             return Task.FromResult("Foo");
-        }).ConfigureAwait(false);
+        });
 
         executed.Should().BeFalse();
         result.Should().BeError().And.Match(v => v == error);
@@ -176,7 +176,7 @@ public class MapEach_T
         {
             executed = true;
             return Task.FromResult(v.ToString());
-        }).ConfigureAwait(false);
+        });
 
         result.Should().BeOk();
         executed.Should().BeTrue();
@@ -225,7 +225,7 @@ public class MapEach_T
         {
             executed = true;
             return Task.FromResult("Foo");
-        }).ConfigureAwait(false);
+        });
 
         executed.Should().BeFalse();
         result.Should().BeError().And.Match(v => v == error);
@@ -239,7 +239,7 @@ public class MapEach_T
         {
             executed = true;
             return Task.FromResult(v.ToString());
-        }).ConfigureAwait(false);
+        });
 
         result.Should().BeOk();
         executed.Should().BeTrue();

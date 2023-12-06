@@ -32,14 +32,14 @@ public class Empty_T
     [Fact]
     public async Task Async_Okの場合は空のResultが返る()
     {
-        var result = await Result.Ok("Hello").AsTask().Empty().ConfigureAwait(false);
+        var result = await Result.Ok("Hello").AsTask().Empty();
         result.Should().BeOk();
     }
 
     [Fact]
     public async Task Async_Errorの場合は同じErrorが返る()
     {
-        var result = await Result.Error<string>(new Exception("Error")).AsTask().Empty().ConfigureAwait(false);
+        var result = await Result.Error<string>(new Exception("Error")).AsTask().Empty();
         result.Should().BeError()
             .And.WithMessage("Error");
     }

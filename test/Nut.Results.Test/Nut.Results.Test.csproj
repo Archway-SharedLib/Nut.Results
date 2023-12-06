@@ -7,7 +7,7 @@
 
     <RootNamespace>Nut.Results.Test</RootNamespace>
 
-    <LangVersion>10</LangVersion>
+    <LangVersion>12</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

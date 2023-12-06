@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Nut.Results.FluentAssertions;
@@ -220,21 +222,21 @@ public class ResultHelperTest
     [Fact]
     public void Merge_引数がnullの場合は例外が発生するべき()
     {
-        Action act = () => ResultHelper.Merge(null);
+        Action act = () => ResultHelper.Merge(null as IEnumerable<Result>);
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
     public void Merge_全て成功の場合は成功になる()
     {
-        var result = ResultHelper.Merge(Result.Ok(), Result.Ok());
+        var result = ResultHelper.Merge(new[] { Result.Ok(), Result.Ok() } as IEnumerable<Result>);
         result.Should().BeOk();
     }
 
     [Fact]
     public void Merge_失敗がある場合は失敗になる()
     {
-        var result = ResultHelper.Merge(Result.Ok(), Result.Error(new Exception("1")), Result.Ok(), Result.Error(new Exception("2")), Result.Ok());
+        var result = ResultHelper.Merge(new[] { Result.Ok(), Result.Error(new Exception("1")), Result.Ok(), Result.Error(new Exception("2")), Result.Ok() } as IEnumerable<Result>);
         result.Should().BeError().And.BeOfType<AggregateException>();
         var errors = result.GetError().As<AggregateException>();
         errors.InnerExceptions.Should().HaveCount(2);
@@ -243,25 +245,27 @@ public class ResultHelperTest
     [Fact]
     public async Task MergeAsync_引数がnullの場合は例外が発生するべき()
     {
-        Func<Task> act = () => ResultHelper.MergeAsync(null);
+        Func<Task> act = () => ResultHelper.MergeAsync(null as IEnumerable<Task<Result>>);
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
     public async Task MergeAsync_全て成功の場合は成功になる()
     {
-        var result = await ResultHelper.MergeAsync(Result.Ok().AsTask(), Result.Ok().AsTask());
+        var result = await ResultHelper.MergeAsync(new[] { Result.Ok().AsTask(), Result.Ok().AsTask() } as IEnumerable<Task<Result>>);
         result.Should().BeOk();
     }
 
     [Fact]
     public async Task MergeAsync_失敗がある場合は失敗になる()
     {
-        var result = await ResultHelper.MergeAsync(Result.Ok().AsTask(),
+        var result = await ResultHelper.MergeAsync(new[] {
+            Result.Ok().AsTask(),
             Result.Error(new Exception("1")).AsTask(),
             Result.Ok().AsTask(),
             Result.Error(new Exception("2")).AsTask(),
-            Result.Ok().AsTask());
+            Result.Ok().AsTask()
+        } as IEnumerable<Task<Result>>);
         result.Should().BeError().And.BeOfType<AggregateException>();
         var errors = result.GetError().As<AggregateException>();
         errors.InnerExceptions.Should().HaveCount(2);
@@ -270,14 +274,14 @@ public class ResultHelperTest
     [Fact]
     public void MergeT_引数がnullの場合は例外が発生するべき()
     {
-        Action act = () => ResultHelper.Merge<string>(null);
+        Action act = () => ResultHelper.Merge<string>(null as IEnumerable<Result<string>>);
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
     public void MergeT_全て成功の場合は成功になる()
     {
-        var result = ResultHelper.Merge(Result.Ok("A"), Result.Ok("B"));
+        var result = ResultHelper.Merge(new[] { Result.Ok("A"), Result.Ok("B") } as IEnumerable<Result<string>>);
         result.Should().BeOk();
         result.Get().Should().HaveCount(2);
     }
@@ -285,11 +289,13 @@ public class ResultHelperTest
     [Fact]
     public void MergeT_失敗がある場合は失敗になる()
     {
-        var result = ResultHelper.Merge(Result.Ok("1"),
+        var result = ResultHelper.Merge(new[] {
+            Result.Ok("1"),
             Result.Error<string>(new Exception("1")),
             Result.Ok("2"),
             Result.Error<string>(new Exception("2")),
-            Result.Ok("3"));
+            Result.Ok("3")
+        } as IEnumerable<Result<string>>);
         result.Should().BeError().And.BeOfType<AggregateException>();
         var errors = result.GetError().As<AggregateException>();
         errors.InnerExceptions.Should().HaveCount(2);
@@ -298,14 +304,17 @@ public class ResultHelperTest
     [Fact]
     public async Task MergeAsyncT_引数がnullの場合は例外が発生するべき()
     {
-        Func<Task> act = () => ResultHelper.MergeAsync<string>(null);
+        Func<Task> act = () => ResultHelper.MergeAsync<string>(null as IEnumerable<Task<Result<string>>>);
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 
     [Fact]
     public async Task MergeAsyncT_全て成功の場合は成功になる()
     {
-        var result = await ResultHelper.MergeAsync(Result.Ok("A").AsTask(), Result.Ok("B").AsTask());
+        var result = await ResultHelper.MergeAsync(new[] {
+            Result.Ok("A").AsTask(),
+            Result.Ok("B").AsTask()
+        } as IEnumerable<Task<Result<string>>>);
         result.Should().BeOk();
         result.Get().Should().HaveCount(2);
     }
@@ -313,11 +322,13 @@ public class ResultHelperTest
     [Fact]
     public async Task MergeAsyncT_失敗がある場合は失敗になる()
     {
-        var result = await ResultHelper.MergeAsync(Result.Ok("1").AsTask(),
+        var result = await ResultHelper.MergeAsync(new[] {
+            Result.Ok("1").AsTask(),
             Result.Error<string>(new Exception("1")).AsTask(),
             Result.Ok("2").AsTask(),
             Result.Error<string>(new Exception("2")).AsTask(),
-            Result.Ok("3").AsTask());
+            Result.Ok("3").AsTask()
+        } as IEnumerable<Task<Result<string>>>);
         result.Should().BeError().And.BeOfType<AggregateException>();
         var errors = result.GetError().As<AggregateException>();
         errors.InnerExceptions.Should().HaveCount(2);

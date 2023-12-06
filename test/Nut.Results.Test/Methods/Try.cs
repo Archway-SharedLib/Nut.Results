@@ -29,14 +29,14 @@ public class Try
     public async Task NoReturn_Async_例外が発生しない場合は成功が返る()
     {
         var result = Result.Try(() => Task.Run(() => { }));
-        (await result.ConfigureAwait(false)).Should().BeOk();
+        (await result).Should().BeOk();
     }
 
     [Fact]
     public async Task NoReturn_Async_例外が発生した場合は失敗が返る()
     {
         var result = Result.Try(() => Task.Run(() => RaiseException("Failed")));
-        (await result.ConfigureAwait(false)).Should().BeError().And.BeOfType<Exception>().And.WithMessage("Failed");
+        (await result).Should().BeError().And.BeOfType<Exception>().And.WithMessage("Failed");
     }
 
     [Fact]
@@ -69,7 +69,7 @@ public class Try
     public async Task T_Async_例外が発生しない場合は成功が返る()
     {
         var result = Result.Try(() => Task.Run(() => "Good"));
-        (await result.ConfigureAwait(false)).Should().BeOk().And.Match(v => v == "Good");
+        (await result).Should().BeOk().And.Match(v => v == "Good");
     }
 
     [Fact]
@@ -112,14 +112,14 @@ public class Try
     public async Task Result_Async_例外が発生しない場合は成功が返る()
     {
         var result = Result.Try(() => Task.Run(() => Result.Ok()));
-        (await result.ConfigureAwait(false)).Should().BeOk();
+        (await result).Should().BeOk();
     }
 
     [Fact]
     public async Task Result_Async_例外が発生した場合は失敗が返る()
     {
         var result = Result.Try(() => Task.Run(() => RaiseException<Result>("Failed")));
-        (await result.ConfigureAwait(false)).Should().BeError().And.BeOfType<Exception>().And.WithMessage("Failed");
+        (await result).Should().BeError().And.BeOfType<Exception>().And.WithMessage("Failed");
     }
 
     [Fact]
@@ -155,14 +155,14 @@ public class Try
     public async Task ResultT_Async_例外が発生しない場合は成功が返る()
     {
         var result = Result.Try(() => Task.Run(() => Result.Ok("Good")));
-        (await result.ConfigureAwait(false)).Should().BeOk().And.Match(v => v == "Good");
+        (await result).Should().BeOk().And.Match(v => v == "Good");
     }
 
     [Fact]
     public async Task ResultT_Async_例外が発生した場合は失敗が返る()
     {
         var result = Result.Try(() => Task.Run(() => RaiseException<Result<string>>("Failed")));
-        (await result.ConfigureAwait(false)).Should().BeError().And.BeOfType<Exception>().And.WithMessage("Failed");
+        (await result).Should().BeError().And.BeOfType<Exception>().And.WithMessage("Failed");
     }
 
     [Fact]

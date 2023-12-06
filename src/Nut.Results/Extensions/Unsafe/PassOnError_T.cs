@@ -14,6 +14,7 @@ public static partial class ResultUnsafeExtensions
     /// <typeparam name="TResult">結果となる成功の値の型</typeparam>
     /// <returns>新しい<see cref="Result{T}"/></returns>
     /// <exception cref="InvalidOperationException">もととなる結果が成功だった場合に発生します。</exception>
+    [Obsolete("このメソッドは将来廃止される予定です。 PreserveErrorAs<T>() を使用してください。", false)]
     public static Result<TResult> PassOnError<T, TResult>(this in Result<T> source)
     {
         if (source.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotErrorBeforeCheck);
@@ -28,6 +29,7 @@ public static partial class ResultUnsafeExtensions
     /// <typeparam name="TResult">結果となる成功の値の型</typeparam>
     /// <returns>新しい<see cref="Result{T}"/></returns>
     /// <exception cref="InvalidOperationException">もととなる結果が成功だった場合に発生します。</exception>
+    [Obsolete("このメソッドは将来廃止される予定です。 PreserveErrorAs<T>() を使用してください。", false)]
     public static async Task<Result<TResult>> PassOnError<T, TResult>(this Task<Result<T>> source)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
@@ -44,6 +46,7 @@ public static partial class ResultUnsafeExtensions
     /// <typeparam name="T">もととなる成功の値の型</typeparam>
     /// <returns>新しい<see cref="Result"/></returns>
     /// <exception cref="InvalidOperationException">もととなる結果が成功だった場合に発生します。</exception>
+    [Obsolete("このメソッドは将来廃止される予定です。 PreserveErrorAs() を使用してください。", false)]
     public static Result PassOnError<T>(this in Result<T> source)
     {
         if (source.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotErrorBeforeCheck);
@@ -57,6 +60,7 @@ public static partial class ResultUnsafeExtensions
     /// <typeparam name="T">もととなる成功の値の型</typeparam>
     /// <returns>新しい<see cref="Result"/></returns>
     /// <exception cref="InvalidOperationException">もととなる結果が成功だった場合に発生します。</exception>
+    [Obsolete("このメソッドは将来廃止される予定です。 PreserveErrorAs() を使用してください。", false)]
     public static async Task<Result> PassOnError<T>(this Task<Result<T>> source)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));

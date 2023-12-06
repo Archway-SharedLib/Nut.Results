@@ -1,58 +1,58 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
-        <LangVersion>10</LangVersion>
-        <Nullable>enable</Nullable>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>12</LangVersion>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
 
-    <PropertyGroup>
-        <Authors>Archway</Authors>
-        <Description>A assertion extensions of FluentResults  for Nut.Results</Description>
-        <Copyright>Copyright 2022 (c) Archway inc. All rights reserved.</Copyright>
-        <PackageTags>result exception error fluentresults unittest</PackageTags>
-        <PackageLicenseExpression>https://github.com/Archway-SharedLib/Nut.Results/blob/main/LICENSE</PackageLicenseExpression>
-        <PackageProjectUrl>https://github.com/Archway-SharedLib/Nut.Results</PackageProjectUrl>
-        <RepositoryType>GIT</RepositoryType>
-        <PackageId>Nut.Results.FluentAssertions</PackageId>
-        <RootNamespace>Nut.Results.FluentAssertions</RootNamespace>
-        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-        <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-        <!--source link-->
-        <PublishRepositoryUrl>true</PublishRepositoryUrl>
-        <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-        <!--minver-->
-        <MinVerTagPrefix>v</MinVerTagPrefix>
-        <MinVerDefaultPreReleasePhase>preview</MinVerDefaultPreReleasePhase>
-        <RepositoryUrl>https://github.com/Archway-SharedLib/Nut.Results</RepositoryUrl>
-        <PackageIcon>logo_128.png</PackageIcon>
-    </PropertyGroup>
+  <PropertyGroup>
+    <Authors>Archway</Authors>
+    <Description>A assertion extensions of FluentResults  for Nut.Results</Description>
+    <Copyright>Copyright 2022 (c) Archway inc. All rights reserved.</Copyright>
+    <PackageTags>result exception error fluentresults unittest</PackageTags>
+    <PackageLicenseExpression>https://github.com/Archway-SharedLib/Nut.Results/blob/main/LICENSE</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Archway-SharedLib/Nut.Results</PackageProjectUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <PackageId>Nut.Results.FluentAssertions</PackageId>
+    <RootNamespace>Nut.Results.FluentAssertions</RootNamespace>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <!--source link-->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <!--minver-->
+    <MinVerTagPrefix>v</MinVerTagPrefix>
+    <MinVerDefaultPreReleaseIdentifiers>preview</MinVerDefaultPreReleaseIdentifiers>
+    <RepositoryUrl>https://github.com/Archway-SharedLib/Nut.Results</RepositoryUrl>
+    <PackageIcon>logo_128.png</PackageIcon>
+  </PropertyGroup>
 
 
-    <ItemGroup>
-      <PackageReference Include="FluentAssertions" Version="6.12.0" />
-      <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="MinVer" Version="4.3.0">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-    </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MinVer" Version="4.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
-    <ItemGroup>
-      <ProjectReference Include="..\Nut.Results\Nut.Results.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nut.Results\Nut.Results.csproj" />
+  </ItemGroup>
 
-    <ItemGroup>
-      <None Include="..\..\assets\logo\logo_128.png">
-        <Pack>True</Pack>
-        <PackagePath></PackagePath>
-      </None>
-    </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\assets\logo\logo_128.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

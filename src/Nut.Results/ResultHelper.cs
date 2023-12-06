@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
@@ -89,6 +91,17 @@ public static class ResultHelper
     }
 
     /// <summary>
+    /// 複数の <see cref="Result"/> の結果をマージします。このメソッドは将来廃止される予定です。 <see cref="Merge(IEnumerable{Result})"/> を使用してください。"/>
+    /// </summary>
+    /// <remarks>
+    /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateException"/> にまとめられます。
+    /// </remarks>
+    /// <param name="results">マージする結果</param>
+    /// <returns>マージした結果</returns>
+    [Obsolete("このメソッドは将来廃止される予定です。 Merge(IEnumerable<Result>) を使用してください。", false)]
+    public static Result Merge(params Result[] results) => Merge(results as IEnumerable<Result>);
+
+    /// <summary>
     /// 複数の <see cref="Result"/> の結果をマージします。
     /// </summary>
     /// <remarks>
@@ -96,7 +109,7 @@ public static class ResultHelper
     /// </remarks>
     /// <param name="results">マージする結果</param>
     /// <returns>マージした結果</returns>
-    public static Result Merge(params Result[] results)
+    public static Result Merge(IEnumerable<Result> results)
     {
         if (results is null) throw new ArgumentNullException(nameof(results));
 
@@ -105,6 +118,17 @@ public static class ResultHelper
     }
 
     /// <summary>
+    /// 複数の <see cref="Result"/> の結果をマージします。このメソッドは将来廃止される予定です。 <see cref="MergeAsync(IEnumerable{Task{Result}})"/> を使用してください。"/>
+    /// </summary>
+    /// <remarks>
+    /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateException"/> にまとめられます。
+    /// </remarks>
+    /// <param name="results">マージする結果</param>
+    /// <returns>マージした結果</returns>
+    [Obsolete("このメソッドは将来廃止される予定です。 ConcatAsync(Task<Result>[]) を使用してください。", false)]
+    public static async Task<Result> MergeAsync(params Task<Result>[] results) => await MergeAsync(results as IEnumerable<Task<Result>>);
+
+    /// <summary>
     /// 複数の <see cref="Result"/> の結果をマージします。
     /// </summary>
     /// <remarks>
@@ -112,12 +136,24 @@ public static class ResultHelper
     /// </remarks>
     /// <param name="results">マージする結果</param>
     /// <returns>マージした結果</returns>
-    public static async Task<Result> MergeAsync(params Task<Result>[] results)
+    public static async Task<Result> MergeAsync(IEnumerable<Task<Result>> results)
     {
         if (results is null) throw new ArgumentNullException(nameof(results));
         var r = await Task.WhenAll(results).ConfigureAwait(false);
-        return Merge(r);
+        return Merge(r as IEnumerable<Result>);
     }
+
+    /// <summary>
+    /// 複数の <see cref="Result{T}"/> の結果をマージします。このメソッドは将来廃止される予定です。 <see cref="Merge{T}(IEnumerable{Result{T}})"/> を使用してください。"/>
+    /// </summary>
+    /// <remarks>
+    /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateException"/> にまとめられます。
+    /// </remarks>
+    /// <typeparam name="T">結果の値の型</typeparam>
+    /// <param name="results">マージする結果</param>
+    /// <returns>マージした結果</returns>
+    [Obsolete("このメソッドは将来廃止される予定です。 Concat{T}(Result{T}[]) を使用してください。", false)]
+    public static Result<T[]> Merge<T>(params Result<T>[] results) => Merge(results as IEnumerable<Result<T>>);
 
     /// <summary>
     /// 複数の <see cref="Result{T}"/> の結果をマージします。
@@ -128,7 +164,7 @@ public static class ResultHelper
     /// <typeparam name="T">結果の値の型</typeparam>
     /// <param name="results">マージする結果</param>
     /// <returns>マージした結果</returns>
-    public static Result<T[]> Merge<T>(params Result<T>[] results)
+    public static Result<T[]> Merge<T>(IEnumerable<Result<T>> results)
     {
         if (results is null) throw new ArgumentNullException(nameof(results));
 
@@ -137,6 +173,18 @@ public static class ResultHelper
     }
 
     /// <summary>
+    /// 複数の <see cref="Result{T}"/> の結果をマージします。このメソッドは将来廃止される予定です。 <see cref="MergeAsync{T}(IEnumerable{Task{Result{T}}})"/> を使用してください。"/>
+    /// </summary>
+    /// <remarks>
+    /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateException"/> にまとめられます。
+    /// </remarks>
+    /// <typeparam name="T">結果の値の型</typeparam>
+    /// <param name="results">マージする結果</param>
+    /// <returns>マージした結果</returns>
+    [Obsolete("このメソッドは将来廃止される予定です。 ConcatAsync{T}(Task<Result{T}}[]) を使用してください。", false)]
+    public static async Task<Result<T[]>> MergeAsync<T>(params Task<Result<T>>[] results) => await MergeAsync(results as IEnumerable<Task<Result<T>>>);
+
+    /// <summary>
     /// 複数の <see cref="Result{T}"/> の結果をマージします。
     /// </summary>
     /// <remarks>
@@ -145,12 +193,12 @@ public static class ResultHelper
     /// <typeparam name="T">結果の値の型</typeparam>
     /// <param name="results">マージする結果</param>
     /// <returns>マージした結果</returns>
-    public static async Task<Result<T[]>> MergeAsync<T>(params Task<Result<T>>[] results)
+    public static async Task<Result<T[]>> MergeAsync<T>(IEnumerable<Task<Result<T>>> results)
     {
         if (results is null) throw new ArgumentNullException(nameof(results));
 
         var r = await Task.WhenAll(results).ConfigureAwait(false);
-        return Merge(r);
+        return Merge(r as IEnumerable<Result<T>>);
     }
 
     private static readonly ConcurrentDictionary<Type, Accessor> s_cache = new();

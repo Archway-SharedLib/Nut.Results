@@ -46,6 +46,14 @@ public readonly partial struct Result : IEquatable<Result>
     /// <summary>
     /// 両方とも成功か、または失敗の場合に true を返します。失敗の場合は値の比較も行われます。
     /// </summary>
+    /// <param name="obj">比較する値</param>
+    /// <returns>両方とも成功か、または失敗の場合に true</returns>
+    public override bool Equals(object obj) =>
+        obj is Result result && Equals(result);
+
+    /// <summary>
+    /// 両方とも成功か、または失敗の場合に true を返します。失敗の場合は値の比較も行われます。
+    /// </summary>
     /// <param name="other">比較する値</param>
     /// <returns>両方とも成功か、または失敗の場合に true</returns>
     public bool Equals(Result other)
@@ -78,6 +86,45 @@ public readonly partial struct Result : IEquatable<Result>
     /// <param name="result">チェックする結果</param>
     /// <returns>失敗の場合は <see langword="true"/> そうでない場合は <see langword="false"/></returns>
     public static bool operator false(in Result result) => !result.IsOk;
+
+    /// <summary>
+    /// 結果と値が一致するかどうかを返します。
+    /// </summary>
+    /// <param name="left">チェックする結果</param>
+    /// <param name="right">比較する結果</param>
+    /// <returns>結果と値が一致する場合は <see langword="true"/> そうでない場合は <see langword="false"/></returns>
+    public static bool operator ==(in Result left, in Result right) => left.Equals(right);
+
+    /// <summary>
+    /// 結果と値が一致しないどうかを返します。
+    /// </summary>
+    /// <param name="left">チェックする結果</param>
+    /// <param name="right">比較する結果</param>
+    /// <returns>結果と値が一致しない場合は <see langword="true"/> そうでない場合は <see langword="false"/></returns>
+    public static bool operator !=(in Result left, in Result right) => !left.Equals(right);
+
+    /// <summary>
+    /// 結果と真偽値が一致するかどうかを返します。
+    /// </summary>
+    /// <param name="left">チェックする結果</param>
+    /// <param name="right">比較する真偽値</param>
+    /// <returns>結果が成功で真偽値が <see langword="true"/> 、もしくは結果が失敗で真偽値が  <see langword="false"/> の場合は  <see langword="true"/> そうでない場合は <see langword="false"/></returns>
+    public static bool operator ==(in Result left, in bool right) => left.IsOk == right;
+
+    /// <summary>
+    /// 結果と真偽値が一致しないどうかを返します。
+    /// </summary>
+    /// <param name="left">チェックする結果</param>
+    /// <param name="right">比較する真偽値</param>
+    /// <returns>結果が成功で真偽値が <see langword="false"/> 、もしくは結果が失敗で真偽値が  <see langword="true"/> の場合は  <see langword="true"/> そうでない場合は <see langword="false"/></returns>
+    public static bool operator !=(in Result left, in bool right) => left.IsOk != right;
+
+    /// <summary>
+    /// 結果が成功ではないかを返します。
+    /// </summary>
+    /// <param name="result">チェックする結果</param>
+    /// <returns>結果が成功でない場合は <see langword="true"/>そうでない場合は <see langword="false"/></returns>
+    public static bool operator !(in Result result) => !result.IsOk;
 }
 
 /// <summary>
@@ -94,7 +141,7 @@ public readonly partial struct Result<T> : IEquatable<Result<T>>
         if (value is null && isOk) throw new ArgumentNullException(nameof(value));
         if (errorValue is null && !isOk) throw new ArgumentNullException(nameof(errorValue));
         _value = (isOk ? value : default)!;
-        _capturedError = (isOk ? null : ExceptionDispatchInfo.Capture(errorValue))!;
+        _capturedError = (isOk ? null : ExceptionDispatchInfo.Capture(errorValue!))!;
         IsOk = isOk;
     }
 
@@ -131,6 +178,13 @@ public readonly partial struct Result<T> : IEquatable<Result<T>>
     /// <param name="value">マッピングする値</param>
     /// <returns>成功の結果</returns>
     public static implicit operator Result<T>(T value) => Result.Ok(value);
+
+    /// <summary>
+    /// 両方とも成功か、または失敗の場合に値の比較を行い一致しているかどうかを返します。
+    /// </summary>
+    /// <param name="obj">比較する値</param>
+    /// <returns>両方とも成功か、または失敗の場合に値の比較を行い一致しているかどうか</returns>
+    public override bool Equals(object obj) => obj is Result<T> result && Equals(result);
 
     /// <summary>
     /// 両方とも成功か、または失敗の場合に値の比較を行い一致しているかどうかを返します。
@@ -172,4 +226,44 @@ public readonly partial struct Result<T> : IEquatable<Result<T>>
     /// <param name="result">チェックする結果</param>
     /// <returns>失敗の場合は <see langword="true"/> そうでない場合は <see langword="false"/></returns>
     public static bool operator false(in Result<T> result) => !result.IsOk;
+
+    /// <summary>
+    /// 結果と値が一致するかどうかを返します。
+    /// </summary>
+    /// <param name="left">チェックする結果</param>
+    /// <param name="right">比較する結果</param>
+    /// <returns>結果と値が一致する場合は <see langword="true"/> そうでない場合は <see langword="false"/></returns>
+    public static bool operator ==(in Result<T> left, in Result<T> right) => left.Equals(right);
+
+    /// <summary>
+    /// 結果と値が一致しないどうかを返します。
+    /// </summary>
+    /// <param name="left">チェックする結果</param>
+    /// <param name="right">比較する結果</param>
+    /// <returns>結果と値が一致しない場合は <see langword="true"/> そうでない場合は <see langword="false"/></returns>
+    public static bool operator !=(in Result<T> left, in Result<T> right) => !left.Equals(right);
+
+    /// <summary>
+    /// 結果と真偽値が一致するかどうかを返します。
+    /// </summary>
+    /// <param name="left">チェックする結果</param>
+    /// <param name="right">比較する真偽値</param>
+    /// <returns>結果が成功で真偽値が <see langword="true"/> 、もしくは結果が失敗で真偽値が  <see langword="false"/> の場合は  <see langword="true"/> そうでない場合は <see langword="false"/></returns>
+    public static bool operator ==(in Result<T> left, in bool right) => left.IsOk == right;
+
+    /// <summary>
+    /// 結果と真偽値が一致しないどうかを返します。
+    /// </summary>
+    /// <param name="left">チェックする結果</param>
+    /// <param name="right">比較する真偽値</param>
+    /// <returns>結果が成功で真偽値が <see langword="false"/> 、もしくは結果が失敗で真偽値が  <see langword="true"/> の場合は  <see langword="true"/> そうでない場合は <see langword="false"/></returns>
+    public static bool operator !=(in Result<T> left, in bool right) => left.IsOk != right;
+
+    /// <summary>
+    /// 結果が成功ではないかを返します。
+    /// </summary>
+    /// <param name="result">チェックする結果</param>
+    /// <returns>結果が成功でない場合は <see langword="true"/>そうでない場合は <see langword="false"/></returns>
+    public static bool operator !(in Result<T> result) => !result.IsOk;
+
 }

@@ -16,7 +16,7 @@ public static partial class ResultExtensions
     public static Result<T[]> Merge<T>(this IEnumerable<Result<T>> source)
     {
         if (source is null) throw new ArgumentNullException(nameof(source));
-        return ResultHelper.Merge(source.ToArray());
+        return ResultHelper.Merge(source);
     }
 
     /// <summary>
@@ -30,7 +30,7 @@ public static partial class ResultExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
         try
         {
-            return await ResultHelper.MergeAsync(source.ToArray());
+            return await ResultHelper.MergeAsync(source);
         }
         catch (Exception e)
         {
@@ -54,7 +54,7 @@ public static partial class ResultExtensions
             {
                 throw new InvalidOperationException(Resources.Strings.Exception_CannotMergeNullReuslts);
             }
-            return ResultHelper.Merge(value.ToArray());
+            return ResultHelper.Merge(value);
         }
         catch (Exception e)
         {
@@ -78,7 +78,7 @@ public static partial class ResultExtensions
             {
                 throw new InvalidOperationException(Resources.Strings.Exception_CannotMergeNullReuslts);
             }
-            return await ResultHelper.MergeAsync(value.ToArray());
+            return await ResultHelper.MergeAsync(value);
         }
         catch (Exception e)
         {

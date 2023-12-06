@@ -10,7 +10,7 @@ public class AsTask
     public async Task Taskに変換できる()
     {
         var ok = Result.Ok();
-        var taskOk = await ok.AsTask().ConfigureAwait(false);
+        var taskOk = await ok.AsTask();
         ok.Should().Be(taskOk).And.BeOk();
     }
 }

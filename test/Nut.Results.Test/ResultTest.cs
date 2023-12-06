@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Runtime.ExceptionServices;
-using System.Text;
 using FluentAssertions;
 using Xunit;
 
@@ -72,6 +70,48 @@ public class ResultTest
     {
         var r = new Result(ExceptionDispatchInfo.Capture(new Exception()), true);
         r.IsOk.Should().BeTrue();
+    }
+
+    [Fact]
+    public void Override_Equals_両方とも成功の場合はtrue()
+    {
+        var r1 = Result.Ok();
+        var r2 = Result.Ok();
+        r1.Equals((object)r2).Should().BeTrue();
+    }
+
+    [Fact]
+    public void Override_Equals_成功と失敗の場合はfalse()
+    {
+        var r1 = Result.Ok();
+        var r2 = Result.Error(new Exception());
+        r1.Equals((object)r2).Should().BeFalse();
+    }
+
+    [Fact]
+    public void Override_Equals_両方とも失敗の場合は失敗がEqualならtrue()
+    {
+        var er = new Exception();
+        var r1 = Result.Error(er);
+        var r2 = Result.Error(er);
+        r1.Equals((object)r2).Should().BeTrue();
+    }
+
+    [Fact]
+    public void Override_Equals_両方とも失敗の場合は失敗がEqualでないならfalse()
+    {
+        var er1 = new Exception();
+        var er2 = new Exception();
+        var r1 = Result.Error(er1);
+        var r2 = Result.Error(er2);
+        r1.Equals((object)r2).Should().BeFalse();
+    }
+
+    [Fact]
+    public void Override_Equals_型がResultでない場合はfalse()
+    {
+        var r1 = Result.Ok();
+        r1.Equals((object)true).Should().BeFalse();
     }
 
     [Fact]
@@ -328,6 +368,66 @@ public class ResultTest
     }
 
     [Fact]
+    public void T_Override_Equals_両方とも成功の場合は値がequalならtrue()
+    {
+        var r1 = Result.Ok("OK");
+        var r2 = Result.Ok("OK");
+        r1.Equals((object)r2).Should().BeTrue();
+    }
+
+    [Fact]
+    public void T_Override_Equals_両方とも成功の場合でも値がnotequalならfalse()
+    {
+        var r1 = Result.Ok("OK1");
+        var r2 = Result.Ok("OK2");
+        r1.Equals((object)r2).Should().BeFalse();
+    }
+
+    [Fact]
+    public void T_Override_Equals_成功と失敗の場合は値がequalでもfalse()
+    {
+        var error = new Exception();
+        var r1 = Result.Ok(error);
+        var r2 = Result.Error<Exception>(error);
+        r1.Equals((object)r2).Should().BeFalse();
+    }
+
+    [Fact]
+    public void T_Override_Equals_両方とも失敗の場合は値がEqualならtrue()
+    {
+        var er = new Exception();
+        var r1 = Result.Error<string>(er);
+        var r2 = Result.Error<string>(er);
+        r1.Equals((object)r2).Should().BeTrue();
+    }
+
+    [Fact]
+    public void T_Override_Equals_両方とも失敗の場合は値がEqualでないならfalse()
+    {
+        var er1 = new Exception();
+        var er2 = new Exception();
+        var r1 = Result.Error<string>(er1);
+        var r2 = Result.Error<string>(er2);
+        r1.Equals((object)r2).Should().BeFalse();
+    }
+
+    [Fact]
+    public void T_Override_Equals_失敗と成功のfalse()
+    {
+        var er = new Exception();
+        var r1 = Result.Error<string>(er);
+        var r2 = Result.Ok("Success");
+        r1.Equals((object)r2).Should().BeFalse();
+    }
+
+    [Fact]
+    public void T_Override_Equals_型がResultTでない場合はfalse()
+    {
+        var r1 = Result.Ok("OK");
+        r1.Equals((object)true).Should().BeFalse();
+    }
+
+    [Fact]
     public void T_GetHashCode_成功の場合は成功のハッシュコードが同じ場合は一致する()
     {
         var r1 = Result.Ok("OK");
@@ -419,7 +519,7 @@ public class ResultTest
     public void op_true_失敗の場合はfalse()
     {
         var r = Result.Error(new Exception());
-        if (r ) throw new Exception();
+        if (r) throw new Exception();
     }
 
     [Fact]
@@ -435,6 +535,274 @@ public class ResultTest
     {
         var r = Result.Error<string>(new Exception());
         if (r) throw new Exception();
+    }
+
+    [Fact]
+    public void op_equal_両方とも成功の場合はtrue()
+    {
+        var r1 = Result.Ok();
+        var r2 = Result.Ok();
+        (r1 == r2).Should().BeTrue();
+    }
+
+    [Fact]
+    public void op_equal_両方とも失敗の場合は値がequalならtrue()
+    {
+        var er = new Exception();
+        var r1 = Result.Error(er);
+        var r2 = Result.Error(er);
+        (r1 == r2).Should().BeTrue();
+    }
+
+    [Fact]
+    public void op_equal_両方とも失敗の場合は値がequalでないならfalse()
+    {
+        var er1 = new Exception();
+        var er2 = new Exception();
+        var r1 = Result.Error(er1);
+        var r2 = Result.Error(er2);
+        (r1 == r2).Should().BeFalse();
+    }
+
+    [Fact]
+    public void T_op_equal_両方とも成功の場合は値がequalならtrue()
+    {
+        var r1 = Result.Ok("OK");
+        var r2 = Result.Ok("OK");
+        (r1 == r2).Should().BeTrue();
+    }
+
+    [Fact]
+    public void T_op_equal_両方とも成功の場合は値がequalでないならfalse()
+    {
+        var r1 = Result.Ok("OK");
+        var r2 = Result.Ok("FALSE");
+        (r1 == r2).Should().BeFalse();
+    }
+
+    [Fact]
+    public void T_op_equal_両方とも失敗の場合は値がequalならtrue()
+    {
+        var er = new Exception();
+        var r1 = Result.Error<string>(er);
+        var r2 = Result.Error<string>(er);
+        (r1 == r2).Should().BeTrue();
+    }
+
+    [Fact]
+    public void T_op_equal_両方とも失敗の場合は値がequalでないならfalse()
+    {
+        var er1 = new Exception();
+        var er2 = new Exception();
+        var r1 = Result.Error<string>(er1);
+        var r2 = Result.Error<string>(er2);
+        (r1 == r2).Should().BeFalse();
+    }
+
+    [Fact]
+    public void op_notequal_成功と失敗の場合はtrue()
+    {
+        var r1 = Result.Ok();
+        var r2 = Result.Error(new Exception());
+        (r1 != r2).Should().BeTrue();
+    }
+
+    [Fact]
+    public void op_notequal_両方とも失敗の場合は値がequalならfalse()
+    {
+        var er = new Exception();
+        var r1 = Result.Error(er);
+        var r2 = Result.Error(er);
+        (r1 != r2).Should().BeFalse();
+    }
+
+    [Fact]
+    public void op_notequal_両方とも失敗の場合は値がequalでないならtrue()
+    {
+        var er1 = new Exception();
+        var er2 = new Exception();
+        var r1 = Result.Error(er1);
+        var r2 = Result.Error(er2);
+        (r1 != r2).Should().BeTrue();
+    }
+
+    [Fact]
+    public void T_op_notequal_両方とも成功の場合は値がnotequalならtrue()
+    {
+        var r1 = Result.Ok("OK");
+        var r2 = Result.Ok("FALSE");
+        (r1 != r2).Should().BeTrue();
+    }
+
+    [Fact]
+    public void T_op_notequal_両方とも成功の場合は値がequalならfalse()
+    {
+        var r1 = Result.Ok("OK");
+        var r2 = Result.Ok("OK");
+        (r1 != r2).Should().BeFalse();
+    }
+
+    [Fact]
+    public void T_op_notequal_成功と失敗の場合はtrue()
+    {
+        var r1 = Result.Ok("OK");
+        var r2 = Result.Error<string>(new Exception());
+        (r1 != r2).Should().BeTrue();
+    }
+
+    [Fact]
+    public void T_op_notequal_両方とも失敗の場合は値がequalならfalse()
+    {
+        var er = new Exception();
+        var r1 = Result.Error<string>(er);
+        var r2 = Result.Error<string>(er);
+        (r1 != r2).Should().BeFalse();
+    }
+
+    [Fact]
+    public void T_op_notequal_両方とも失敗の場合は値がequalでないならtrue()
+    {
+        var er1 = new Exception();
+        var er2 = new Exception();
+        var r1 = Result.Error<string>(er1);
+        var r2 = Result.Error<string>(er2);
+        (r1 != r2).Should().BeTrue();
+    }
+
+    [Fact]
+    public void op_logical_negation_失敗の場合はtrue()
+    {
+        var r = Result.Error(new Exception());
+        if (!r) return;
+        throw new Exception();
+    }
+
+    [Fact]
+    public void T_op_logical_negation_失敗の場合はtrue()
+    {
+        var r = Result.Error<string>(new Exception());
+        if (!r) return;
+        throw new Exception();
+    }
+
+    [Fact]
+    public void op_equal_bool_成功とtrueの場合はtrue()
+    {
+        var r1 = Result.Ok();
+        (r1 == true).Should().BeTrue();
+    }
+
+    [Fact]
+    public void op_equal_bool_失敗とtrueの場合はfalse()
+    {
+        var er = new Exception();
+        var r1 = Result.Error(er);
+        (r1 == true).Should().BeFalse();
+    }
+
+    [Fact]
+    public void op_equal_bool_成功とfalseの場合はfalse()
+    {
+        var r1 = Result.Ok();
+        (r1 == false).Should().BeFalse();
+    }
+
+    [Fact]
+    public void op_equal_bool_失敗とfalseの場合はtrue()
+    {
+        var er = new Exception();
+        var r1 = Result.Error(er);
+        (r1 == false).Should().BeTrue();
+    }
+
+    [Fact]
+    public void T_op_equal_bool_成功とtrueの場合はtrue()
+    {
+        var r1 = Result.Ok("OK");
+        (r1 == true).Should().BeTrue();
+    }
+
+    [Fact]
+    public void T_op_equal_bool_失敗とtrueの場合はfalse()
+    {
+        var er = new Exception();
+        var r1 = Result.Error<string>(er);
+        (r1 == true).Should().BeFalse();
+    }
+
+    [Fact]
+    public void T_op_equal_bool_成功とfalseの場合はfalse()
+    {
+        var r1 = Result.Ok("OK");
+        (r1 == false).Should().BeFalse();
+    }
+
+    [Fact]
+    public void T_op_equal_bool_失敗とfalseの場合はtrue()
+    {
+        var er = new Exception();
+        var r1 = Result.Error<string>(er);
+        (r1 == false).Should().BeTrue();
+    }
+
+    [Fact]
+    public void op_notequal_bool_成功とtrueの場合はfalse()
+    {
+        var r1 = Result.Ok();
+        (r1 != true).Should().BeFalse();
+    }
+
+    [Fact]
+    public void op_notequal_bool_失敗とtrueの場合はtrue()
+    {
+        var er = new Exception();
+        var r1 = Result.Error(er);
+        (r1 != true).Should().BeTrue();
+    }
+
+    [Fact]
+    public void op_notequal_bool_成功とfalseの場合はtrue()
+    {
+        var r1 = Result.Ok();
+        (r1 != false).Should().BeTrue();
+    }
+
+    [Fact]
+    public void op_notequal_bool_失敗とfalseの場合はfalse()
+    {
+        var er = new Exception();
+        var r1 = Result.Error(er);
+        (r1 != false).Should().BeFalse();
+    }
+
+    [Fact]
+    public void T_op_notequal_bool_成功とtrueの場合はfalse()
+    {
+        var r1 = Result.Ok("OK");
+        (r1 != true).Should().BeFalse();
+    }
+
+    [Fact]
+    public void T_op_notequal_bool_失敗とtrueの場合はtrue()
+    {
+        var er = new Exception();
+        var r1 = Result.Error<string>(er);
+        (r1 != true).Should().BeTrue();
+    }
+
+    [Fact]
+    public void T_op_notequal_bool_成功とfalseの場合はtrue()
+    {
+        var r1 = Result.Ok("OK");
+        (r1 != false).Should().BeTrue();
+    }
+
+    [Fact]
+    public void T_op_notequal_bool_失敗とfalseの場合はfalse()
+    {
+        var er = new Exception();
+        var r1 = Result.Error<string>(er);
+        (r1 != false).Should().BeFalse();
     }
 
     private class TestOk

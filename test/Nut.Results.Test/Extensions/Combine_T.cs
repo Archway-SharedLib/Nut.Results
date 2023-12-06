@@ -77,7 +77,7 @@ public class Combine_T
         {
             executed = true;
             return Result.Error<int>(new DestException());
-        }).ConfigureAwait(false);
+        });
         executed.Should().BeFalse();
         result.Should().BeError().And.Match(e => e is SourceException);
     }
@@ -90,7 +90,7 @@ public class Combine_T
         {
             executed = true;
             return Result.Error<int>(new DestException());
-        }).ConfigureAwait(false);
+        });
         executed.Should().BeTrue();
         result.Should().BeError().And.Match(e => e is DestException);
     }
@@ -101,7 +101,7 @@ public class Combine_T
         var leftExpect = "ok";
         var rightExpect = 123;
         var result = await Result.Ok<string>(leftExpect).AsTask()
-            .Combine(_ => Result.Ok<int>(rightExpect)).ConfigureAwait(false);
+            .Combine(_ => Result.Ok<int>(rightExpect));
         result.Should().BeOk().And.Match(v => v.Item1 == leftExpect && v.Item2 == rightExpect);
     }
 
@@ -121,7 +121,7 @@ public class Combine_T
         {
             executed = true;
             return Result.Error<int>(new DestException()).AsTask();
-        }).ConfigureAwait(false);
+        });
         executed.Should().BeFalse();
         result.Should().BeError().And.Match(e => e is SourceException);
     }
@@ -134,7 +134,7 @@ public class Combine_T
         {
             executed = true;
             return Result.Error<int>(new DestException()).AsTask();
-        }).ConfigureAwait(false);
+        });
         executed.Should().BeTrue();
         result.Should().BeError().And.Match(e => e is DestException);
     }
@@ -145,7 +145,7 @@ public class Combine_T
         var leftExpect = "ok";
         var rightExpect = 123;
         var result = await Result.Ok<string>(leftExpect)
-            .Combine(_ => Result.Ok<int>(rightExpect).AsTask()).ConfigureAwait(false);
+            .Combine(_ => Result.Ok<int>(rightExpect).AsTask());
         result.Should().BeOk().And.Match(v => v.Item1 == leftExpect && v.Item2 == rightExpect);
     }
 
@@ -173,7 +173,7 @@ public class Combine_T
         {
             executed = true;
             return Result.Error<int>(new DestException()).AsTask();
-        }).ConfigureAwait(false);
+        });
         executed.Should().BeFalse();
         result.Should().BeError().And.Match(e => e is SourceException);
     }
@@ -186,7 +186,7 @@ public class Combine_T
         {
             executed = true;
             return Result.Error<int>(new DestException()).AsTask();
-        }).ConfigureAwait(false);
+        });
         executed.Should().BeTrue();
         result.Should().BeError().And.Match(e => e is DestException);
     }
@@ -197,7 +197,7 @@ public class Combine_T
         var leftExpect = "ok";
         var rightExpect = 123;
         var result = await Result.Ok<string>(leftExpect).AsTask()
-            .Combine(_ => Result.Ok<int>(rightExpect).AsTask()).ConfigureAwait(false);
+            .Combine(_ => Result.Ok<int>(rightExpect).AsTask());
         result.Should().BeOk().And.Match(v => v.Item1 == leftExpect && v.Item2 == rightExpect);
     }
 
