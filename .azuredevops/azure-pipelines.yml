@@ -19,10 +19,10 @@ variables:
 
 steps:
 - task: UseDotNet@2
-  displayName: 'Install .Net 6 SDK'
+  displayName: 'Install .Net 8 SDK'
   inputs:
     packageType: 'sdk'
-    version: '6.0.x'
+    version: '8.0.x'
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 - task: DotNetCoreCLI@2
