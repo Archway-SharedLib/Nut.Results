@@ -19,6 +19,6 @@ public class UserService
             }
         }
         // !! UserServiceを利用する側でも null が何を表すのか分からなくなってしまう。
-        return null;
+        return null!;
     }
 }

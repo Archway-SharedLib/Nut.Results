@@ -171,6 +171,7 @@ public class ResultTest
         var er = new Exception();
         var r1 = Result.Error(er);
         var r2 = Result.Error(er);
+        er.GetHashCode().Should().Be(er.GetHashCode());
         r1.GetHashCode().Should().Be(r2.GetHashCode());
     }
 

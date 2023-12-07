@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -222,21 +221,21 @@ public class ResultHelperTest
     [Fact]
     public void Merge_引数がnullの場合は例外が発生するべき()
     {
-        Action act = () => ResultHelper.Merge(null as IEnumerable<Result>);
+        Action act = () => ResultHelper.Merge(null);
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
     public void Merge_全て成功の場合は成功になる()
     {
-        var result = ResultHelper.Merge(new[] { Result.Ok(), Result.Ok() } as IEnumerable<Result>);
+        var result = ResultHelper.Merge(new[] { Result.Ok(), Result.Ok() });
         result.Should().BeOk();
     }
 
     [Fact]
     public void Merge_失敗がある場合は失敗になる()
     {
-        var result = ResultHelper.Merge(new[] { Result.Ok(), Result.Error(new Exception("1")), Result.Ok(), Result.Error(new Exception("2")), Result.Ok() } as IEnumerable<Result>);
+        var result = ResultHelper.Merge(new[] { Result.Ok(), Result.Error(new Exception("1")), Result.Ok(), Result.Error(new Exception("2")), Result.Ok() });
         result.Should().BeError().And.BeOfType<AggregateException>();
         var errors = result.GetError().As<AggregateException>();
         errors.InnerExceptions.Should().HaveCount(2);
@@ -274,14 +273,22 @@ public class ResultHelperTest
     [Fact]
     public void MergeT_引数がnullの場合は例外が発生するべき()
     {
-        Action act = () => ResultHelper.Merge<string>(null as IEnumerable<Result<string>>);
+        Action act = () => ResultHelper.Merge<string>(null);
         act.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
     public void MergeT_全て成功の場合は成功になる()
     {
-        var result = ResultHelper.Merge(new[] { Result.Ok("A"), Result.Ok("B") } as IEnumerable<Result<string>>);
+        var result = ResultHelper.Merge(new[] { Result.Ok("A"), Result.Ok("B") });
+        result.Should().BeOk();
+        result.Get().Should().HaveCount(2);
+    }
+
+    [Fact]
+    public void MergeT_全て成功の場合は成功になる_for_codecoverage()
+    {
+        var result = ResultHelper.Merge(new List<Result<string>>{ Result.Ok("A"), Result.Ok("B") });
         result.Should().BeOk();
         result.Get().Should().HaveCount(2);
     }
@@ -304,7 +311,7 @@ public class ResultHelperTest
     [Fact]
     public async Task MergeAsyncT_引数がnullの場合は例外が発生するべき()
     {
-        Func<Task> act = () => ResultHelper.MergeAsync<string>(null as IEnumerable<Task<Result<string>>>);
+        Func<Task> act = () => ResultHelper.MergeAsync(null as IEnumerable<Task<Result<string>>>);
         await act.Should().ThrowAsync<ArgumentNullException>();
     }
 

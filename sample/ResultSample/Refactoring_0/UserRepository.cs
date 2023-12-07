@@ -4,7 +4,7 @@ public class UserRepository
 {
     public User GetUserById(string userId)
     {
-        return null;
+        return null!;
     }
 
     public string Save(User user)

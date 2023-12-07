@@ -1,3 +1,5 @@
+using System;
+using Nut.Results;
 using ResultSample.Refactoring_0;
 
 var service = new UserService();

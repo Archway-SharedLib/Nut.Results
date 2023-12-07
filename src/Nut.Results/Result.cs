@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.ExceptionServices;
 
 namespace Nut.Results;
@@ -64,7 +66,12 @@ public readonly partial struct Result : IEquatable<Result>
     /// </summary>
     /// <returns>ハッシュコード</returns>
     public override int GetHashCode()
-        => IsOk ? IsOk.GetHashCode() : HashCode.Combine(_capturedError.SourceException, IsOk);
+    {
+        unchecked
+        {
+            return IsOk ? IsOk.GetHashCode() : (_capturedError.SourceException.GetHashCode() * 397) ^ IsOk.GetHashCode();
+        }
+    }
 
     /// <summary>
     /// 文字列表現を取得します。
@@ -85,6 +92,7 @@ public readonly partial struct Result : IEquatable<Result>
     /// </summary>
     /// <param name="result">チェックする結果</param>
     /// <returns>失敗の場合は <see langword="true"/> そうでない場合は <see langword="false"/></returns>
+    [ExcludeFromCodeCoverage()]
     public static bool operator false(in Result result) => !result.IsOk;
 
     /// <summary>
@@ -204,14 +212,21 @@ public readonly partial struct Result<T> : IEquatable<Result<T>>
         => IsOk ? $"ok: {PrepareNullText(_value!.ToString())}" :
             $"error: {PrepareNullText(_capturedError?.SourceException.ToString())}";
 
+    private string PrepareNullText(string? text) => text ?? "(null)";
+
     /// <summary>
     /// ハッシュコードを取得します。
     /// </summary>
     /// <returns>ハッシュコード</returns>
     public override int GetHashCode()
-        => IsOk ? HashCode.Combine(_value, IsOk) : HashCode.Combine(_capturedError.SourceException, IsOk);
-
-    private string PrepareNullText(string? text) => text ?? "(null)";
+    {
+        unchecked
+        {
+            return IsOk
+                ? (EqualityComparer<T>.Default.GetHashCode(_value) * 397) ^ IsOk.GetHashCode()
+                : (_capturedError.SourceException.GetHashCode() * 397) ^ IsOk.GetHashCode();
+        }
+    }
 
     /// <summary>
     /// 結果が成功していることを示します。
@@ -225,6 +240,7 @@ public readonly partial struct Result<T> : IEquatable<Result<T>>
     /// </summary>
     /// <param name="result">チェックする結果</param>
     /// <returns>失敗の場合は <see langword="true"/> そうでない場合は <see langword="false"/></returns>
+    [ExcludeFromCodeCoverage()]
     public static bool operator false(in Result<T> result) => !result.IsOk;
 
     /// <summary>

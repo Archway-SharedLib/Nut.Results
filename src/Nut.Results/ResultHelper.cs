@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -16,7 +15,7 @@ namespace Nut.Results;
 /// <summary>
 /// <see cref="Result"/> および <see cref="Result{T}"/> を操作するためのヘルパーメソッドを提供します。
 /// </summary>
-public static class ResultHelper
+public static partial class ResultHelper
 {
     /// <summary>
     /// 指定された型が <see cref="Result"/> または <see cref="Result{T}"/> かどうかを取得します。
@@ -91,17 +90,6 @@ public static class ResultHelper
     }
 
     /// <summary>
-    /// 複数の <see cref="Result"/> の結果をマージします。このメソッドは将来廃止される予定です。 <see cref="Merge(IEnumerable{Result})"/> を使用してください。"/>
-    /// </summary>
-    /// <remarks>
-    /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateException"/> にまとめられます。
-    /// </remarks>
-    /// <param name="results">マージする結果</param>
-    /// <returns>マージした結果</returns>
-    [Obsolete("このメソッドは将来廃止される予定です。 Merge(IEnumerable<Result>) を使用してください。", false)]
-    public static Result Merge(params Result[] results) => Merge(results as IEnumerable<Result>);
-
-    /// <summary>
     /// 複数の <see cref="Result"/> の結果をマージします。
     /// </summary>
     /// <remarks>
@@ -116,17 +104,6 @@ public static class ResultHelper
         var errors = results.Where(r => r.IsError).Select(r => r._capturedError.SourceException).ToList();
         return errors.Any() ? Result.Error(new AggregateException(errors)) : Result.Ok();
     }
-
-    /// <summary>
-    /// 複数の <see cref="Result"/> の結果をマージします。このメソッドは将来廃止される予定です。 <see cref="MergeAsync(IEnumerable{Task{Result}})"/> を使用してください。"/>
-    /// </summary>
-    /// <remarks>
-    /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateException"/> にまとめられます。
-    /// </remarks>
-    /// <param name="results">マージする結果</param>
-    /// <returns>マージした結果</returns>
-    [Obsolete("このメソッドは将来廃止される予定です。 MergeAsync(IEnumerable<Task<Result>>) を使用してください。", false)]
-    public static async Task<Result> MergeAsync(params Task<Result>[] results) => await MergeAsync(results as IEnumerable<Task<Result>>);
 
     /// <summary>
     /// 複数の <see cref="Result"/> の結果をマージします。
@@ -144,18 +121,6 @@ public static class ResultHelper
     }
 
     /// <summary>
-    /// 複数の <see cref="Result{T}"/> の結果をマージします。このメソッドは将来廃止される予定です。 <see cref="Merge{T}(IEnumerable{Result{T}})"/> を使用してください。"/>
-    /// </summary>
-    /// <remarks>
-    /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateException"/> にまとめられます。
-    /// </remarks>
-    /// <typeparam name="T">結果の値の型</typeparam>
-    /// <param name="results">マージする結果</param>
-    /// <returns>マージした結果</returns>
-    [Obsolete("このメソッドは将来廃止される予定です。 Merge<T>(IEnumerable<Result<T>>) を使用してください。", false)]
-    public static Result<T[]> Merge<T>(params Result<T>[] results) => Merge(results as IEnumerable<Result<T>>);
-
-    /// <summary>
     /// 複数の <see cref="Result{T}"/> の結果をマージします。
     /// </summary>
     /// <remarks>
@@ -168,21 +133,10 @@ public static class ResultHelper
     {
         if (results is null) throw new ArgumentNullException(nameof(results));
 
-        var errors = results.Where(r => r.IsError).Select(r => r._capturedError.SourceException).ToList();
-        return errors.Any() ? Result.Error<T[]>(new AggregateException(errors)) : Result.Ok(results.Select(r => r._value).ToArray());
+        var enumerable = results as Result<T>[] ?? results.ToArray();
+        var errors = enumerable.Where(r => r.IsError).Select(r => r._capturedError.SourceException).ToList();
+        return errors.Any() ? Result.Error<T[]>(new AggregateException(errors)) : Result.Ok(enumerable.Select(r => r._value).ToArray());
     }
-
-    /// <summary>
-    /// 複数の <see cref="Result{T}"/> の結果をマージします。このメソッドは将来廃止される予定です。 <see cref="MergeAsync{T}(IEnumerable{Task{Result{T}}})"/> を使用してください。"/>
-    /// </summary>
-    /// <remarks>
-    /// 全ての結果が成功している場合は、成功になります。一つでも失敗があると失敗になり、エラーは <see cref="AggregateException"/> にまとめられます。
-    /// </remarks>
-    /// <typeparam name="T">結果の値の型</typeparam>
-    /// <param name="results">マージする結果</param>
-    /// <returns>マージした結果</returns>
-    [Obsolete("このメソッドは将来廃止される予定です。 MergeAsync<T>(IEnumerable<Task<Result<T>>) を使用してください。", false)]
-    public static async Task<Result<T[]>> MergeAsync<T>(params Task<Result<T>>[] results) => await MergeAsync(results as IEnumerable<Task<Result<T>>>);
 
     /// <summary>
     /// 複数の <see cref="Result{T}"/> の結果をマージします。
@@ -210,7 +164,7 @@ public static class ResultHelper
     /// <param name="source">元となるオブジェクトの値</param>
     /// <param name="value">取得した成功の値</param>
     /// <returns>成功の値が取得できた場合は true 、そうでない場合は false</returns>
-    public static bool TryGetOkValue<T>(object source, [NotNullWhen(true)] out T? value)
+    public static bool TryGetOkValue<T>(object? source, [NotNullWhen(true)] out T? value)
     {
         value = default;
         var sourceType = source?.GetType();
@@ -219,7 +173,7 @@ public static class ResultHelper
         if (!accessor.GetIsOk(source!)) return false;
         var fieldValue = accessor.GetValue!(source!);
         if (fieldValue is not T castValue) return false;
-        value = castValue!;
+        value = castValue;
         return true;
     }
 
@@ -229,7 +183,7 @@ public static class ResultHelper
     /// <param name="source">元となるオブジェクトの値</param>
     /// <param name="value">取得した失敗の値</param>
     /// <returns>失敗の値が取得できた場合は true 、そうでない場合は false</returns>
-    public static bool TryGetErrorValue(object source, [NotNullWhen(true)] out Exception? value)
+    public static bool TryGetErrorValue(object? source, [NotNullWhen(true)] out Exception? value)
     {
         value = null;
         var sourceType = source?.GetType();
@@ -262,7 +216,7 @@ public static class ResultHelper
             var fieldInfo = sourceType.GetField(nameof(Result<int>._value), BindingFlags.Instance | BindingFlags.NonPublic);
             if (fieldInfo is null) return null;
             var sourceParam = Expression.Parameter(typeof(object));
-            var returnExpression = Expression.Field(Expression.Convert(sourceParam, sourceType), fieldInfo!);
+            var returnExpression = Expression.Field(Expression.Convert(sourceParam, sourceType), fieldInfo);
             var lambda = Expression.Lambda(returnExpression, sourceParam);
             return (Func<object, object>)lambda.Compile();
         }
