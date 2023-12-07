@@ -117,7 +117,7 @@ public static partial class ResultHelper
     {
         if (results is null) throw new ArgumentNullException(nameof(results));
         var r = await Task.WhenAll(results).ConfigureAwait(false);
-        return Merge(r as IEnumerable<Result>);
+        return Merge(r);
     }
 
     /// <summary>
@@ -152,7 +152,7 @@ public static partial class ResultHelper
         if (results is null) throw new ArgumentNullException(nameof(results));
 
         var r = await Task.WhenAll(results).ConfigureAwait(false);
-        return Merge(r as IEnumerable<Result<T>>);
+        return Merge(r);
     }
 
     private static readonly ConcurrentDictionary<Type, Accessor> s_cache = new();
