@@ -125,7 +125,7 @@ public static class ResultHelper
     /// </remarks>
     /// <param name="results">マージする結果</param>
     /// <returns>マージした結果</returns>
-    [Obsolete("このメソッドは将来廃止される予定です。 ConcatAsync(Task<Result>[]) を使用してください。", false)]
+    [Obsolete("このメソッドは将来廃止される予定です。 MergeAsync(IEnumerable<Task<Result>>) を使用してください。", false)]
     public static async Task<Result> MergeAsync(params Task<Result>[] results) => await MergeAsync(results as IEnumerable<Task<Result>>);
 
     /// <summary>
@@ -152,7 +152,7 @@ public static class ResultHelper
     /// <typeparam name="T">結果の値の型</typeparam>
     /// <param name="results">マージする結果</param>
     /// <returns>マージした結果</returns>
-    [Obsolete("このメソッドは将来廃止される予定です。 Concat{T}(Result{T}[]) を使用してください。", false)]
+    [Obsolete("このメソッドは将来廃止される予定です。 Merge<T>(IEnumerable<Result<T>>) を使用してください。", false)]
     public static Result<T[]> Merge<T>(params Result<T>[] results) => Merge(results as IEnumerable<Result<T>>);
 
     /// <summary>
@@ -181,7 +181,7 @@ public static class ResultHelper
     /// <typeparam name="T">結果の値の型</typeparam>
     /// <param name="results">マージする結果</param>
     /// <returns>マージした結果</returns>
-    [Obsolete("このメソッドは将来廃止される予定です。 ConcatAsync{T}(Task<Result{T}}[]) を使用してください。", false)]
+    [Obsolete("このメソッドは将来廃止される予定です。 MergeAsync<T>(IEnumerable<Task<Result<T>>) を使用してください。", false)]
     public static async Task<Result<T[]>> MergeAsync<T>(params Task<Result<T>>[] results) => await MergeAsync(results as IEnumerable<Task<Result<T>>>);
 
     /// <summary>
