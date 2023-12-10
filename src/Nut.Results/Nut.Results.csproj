@@ -77,10 +77,6 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Merge_Tuple.g.cs</LastGenOutput>
     </None>
-    <None Update="Extensions\Pack.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Pack.g.cs</LastGenOutput>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
@@ -103,11 +99,6 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Merge_Tuple.tt</DependentUpon>
-    </Compile>
-    <Compile Update="Extensions\Pack.g.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Pack.tt</DependentUpon>
     </Compile>
   </ItemGroup>
 

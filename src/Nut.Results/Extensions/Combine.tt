@@ -36,11 +36,11 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(<#= typeArgs #>)>(source._capturedError);
+        if (source.IsError) return source.PreserveErrorAs<(<#= typeArgs #>)>();
 
         var <#= sourceResultVarDecl #> = source._value;
         var destResult = dest(<#= sourceResultVarDecl #>);
-        if (destResult.IsError) return Result.Error<(<#= typeArgs #>)>(destResult._capturedError);
+        if (destResult.IsError) return destResult.PreserveErrorAs<(<#= typeArgs #>)>();
         return Result.Ok((<#= sourceResultVars #>, destResult._value));
     }
 
@@ -63,11 +63,11 @@ public static partial class ResultExtensions
     {
         if (dest is null) throw new ArgumentNullException(nameof(dest));
 
-        if (source.IsError) return Result.Error<(<#= typeArgs #>)>(source._capturedError);
+        if (source.IsError) return source.PreserveErrorAs<(<#= typeArgs #>)>();
 
         var <#= sourceResultVarDecl #> = source._value;
         var destResult = await dest(<#= sourceResultVarDecl #>).ConfigureAwait(false);
-        if (destResult.IsError) return Result.Error<(<#= typeArgs #>)>(destResult._capturedError);
+        if (destResult.IsError) return destResult.PreserveErrorAs<(<#= typeArgs #>)>();
         return Result.Ok((<#= sourceResultVars #>, destResult._value));
     }
 
