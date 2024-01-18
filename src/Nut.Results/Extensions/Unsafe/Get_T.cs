@@ -20,7 +20,7 @@ public static partial class ResultUnsafeExtensions
     /// <exception cref="InvalidOperationException">結果が失敗だった場合に発生します。</exception>
     public static T Get<T>(this in Result<T> source)
     {
-        if (!source.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotOkBeforeCheck);
+        if (!source.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotOkBeforeCheck, source._capturedError.SourceException);
         return source._value;
     }
 
@@ -36,7 +36,7 @@ public static partial class ResultUnsafeExtensions
         if (source is null) throw new ArgumentNullException(nameof(source));
 
         var result = await source.ConfigureAwait(false);
-        if (!result.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotOkBeforeCheck);
+        if (!result.IsOk) throw new InvalidOperationException(SR.Exception_ResultIsNotOkBeforeCheck, result._capturedError.SourceException);
         return result._value;
     }
 }
