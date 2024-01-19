@@ -12,5 +12,5 @@ public static partial class ResultExtensions
     /// </summary>
     /// <param name="source"><see cref="Task{T}"/>として型指定する<see cref="Result"/></param>
     /// <returns><see cref="Task{T}"/> として型指定された入力</returns>
-    public static Task<Result> AsTask(this Result source) => Task.FromResult(source);
+    public static Task<Result> AsTask(this in Result source) => Task.FromResult(source);
 }
