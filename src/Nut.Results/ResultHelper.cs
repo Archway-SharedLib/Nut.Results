@@ -194,7 +194,7 @@ public static partial class ResultHelper
         return true;
     }
 
-    private class Accessor
+    internal class Accessor
     {
         public Accessor(Type target)
         {
@@ -216,9 +216,11 @@ public static partial class ResultHelper
             var fieldInfo = sourceType.GetField(nameof(Result<int>._value), BindingFlags.Instance | BindingFlags.NonPublic);
             if (fieldInfo is null) return null;
             var sourceParam = Expression.Parameter(typeof(object));
-            var returnExpression = Expression.Field(Expression.Convert(sourceParam, sourceType), fieldInfo);
-            var lambda = Expression.Lambda(returnExpression, sourceParam);
-            return (Func<object, object>)lambda.Compile();
+            var valueFieldExpression = Expression.Field(Expression.Convert(sourceParam, sourceType), fieldInfo);
+            var convertToObjectExpression = Expression.Convert(valueFieldExpression, typeof(object));
+            var lambda = Expression.Lambda(convertToObjectExpression, sourceParam);
+            var func = lambda.Compile();
+            return (Func<object, object>)func;
         }
 
         private static Func<object, Exception> GetErrorValueExpression(Type sourceType)
